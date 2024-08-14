@@ -1,0 +1,41 @@
+﻿<ui:ContentDialog
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    
+    x:Class="IOLab.Windows.Dialog.ConnectCommunity"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:IOLab.Windows.Dialog"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="IOLab 社区"
+    PrimaryButtonText="同意并重启"  
+    IsPrimaryButtonEnabled="False"
+    CloseButtonText="拒绝或取消"
+    DefaultButton="Primary"
+    >
+
+    <ui:ContentDialog.Resources>
+        <ui:Flyout x:Key="UnableSaveFlyout">
+            <StackPanel>
+                <TextBlock Text="无法保存修改"/>
+                <Button Content="了解"/>
+            </StackPanel>
+        </ui:Flyout>
+    </ui:ContentDialog.Resources>
+
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TextBlock Name="body" TextWrapping="Wrap" Width="420" Margin="0,-10,0,10">
+            <TextBlock.Text>
+                交流实验心得的园地！
+            </TextBlock.Text>
+        </TextBlock>
+
+        <TextBlock>认真阅读以下协议，点击对应条目可以跳转到对应网页</TextBlock>
+        <TextBlock Cursor="Hand" HorizontalAlignment="Left" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}">《IOLab 社区内容守则》</TextBlock>
+        <TextBlock Cursor="Hand" HorizontalAlignment="Left" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" >《隐私条款》</TextBlock>
+
+        <TextBlock>抱歉，IOLab 社区暂未开放</TextBlock>
+        
+    </StackPanel>
+</ui:ContentDialog>

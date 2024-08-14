@@ -1,0 +1,109 @@
+﻿<ui:Page x:Class="IOLab.Pages.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:IOLab.Pages"
+      xmlns:control="clr-namespace:IOLab.Resources.Control"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="关于">
+    <ui:ScrollViewerEx>
+        
+        <StackPanel Orientation="Vertical" Margin="40" VerticalAlignment="Top">
+            <Image Source="..\Resources\Images\Icon\IOLab1024.png" Width="128"/>
+            <TextBlock x:Name="ApplicationName" FontSize="22" Text="成龙智慧实验室" HorizontalAlignment="Center" Margin="0,10,0,6"/>
+            <TextBlock Opacity="0.5" Text="对着大海哭喊，眼泪在那显得微不足道" HorizontalAlignment="Center"/>
+            <Separator Width="400" Margin="0,12,0,0"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,8,0,0" FontSize="24" Text="开发团队"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="8" HorizontalAlignment="Center">
+                <Button Click="AboutUsButton_Click" Width="168" Height="58" Padding="0" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" Width="168" Height="58">
+                        <Image Margin="8,0,0,0" Source="../Resources/Images/Redmaple.jpg" Width="36" Height="36" Panel.ZIndex="0">
+                            <Image.Clip>
+                                <EllipseGeometry RadiusX="18" RadiusY="18" Center="18,18"/>
+                            </Image.Clip>
+                        </Image>
+                        <StackPanel Margin="4" Orientation="Vertical">
+                            <TextBlock Margin="5,2,5,0" FontSize="18" Text="Redmaple"/>
+                            <TextBlock Margin="5,0,0,0" Opacity="0.5" Text="蒋兴龙·开发者"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+                <Button Click="AboutUsButton_Click" Margin="10,0,0,0" Width="168" Height="58" Padding="0" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" Width="168" Height="58">
+                        <Image Margin="8,0,0,0" Source="../Resources/Images/Mareix.jpg" Width="36" Height="36" Panel.ZIndex="0">
+                            <Image.Clip>
+                                <EllipseGeometry RadiusX="18" RadiusY="18" Center="18,18"/>
+                            </Image.Clip>
+                        </Image>
+                        <StackPanel Margin="4" Orientation="Vertical">
+                            <TextBlock Margin="5,2,5,0" FontSize="18" Text="MareixHunk"/>
+                            <TextBlock Margin="5,0,0,0" Opacity="0.5" Text="成誉鸿·硬件工程"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+                <Button Click="AboutUsButton_Click" Margin="10,0,0,0" Width="168" Height="58" Padding="0" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" Width="168" Height="58">
+                        <Image Margin="8,0,0,0" Source="../Resources/Images/YeJianFeng.jpg" Width="36" Height="36" Panel.ZIndex="0">
+                            <Image.Clip>
+                                <EllipseGeometry RadiusX="18" RadiusY="18" Center="18,18"/>
+                            </Image.Clip>
+                        </Image>
+                        <StackPanel Margin="4" Orientation="Vertical">
+                            <TextBlock Margin="5,2,5,0" FontSize="18" Text="叶剑锋"/>
+                            <TextBlock Margin="5,0,0,0" Opacity="0.5" Text="一中·指导老师"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <TextBlock Opacity="0.5" Text="东莞市第一中学 提供开发场所与部分设备" HorizontalAlignment="Center"/>
+
+            <Separator Width="400" Margin="0,12,0,0"/>
+            <StackPanel Margin="12" Orientation="Vertical" HorizontalAlignment="Center" Width="400">
+            <Button Width="400" Height="58" Padding="0" Cursor="Hand">
+                <StackPanel Width="400" HorizontalAlignment="Left" Orientation="Horizontal" Height="58">
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}" Margin="10,4,4,4"/>
+                        <StackPanel Margin="4" Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Margin="5,2,5,0" FontSize="16" Text="开源项目引用"/>
+                        <TextBlock Margin="5,0,0,0" Opacity="0.5" Text="点此查看开源项目引用列表"/>
+                    </StackPanel>
+                </StackPanel>
+            </Button>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,12" Orientation="Vertical" HorizontalAlignment="Center" Width="400">
+                <Button Width="400" Height="58" Padding="0" Cursor="Hand">
+                    <StackPanel Width="400" HorizontalAlignment="Left" Orientation="Horizontal" Height="58">
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Library}" Margin="10,4,4,4"/>
+                        <StackPanel Margin="4" Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Margin="5,2,5,0" FontSize="16" Text="开源许可协议"/>
+                            <TextBlock Margin="5,0,0,0" Opacity="0.5" Text="GNU General Public License v3.0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,12" Orientation="Vertical" HorizontalAlignment="Center" Width="400">
+                <Button Width="400" Height="58" Padding="0" Cursor="Hand">
+                    <StackPanel Width="400" HorizontalAlignment="Left" Orientation="Horizontal" Height="58">
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Accounts}" Margin="10,4,4,4"/>
+                        <StackPanel Margin="4" Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Margin="5,2,5,0" FontSize="16" Text="联系我们"/>
+                            <TextBlock Margin="5,0,0,0" Opacity="0.5" Text="通过邮件或社交媒体联系我们"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <Button x:Name="ADButton" Click="ADButton_Click" VerticalAlignment="Top" Cursor="Hand" IsEnabled="True" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Center" Margin="0,8,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ArrowRight8}"/>
+                    <control:AnimatedTextSwitcher TextArray="{Binding ADTexts}" Margin="5,0,0,0" Interval="0:0:5"/>
+                </StackPanel>
+
+            </Button>
+        </StackPanel>
+
+    </ui:ScrollViewerEx>
+</ui:Page>

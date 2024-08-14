@@ -1,0 +1,34 @@
+﻿<Application x:Class="IOLab.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:IOLab"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemeResources x:Name="AccentColorHex" AccentColor="#0078D7"/>
+                <ResourceDictionary Source="Resources/VectorImage.xaml"/>
+                <ResourceDictionary Source="Resources/ControlStyle.xaml"/>
+                <ui:XamlControlsResources/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--Your other resources here (if exists)-->
+            <Style x:Key="Style_SectionBorderStyle" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource {x:Static ui:ThemeKeys.ExpanderHeaderBackgroundKey}}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static ui:ThemeKeys.ExpanderHeaderBorderBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="{DynamicResource {x:Static ui:ThemeKeys.ExpanderHeaderBorderThicknessKey}}"/>
+                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="Padding" Value="15,0,20,0"/>
+            </Style>
+            
+            <Style TargetType="{x:Type TextElement }">
+                <Setter Property="FontFamily" Value="Resources/Font/#MiSans VF"/>
+            </Style>
+            <Style TargetType="{x:Type TextBlock }">
+                <Setter Property="FontFamily" Value="Resources/Font/#MiSans VF"/>
+            </Style>
+        </ResourceDictionary>
+        
+    </Application.Resources>
+</Application>

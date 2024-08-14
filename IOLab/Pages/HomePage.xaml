@@ -1,0 +1,80 @@
+﻿<ui:Page x:Class="IOLab.Pages.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:IOLab.Pages"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      xmlns:lab="clr-namespace:IOLab.Resources.Control"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="实验">
+    <ui:ScrollViewerEx>
+        <StackPanel Orientation="Vertical" MaxWidth="1280" Margin="40" VerticalAlignment="Top">
+            <Grid>
+                <emoji:TextBlock HorizontalAlignment="Left" FontSize="32">🐈</emoji:TextBlock>
+                <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">瑞克五代 就绪 - 铁离子与KSCN溶液反应的产物探究</TextBlock>
+            </Grid>
+            
+            <ui:AcrylicPanel CornerRadius="20" Width="640" Height="180">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Image Margin="5,5,5,5" Height="36" x:Name="EquationImage" HorizontalAlignment="Center"></Image>
+                    <TextBlock Text="通过硫酸钡检测硫酸根离子浓度" HorizontalAlignment="Center" FontSize="18" FontWeight="Medium"/>
+                    <TextBlock Text="氯化钡溶液 硫酸铜溶液" HorizontalAlignment="Center" FontSize="17" FontWeight="Light"/>
+                    <Button Content="学习并实践" Margin="5,10,5,0" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
+                </StackPanel>
+            </ui:AcrylicPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="0"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">记录</TextBlock>
+                        
+                    </Grid>
+                    <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
+                        <!--最多显示三项-->
+                        <StackPanel>
+                            <lab:RecordDetail/>
+                            <lab:RecordDetail/>
+                            <lab:RecordDetail/>
+                        </StackPanel>
+
+                    </ui:ScrollViewerEx>
+
+                    <Grid Margin="5">
+                        <TextBlock HorizontalAlignment="Left" FontSize="26">准备</TextBlock>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Width="345">
+                            <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Search}" Margin="8,2,16,2" FontSize="20"/>
+                            <TextBox HorizontalAlignment="Right" Width="300"></TextBox>
+                        </StackPanel>
+                    </Grid>
+                    <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
+                        <!--最多显示三项-->
+                        <StackPanel>
+                            <lab:ExperimentDetail/>
+                            <lab:ExperimentDetail/>
+                            <lab:ExperimentDetail/>
+                            <lab:ExperimentDetail/>
+                        </StackPanel>
+
+                    </ui:ScrollViewerEx>
+                </StackPanel>
+                
+                <!--废案-->
+                <StackPanel Grid.Column="1">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5"></TextBlock>
+                    </Grid>
+                    
+                </StackPanel>
+            </Grid>
+            
+        </StackPanel>
+        
+
+    </ui:ScrollViewerEx>
+</ui:Page>

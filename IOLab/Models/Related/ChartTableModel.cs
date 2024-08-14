@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IOLab.Models.Related
+{
+    class ChartTableModel
+    {
+        private bool _isSelected;
+        public int Id { get; set; }
+
+        public bool IsSelected {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                }
+            }
+        }
+
+        /**
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        **/
+    }
+
+
+}

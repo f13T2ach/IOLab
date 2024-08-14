@@ -1,0 +1,25 @@
+﻿<ui:Page x:Class="IOLab.Pages.Remote.Managers"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:IOLab.Pages.Remote"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="Manager">
+
+    <ui:ScrollViewerEx>
+        <!-- Background="White"-->
+
+        <StackPanel Orientation="Vertical" MaxWidth="1280" Margin="40" VerticalAlignment="Top">
+            <TextBlock x:Name="Header" Text="Name" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+
+
+
+            <Button Content="重命名设备" Click="Rename_Click"/>
+
+
+        </StackPanel>
+    </ui:ScrollViewerEx>
+</ui:Page>

@@ -1,0 +1,97 @@
+﻿<Page x:Class="IOLab.Pages.Appreciations.Cover"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      xmlns:local="clr-namespace:IOLab.Pages.Appreciations"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="Cover" Loaded="Page_Loaded">
+    <Grid>
+        <TextBlock Text="IOLab" FontWeight="SemiBold" Margin="32,210,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75" FontSize="100">
+            <TextBlock.Foreground>
+                <LinearGradientBrush SpreadMethod="Repeat">
+                    <LinearGradientBrush.Transform>
+                        <TranslateTransform x:Name="LinearGradientBrushTranslate" />
+                    </LinearGradientBrush.Transform>
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0.00" Color="#FFFF2B88" />
+                        <GradientStop Offset="0.14" Color="#FFFF9B6A" />
+                        <GradientStop Offset="0.28" Color="#FFF3D64E" />
+                        <GradientStop Offset="0.42" Color="#FFDCFF93" />
+                        <GradientStop Offset="0.56" Color="#FFB8F1CC" />
+                        <GradientStop Offset="0.70" Color="#FFD9B8F1" />
+                        <GradientStop Offset="0.85" Color="#FFCA7497" />
+                        <GradientStop Offset="1.00" Color="#FFFF2B88" />
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="TextBlock.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="LinearGradientBrushTranslate" Storyboard.TargetProperty="X" From="0" To="700" Duration="0:0:6" RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
+        <TextBlock Margin="32,360,0,0" Text="探索 实践 总结" Opacity="0.8" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <TextBlock x:Name="LoadText" Text="请稍等" FontSize="20" Margin="32,0,0,64" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <StackPanel 
+            HorizontalAlignment="Left"
+             VerticalAlignment="Bottom"
+             Orientation="Horizontal"
+             Margin="32,0,0,45">
+            <ProgressBar x:Name="Progress"
+             Value="{Binding ProgressValue}"
+             Width="320"
+             Height="10"
+             Maximum="200"
+             Foreground="#FFFFFFFF"
+             Background="#72000000"
+             Style="{StaticResource HorRoundedPbStyle}"
+             Orientation="Horizontal"
+             BorderThickness="0" ValueChanged="Progress_ValueChanged"/>
+            <TextBlock Text="{Binding HalfProgressValue}" Margin="8,0,0,0"/>
+            <TextBlock Text="%"/>
+        </StackPanel>
+        <Image Source="{StaticResource IOLab_Line_Thick}" Opacity="0.5" Width="512" Height="512" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="910,64,0,0">
+            <Image.OpacityMask>
+                <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                    <GradientStop Color="#00000000" Offset="0"/>
+                    <GradientStop Color="#00000000" Offset="1"/>
+                    <GradientStop Color="#00000000" Offset="1"/>
+                </LinearGradientBrush>
+            </Image.OpacityMask>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard >
+                                <DoubleAnimation From="1" To="0" Duration="0:0:0.75" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[1].Offset">
+                                </DoubleAnimation>
+                                <DoubleAnimation From="1" To="0" Duration="0:0:0.5" BeginTime="0:0:0.25" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Offset">
+                                </DoubleAnimation>
+                                <ColorAnimation To="#FF000000" Duration="0" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Color"/>
+
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+
+        <TextBlock Text="IOLab_WinDebug_V1.0.1 {不公开内部测试，禁止擅自传播副本}" Opacity="0.5" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+
+        <Button VerticalAlignment="Bottom" Cursor="Hand" IsEnabled="True" x:Name="LearnMoreAboutDGYZ" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Left" Margin="32,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ArrowRight8}"/>
+                <TextBlock Text="无视风险继续安装" Margin="5,0,0,0"/>
+            </StackPanel>
+
+        </Button>
+    </Grid>
+</Page>

@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IOLab.Core.Assets
+{
+    public class Text
+    {
+        public static string WelcomeDialog_Hello = "你好";
+        public static string WelcomeDialog_Content = "";
+
+        public static List<string> HeaderTitle = new List<string>()
+        {
+            
+        };
+
+        public static string ConnectTimeOut = "连接超时";
+
+        public static string ReceivingMessageFromIONet = "正在从 IONet 收取信息";
+        public static string ReceivingUpdateFromIONet = "正在从 IONet 下载重要更新";
+        public static string DownloadUpdateCompleted = "更新已完成，关闭 IOLab 后开始安装";
+        public static string HotFixCompleted = "更新已完成，将自动进入 IOLab";
+        public static string ProcessingResources = "正在处理资源";
+        public static string DownloadingDriver = "正在下载驱动程序";
+        public static string InstallingDriver = "正在安装驱动程序";
+        public static string WaitForExceptionUpload = "IOLab 出现致命错误，正在上传错误记录 ERRCODE:{0}"; //ErrorCode
+        public static string ExceptionUploadFailed = "IOLab 出现致命错误，且无法上传错误记录 ERRCODE:{0}_{1}"; //ErrorCode NetworkErrorCode
+        public static string ExceptionCompleted = "IOLab 错误上报已完成，请重新启动程序 ERRCODE:{0}"; // ErrorCode
+        public static string PleaseWait = "请稍等";
+        public static string InstallCompleted = "已完成准备，即将重新启动";
+    }
+}

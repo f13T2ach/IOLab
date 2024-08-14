@@ -1,0 +1,40 @@
+﻿<ui:ContentDialog
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    
+    x:Class="IOLab.Windows.Dialog.LearnMoreAboutDeveloper"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:IOLab.Windows.Dialog"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="了解开发团队"
+    PrimaryButtonText="好"
+    DefaultButton="Primary"
+    >
+
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TextBlock Name="body" TextWrapping="Wrap" Margin="0,-10,0,10">
+            <TextBlock.Text>
+                「成龙实验室」开发团队向您选择本产品表示感谢
+            </TextBlock.Text>
+        </TextBlock>
+        <TextBlock FontWeight="Bold">理念</TextBlock>
+        <TextBlock HorizontalAlignment="Left" Width="360" TextWrapping="Wrap">以受教育者的身份、年轻人的思想，制作出契合新一代教学设计的实验套件和学习平台</TextBlock>
+
+        <TextBlock FontWeight="Bold" Margin="0,4,0,0">Redmaple</TextBlock>
+        <TextBlock>东莞一中 2023 级蒋兴龙</TextBlock>
+        <TextBlock> - 美术设计</TextBlock>
+        <TextBlock> - 上下位机框架开发和 IONet 对接</TextBlock>
+
+
+        <TextBlock FontWeight="Bold" Margin="0,4,0,0">MareixHunk</TextBlock>
+        <TextBlock>东莞一中 2023 级成誉鸿</TextBlock>
+        <TextBlock> - 线路设计和 3D 打印</TextBlock>
+        <TextBlock> - 下位机驱动制作</TextBlock>
+
+        <TextBlock FontWeight="Bold" Margin="0,4,0,0">叶剑峰</TextBlock>
+        <TextBlock>东莞一中科技创新指导老师</TextBlock>
+        <TextBlock> - 项目统筹规划审批</TextBlock>
+    </StackPanel>
+</ui:ContentDialog>

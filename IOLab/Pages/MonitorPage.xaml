@@ -1,0 +1,94 @@
+﻿<ui:Page x:Class="IOLab.Pages.MonitorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=HB.LiveCharts.Wpf"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ct="clr-namespace:IOLab.Resources.Control"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:local1="clr-namespace:IOLab.Resources.Control"
+        mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      >
+    <Page.Resources>
+        
+    </Page.Resources>
+    <Grid Margin="0,40,0,0">
+        <ui:AcrylicPanel CornerRadius="4" VerticalAlignment="Top" Padding="0,0,10,0">
+            <ui:CommandBar Height="48">
+                <ui:AppBarToggleButton Label="暂停 "/>
+                <ui:AppBarSeparator/>
+                <ui:AppBarButton Label="详情 " />
+                <ui:AppBarButton Label="简化图表 " />
+                <ui:AppBarSeparator/>
+                <ui:AppBarButton Label="帮助 " />
+                <ui:CommandBar.Content>
+                    <TextBlock Text="未命名实验" Margin="12,14"/>
+                </ui:CommandBar.Content>
+
+            </ui:CommandBar>
+        </ui:AcrylicPanel>
+        <Button VerticalAlignment="Top" Cursor="Hand" IsEnabled="True" x:Name="ManagePins" Click="ManagePins_Click" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Center" Margin="0,8,0,0">
+            <StackPanel Orientation="Horizontal">
+                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Wire}"/>
+                <TextBlock Text="瑞克五代" Margin="5,0,0,0"/>
+            </StackPanel>
+
+        </Button>
+        <Button Visibility="Collapsed" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,8,0,0" Background="Red">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="警告" FontWeight="Bold"/>
+                <TextBlock Text="性能开销过大，请简化图表" Margin="5,0,0,0"/>
+            </StackPanel>
+
+        </Button>
+        <Grid Margin="0,64,0,48">
+            <ItemsControl ItemsSource="{Binding ChartTables}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ct:ChartModule/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            
+            
+        </Grid>
+        <Grid VerticalAlignment="Bottom" Height="48" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button Command="{Binding RemoveSelectedChartsCommand}" Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" Padding="5,5,5,5" IsEnabled="False" x:Name="Tool_DeleteCharts" >
+                    <ui:FontIcon Foreground="#f0768b" Icon="{x:Static ui:SegoeFluentIcons.Delete}" ToolTip="删除" />
+                </Button>
+                <Button IsEnabled="False" Cursor="Hand" Width="36" Margin="4,0,4,0" ToolTip="编辑" Height="36" Padding="5,5,5,5" x:Name="Tool_EditChart">
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Edit}"/>
+                </Button>
+                <Button IsEnabled="False" Cursor="Hand" Width="36" Margin="4,0,4,0" ToolTip="合并" Height="36" Padding="5,5,5,5" x:Name="Tool_MergeCharts" >
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.MergeCall}" />
+                </Button>
+                <ui:AppBarSeparator/>
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="新建/启动" Padding="5,5,5,5" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
+                    <!--<ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AddBold}"/>-->
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Play}" />
+                </Button>
+                <ui:AppBarSeparator/>
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="保存" Padding="5,5,5,5" >
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Save}" />
+                </Button>
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="打开项目" Padding="5,5,5,5" >
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OpenFile}"  />
+                </Button>
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="导出" Padding="5,5,5,5" >
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Export}" />
+                </Button>
+
+            </StackPanel>
+        </Grid>
+
+
+    </Grid>
+
+</ui:Page>

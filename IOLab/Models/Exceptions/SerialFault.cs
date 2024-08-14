@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IOLab.Models.Exceptions
+{
+    class SerialFault : Exception
+    {
+        public SerialFault() { }
+
+        public SerialFault(string message)
+            : base(message) {
+            throw new Exception(message); 
+        }
+
+        public SerialFault(string message, Exception innerException)
+            : base(message, innerException) {
+
+        }
+
+    }
+}

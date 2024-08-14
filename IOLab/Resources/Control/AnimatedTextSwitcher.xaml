@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="IOLab.Resources.Control.AnimatedTextSwitcher"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="Auto" Height="Auto">
+    <UserControl.Resources>
+        <!-- Fade Out -->
+        <Storyboard x:Key="FadeOutStoryboard">
+            <DoubleAnimation Storyboard.TargetName="textBlock"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0"
+                             Duration="0:0:1" />
+        </Storyboard>
+
+        <!-- Fade In -->
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetName="textBlock"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1"
+                             Duration="0:0:0.7" />
+        </Storyboard>
+    </UserControl.Resources>
+
+    <Grid x:Name="animatedUserControl">
+        <TextBlock x:Name="textBlock"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="Text" />
+    </Grid>
+</UserControl>

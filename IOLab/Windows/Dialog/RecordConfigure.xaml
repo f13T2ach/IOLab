@@ -1,0 +1,48 @@
+﻿<ui:ContentDialog
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    
+    x:Class="IOLab.Windows.Dialog.RecordConfigure"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:IOLab.Windows.Dialog"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="修改记录"
+    PrimaryButtonText="完成"  
+    SecondaryButtonText="修改图表"
+    CloseButtonText="取消"
+    DefaultButton="Primary"
+    >
+
+    <ui:ContentDialog.Resources>
+        <ui:Flyout x:Key="UnableSaveFlyout">
+            <StackPanel>
+                <TextBlock Text="无法保存修改"/>
+                <Button Content="了解"/>
+            </StackPanel>
+        </ui:Flyout>
+    </ui:ContentDialog.Resources>
+
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+            <TextBlock FontSize="14" Text="名称" VerticalAlignment="Center" Width="64" TextAlignment="Center"/>
+            <TextBox Name="RecordNameBox" Width="360" Margin="5,0,0,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock FontSize="14" Text="注释" VerticalAlignment="Top" Width="64" TextAlignment="Center"/>
+            <TextBox Name="userNameTextBox" TextWrapping="WrapWithOverflow" Height="120" Width="360" Margin="5,0,0,0"/>
+        </StackPanel>
+        
+
+        <TextBlock x:Name="errorTextBlock" Foreground="Red"/>
+
+        <!-- Content body -->
+        <TextBlock Name="body" TextWrapping="Wrap" Width="420">
+            <TextBlock.Text>
+                不填写注释将显示默认内容，即“于«时间»检测«指标»等共N项指标”；
+                当前版本不支持修改图表数据，如有不便请见谅
+            </TextBlock.Text>
+        </TextBlock>
+    </StackPanel>
+</ui:ContentDialog>

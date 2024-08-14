@@ -1,0 +1,82 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Title>IOLab</Title>
+    <ApplicationIcon>Resources\Images\Icon\Favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Font\MiSans VF.ttf" />
+    <None Remove="Resources\Images\Icon\IOLab1024.png" />
+    <None Remove="Resources\Images\Icon\IOLab128.png" />
+    <None Remove="Resources\Images\Icon\IOLab256.png" />
+    <None Remove="Resources\Images\Icon\IOLab512.png" />
+    <None Remove="Resources\Images\Mareix.jpg" />
+    <None Remove="Resources\Images\Microsoft.png" />
+    <None Remove="Resources\Images\Redmaple.jpg" />
+    <None Remove="Resources\Images\YeJianFeng.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\Icon\Favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Font\MiSans VF.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Icon\IOLab1024.png" />
+    <Resource Include="Resources\Images\Icon\IOLab128.png" />
+    <Resource Include="Resources\Images\Icon\IOLab256.png" />
+    <Resource Include="Resources\Images\Icon\IOLab512.png" />
+    <Resource Include="Resources\Images\Mareix.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Microsoft.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Redmaple.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\YeJianFeng.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Emoji.Wpf" Version="0.3.4" />
+    <PackageReference Include="HB.LiveCharts" Version="1.0.1" />
+    <PackageReference Include="HB.LiveCharts.Wpf" Version="1.1.1" />
+    <PackageReference Include="iNKORE.UI.WPF" Version="1.2.7.1" />
+    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.9.30" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Windows\Dialog\Universal\OpenWebLink.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Dialog\LearnMoreAboutDeveloper.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Dialog\ConnectCommunity.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Dialog\PortDefine.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Video\" />
+    <Folder Include="Util\Files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IOLab.Core\IOLab.Core.csproj" />
+  </ItemGroup>
+
+</Project>

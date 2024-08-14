@@ -1,0 +1,34 @@
+﻿<ui:Page x:Class="IOLab.Pages.Remote.NoRemoteTarget"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:IOLab.Pages.Remote"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="NoRemoteTarget">
+
+    <Grid>
+        <ui:InfoBar x:Name="MyNotification"
+            Severity="Success"
+            Title="连接成功"
+            Message="测试"
+            IsClosable="True" />
+        <ui:InfoBar x:Name="MyErrorNotification"
+            Severity="Error"
+            Title="连接失败"
+            Message=""
+            IsClosable="True" />
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.USB}" Width="64" Height="64" FontSize="45"></ui:FontIcon>
+            <TextBlock Name="Title" Text="Text" Foreground="{DynamicResource {x:Static ui:ThemeKeys.TextControlForegroundKey}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="刷新状态" Margin="0,10,0,0" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Name="RefreshConfig" Click="RefreshConfig_Click"/>
+                <Button Content="手动配置" Margin="16,10,0,0" Cursor="Hand" Name="ManualConfig" Click="ManualConfig_Click"/>
+            </StackPanel>
+        </StackPanel>
+        
+        
+    </Grid>
+</ui:Page>

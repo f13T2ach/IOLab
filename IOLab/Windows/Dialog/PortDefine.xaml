@@ -1,0 +1,39 @@
+﻿<ui:ContentDialog
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    
+    x:Class="IOLab.Windows.Dialog.PortDefine"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:IOLab.Windows.Dialog"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="管理插口"
+    PrimaryButtonText="提交变动"  
+    SecondaryButtonText="取消"
+    DefaultButton="Primary">
+
+    <StackPanel Orientation="Vertical">
+        <ui:ScrollViewerEx Margin="2" Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" x:Name="ToggleButtonContainer">
+            </StackPanel>
+        </ui:ScrollViewerEx>
+
+
+        <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+            <TextBlock Text="配置" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
+            <TextBlock Text="1" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" Margin="2,0,2,0"/>
+            <TextBlock Text="号插口采样方案（正在采集的插口为蓝色）" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+            <ComboBox Height="32" Width="256" IsTextSearchEnabled = "True" IsEditable = "True" Margin="0,0,5,0"/>
+            <Button Content="确认选项" IsEnabled="True" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="0,0,5,0"/>
+            <Button Content="重置此插口" IsEnabled="True"/>
+        </StackPanel>
+        <TextBlock Text="# 正用于采样的插口不能被编辑或移除；后续可在新建图表中使用已配置的插口" Opacity="0.7"/>
+        <TextBlock Text="# 最多支持 4 个插口同时绘图，绘图的插口过多会导致采样延迟" Opacity="0.7"/>
+    </StackPanel>
+
+
+</ui:ContentDialog>
