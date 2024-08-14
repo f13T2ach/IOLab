@@ -1,5 +1,8 @@
-﻿using System;
+﻿using IOLab.Core.Models.Records;
+using IOLab.Core.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,8 +13,21 @@ namespace IOLab.Pages.ViewModel
 {
     internal class HomePageViewModel : INotifyPropertyChanged
     {
-        public HomePageViewModel() { 
-            
+        public ObservableCollection<Schema> RecordsSchema { get; set; }
+        public ObservableCollection<IOExperiment> IOExperiments { get; set; }
+        public HomePageViewModel() {
+            // 读入实验
+            RecordsSchema = new ObservableCollection<Schema>();
+            foreach(Schema item in Bundles.LocalRecords)
+            {
+                RecordsSchema.Add(item);
+            }
+
+            IOExperiments = new ObservableCollection<IOExperiment>();
+            foreach (IOExperiment item in Bundles.LocalExperiments)
+            {
+                IOExperiments.Add(item);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

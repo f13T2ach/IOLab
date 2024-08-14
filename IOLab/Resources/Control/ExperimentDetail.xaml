@@ -19,8 +19,8 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Caption}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-            <TextBlock FontSize="15" x:Name="TextBlock_StylusToDraw2" Text="[场景实验][生物]光照对植物光合作用效率的影响" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-            <TextBlock FontSize="13" x:Name="TextBlock_StylusToDraw_Description2" Text="需要检测 O2浓度 CO2浓度 等共 2 项指标" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
+            <TextBlock FontSize="15" x:Name="TextBlock_StylusToDraw2" Text="{Binding RealName}" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+            <TextBlock FontSize="13" x:Name="TextBlock_StylusToDraw_Description2" Text="{Binding Description}" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.RowSpan="2">
                 <Button Content="实践" Margin="2" x:Name="TestButton3"  Width="80" Height="32"/>
                 <Button Content="详情" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="2" x:Name="TestButton4"  Width="80" Height="32"/>

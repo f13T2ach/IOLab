@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IOLab.Core.Local;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,6 @@ namespace IOLab
     /// </summary>
     public partial class App : Application
     {
+        public static bool AlreadyInit = false;
     }
 }

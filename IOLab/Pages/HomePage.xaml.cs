@@ -1,4 +1,5 @@
 ﻿using iNKORE.UI.WPF.Modern;
+using IOLab.Pages.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace IOLab.Pages
         {
             InitializeComponent();
             Preparations();
+            HomePageViewModel viewModel = new HomePageViewModel();
+            this.DataContext = viewModel;
         }
 
         private void Preparations()
