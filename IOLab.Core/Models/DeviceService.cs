@@ -15,9 +15,7 @@ namespace IOLab.Core.Models
             public bool isAccepted; // 是否被接受
             public bool isResponded; // 是否有答复
 
-            public Type ValueType; // 数据类型
-            public List<ValueType> Values; // 历史数据
-            public ValueType NewestValue; // 最新数据
+            public List<object> Values; // 历史数据
 
             public string Name; // 检测项目名 如 Cl-
             public string Unit; // 单位 如 mol/L
