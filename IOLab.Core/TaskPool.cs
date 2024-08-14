@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IOLab.Util.Request
+namespace IOLab.Core
 {
-    internal class TaskPool
+    public class TaskPool
     {
         List<ITaskAnnounce> tasks;
 

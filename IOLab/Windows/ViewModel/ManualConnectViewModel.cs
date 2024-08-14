@@ -1,5 +1,4 @@
 ﻿using IOLab.Core.Serial;
-using IOLab.Util.Serial;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +6,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
 
 namespace IOLab.Windows.ViewModel
 {
@@ -53,7 +54,7 @@ namespace IOLab.Windows.ViewModel
         private ObservableCollection<string> GetComIDCollection()
         {
             ObservableCollection<string> collection = new ObservableCollection<string>();
-            Util.Serial.Scanner scanner = new Util.Serial.Scanner();
+            Scanner scanner = new Scanner();
             _comIDArray = scanner.ScanAllSerial();
             foreach ( string item in _comIDArray)  {
                 collection.Add(item);

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Threading;
 
-namespace IOLab.Util.Serial
+namespace IOLab.Core.Serial
 {
-    class Scanner
+    public class Scanner
     {
         public SerialPort serialPort = new SerialPort();
         public void ScanAvailableSerial()

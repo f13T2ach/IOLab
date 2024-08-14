@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOLab.Util.Serial
+namespace IOLab.Core.Serial
 {
-    class Communication
+    public class Communication
     {
     }
 }

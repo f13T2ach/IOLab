@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOLab.Models.Exceptions
+namespace IOLab.Core.Models.Exceptions
 {
     class SerialFault : Exception
     {
