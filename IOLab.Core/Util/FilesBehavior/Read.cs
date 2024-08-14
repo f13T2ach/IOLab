@@ -29,5 +29,15 @@ namespace IOLab.Core.Util.FilesBehavior
             return content;
 
         }
+
+        public static string GetLastLevelName(string path)
+        {
+            string[] paths = path.Split("\\");
+            if (paths[paths.Count() - 1] == "")
+            {
+                return paths[paths.Count() - 2];
+            }
+            return paths[paths.Count() - 1];
+        }
     }
 }

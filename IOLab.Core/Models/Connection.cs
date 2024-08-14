@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IOLab.Core.Models
 {
-    class Connection
+    public class Connection
     {
         public struct USBConnection
         {

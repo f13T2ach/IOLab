@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IOLab.Core.Models
 {
-    internal class Experiment
+    public class Experiment
     {
         public struct IOExperiment
         {

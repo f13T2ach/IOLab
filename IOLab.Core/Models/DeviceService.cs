@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IOLab.Core.Models
 {
-    class DeviceService
+    public class DeviceService
     {
         // 检测项目
         public struct Service
