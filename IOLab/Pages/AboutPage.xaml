@@ -11,7 +11,7 @@
       Title="关于">
     <ui:ScrollViewerEx>
         
-        <StackPanel Orientation="Vertical" Margin="40" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical" Margin="40,20,40,0" VerticalAlignment="Top">
             <Image Source="..\Resources\Images\Icon\IOLab1024.png" Width="128"/>
             <TextBlock x:Name="ApplicationName" FontSize="22" Text="成龙智慧实验室" HorizontalAlignment="Center" Margin="0,10,0,6"/>
             <TextBlock Opacity="0.5" Text="对着大海哭喊，眼泪在那显得微不足道" HorizontalAlignment="Center"/>
@@ -98,11 +98,14 @@
 
             <Button x:Name="ADButton" Click="ADButton_Click" VerticalAlignment="Top" Cursor="Hand" IsEnabled="True" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Center" Margin="0,8,0,0">
                 <StackPanel Orientation="Horizontal">
+                    <control:AnimatedTextSwitcher TextArray="{Binding ADTexts}" Margin="0,0,5,0" Interval="0:0:5"/>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ArrowRight8}"/>
-                    <control:AnimatedTextSwitcher TextArray="{Binding ADTexts}" Margin="5,0,0,0" Interval="0:0:5"/>
                 </StackPanel>
-
             </Button>
+
+            <StackPanel Orientation="Horizontal" Height="20" Margin="0,40,0,0" HorizontalAlignment="Center">
+                <TextBlock Opacity="0.7">阿里云提供云计算支持</TextBlock>
+            </StackPanel>
         </StackPanel>
 
     </ui:ScrollViewerEx>

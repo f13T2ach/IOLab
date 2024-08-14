@@ -15,6 +15,7 @@ namespace IOLab.Core.Models.Records
 {
     public class Schema
     {
+        // 名称不能重复 因此可以用来检索
         private string _name;
         public string Name { get => _name;set { _name = value; } }
 

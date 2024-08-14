@@ -9,17 +9,6 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="Manager">
 
-    <ui:ScrollViewerEx>
-        <!-- Background="White"-->
 
-        <StackPanel Orientation="Vertical" MaxWidth="1280" Margin="40" VerticalAlignment="Top">
-            <TextBlock x:Name="Header" Text="Name" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
-
-
-
-            <Button Content="重命名设备" Click="Rename_Click"/>
-
-
-        </StackPanel>
-    </ui:ScrollViewerEx>
+    
 </ui:Page>

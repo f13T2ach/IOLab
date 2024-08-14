@@ -18,11 +18,19 @@
     <None Remove="Resources\Images\Mareix.jpg" />
     <None Remove="Resources\Images\Microsoft.png" />
     <None Remove="Resources\Images\Redmaple.jpg" />
+    <None Remove="Resources\Images\Tiny\ShallowShadow.png" />
+    <None Remove="Resources\Images\Tiny\ShallowShadowDark.png" />
     <None Remove="Resources\Images\YeJianFeng.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\Images\Icon\Favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Tiny\ShallowShadow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +50,7 @@
     <Resource Include="Resources\Images\Redmaple.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\Tiny\ShallowShadowDark.png" />
     <Resource Include="Resources\Images\YeJianFeng.jpg" />
   </ItemGroup>
 
@@ -71,6 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Resources\Images\DoubleImages\" />
     <Folder Include="Resources\Video\" />
     <Folder Include="Util\Files\" />
   </ItemGroup>
