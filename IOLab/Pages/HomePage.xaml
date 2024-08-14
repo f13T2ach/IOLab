@@ -119,7 +119,7 @@
                     </Border>
                 </StackPanel>
             </Grid>
-            <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow" Width="492">Designed by Redmaple</TextBlock>
+            <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents</TextBlock>
 
         </StackPanel>
         
