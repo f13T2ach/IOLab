@@ -1,8 +1,10 @@
 ﻿using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Core.Models.Records;
 using IOLab.Pages.Appreciations;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Printing.IndexedProperties;
 using System.Text;
@@ -32,6 +34,8 @@ namespace IOLab
             InitializeComponent();
             //测试代码
             //Static.Theme.themeMode = ApplicationTheme.Dark;
+            
+
             Util.StaticModel.DeviceName.TextContent = "瑞克五代";
 
             if (_FirstStarup)

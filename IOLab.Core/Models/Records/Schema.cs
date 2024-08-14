@@ -9,39 +9,35 @@ using static IOLab.Core.Models.Experiment;
 using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using static IOLab.Core.Models.DeviceService;
 
 namespace IOLab.Core.Models.Records
 {
-    internal abstract class Schema
+    public class Schema
     {
-        // 记录名称
         private string _name;
         public string Name { get => _name;set { _name = value; } }
 
-        // 记录详情
         private string _description;
         public string Description { get => _description; set { _description = value; } }
 
         // 指标详情
-        private List<DeviceService> _parameters;
-        public List<DeviceService> Parameters { get => _parameters; set { _parameters = value; } }
+        private List<Service> _parameters = new List<Service>();
+        public List<Service> Parameters { get => _parameters; set { _parameters = value; } }
 
-        // 实验
         private IOExperiment _experiment;
         public IOExperiment Experiment { get => _experiment; set { _experiment = value; } }
 
-        // 记录JSON数据（防止读取耗时过长 此时不展开）
-        private List<string> _recordJSONData;
+        private List<string> _recordJSONData = new List<string>();
         public List<string> RecordJSONData { get => _recordJSONData; set { _recordJSONData = value; } }
 
-        // 记录时间戳
-        private ushort _time; // int会导致2038危机
+        private ushort _time;
         public ushort Time { get => _time;set { _time = value; } }
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="address">路径</param>
+        /// <param name="address">文件夹绝对路径</param>
         public Schema(string address)
         {
             // 完善路径
@@ -56,7 +52,6 @@ namespace IOLab.Core.Models.Records
             List<string> files = Traversal.GetAllFiles(address, 1);
             foreach(string file in files)
             {
-                // 由于记录文件不多，故不做可拓展
                 if (file.StartsWith(FileNames.RecordDetail))
                 {
                     // 读取JSON数据
@@ -78,7 +73,11 @@ namespace IOLab.Core.Models.Records
             }
 
             // 获取资源
-            Name = recordDetail["experiment"]["name"].ToString();
+            Name = Read.GetLastLevelName(address);
+            // 遍历匹配实验
+
+            // 遍历匹配指标量
+            return;
         }
     }
 }
