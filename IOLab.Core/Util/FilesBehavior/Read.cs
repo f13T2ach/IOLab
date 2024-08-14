@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IOLab.Core.Util.FilesBehavior
+{
+    internal static class Read
+    {
+        /// <summary>
+        /// UTF8读取文件
+        /// </summary>
+        /// <param name="path">绝对路径</param>
+        /// <returns></returns>
+        public static string? ReadFileUTF8(string path)
+        {
+            string? content = null;
+            using (FileStream fs = File.OpenRead(path))
+            {
+                byte[] b = new byte[1024];
+                UTF8Encoding temp = new UTF8Encoding(true);
+                while (fs.Read(b, 0, b.Length) > 0)
+                {
+                    content+= (temp.GetString(b) + "\n");
+                }
+            }
+            return content;
+
+        }
+    }
+}
