@@ -1,5 +1,6 @@
 ﻿using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Core.Local;
 using IOLab.Core.Models.Records;
 using IOLab.Pages.Appreciations;
 using System;
@@ -31,18 +32,29 @@ namespace IOLab
 
         public MainWindow()
         {
+            Prepare();
+            App.AlreadyInit = true;
             InitializeComponent();
             //测试代码
             //Static.Theme.themeMode = ApplicationTheme.Dark;
-            
-
             Util.StaticModel.DeviceName.TextContent = "瑞克五代";
 
             if (_FirstStarup)
             {
                 StartAppreciations();
             }
+        }
 
+        private void Prepare()
+        {
+            // 每次实例化都会对静态对象操作一次 这是不安全的
+            if (App.AlreadyInit)
+            {
+                return;
+            }
+            this.Title = "IOLab";
+            ReadAssets.ReadRecords();
+            ReadAssets.ReadExperiments();
         }
 
         private void StartAppreciations()

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IOLab.Core.Assets;
-using static IOLab.Core.Models.Experiment;
+using static IOLab.Core.Models.IOExperiment;
 using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -31,8 +31,8 @@ namespace IOLab.Core.Models.Records
         private List<string> _recordJSONData = new List<string>();
         public List<string> RecordJSONData { get => _recordJSONData; set { _recordJSONData = value; } }
 
-        private ushort _time;
-        public ushort Time { get => _time;set { _time = value; } }
+        private long _time;
+        public long Time { get => _time;set { _time = value; } }
 
         /// <summary>
         /// 构造函数
@@ -74,9 +74,13 @@ namespace IOLab.Core.Models.Records
 
             // 获取资源
             Name = Read.GetLastLevelName(address);
+            Time = (long)recordDetail["time"];
             // 遍历匹配实验
 
             // 遍历匹配指标量
+
+            // 如果没有设定标签，就合成标签
+            Description = $"于 {Util.Time.GetDateTime(Time)} 完成";
             return;
         }
     }

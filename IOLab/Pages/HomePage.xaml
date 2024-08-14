@@ -11,12 +11,11 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="实验">
     <ui:ScrollViewerEx>
-        <StackPanel Orientation="Vertical" MaxWidth="1280" Margin="40" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical" MaxWidth="1280" Margin="40,20,40,40" VerticalAlignment="Top">
             <Grid>
                 <emoji:TextBlock HorizontalAlignment="Left" FontSize="32">🐈</emoji:TextBlock>
                 <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">瑞克五代 就绪 - 铁离子与KSCN溶液反应的产物探究</TextBlock>
             </Grid>
-            
             <ui:AcrylicPanel CornerRadius="20" Width="640" Height="180">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <Image Margin="5,5,5,5" Height="36" x:Name="EquationImage" HorizontalAlignment="Center"></Image>
@@ -25,10 +24,10 @@
                     <Button Content="学习并实践" Margin="5,10,5,0" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
                 </StackPanel>
             </ui:AcrylicPanel>
-            <Grid>
+            <Grid Margin="0,5,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="0"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <Grid>
@@ -37,11 +36,19 @@
                     </Grid>
                     <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
                         <!--最多显示三项-->
-                        <StackPanel>
-                            <lab:RecordDetail/>
-                            <lab:RecordDetail/>
-                            <lab:RecordDetail/>
-                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding RecordsSchema}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <lab:RecordDetail/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
 
                     </ui:ScrollViewerEx>
 
@@ -54,25 +61,66 @@
                     </Grid>
                     <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
                         <!--最多显示三项-->
-                        <StackPanel>
-                            <lab:ExperimentDetail/>
-                            <lab:ExperimentDetail/>
-                            <lab:ExperimentDetail/>
-                            <lab:ExperimentDetail/>
-                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding IOExperiments}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <lab:ExperimentDetail/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
 
                     </ui:ScrollViewerEx>
                 </StackPanel>
                 
-                <!--废案-->
-                <StackPanel Grid.Column="1">
+
+                <StackPanel Grid.Column="1" Margin="10,0,0,0">
                     <Grid>
-                        <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5"></TextBlock>
+                        <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">公告</TextBlock>
                     </Grid>
-                    
+                    <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
+                        <Grid VerticalAlignment="Center" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Link}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+                            <TextBlock Text="全服公告" Grid.Column="1" FontSize="16" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Top" FontSize="14" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">
+                                「成龙」智慧实验室，英文名IO Experiment，是以软硬件联合的方式、独出一辙的“探索 实践 总结”实验学习路线和强大的“社区”功能构建基于实验数据的学习平台架构。
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                    <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
+                        <Grid VerticalAlignment="Center" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Bug}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+                            <TextBlock Text="Bug修复公告"  FontSize="16" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="14" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">2024/8/13 修复部分用户上报的字体异常问题</TextBlock>
+                        </Grid>
+                    </Border>
                 </StackPanel>
             </Grid>
-            
+            <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow" Width="492">Designed by Redmaple</TextBlock>
+
         </StackPanel>
         
 

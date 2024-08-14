@@ -13,6 +13,7 @@ namespace IOLab.Core.Assets
         public static string AssetsExperimentLocalFolder = "LocalExperiment";
         public static string AssetsExperimentNetworkFolder = "NetworkExperiment";
         public static string AssetsServicesLocalFolder = "LocalServices";
+        // 尽量不要使用网络服务做采集器
         public static string AssetsServicesNetworkFolder = "NetworkServices";
 
         public static string RecordFolder = "Record";

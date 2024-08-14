@@ -19,8 +19,8 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Cafe}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-            <TextBlock FontSize="15" x:Name="TextBlock_StylusToDraw" Text="实验记录_高锰酸钾制氧气_20240101_1723555251" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-            <TextBlock FontSize="13" x:Name="TextBlock_StylusToDraw_Description" Text="于 2024/01/01 检测了 O2浓度 等共 1 项指标" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
+            <TextBlock FontSize="15" x:Name="TextBlock_StylusToDraw" Text="{Binding Name}" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+            <TextBlock FontSize="13" x:Name="TextBlock_StylusToDraw_Description" Text="{Binding Description}" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.RowSpan="2">
                 <Button Content="修改" Margin="2" x:Name="TestButton"  Width="80" Height="32"/>
                 <Button Content="导出" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="2" x:Name="TestButton2"  Width="80" Height="32"/>
