@@ -8,6 +8,7 @@ using IOLab.Core.Assets;
 using static IOLab.Core.Models.Experiment;
 using System.Data;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Models.Records
 {
@@ -22,8 +23,8 @@ namespace IOLab.Core.Models.Records
         public string Description { get => _description; set { _description = value; } }
 
         // 指标详情
-        private List<DeviceService> _targets;
-        public List<DeviceService> Experiments { get => _targets; set { _targets = value; } }
+        private List<DeviceService> _parameters;
+        public List<DeviceService> Parameters { get => _parameters; set { _parameters = value; } }
 
         // 实验
         private IOExperiment _experiment;
@@ -49,7 +50,7 @@ namespace IOLab.Core.Models.Records
                 address += @"\";
             }
             // 定义字典
-            DataRow recordDetail = new DataTable();
+            JObject recordDetail = new JObject();
 
             // 遍历文件夹寻找资源
             List<string> files = Traversal.GetAllFiles(address, 1);
@@ -62,7 +63,7 @@ namespace IOLab.Core.Models.Records
                     string? content = Read.ReadFileUTF8(address + file);
                     if (content != null)
                     { 
-                        recordDetail = JsonConvert.DeserializeObject<DataRow>(content); 
+                        recordDetail = JObject.Parse(content); 
                     }
                 }
                 else if (file.StartsWith(FileNames.ChartDataPrefix))
@@ -77,7 +78,7 @@ namespace IOLab.Core.Models.Records
             }
 
             // 获取资源
-            Name = recordDetail[0]["experiment"]["name"].ToString();
+            Name = recordDetail["experiment"]["name"].ToString();
         }
     }
 }
