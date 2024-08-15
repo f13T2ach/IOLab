@@ -21,7 +21,7 @@
             <ItemsControl Height="64" ItemsSource="{Binding MyPorts}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ToggleButton IsChecked="{Binding IsChecked, Mode=OneWay}" Checked="ToggleButton_Checked" Content="{Binding PortId}" Margin="0, 0, 4, 0" Height="64" Width="64">
+                        <ToggleButton IsChecked="{Binding IsChecked, Mode=OneWay}" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" Content="{Binding PortId}" Margin="0, 0, 4, 0" Height="64" Width="64">
                         </ToggleButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -33,13 +33,14 @@
             </ItemsControl>
         </ui:ScrollViewerEx>
 
-        <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+        <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
             <TextBlock Text="{Binding SelectedPortID}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" Margin="2,0,2,0"/>
             <TextBlock Text="插口管理" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
         </StackPanel>
-        <TextBlock Text="该插口对应表的ID是"/>
-        <TextBlock HorizontalAlignment="Center" x:Name="chartIDText" Text="未选中" FontSize="20"/>
-
+        <TextBlock Text="表名"/>
+        <TextBlock x:Name="chartNameText" Text="未选中" FontSize="20"/>
+        <TextBlock Text="采集方案"/>
+        <TextBlock x:Name="chartServiceText" Text="未选中" FontSize="20"/>
         <TextBlock Text="可用快捷操作" Opacity="0.7"/>
         <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
             

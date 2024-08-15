@@ -39,7 +39,7 @@ public class ConnectTool
         UartPort.ParityCheckBit = 0; // 不校验
 
         // 测试 
-        UartPort.Ports = new List<string> { "1","2","EXT_A","EXT_B" };
+        UartPort.Ports = new List<string> { "I2C_1","I2C_2","EXT_A","EXT_B" };
     }
 
     public Exception? OpenComport()

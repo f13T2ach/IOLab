@@ -1,7 +1,9 @@
 ﻿using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;
+
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,6 @@ namespace IOLab.Core.Serial
 
         public static ConnectTool connectTool; // 连接实例
 
-        public static List<Service> services; // 服务列表
+        public static ObservableCollection<ChartTableModel> ChartTables { get; set; } // 监视器
     }
 }

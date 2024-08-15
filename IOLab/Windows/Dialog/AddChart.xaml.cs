@@ -21,6 +21,8 @@ using IOLab.Models.Related;
 using IOLab.Pages.ViewModel;
 using LiveCharts.Wpf;
 using IOLab.Core.Config;
+using IOLab.Core.Serial;
+using IOLab.Core.Models;
 
 namespace IOLab.Windows.Dialog
 {
@@ -31,6 +33,11 @@ namespace IOLab.Windows.Dialog
     {
         AddChartViewModel viewModel;
         bool IsValidPortSelected = false;
+
+        public string PortID { get; private set; }
+        public DeviceService.Service Service { get; private set; }// 采集方案
+        public string ChartXRow { get; private set; }
+        public int ChartID { get; private set; }
         public AddChart()
         {
             InitializeComponent();
@@ -46,24 +53,39 @@ namespace IOLab.Windows.Dialog
         private void InitContent()
         {
             // 获取表ID最大值
-            int maxID = 1;
-            foreach(ChartTableModel chart in MonitorPageViewModel.ChartTables)
+            int maxID = 0;
+            foreach(ChartTableModel chart in InstanceBundle.ChartTables)
             {
                 if (chart.Id > maxID)
                 {
                     maxID = chart.Id;
                 }
             }
-            maxID++;
+            maxID = maxID == 0 ? 1 : ++maxID;
+
             chartIDInput.Value = maxID;
 
             
         }
+
+        // 此处与 PortDefine 重复冗余
+        bool isEditedFlag = false;
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             // 拒绝用户修改
             ToggleButton button = (ToggleButton)sender;
+            if (isEditedFlag)
+            {
+                return; // 防止自调用
+            }
+            isEditedFlag = true;
+
             button.IsChecked = !button.IsChecked;
+
+            isEditedFlag = false;
+
+            // 重复冗余结束
+
             viewModel.SelectedPortID = button.Content.ToString();
 
             if (button.IsChecked == true)
@@ -72,6 +94,7 @@ namespace IOLab.Windows.Dialog
             }
             else
             {
+
                 IsValidPortSelected = true;
             }
             CheckUserContents();
@@ -84,6 +107,10 @@ namespace IOLab.Windows.Dialog
 
         private void CheckUserContents()
         {
+            if(chartIDInput.Value == 99)
+            {
+                TipFor99.Visibility = Visibility.Visible;
+            }
             bool flag = IsValidPortSelected;
             if(!flag) {
                 IsPrimaryButtonEnabled = false;
@@ -91,7 +118,7 @@ namespace IOLab.Windows.Dialog
             }
             
             int count = 0;
-            foreach (ChartTableModel chart in MonitorPageViewModel.ChartTables)
+            foreach (ChartTableModel chart in InstanceBundle.ChartTables)
             {
                 if (chart.Id == chartIDInput.Value)
                 {
@@ -105,6 +132,14 @@ namespace IOLab.Windows.Dialog
             }
 
             IsPrimaryButtonEnabled = flag;
+        }
+
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            PortID = viewModel.SelectedPortID;
+            ChartID = (int)chartIDInput.Value;
+            // Service = ...
+            ChartXRow = chartNameInput.Text;
         }
     }
 }

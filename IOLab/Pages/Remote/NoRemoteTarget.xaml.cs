@@ -93,6 +93,7 @@ namespace IOLab.Pages.Remote
                             MyErrorNotification.Message = st.task.Result.ToString();
                         }));
                         ct.CloseComport();
+                        InstanceBundle.connectTool = null;
                     }
                     // 可以连接
                     else
@@ -113,7 +114,9 @@ namespace IOLab.Pages.Remote
                 {
                     MyErrorNotification.IsOpen = true;
                     MyErrorNotification.Message = result.Message + " 关闭可能占用串口的程序（如Arduino）、插拔设备或重启本程序";
+                    InstanceBundle.connectTool = null;
                 }
+
             }
             InitUI();
 

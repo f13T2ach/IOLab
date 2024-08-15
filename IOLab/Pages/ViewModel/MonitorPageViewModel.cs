@@ -1,6 +1,10 @@
-﻿using IOLab.Commands;
+﻿using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Commands;
+using IOLab.Core.Models;
+using IOLab.Core.Serial;
 using IOLab.Models.Related;
 using IOLab.Pages.Event.MonitorPages;
+using IOLab.Windows.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,8 +20,20 @@ namespace IOLab.Pages.ViewModel
 {
     class MonitorPageViewModel : INotifyPropertyChanged
     {
-        // 表对象列表
-        public static ObservableCollection<ChartTableModel> ChartTables { get; set; }
+        // Binding用 表对象列表映射
+        public ObservableCollection<ChartTableModel> MappedChartTables
+        {
+            get
+            {
+                return InstanceBundle.ChartTables;
+            }
+            set
+            {
+                InstanceBundle.ChartTables = value;
+                OnPropertyChanged(nameof(MappedChartTables));
+            }
+        }
+        
         
         // RelayCommand实现
         public ICommand SelectChartCommand { get; set; }
@@ -35,7 +51,7 @@ namespace IOLab.Pages.ViewModel
                 if (_selectedChart != value)
                 {
                     _selectedChart = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(SelectedChart));
                     System.Diagnostics.Debug.WriteLine($"表 {_selectedChart?.Id} 状态 {_selectedChart?.IsSelected}");
                 }
             }
@@ -43,11 +59,11 @@ namespace IOLab.Pages.ViewModel
 
         public MonitorPageViewModel()
         {
-            ChartTables = new ObservableCollection<ChartTableModel>();
-            for (int i = 1; i <= 4; i++)
+            if (MappedChartTables == null)
             {
-                ChartTables.Add(new ChartTableModel { Id = i });
+                MappedChartTables = new ObservableCollection<ChartTableModel>();
             }
+            
 
             SelectChartCommand = new RelayCommand(OnChartSelected);
             RemoveSelectedChartsCommand = new RelayCommand(RemoveSelectedCharts);
@@ -68,7 +84,7 @@ namespace IOLab.Pages.ViewModel
                 if (chart.IsSelected)
                 {
                     // 获取已选数量
-                    int selectedCount = ChartTables.Count(c => c.IsSelected);
+                    int selectedCount = MappedChartTables.Count(c => c.IsSelected);
                     if (selectedCount > 2) // 两个为选中上限
                     {
                         System.Diagnostics.Debug.WriteLine($"触发选中限制");
@@ -78,7 +94,7 @@ namespace IOLab.Pages.ViewModel
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine($"选中状态更新 ID = {chart.Id}的表取消选中");
+                    System.Diagnostics.Debug.WriteLine($"选中状态更新 ID = {chart.Id} 的表取消选中");
                 }
 
                 // 更新选中情况
@@ -95,14 +111,14 @@ namespace IOLab.Pages.ViewModel
                 }
 
                 // 触发选中事件
-                int newSelectedCount = ChartTables.Count(c => c.IsSelected);
+                int newSelectedCount = MappedChartTables.Count(c => c.IsSelected);
                 if (newSelectedCount == 1) //选中一个时
                 {
                     ChartSelectionChanged?.Invoke(this, new ChartSelectionChangedEventArgs(chart));
                 }
                 else if (newSelectedCount >= 2)
                 {
-                    var selectedCharts = ChartTables.Where(c => c.IsSelected).ToArray();
+                    var selectedCharts = MappedChartTables.Where(c => c.IsSelected).ToArray();
                     MultipleChartsSelected?.Invoke(this, new MultipleChartsSelectedEventArgs(selectedCharts));
                 }
                 if (newSelectedCount == 0)
@@ -115,21 +131,33 @@ namespace IOLab.Pages.ViewModel
         // 删除选中表
         private void RemoveSelectedCharts(object sender)
         {
-            var selectedCharts = ChartTables.Where(c => c.IsSelected).ToList();
+            var selectedCharts = MappedChartTables.Where(c => c.IsSelected).ToList();
             foreach (var chart in selectedCharts)
             {
                 chart.IsSelected = false;
                 OnChartSelected(chart);
-                ChartTables.Remove(chart);
+                MappedChartTables.Remove(chart);
                 // 销毁监听线程
             }
             System.Diagnostics.Debug.WriteLine($"移除了共 {selectedCharts.Count()} 个选中的表");
         }
 
         // 新增一个表
-        private void AddNewChart(object sender)
+        private async void AddNewChart(object sender)
         {
-            
+            AddChart add = new AddChart();
+            var result = await add.ShowAsync();
+            if (result != ContentDialogResult.Primary)
+            {
+                return;
+            }
+            MappedChartTables.Add(new ChartTableModel
+            {
+                Id = add.ChartID,
+                XRow = add.ChartXRow,
+                PortId = add.PortID,
+                ChartSevice = add.Service
+            });
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

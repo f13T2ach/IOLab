@@ -1,4 +1,5 @@
-﻿using IOLab.Models.Related;
+﻿using IOLab.Core.Models;
+using IOLab.Models.Related;
 using System;
 using System.Collections.Generic;
 using System.Linq;

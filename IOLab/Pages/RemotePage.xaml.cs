@@ -18,6 +18,7 @@ using IOLab.Pages.Remote;
 using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern;
 using IOLab.Pages.ViewModel;
+using IOLab.Core.Serial;
 
 namespace IOLab.Pages
 {
@@ -37,8 +38,15 @@ namespace IOLab.Pages
 
         private void Preparations()
         {
-            ViewField.Navigate(PageRemote_NoRemoteTarget);
-            // ViewField.Navigate(PageRemote_Managers);
+            if(InstanceBundle.connectTool == null)
+            {
+                ViewField.Navigate(PageRemote_NoRemoteTarget);
+            }
+            else
+            {
+                ViewField.Navigate(PageRemote_Managers);
+            }
+            
             ShallowShadow.Source = BitmapFrame.Create(
                 new Uri(Static.Theme.themeMode == ApplicationTheme.Dark ? @"pack://application:,,,/Resources/Images/Tiny/ShallowShadowDark.png" : "pack://application:,,,/Resources/Images/Tiny/ShallowShadow.png"),
                 BitmapCreateOptions.None,

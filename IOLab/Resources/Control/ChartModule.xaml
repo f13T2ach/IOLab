@@ -73,7 +73,7 @@
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
                             
-                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource Style_SectionBorderStyle}" Width="22" Height="22" Padding="0" Margin="5">
+                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource Style_SectionBorderStyle}" Background="White" Width="22" Height="22" Padding="0" Margin="5">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <TextBlock Text="{Binding Id}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </Grid>

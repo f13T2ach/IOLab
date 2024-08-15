@@ -5,10 +5,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static IOLab.Core.Models.DeviceService;
 
-namespace IOLab.Models.Related
+namespace IOLab.Core.Models
 {
-    class ChartTableModel
+    public class ChartTableModel
     {
         private bool _isSelected;
         public int Id { get; set; }
@@ -17,6 +18,8 @@ namespace IOLab.Models.Related
         public string YRow { get; set; }
 
         public string PortId { get; set; }
+
+        public Service ChartSevice { get; set; }
 
         public bool IsSelected {
             get => _isSelected;

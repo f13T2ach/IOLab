@@ -6,11 +6,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:IOLab.Windows.Dialog"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
     mc:Ignorable="d"
     Title="新建监视器"
     PrimaryButtonText="提交变动"  
     SecondaryButtonText="取消"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     DefaultButton="Primary">
 
     <StackPanel Orientation="Vertical">
@@ -18,7 +19,7 @@
             <ItemsControl Height="64" ItemsSource="{Binding MyPorts}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ToggleButton IsChecked="{Binding IsChecked, Mode=OneWay}" Checked="ToggleButton_Checked" Content="{Binding PortId}" Margin="0, 0, 4, 0" Height="64" Width="64">
+                        <ToggleButton IsChecked="{Binding IsChecked, Mode=OneWay}" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" Content="{Binding PortId}" Margin="0, 0, 4, 0" Height="64" Width="64">
                         </ToggleButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -43,7 +44,7 @@
         </Grid>
         <Grid Margin="0,5,0,5">
             <TextBlock Text="表名(留空自动生成)" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
-            <TextBox Height="32" Width="300" Margin="0,0,5,0" HorizontalAlignment="Right"/>
+            <TextBox Height="32" Width="300" Margin="0,0,5,0" HorizontalAlignment="Right" x:Name="chartNameInput"/>
         </Grid>
         <Grid Margin="0,5,0,10">
             <TextBlock Text="表ID" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
@@ -51,6 +52,7 @@
         </Grid>
         <TextBlock Text="# 正用于采样的插口不能被用于新建监视；后续可在新建图表中使用已配置的插口" Opacity="0.7"/>
         <TextBlock Text="# 最多支持 4 个插口同时绘图，绘图的插口过多会导致采样延迟" Opacity="0.7"/>
+        <emoji:TextBlock Text="“不是哥们💻🦐” 算法自动匹配最大值，已达99自己下调" Visibility="Hidden" Name="TipFor99"/>
 
     </StackPanel>
 
