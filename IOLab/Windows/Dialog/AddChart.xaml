@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="管理插口"
+    Title="新建监视器"
     PrimaryButtonText="提交变动"  
     SecondaryButtonText="取消"
     DefaultButton="Primary">
@@ -34,7 +34,7 @@
         <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
             <TextBlock Text="使用" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
             <TextBlock Text="{Binding SelectedPortID}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" Margin="2,0,2,0"/>
-            <TextBlock Text="插口新建监视器（正在采集的插口为蓝色）" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
+            <TextBlock Text="插口新建监视器" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
         </StackPanel>
 
         <Grid Margin="0,5,0,5">
@@ -45,9 +45,9 @@
             <TextBlock Text="表名" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
             <TextBox Height="32" Width="300" Margin="0,0,5,0" HorizontalAlignment="Right"/>
         </Grid>
-        <Grid Margin="0,5,0,5">
+        <Grid Margin="0,5,0,10">
             <TextBlock Text="表ID" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
-            <ui:NumberBox Height="32" Width="80" Margin="0,0,5,0" HorizontalAlignment="Right"/>
+            <Slider x:Name="chartIDInput" Style="{StaticResource NumbericSlider}" FontSize="16" Value="1" Minimum="1" Maximum="99" ValueChanged="chartIDInput_ValueChanged" Height="32" Width="80" Margin="0,0,5,0" HorizontalAlignment="Right"/>
         </Grid>
         <TextBlock Text="# 正用于采样的插口不能被用于新建监视；后续可在新建图表中使用已配置的插口" Opacity="0.7"/>
         <TextBlock Text="# 最多支持 4 个插口同时绘图，绘图的插口过多会导致采样延迟" Opacity="0.7"/>
