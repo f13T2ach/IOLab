@@ -20,6 +20,7 @@ using IOLab.Windows.Dialog.ViewModel;
 using IOLab.Models.Related;
 using IOLab.Pages.ViewModel;
 using LiveCharts.Wpf;
+using IOLab.Core.Config;
 
 namespace IOLab.Windows.Dialog
 {
@@ -29,13 +30,17 @@ namespace IOLab.Windows.Dialog
     public partial class AddChart : ContentDialog
     {
         AddChartViewModel viewModel;
+        bool IsValidPortSelected = false;
         public AddChart()
         {
             InitializeComponent();
             viewModel = new AddChartViewModel();
             this.DataContext = viewModel;
-            InitContent(); //初始化内容
 
+            InitContent(); //初始化内容
+            CheckUserContents();
+
+            
         }
 
         private void InitContent()
@@ -51,6 +56,8 @@ namespace IOLab.Windows.Dialog
             }
             maxID++;
             chartIDInput.Value = maxID;
+
+            
         }
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -58,20 +65,46 @@ namespace IOLab.Windows.Dialog
             ToggleButton button = (ToggleButton)sender;
             button.IsChecked = !button.IsChecked;
             viewModel.SelectedPortID = button.Content.ToString();
-            
+
+            if (button.IsChecked == true)
+            {
+                IsValidPortSelected = false;
+            }
+            else
+            {
+                IsValidPortSelected = true;
+            }
+            CheckUserContents();
         }
 
         private void chartIDInput_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            IsPrimaryButtonEnabled = true;
+            CheckUserContents();
+        }
+
+        private void CheckUserContents()
+        {
+            bool flag = IsValidPortSelected;
+            if(!flag) {
+                IsPrimaryButtonEnabled = false;
+                return;
+            }
+            
+            int count = 0;
             foreach (ChartTableModel chart in MonitorPageViewModel.ChartTables)
             {
                 if (chart.Id == chartIDInput.Value)
                 {
-                    IsPrimaryButtonEnabled = false;
-                    break;
+                    flag = false; // 检查是否企图定义正在使用的端口
                 }
+                count++;
             }
+            if(count >= InternalConfig.MaxChartNumber)
+            {
+                flag = false; // 检查是否超过限制
+            }
+
+            IsPrimaryButtonEnabled = flag;
         }
     }
 }
