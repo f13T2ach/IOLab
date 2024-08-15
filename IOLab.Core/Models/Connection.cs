@@ -12,7 +12,7 @@ namespace IOLab.Core.Models
         public struct USBConnection
         {
             public string DeviceName; // 设备名称
-            public int ProtocolVersion; // 交互协议id
+            public List<string> Ports; // port列表
 
             public string PortName;
             public int BaudRate; // 115200

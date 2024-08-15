@@ -1,4 +1,8 @@
 {
   "name": "未知实验",
-  "experiment": "undefined"
+  "experiment": "undefined",
+  "tags":["跨学科"],
+  "formula":"",
+  "steps":{"A":"B"},
+  "description":"",
 }

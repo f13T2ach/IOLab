@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using IOLab.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,10 +18,7 @@ namespace IOLab.Core.Models
             public bool isResponded; // 是否有答复
 
             public List<object> Values; // 历史数据
-
-            public string Name; // 检测项目名 如 Cl-
-            public string Unit; // 单位 如 mol/L
-            public int ID; // 识别码
+            public string Id; // 端口
         }
     }
 }

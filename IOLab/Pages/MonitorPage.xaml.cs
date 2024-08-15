@@ -37,11 +37,21 @@ namespace IOLab.Pages
             this.DataContext = viewModel;
         }
 
+        #region 按钮响应
         private async void ManagePins_Click(object sender, RoutedEventArgs e)
         {
-            PortDefine portDefine = new PortDefine(6);
+            PortDefine portDefine = new PortDefine();
             var result = await portDefine.ShowAsync();
         }
+
+        private async void AddNewChart_Click(object sender, RoutedEventArgs e)
+        {
+            AddChart addChart = new AddChart();
+            var result = await addChart.ShowAsync();
+        }
+        #endregion
+
+        #region MVVM回调
 
         private void OnChartSelectionChanged(object sender, ChartSelectionChangedEventArgs e)
         {
@@ -68,7 +78,9 @@ namespace IOLab.Pages
             System.Diagnostics.Debug.WriteLine($"没有选中的表");
             NoChartOperation();
         }
+        #endregion
 
+        #region 显示操作
         // 单表操作
         private void SingleChartOperation()
         {
@@ -100,5 +112,7 @@ namespace IOLab.Pages
             Tool_EditChart.IsEnabled = false;
             Tool_MergeCharts.IsEnabled = false;
         }
+        #endregion
+
     }
 }

@@ -13,6 +13,11 @@ namespace IOLab.Models.Related
         private bool _isSelected;
         public int Id { get; set; }
 
+        public string XRow { get; set; }
+        public string YRow { get; set; }
+
+        public string PortId { get; set; }
+
         public bool IsSelected {
             get => _isSelected;
             set
