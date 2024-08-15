@@ -52,7 +52,6 @@ namespace IOLab
             {
                 return;
             }
-            this.Title = "IOLab";
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
         }

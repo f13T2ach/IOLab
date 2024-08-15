@@ -43,12 +43,6 @@ namespace IOLab.Pages
             PortDefine portDefine = new PortDefine();
             var result = await portDefine.ShowAsync();
         }
-
-        private async void AddNewChart_Click(object sender, RoutedEventArgs e)
-        {
-            AddChart addChart = new AddChart();
-            var result = await addChart.ShowAsync();
-        }
         #endregion
 
         #region MVVM回调

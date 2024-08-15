@@ -11,6 +11,8 @@ namespace IOLab.Core.Assets
         public static string WelcomeDialog_Hello = "你好";
         public static string WelcomeDialog_Content = "";
 
+        public static string MonitorNotStartYet = "未启动监视";
+
         public static List<string> HeaderTitle = new List<string>()
         {
             

@@ -22,9 +22,9 @@ namespace IOLab.Core.Models
         }
 
         // 采集器列表
-        private static List<DeviceService> _localDeviceService = new List<DeviceService>();
+        private static List<DeviceService.Service> _localDeviceService = new List<DeviceService.Service>();
 
-        public static List<DeviceService> LocalDeviceService
+        public static List<DeviceService.Service> LocalDeviceService
         {
             get { return _localDeviceService; }
             set { _localDeviceService = value; } 

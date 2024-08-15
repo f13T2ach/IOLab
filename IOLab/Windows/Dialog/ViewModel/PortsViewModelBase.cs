@@ -18,7 +18,7 @@ namespace IOLab.Windows.Dialog.ViewModel
 {
     public class PortsViewModelBase : INotifyPropertyChanged
     {
-        public ObservableCollection<PortItem> MyPorts { get; set; }
+        public ObservableCollection<PortPair> MyPorts { get; set; }
         private string _selectedPortID = "?";
         public string SelectedPortID { get=>_selectedPortID; set {
                 _selectedPortID = value;
@@ -27,18 +27,22 @@ namespace IOLab.Windows.Dialog.ViewModel
         }
         public PortsViewModelBase()
         {
-            MyPorts = new ObservableCollection<PortItem>();
+            MyPorts = new ObservableCollection<PortPair>();
             // 从连接实例中的通信实例读取所有端口
             if (InstanceBundle.connectTool == null) // 如果没有初始化过 就返回
             {
                 return;
             }
             List<string> ports = InstanceBundle.connectTool.UartPort.Ports;
+
+            // 代码优化：直接读取静态MonitorPageViewModel.ChartTables
             // 再从监听服务列表中读取所有监听
-            List<Service> services = InstanceBundle.services;
-            foreach(string port in ports)
+            //List<Service> services = InstanceBundle.services;
+            foreach (string port in ports)
             {
-                PortItem target = new PortItem {PortId=port,ChartId=0,IsChecked=false };
+                
+                PortPair target = new PortPair {PortId=port,ChartId=0,IsChecked=false };
+                /**
                 // 寻找监听列表 看是否匹配
                 if(services != null)
                 {
@@ -50,13 +54,14 @@ namespace IOLab.Windows.Dialog.ViewModel
                             break;
                         }
                     }
-                }
+                }**/
                 // 寻找表列表，看是否有匹配的
-                foreach(ChartTableModel chart in MonitorPageViewModel.ChartTables)
+                foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                 {
                     if(chart.PortId == port)
                     {
                         target.ChartId = chart.Id;
+                        target.IsChecked = true;
                         break;
                     }
                 }
@@ -64,13 +69,25 @@ namespace IOLab.Windows.Dialog.ViewModel
             }
         }
 
-        public PortItem FindPortItemByContent(string content)
+        // 可优化 PortPair的用法
+        public PortPair FindPortPairByContent(string content)
         {
-            foreach(PortItem item in MyPorts)
+            foreach(PortPair item in MyPorts)
             {
                 if(item.PortId == content)
                 {
                     return item;
+                }
+            }
+            return null;
+        }
+
+        public ChartTableModel FindChartByPortPair(PortPair pair)
+        {
+            foreach (ChartTableModel chart in InstanceBundle.ChartTables)
+            {
+                if (chart.PortId == pair.PortId) {
+                    return chart;
                 }
             }
             return null;

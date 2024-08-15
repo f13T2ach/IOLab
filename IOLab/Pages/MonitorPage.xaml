@@ -42,7 +42,7 @@
 
         </Button>
         <Grid Margin="0,64,0,48">
-            <ItemsControl ItemsSource="{Binding ChartTables}">
+            <ItemsControl ItemsSource="{Binding MappedChartTables}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <ct:ChartModule/>
@@ -70,7 +70,7 @@
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.MergeCall}" />
                 </Button>
                 <ui:AppBarSeparator/>
-                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="新建" Padding="5,5,5,5" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" x:Name="AddNewChart" Click="AddNewChart_Click" >
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="新建" Padding="5,5,5,5" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" x:Name="AddNewChart" Command="{Binding AddNewChartCommand}">
                     <!--<ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AddBold}"/>-->
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AddBold}" />
                 </Button>

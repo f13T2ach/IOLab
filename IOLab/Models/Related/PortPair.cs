@@ -10,7 +10,7 @@ namespace IOLab.Models.Related
     /// <summary>
     /// 映射对
     /// </summary>
-    public class PortItem
+    public class PortPair
     {
         /// <summary>
         /// PortId必须是对单片机的映射

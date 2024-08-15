@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\LocalServices\" />
     <Folder Include="Tasks\Util\" />
     <Folder Include="Util\JSON\" />
   </ItemGroup>
@@ -19,6 +18,9 @@
 
   <ItemGroup>
     <None Update="Assets\LocalExperiment\undefined.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\LocalServices\local_services.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
