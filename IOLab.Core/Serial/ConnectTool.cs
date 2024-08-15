@@ -10,11 +10,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+// 注意！！正式做串口通信要修改测试代码
 namespace IOLab.Core;
 public class ConnectTool
 {
     // 串口参数
-    private Models.Connection.USBConnection UartPort;
+    public Models.Connection.USBConnection UartPort;
     public System.IO.Ports.SerialPort _SerialPort = new System.IO.Ports.SerialPort();
 
     //实例化串口类
@@ -36,6 +37,9 @@ public class ConnectTool
         UartPort.StopBit = (StopBits)1;
         // 校验位
         UartPort.ParityCheckBit = 0; // 不校验
+
+        // 测试 
+        UartPort.Ports = new List<string> { "1","2","EXT_A","EXT_B" };
     }
 
     public Exception? OpenComport()
@@ -119,7 +123,7 @@ public class ConnectTool
             }
 
             // string content = _SerialPort.ReadLine();
-            // 没有实际内容上面的会卡住
+            // 测试 没有实际内容上面的会卡住
             string tag = Tags.ShakeHand;
             string jsonCommand = "command";
 

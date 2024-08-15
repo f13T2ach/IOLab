@@ -65,6 +65,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Windows\Dialog\AddChart.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Dialog\Universal\OpenWebLink.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

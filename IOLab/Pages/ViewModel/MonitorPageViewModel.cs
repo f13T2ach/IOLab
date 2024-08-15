@@ -17,10 +17,13 @@ namespace IOLab.Pages.ViewModel
     class MonitorPageViewModel : INotifyPropertyChanged
     {
         // 表对象列表
-        public ObservableCollection<ChartTableModel> ChartTables { get; set; }
+        public static ObservableCollection<ChartTableModel> ChartTables { get; set; }
+        
         // RelayCommand实现
         public ICommand SelectChartCommand { get; set; }
         public ICommand RemoveSelectedChartsCommand { get; set; }
+
+        public ICommand AddNewChartCommand { get; set; }
 
         // 选中事件
         private ChartTableModel _selectedChart;
@@ -48,6 +51,7 @@ namespace IOLab.Pages.ViewModel
 
             SelectChartCommand = new RelayCommand(OnChartSelected);
             RemoveSelectedChartsCommand = new RelayCommand(RemoveSelectedCharts);
+            AddNewChartCommand = new RelayCommand(AddNewChart);
         }
 
         public event EventHandler<ChartSelectionChangedEventArgs> ChartSelectionChanged;
@@ -117,9 +121,17 @@ namespace IOLab.Pages.ViewModel
                 chart.IsSelected = false;
                 OnChartSelected(chart);
                 ChartTables.Remove(chart);
+                // 销毁监听线程
             }
             System.Diagnostics.Debug.WriteLine($"移除了共 {selectedCharts.Count()} 个选中的表");
         }
+
+        // 新增一个表
+        private void AddNewChart(object sender)
+        {
+            
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

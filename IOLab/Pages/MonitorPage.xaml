@@ -70,9 +70,9 @@
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.MergeCall}" />
                 </Button>
                 <ui:AppBarSeparator/>
-                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="新建/启动" Padding="5,5,5,5" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="新建" Padding="5,5,5,5" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" x:Name="AddNewChart" Click="AddNewChart_Click" >
                     <!--<ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AddBold}"/>-->
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Play}" />
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AddBold}" />
                 </Button>
                 <ui:AppBarSeparator/>
                 <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="保存" Padding="5,5,5,5" >

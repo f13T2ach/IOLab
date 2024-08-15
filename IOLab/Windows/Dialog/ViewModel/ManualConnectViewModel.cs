@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 
 
-namespace IOLab.Windows.ViewModel
+namespace IOLab.Windows.Dialog.ViewModel
 {
     public class ManualConnectViewModel
     {

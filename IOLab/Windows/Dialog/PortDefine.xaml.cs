@@ -16,6 +16,7 @@ using IOLab.Interfaces.ViewModel;
 using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Helpers;
 using System.Windows.Controls.Primitives;
+using IOLab.Windows.Dialog.ViewModel;
 
 namespace IOLab.Windows.Dialog
 {
@@ -24,43 +25,30 @@ namespace IOLab.Windows.Dialog
     /// </summary>
     public partial class PortDefine : ContentDialog
     {
-        
-        public PortDefine(int max)
+        PortDefineViewModel viewModel;
+        public PortDefine()
         {
             InitializeComponent();
-            GenerateToggleButtons(max);
+            viewModel = new PortDefineViewModel();
+            this.DataContext = viewModel;
         }
 
-        private void GenerateToggleButtons(int length)
+        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            ToggleButton[] PortButton = new ToggleButton[length];
-            for (int i = 0; i < length; i++)
-            {
-                //实例化
-                PortButton[i] = new ToggleButton();
-                //定义控件名称
-                PortButton[i].Name = "Port_"+i.ToString();
-                //定义text属性，可以用string数组初始化为指定值
-                PortButton[i].Content = (i+1).ToString();
-                //注：如果不指定父容器，则坐标是相对于主窗体的
-                
-                //定义坐标
-                //调整大小
-                //bnt[i].AutoSize = true;
-                PortButton[i].Width = 64;
-                PortButton[i].Height = 64;
-                PortButton[i].Margin = new Thickness(0, 0, 4, 0);
-                //批量添加事件
-                PortButton[i].Click += ToggleButtons_Click;
-                ToggleButtonContainer.Children.Add(PortButton[i]);
-            }
-
-        }
-
-        private void ToggleButtons_Click(object sender, EventArgs e)
-        {
+            // 拒绝用户修改
             ToggleButton button = (ToggleButton)sender;
-            button.IsChecked = false;
+            button.IsChecked = !button.IsChecked;
+            viewModel.SelectedPortID = button.Content.ToString();
+            // 处理事件
+            int chartId = viewModel.FindPortItemByContent(viewModel.SelectedPortID).ChartId;
+            if(chartId == 0)
+            {
+                chartIDText.Text = "未启动监视";
+            }
+            else
+            {
+                chartIDText.Text = chartId.ToString();
+            }
         }
     }
 }

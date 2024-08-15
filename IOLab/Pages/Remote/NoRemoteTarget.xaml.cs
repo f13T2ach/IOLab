@@ -52,7 +52,7 @@ namespace IOLab.Pages.Remote
             // 等待对话
             Windows.Dialog.ManualConnect mc = new Windows.Dialog.ManualConnect();
             var result = await mc.ShowAsync();
-            if(!Windows.ViewModel.ManualConnectViewModel.isConfirmed)
+            if(!Windows.Dialog.ViewModel.ManualConnectViewModel.isConfirmed)
             {
                 return; 
             }
@@ -92,9 +92,13 @@ namespace IOLab.Pages.Remote
                             MyErrorNotification.IsOpen = true;
                             MyErrorNotification.Message = st.task.Result.ToString();
                         }));
+                        ct.CloseComport();
                     }
+                    // 可以连接
                     else
                     {
+                        // 配置实例
+                        InstanceBundle.connectTool = ct;
                         this.Dispatcher.Invoke(new Action(delegate
                         {
                             if (this.NavigationService != null)
