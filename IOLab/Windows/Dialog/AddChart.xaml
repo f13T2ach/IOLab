@@ -42,7 +42,7 @@
             <ComboBox Height="32" Width="300" IsTextSearchEnabled = "True" IsEditable = "True" Margin="0,0,5,0" HorizontalAlignment="Right"/>
         </Grid>
         <Grid Margin="0,5,0,5">
-            <TextBlock Text="表名" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
+            <TextBlock Text="表名(留空自动生成)" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
             <TextBox Height="32" Width="300" Margin="0,0,5,0" HorizontalAlignment="Right"/>
         </Grid>
         <Grid Margin="0,5,0,10">
@@ -51,6 +51,7 @@
         </Grid>
         <TextBlock Text="# 正用于采样的插口不能被用于新建监视；后续可在新建图表中使用已配置的插口" Opacity="0.7"/>
         <TextBlock Text="# 最多支持 4 个插口同时绘图，绘图的插口过多会导致采样延迟" Opacity="0.7"/>
+
     </StackPanel>
 
 
