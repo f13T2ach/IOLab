@@ -1,6 +1,8 @@
 <div align="center"><img height=256 src="https://imgos.cn/2024/08/13/66bb66b870fa7.png"/></div>
 
-<div align="center"><h3>「成龙」智慧实验室</h1></div>
+<div align="center"><h3>「成龙」智慧实验室</h3></div>
+
+<div align="center">全栈实验学习平台</div>
 
 <font color="red">内部仓库，禁止泄露源代码</font>
 
@@ -16,7 +18,7 @@
 - 云端超级<sup>[1]</sup>实验学习平台
 - 深度融合系统UI 丝滑交互体验
 - 高耦合低内聚软件内核 易于扩展
-
+- 可持续性与环保
 ### 实验对象
 
 - 电学物理实验和部分力学物理实验
