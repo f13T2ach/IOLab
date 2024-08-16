@@ -1,0 +1,9 @@
+{
+  "name": "光照水平对植物消耗氧气速率的影响",
+  "experiment": "produce_oxygen",
+  "tags": [ "跨生物", "物理" ],
+  "services": [],
+  "formula":"",
+  "steps":{"A":"B"},
+  "description":""
+}

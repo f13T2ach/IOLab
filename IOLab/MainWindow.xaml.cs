@@ -52,9 +52,11 @@ namespace IOLab
             {
                 return;
             }
+            ReadAssets.ReadLocalServices(); // 必须第一个加载
+
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
-            ReadAssets.ReadLocalServices();
+            
         }
 
         private void StartAppreciations()

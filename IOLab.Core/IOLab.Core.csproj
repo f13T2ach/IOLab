@@ -17,6 +17,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\LocalExperiment\plant_metabolism.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\LocalExperiment\liquid_cl2_modification.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\LocalExperiment\produce_oxygen.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\LocalExperiment\undefined.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

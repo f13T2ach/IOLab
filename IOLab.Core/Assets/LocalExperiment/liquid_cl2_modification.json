@@ -1,0 +1,9 @@
+{
+  "name": "新制氯水的变质速率探究",
+  "experiment": "liquid_cl2_modification",
+  "tags": [ "长时实验" ],
+  "services": [100002],
+  "formula": "",
+  "steps": { "A": "B" },
+  "description": ""
+}

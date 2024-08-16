@@ -32,7 +32,7 @@
                 <StackPanel Grid.Column="0">
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">记录</TextBlock>
-                        
+
                     </Grid>
                     <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
                         <!--最多显示三项-->
@@ -77,9 +77,85 @@
 
                     </ui:ScrollViewerEx>
                 </StackPanel>
-                
+
 
                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
+
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">统计</TextBlock>
+                    </Grid>
+                    <StackPanel HorizontalAlignment="Center" Margin="10,0,0,0" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                            <TextBlock Text="{Binding LocalRecordCount}" TextAlignment="Center" FontSize="36" Width="48"/>
+                            <TextBlock Text="次记录" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                            <TextBlock Text="{Binding LocalExperimentCount}" TextAlignment="Center" FontSize="36" Width="48"/>
+                            <TextBlock Text="条实验" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                            <TextBlock Text="{Binding LocalServicesCount}" TextAlignment="Center" FontSize="36" Width="48"/>
+                            <TextBlock Text="种采集器" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    
+                    <StackPanel Margin="10,0,0,6">
+                        <TextBlock Opacity="0.615" x:Name="StudyProgress" HorizontalAlignment="Left" FontSize="16" Margin="5">化学必修二·学习进度</TextBlock>
+                        <StackPanel 
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Orientation="Horizontal"
+                        Margin="8,0,0,0">
+                            <ProgressBar x:Name="Progress"
+                                Value="100"
+                                Width="320"
+                                Height="10"
+                                Maximum="200"
+                                Style="{StaticResource HorRoundedPbStyle}"
+                                Orientation="Horizontal"
+                                BorderThickness="0">
+                                <ProgressBar.Foreground>
+                                    <LinearGradientBrush SpreadMethod="Repeat">
+                                        <LinearGradientBrush.Transform>
+                                            <TranslateTransform x:Name="LinearGradientBrushTranslate" />
+                                        </LinearGradientBrush.Transform>
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStop Offset="0.00" Color="#FFFF2B88" />
+                                            <GradientStop Offset="0.14" Color="#FFFF9B6A" />
+                                            <GradientStop Offset="0.28" Color="#FFF3D64E" />
+                                            <GradientStop Offset="0.42" Color="#FFDCFF93" />
+                                            <GradientStop Offset="0.56" Color="#FFB8F1CC" />
+                                            <GradientStop Offset="0.70" Color="#FFD9B8F1" />
+                                            <GradientStop Offset="0.85" Color="#FFCA7497" />
+                                            <GradientStop Offset="1.00" Color="#FFFF2B88" />
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </ProgressBar.Foreground>
+                                <ProgressBar.Background>
+                                    <VisualBrush ViewportUnits="Absolute" TileMode="Tile">
+                                        <VisualBrush.Visual>
+                                            <Border Style="{StaticResource Style_SectionBorderStyle}"/>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </ProgressBar.Background>
+                                <ProgressBar.Triggers>
+                                    <EventTrigger RoutedEvent="TextBlock.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="LinearGradientBrushTranslate" Storyboard.TargetProperty="X" From="0" To="700" Duration="0:0:10" RepeatBehavior="Forever" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </ProgressBar.Triggers>
+                            </ProgressBar>
+                            <TextBlock Text="50" Margin="8,0,0,0"/>
+                            <TextBlock Text="%"/>
+                            <TextBlock Text="- 1/2" Margin="4,0,0,0"/>
+                            <TextBlock Text="的内容已完成"/>
+                        </StackPanel>
+                    </StackPanel>
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">公告</TextBlock>
                     </Grid>
@@ -117,16 +193,14 @@
                             <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="14" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">2024/8/13 修复部分用户上报的字体异常问题</TextBlock>
                         </Grid>
                     </Border>
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">公告</TextBlock>
-                    </Grid>
+
                 </StackPanel>
-                
+
             </Grid>
-            <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents</TextBlock>
+            <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents | 在16:9屏幕下具有最佳体验</TextBlock>
 
         </StackPanel>
-        
+
 
     </ui:ScrollViewerEx>
 </ui:Page>

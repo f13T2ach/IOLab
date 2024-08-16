@@ -15,7 +15,7 @@ namespace IOLab.Models.Related
         /// <summary>
         /// PortId必须是对单片机的映射
         /// </summary>
-        public string PortId { get; set; }
+        public string? PortId { get; set; }
 
         public int ChartId { get; set; }
 
