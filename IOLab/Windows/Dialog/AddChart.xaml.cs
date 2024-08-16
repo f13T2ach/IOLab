@@ -107,7 +107,9 @@ namespace IOLab.Windows.Dialog
         public void UpdateComboBox(object sender)
         {
             ToggleButton? button = sender as ToggleButton;
-            string type = button.Content.ToString().Split("_")[0];
+            string name = button.Content.ToString();
+            string type = name.Contains("_") ? name.Split("_")[0] : name;
+            
 
             List<MonitorService> services = new List<MonitorService>();
             foreach (MonitorService item in Bundles.LocalMonitorService)

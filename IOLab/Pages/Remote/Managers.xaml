@@ -10,6 +10,6 @@
       Title="Manager">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock Text="连接成功" Opacity="0.8" FontSize="120" FontWeight="Bold"/>
-        <TextBlock Text="&lt; 能用就行 />" Opacity="0.5" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold"/>
+        <TextBlock Text="&lt; 瑞克五代 />" Opacity="0.5" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold"/>
     </StackPanel>
 </ui:Page>

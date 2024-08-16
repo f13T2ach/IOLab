@@ -43,7 +43,7 @@ namespace IOLab.Pages.ViewModel
 
         // 选中事件
         private ChartTableModel _selectedChart;
-        public ChartTableModel SelectedChart
+        public ChartTableModel? SelectedChart
         {
             get => _selectedChart;
             set
@@ -157,7 +157,7 @@ namespace IOLab.Pages.ViewModel
             });
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

@@ -1,0 +1,9 @@
+{
+  "name": "高锰酸钾制取氧气",
+  "experiment": "produce_oxygen",
+  "tags": [ "课标实验" ],
+  "services": [],
+  "formula": "",
+  "steps": { "A": "B" },
+  "description": ""
+}

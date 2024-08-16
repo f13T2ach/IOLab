@@ -11,6 +11,8 @@ namespace IOLab.Core.Assets
         public static string WelcomeDialog_Hello = "你好";
         public static string WelcomeDialog_Content = "";
 
+        public static string SplitSymbol = "、";
+
         public static string MonitorNotStartYet = "未启动监视";
 
         public static List<string> HeaderTitle = new List<string>()
@@ -32,5 +34,8 @@ namespace IOLab.Core.Assets
         public static string ExceptionCompleted = "IOLab 错误上报已完成，请重新启动程序 ERRCODE:{0}"; // ErrorCode
         public static string PleaseWait = "请稍等";
         public static string InstallCompleted = "准备就绪，即将重新启动";
+
+        public static string NeedToPrepare = "需要准备";
+        public static string Collector = "采集仪器";
     }
 }

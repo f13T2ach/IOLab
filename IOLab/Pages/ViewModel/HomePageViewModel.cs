@@ -30,6 +30,12 @@ namespace IOLab.Pages.ViewModel
             }
         }
 
+        // 统计数据
+
+        public string LocalExperimentCount{ get => Bundles.LocalExperiments.Count > 99 ? "99" : Bundles.LocalExperiments.Count.ToString(); set { } }
+        public string LocalRecordCount { get => Bundles.LocalRecords.Count > 99 ? "99" : Bundles.LocalRecords.Count.ToString(); set { } }
+        public string LocalServicesCount { get => Bundles.LocalMonitorService.Count > 99 ? "99" : Bundles.LocalMonitorService.Count.ToString(); set { } }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
