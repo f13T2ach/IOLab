@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using static IOLab.Core.Models.DeviceService;
 using static IOLab.Core.Models.IOExperiment;
 
 namespace IOLab.Core.Models
@@ -22,12 +21,12 @@ namespace IOLab.Core.Models
         }
 
         // 采集器列表
-        private static List<DeviceService.Service> _localDeviceService = new List<DeviceService.Service>();
+        private static List<MonitorService> _localMonitorService = new List<MonitorService>();
 
-        public static List<DeviceService.Service> LocalDeviceService
+        public static List<MonitorService> LocalMonitorService
         {
-            get { return _localDeviceService; }
-            set { _localDeviceService = value; } 
+            get { return _localMonitorService; }
+            set { _localMonitorService = value; } 
         }
 
         // 本地记录

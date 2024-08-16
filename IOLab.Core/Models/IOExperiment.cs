@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IOLab.Core.Models.DeviceService;
 
 namespace IOLab.Core.Models
 {
@@ -31,8 +30,8 @@ namespace IOLab.Core.Models
         public static Dictionary<string, string> Content { get { return _content; } set { _content = value; } }
 
         // 指标
-        private static List<Service> _parameters = new List<Service>();
-        public static List<Service> Parameters { get => _parameters; set { _parameters = value; } }
+        private static List<MonitorService> _parameters = new List<MonitorService>();
+        public static List<MonitorService> Parameters { get => _parameters; set { _parameters = value; } }
 
         // 描述
         private static string _description;

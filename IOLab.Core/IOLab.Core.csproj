@@ -20,7 +20,7 @@
     <None Update="Assets\LocalExperiment\undefined.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\LocalServices\local_services.json">
+    <None Update="Assets\local_services.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

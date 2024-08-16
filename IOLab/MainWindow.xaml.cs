@@ -54,6 +54,7 @@ namespace IOLab
             }
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
+            ReadAssets.ReadLocalServices();
         }
 
         private void StartAppreciations()
