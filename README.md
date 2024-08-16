@@ -1,8 +1,8 @@
 <div align="center"><img height=256 src="https://imgos.cn/2024/08/13/66bb66b870fa7.png"/></div>
 
-<div align="center"><h3>「成龙」智慧实验室</h1></div>
+<div align="center"><h3>「成龙」智慧实验室</h3></div>
 
-<div align="center"><h3>全栈实验平台</h1></div>
+<div align="center">全栈实验学习平台</div>
 
 <font color="red">内部仓库，禁止泄露源代码</font>
 
