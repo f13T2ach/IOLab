@@ -59,10 +59,7 @@ namespace IOLab.Pages.ViewModel
 
         public MonitorPageViewModel()
         {
-            if (MappedChartTables == null)
-            {
-                MappedChartTables = new ObservableCollection<ChartTableModel>();
-            }
+            MappedChartTables ??= new ObservableCollection<ChartTableModel>();
             
 
             SelectChartCommand = new RelayCommand(OnChartSelected);
