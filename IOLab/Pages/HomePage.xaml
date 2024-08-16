@@ -117,7 +117,11 @@
                             <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="14" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">2024/8/13 修复部分用户上报的字体异常问题</TextBlock>
                         </Grid>
                     </Border>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">公告</TextBlock>
+                    </Grid>
                 </StackPanel>
+                
             </Grid>
             <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents</TextBlock>
 
