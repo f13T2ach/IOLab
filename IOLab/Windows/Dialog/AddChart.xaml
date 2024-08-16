@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:IOLab.Windows.Dialog"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf" xmlns:viewmodel="clr-namespace:IOLab.Windows.Dialog.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddChartViewModel}"
     mc:Ignorable="d"
     Title="新建监视器"
     PrimaryButtonText="提交变动"  
@@ -39,8 +39,9 @@
         </StackPanel>
 
         <Grid Margin="0,5,0,5">
-            <TextBlock Text="采集模板" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
-            <ComboBox Height="32" Width="300" IsTextSearchEnabled = "True" IsEditable = "True" Margin="0,0,5,0" HorizontalAlignment="Right"/>
+            <TextBlock Text="采集方案" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
+            <ComboBox DisplayMemberPath="Name" SelectionChanged="ServiceComboBox_SelectionChanged" x:Name="ServiceComboBox" Height="32" Width="300" IsTextSearchEnabled = "True" IsEditable = "True" Margin="0,0,5,0" HorizontalAlignment="Right">
+            </ComboBox>
         </Grid>
         <Grid Margin="0,5,0,5">
             <TextBlock Text="表名(留空自动生成)" FontSize="15" Margin="6" HorizontalAlignment="Left"/>

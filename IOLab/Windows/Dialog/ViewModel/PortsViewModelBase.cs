@@ -12,7 +12,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static IOLab.Core.Models.DeviceService;
 
 namespace IOLab.Windows.Dialog.ViewModel
 {
@@ -94,7 +93,7 @@ namespace IOLab.Windows.Dialog.ViewModel
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        public void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

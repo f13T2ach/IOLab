@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IOLab.Core.Models.DeviceService;
 
 namespace IOLab.Core.Models
 {
@@ -19,7 +18,7 @@ namespace IOLab.Core.Models
 
         public string PortId { get; set; }
 
-        public Service ChartSevice { get; set; }
+        public MonitorService ChartSevice { get; set; }
 
         public bool IsSelected {
             get => _isSelected;

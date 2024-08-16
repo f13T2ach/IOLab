@@ -23,6 +23,7 @@ using LiveCharts.Wpf;
 using IOLab.Core.Config;
 using IOLab.Core.Serial;
 using IOLab.Core.Models;
+using System.Collections.ObjectModel;
 
 namespace IOLab.Windows.Dialog
 {
@@ -35,7 +36,7 @@ namespace IOLab.Windows.Dialog
         bool IsValidPortSelected = false;
 
         public string PortID { get; private set; }
-        public DeviceService.Service Service { get; private set; }// 采集方案
+        public MonitorService Service { get; private set; }// 采集方案
         public string ChartXRow { get; private set; }
         public int ChartID { get; private set; }
         public AddChart()
@@ -86,6 +87,9 @@ namespace IOLab.Windows.Dialog
 
             // 重复冗余结束
 
+            // 重建combobox
+            UpdateComboBox(sender);
+
             viewModel.SelectedPortID = button.Content.ToString();
 
             if (button.IsChecked == true)
@@ -100,6 +104,21 @@ namespace IOLab.Windows.Dialog
             CheckUserContents();
         }
 
+        public void UpdateComboBox(object sender)
+        {
+            ToggleButton? button = sender as ToggleButton;
+            string type = button.Content.ToString().Split("_")[0];
+
+            List<MonitorService> services = new List<MonitorService>();
+            foreach (MonitorService item in Bundles.LocalMonitorService)
+            {
+                if (type == item.PortType)
+                {
+                    services.Add(item);
+                }
+            }
+            ServiceComboBox.ItemsSource = services;
+        }
         private void chartIDInput_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             CheckUserContents();
@@ -111,35 +130,57 @@ namespace IOLab.Windows.Dialog
             {
                 TipFor99.Visibility = Visibility.Visible;
             }
-            bool flag = IsValidPortSelected;
-            if(!flag) {
+            // 检查选择端口是否有效
+            if(!IsValidPortSelected) {
                 IsPrimaryButtonEnabled = false;
                 return;
             }
-            
+
+            // 检查是否选用模板了
+            MonitorService service = (MonitorService)ServiceComboBox.SelectedItem;
+            if(service == null)
+            {
+                IsPrimaryButtonEnabled = false;
+                return;
+            }
+
             int count = 0;
             foreach (ChartTableModel chart in InstanceBundle.ChartTables)
             {
                 if (chart.Id == chartIDInput.Value)
                 {
-                    flag = false; // 检查是否企图定义正在使用的端口
+                    IsPrimaryButtonEnabled = false;
+                    return;
                 }
                 count++;
             }
             if(count >= InternalConfig.MaxChartNumber)
             {
-                flag = false; // 检查是否超过限制
+                IsPrimaryButtonEnabled = false;
+                return;
             }
 
-            IsPrimaryButtonEnabled = flag;
+            IsPrimaryButtonEnabled = true;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             PortID = viewModel.SelectedPortID;
             ChartID = (int)chartIDInput.Value;
-            // Service = ...
-            ChartXRow = chartNameInput.Text;
+            Service = (MonitorService)ServiceComboBox.SelectedItem;
+            if(chartNameInput.Text == "")
+            {
+                ChartXRow = $"{Service.Name}";
+            }
+            else
+            {
+                ChartXRow = $"{chartNameInput.Text}";
+            }
+        }
+
+        private void ServiceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CheckUserContents();
         }
     }
 }

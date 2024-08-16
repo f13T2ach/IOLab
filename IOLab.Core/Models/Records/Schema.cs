@@ -9,7 +9,6 @@ using static IOLab.Core.Models.IOExperiment;
 using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using static IOLab.Core.Models.DeviceService;
 
 namespace IOLab.Core.Models.Records
 {
@@ -23,8 +22,8 @@ namespace IOLab.Core.Models.Records
         public string Description { get => _description; set { _description = value; } }
 
         // 指标详情
-        private List<Service> _parameters = new List<Service>();
-        public List<Service> Parameters { get => _parameters; set { _parameters = value; } }
+        private List<MonitorService> _parameters = new List<MonitorService>();
+        public List<MonitorService> Parameters { get => _parameters; set { _parameters = value; } }
 
         private IOExperiment _experiment;
         public IOExperiment Experiment { get => _experiment; set { _experiment = value; } }

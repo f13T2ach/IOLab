@@ -1,12 +1,12 @@
 [
   {
-    "name": "ÑõÆø´«¸ÐÆ÷",
+    "name": "æ°§æ°”ä¼ æ„Ÿå™¨",
     "serviceID": 100001,
     "type": "I2C",
     "yrow": "%"
   },
   {
-    "name": "PH´«¸ÐÆ÷",
+    "name": "PHä¼ æ„Ÿå™¨",
     "serviceID": 100002,
     "type": "EXT",
     "yrow": ""
