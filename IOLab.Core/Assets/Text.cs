@@ -31,6 +31,6 @@ namespace IOLab.Core.Assets
         public static string ExceptionUploadFailed = "IOLab 出现致命错误，且无法上传错误记录 ERRCODE:{0}_{1}"; //ErrorCode NetworkErrorCode
         public static string ExceptionCompleted = "IOLab 错误上报已完成，请重新启动程序 ERRCODE:{0}"; // ErrorCode
         public static string PleaseWait = "请稍等";
-        public static string InstallCompleted = "已完成准备，即将重新启动";
+        public static string InstallCompleted = "准备就绪，即将重新启动";
     }
 }
