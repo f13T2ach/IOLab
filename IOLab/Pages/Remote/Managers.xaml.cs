@@ -33,7 +33,7 @@ namespace IOLab.Pages.Remote
             InitializeComponent();
             ManagersViewModel viewModel = new ManagersViewModel();
             this.DataContext = viewModel;
-            InitInformation();
+            // InitInformation();
         }
 
         private void InitInformation()
@@ -43,6 +43,7 @@ namespace IOLab.Pages.Remote
             
         }
 
+        /**
         private async void Rename_Click(object sender, RoutedEventArgs e)
         {
             DeviceName dn = new DeviceName();
@@ -58,6 +59,6 @@ namespace IOLab.Pages.Remote
 
             // 处理更名业务
             InitInformation(); //成功后变更
-        }
+        }**/
     }
 }
