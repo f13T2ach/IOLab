@@ -4,12 +4,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:IOLab.Pages.Remote"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:IOLab.Pages.Remote" xmlns:viewmodel="clr-namespace:IOLab.Pages.Remote.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ManagersViewModel}"
+         mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="Manager">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock Text="连接成功" Opacity="0.8" FontSize="120" FontWeight="Bold"/>
         <TextBlock Text="&lt; 瑞克五代 />" Opacity="0.5" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Width="50" Height="50" Foreground="Red" ToolTip="断开连接" Command="{Binding DisconnectCommand}" Padding="6" Cursor="Hand">
+                <ui:FontIcon FontSize="22" Icon="{x:Static ui:SegoeFluentIcons.DisconnectDrive}"/>
+            </Button>
+        </StackPanel>
     </StackPanel>
 </ui:Page>
