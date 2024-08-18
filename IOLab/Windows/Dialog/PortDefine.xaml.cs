@@ -63,7 +63,7 @@ namespace IOLab.Windows.Dialog
             }
             else
             {
-                chartNameText.Text = model.XRow.ToString();
+                chartNameText.Text = model.Name.ToString();
                 chartServiceText.Text = model.ChartSevice.Name;
             }
 

@@ -63,12 +63,12 @@
 
             <Separator Width="400" Margin="0,12,0,0"/>
             <StackPanel Margin="12" Orientation="Vertical" HorizontalAlignment="Center" Width="400">
-            <Button Width="400" Height="58" Padding="0" Cursor="Hand">
+                <Button Width="400" Height="58" Padding="0" Cursor="Hand" x:Name="AboutOSPButton" Click="AboutOSPButton_Click">
                 <StackPanel Width="400" HorizontalAlignment="Left" Orientation="Horizontal" Height="58">
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}" Margin="10,4,4,4"/>
                         <StackPanel Margin="4" Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock Margin="5,2,5,0" FontSize="16" Text="开源项目引用"/>
-                        <TextBlock Margin="5,0,0,0" Opacity="0.5" Text="点此查看开源项目引用列表"/>
+                        <TextBlock Margin="5,2,5,0" FontSize="16" Text="开源项目和 API"/>
+                        <TextBlock Margin="5,0,0,0" Opacity="0.5" Text="点此查看开源项目和 API 引用列表"/>
                     </StackPanel>
                 </StackPanel>
             </Button>

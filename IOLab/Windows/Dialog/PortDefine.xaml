@@ -43,9 +43,8 @@
         <TextBlock x:Name="chartServiceText" Text="未选中" FontSize="20"/>
         <TextBlock Text="可用快捷操作" Opacity="0.7"/>
         <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-            
-            <Button Content="终止采集" IsEnabled="True" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="0,0,5,0"/>
-            <Button Content="开启日志监听功能" IsEnabled="True"/>
+
+            <Button Content="..." IsEnabled="True" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="0,0,5,0"/>
         </StackPanel>
         
     </StackPanel>

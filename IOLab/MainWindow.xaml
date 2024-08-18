@@ -16,7 +16,7 @@
                        SelectionChanged="NavigationView_SelectionChanged" Margin="0,0,0,0">
 
         <ui:NavigationView.FooterMenuItems>
-            <ui:NavigationViewItem x:Name="NavigationViewItem_About" Content="About">
+            <ui:NavigationViewItem x:Name="NavigationViewItem_About" Content="关于">
                 <ui:NavigationViewItem.Icon>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}"/>
                 </ui:NavigationViewItem.Icon>
@@ -24,19 +24,19 @@
         </ui:NavigationView.FooterMenuItems>
 
         <ui:NavigationView.MenuItems>
-            <ui:NavigationViewItem x:Name="NavigationViewItem_Home" Content="Home">
+            <ui:NavigationViewItem x:Name="NavigationViewItem_Home" Content="实验">
                 <ui:NavigationViewItem.Icon>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Home}"/>
                 </ui:NavigationViewItem.Icon>
             </ui:NavigationViewItem>
 
-            <ui:NavigationViewItem x:Name="NavigationViewItem_Remote" Content="Remote">
+            <ui:NavigationViewItem x:Name="NavigationViewItem_Remote" Content="管理">
                 <ui:NavigationViewItem.Icon>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ConnectApp}"/>
                 </ui:NavigationViewItem.Icon>
             </ui:NavigationViewItem>
 
-            <ui:NavigationViewItem x:Name="NavigationViewItem_Monitor" Content="Monitor">
+            <ui:NavigationViewItem x:Name="NavigationViewItem_Monitor" Content="监视">
                 <ui:NavigationViewItem.Icon>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Diagnostic}"/>
                 </ui:NavigationViewItem.Icon>
@@ -44,7 +44,7 @@
 
 
 
-            <ui:NavigationViewItem x:Name="NavigationViewItem_Setting" Content="Settings">
+            <ui:NavigationViewItem x:Name="NavigationViewItem_Setting" Content="设置">
                 <ui:NavigationViewItem.Icon>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Settings}"/>
                 </ui:NavigationViewItem.Icon>

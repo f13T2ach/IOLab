@@ -1,6 +1,5 @@
 ﻿using IOLab.Commands;
 using IOLab.Core.Models;
-using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

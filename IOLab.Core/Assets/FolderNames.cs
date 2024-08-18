@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IOLab.Core.Assets
 {
-    internal class FolderNames
+    public class FolderNames
     {
         public static string Slash = @"\";
         public static string AssetsFolder = "Assets";
