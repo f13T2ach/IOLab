@@ -33,7 +33,6 @@ namespace IOLab.Pages
 
         private void Preparations()
         {
-            MainWindow mw = new MainWindow();
             EquationImage.Source = BitmapFrame.Create(
                 new Uri(Util.LaTeXImage.GetRequestUrl(Static.Theme.themeMode == ApplicationTheme.Dark, @"\ce{Ba^2+ + SO4^2- = BaSO4 v}")), 
                 BitmapCreateOptions.None, 

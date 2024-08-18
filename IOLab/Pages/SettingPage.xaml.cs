@@ -4,6 +4,7 @@ using IOLab.Static;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,9 +30,11 @@ namespace IOLab.Pages
     {
 
         private int TotalClick = 0;
+        private bool isLoaded = false;
         public SettingPage()
         {
             InitializeComponent();
+            isLoaded = true;
             LoadSettings();
 
             InitializeColorPicker();
@@ -40,12 +43,8 @@ namespace IOLab.Pages
 
         private void LoadSettings()
         {
-
-        }
-
-        private void SaveAllSettings()
-        {
-
+            ComboBox_ThemeMode.SelectedIndex = Properties.Settings.Default.ThemeSelection;
+            
         }
 
         // 颜色选取器载入
@@ -80,6 +79,8 @@ namespace IOLab.Pages
             if(ColorPickerComboBox.SelectedItem is ColorItem selectedColor)
             {
                 new ThemeResources().AccentColor = selectedColor.Color.Color;
+                Properties.Settings.Default["AccentColorHex"] = selectedColor.Color.Color.ToString();
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -98,29 +99,15 @@ namespace IOLab.Pages
         // 主题改变
         private void ComboBox_ThemeMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = ComboBox_ThemeMode.SelectedIndex;
-
-            if(index == -1)
+            if (!isLoaded)
             {
                 return;
-            }else if(index == 0)
-            {
-                if (Util.ThemeMode.GetSystemDarkMode())
-                {
-                    Static.Theme.themeMode = iNKORE.UI.WPF.Modern.ApplicationTheme.Dark;
-                }
-                else
-                {
-                    Static.Theme.themeMode = iNKORE.UI.WPF.Modern.ApplicationTheme.Light;
-                }
-            }else if(index == 1)
-            {
-                Static.Theme.themeMode = iNKORE.UI.WPF.Modern.ApplicationTheme.Light;
             }
-            else
-            {
-                Static.Theme.themeMode = iNKORE.UI.WPF.Modern.ApplicationTheme.Dark;
-            }
+            int index = ComboBox_ThemeMode.SelectedIndex;
+            MainWindow.ChangeThemeByIndex(index);
+
+            Properties.Settings.Default["ThemeSelection"] = index;
+            Properties.Settings.Default.Save();
         }
 
         private void EntryOfGame_MouseDown(object sender, MouseButtonEventArgs e)
