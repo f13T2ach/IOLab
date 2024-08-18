@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -15,6 +16,8 @@ namespace IOLab.Pages.ViewModel
     {
         public ObservableCollection<Schema> RecordsSchema { get; set; }
         public ObservableCollection<IOExperiment> IOExperiments { get; set; }
+
+        public Visibility CanShowNoRecordText { get => RecordsSchema.Count==0?Visibility.Visible:Visibility.Hidden; protected set { } }
         public HomePageViewModel() {
             // 读入实验
             RecordsSchema = new ObservableCollection<Schema>();

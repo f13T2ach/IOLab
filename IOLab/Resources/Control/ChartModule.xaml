@@ -66,7 +66,9 @@
 
             <ControlTemplate.Triggers>
                 <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                    <Setter Property="BorderBrush" TargetName="ChartBorder" Value="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
+                    <!--修复存在表格时调整颜色导致颜色不改变的问题-->
+                    <Setter Property="BorderBrush" TargetName="ChartBorder" Value="{Binding DataContext.AccentColor, RelativeSource={RelativeSource AncestorType=Page}}"/>
+
                     <Setter Property="BorderThickness" TargetName="ChartBorder" Value="2"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding IsSelected}" Value="False">
