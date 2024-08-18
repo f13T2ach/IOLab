@@ -1,0 +1,40 @@
+﻿<ui:ContentDialog
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    
+    x:Class="IOLab.Windows.Dialog.Universal.ExperimentDetail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:IOLab.Windows.Dialog.Universal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Binding"
+    PrimaryButtonText="实践"
+    CloseButtonText="取消"
+    DefaultButton="Primary"
+    >
+
+    <ui:ContentDialog.Resources>
+        <ui:Flyout x:Key="UnableSaveFlyout">
+            <StackPanel>
+                <TextBlock Text="请连接采集仪器后再试"/>
+                <Button Content="了解"/>
+            </StackPanel>
+        </ui:Flyout>
+    </ui:ContentDialog.Resources>
+
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TextBlock Name="body" TextWrapping="Wrap" Margin="0,-10,0,10">
+            <TextBlock.Text>
+                Binding
+            </TextBlock.Text>
+        </TextBlock>
+        <TextBlock FontWeight="Bold">实验简介</TextBlock>
+        <TextBlock HorizontalAlignment="Left" Width="360" TextWrapping="Wrap">Binding</TextBlock>
+        <TextBlock FontWeight="Bold">传感器</TextBlock>
+        <TextBlock HorizontalAlignment="Left" Width="360" TextWrapping="Wrap">Binding</TextBlock>
+
+        <TextBlock FontWeight="Bold" Margin="0,4,0,0">实验步骤</TextBlock>
+        <TextBlock>Binding</TextBlock>
+    </StackPanel>
+</ui:ContentDialog>

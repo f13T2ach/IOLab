@@ -78,6 +78,9 @@
     <Compile Update="Windows\Dialog\SaveRecords.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\Dialog\Universal\ExperimentDetail.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Dialog\Universal\OpenWebLink.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

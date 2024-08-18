@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
       xmlns:local="clr-namespace:IOLab.Pages.Appreciations"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
+      WindowTitle="IOLab - 配置程序"
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="Cover" Loaded="Page_Loaded">
     <Grid>
@@ -37,7 +38,7 @@
                 </EventTrigger>
             </TextBlock.Triggers>
         </TextBlock>
-        <TextBlock Margin="32,360,0,0" Text="探索 实践 总结" Opacity="0.8" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Margin="32,330,0,0" Text="探索 实践 总结" Opacity="0.8" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         <TextBlock x:Name="LoadText" Text="请稍等" FontSize="20" Margin="32,0,0,64" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <StackPanel 

@@ -15,14 +15,7 @@
     DefaultButton="Primary"
     >
 
-    <ui:ContentDialog.Resources>
-        <ui:Flyout x:Key="UnableSaveFlyout">
-            <StackPanel>
-                <TextBlock Text="无法保存修改"/>
-                <Button Content="了解"/>
-            </StackPanel>
-        </ui:Flyout>
-    </ui:ContentDialog.Resources>
+    
 
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <TextBlock Name="body" TextWrapping="Wrap" Width="420" Margin="0,-10,0,10">
