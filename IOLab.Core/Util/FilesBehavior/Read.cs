@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IOLab.Core.Util.FilesBehavior
 {
-    internal static class Read
+    public static class Read
     {
         /// <summary>
         /// UTF8读取文件

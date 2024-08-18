@@ -20,6 +20,12 @@ namespace IOLab.Core.Assets
             
         };
 
+        public static string[] TipForFun = new string[]
+        {
+            "来看看这是什么记录",
+            "虚空索敌？",
+            "操作无效",
+        };
         public static string ConnectTimeOut = "连接超时";
 
         public static string ReceivingMessageFromIONet = "正在从 IONet 收取信息";

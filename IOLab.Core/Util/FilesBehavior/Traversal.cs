@@ -7,7 +7,7 @@ using IOLab.Core.Util;
 
 namespace IOLab.Core.Util.FilesBehavior
 {
-    internal class Traversal
+    public class Traversal
     {
         /// <summary>
         /// 获取所有文件夹下文件

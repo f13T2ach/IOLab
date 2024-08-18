@@ -1,4 +1,5 @@
-﻿using iNKORE.UI.WPF.Modern.Controls;
+﻿using iNKORE.UI.WPF.Modern;
+using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Models;
 using IOLab.Core.Serial;
@@ -15,6 +16,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -41,6 +43,8 @@ namespace IOLab.Pages.ViewModel
 
         public ICommand AddNewChartCommand { get; set; }
 
+        public ICommand SaveRecordsCommand { get; set; }
+
         // 选中事件
         private ChartTableModel _selectedChart;
         public ChartTableModel? SelectedChart
@@ -65,6 +69,7 @@ namespace IOLab.Pages.ViewModel
             SelectChartCommand = new RelayCommand(OnChartSelected);
             RemoveSelectedChartsCommand = new RelayCommand(RemoveSelectedCharts);
             AddNewChartCommand = new RelayCommand(AddNewChart);
+            SaveRecordsCommand = new RelayCommand(SaveMyRecords);
         }
 
         public event EventHandler<ChartSelectionChangedEventArgs> ChartSelectionChanged;
@@ -139,6 +144,19 @@ namespace IOLab.Pages.ViewModel
             System.Diagnostics.Debug.WriteLine($"移除了共 {selectedCharts.Count()} 个选中的表");
         }
 
+        // 保存表
+        private async void SaveMyRecords(object sender)
+        {
+            SaveRecords saveRecords;
+            if (MappedChartTables.Count == 0)
+            {
+                saveRecords = new SaveRecords(0);
+                await saveRecords.ShowAsync();
+                return;
+            }
+            saveRecords = new SaveRecords(1);
+            var result = await saveRecords.ShowAsync();
+        }
         // 新增一个表
         private async void AddNewChart(object sender)
         {
@@ -148,12 +166,13 @@ namespace IOLab.Pages.ViewModel
             {
                 return;
             }
-            MappedChartTables.Add(new ChartTableModel
+            MappedChartTables.Add(new ChartTableModel(add.Service.YRow, add.ChartName, (new ThemeResources().AccentColor.ToString()))
             {
                 Id = add.ChartID,
-                XRow = add.ChartXRow,
+                XRow = "秒",
                 PortId = add.PortID,
-                ChartSevice = add.Service
+                ChartSevice = add.Service,
+                
             });
         }
 

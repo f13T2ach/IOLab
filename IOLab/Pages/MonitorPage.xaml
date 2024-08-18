@@ -1,12 +1,12 @@
 ﻿<ui:Page x:Class="IOLab.Pages.MonitorPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=HB.LiveCharts.Wpf"
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ct="clr-namespace:IOLab.Resources.Control"
-      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:local1="clr-namespace:IOLab.Resources.Control"
-        mc:Ignorable="d" 
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:local1="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MonitorPageViewModel}"
+         mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
       >
     <Page.Resources>
@@ -75,14 +75,14 @@
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AddBold}" />
                 </Button>
                 <ui:AppBarSeparator/>
-                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="保存" Padding="5,5,5,5" >
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="保存" Command="{Binding SaveRecordsCommand}" Padding="5,5,5,5" >
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Save}" />
                 </Button>
-                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="打开项目" Padding="5,5,5,5" >
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OpenFile}"  />
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="..." Padding="5,5,5,5" >
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Cancel}"  />
                 </Button>
-                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="导出" Padding="5,5,5,5" >
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Export}" />
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="..." Padding="5,5,5,5" >
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Cancel}"  />
                 </Button>
 
             </StackPanel>

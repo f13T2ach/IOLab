@@ -19,7 +19,6 @@ using System.Windows.Controls.Primitives;
 using IOLab.Windows.Dialog.ViewModel;
 using IOLab.Models.Related;
 using IOLab.Pages.ViewModel;
-using LiveCharts.Wpf;
 using IOLab.Core.Config;
 using IOLab.Core.Serial;
 using IOLab.Core.Models;
@@ -37,7 +36,7 @@ namespace IOLab.Windows.Dialog
 
         public string PortID { get; private set; }
         public MonitorService Service { get; private set; }// 采集方案
-        public string ChartXRow { get; private set; }
+        public string ChartName { get; private set; }
         public int ChartID { get; private set; }
         public AddChart()
         {
@@ -172,11 +171,11 @@ namespace IOLab.Windows.Dialog
             Service = (MonitorService)ServiceComboBox.SelectedItem;
             if(chartNameInput.Text == "")
             {
-                ChartXRow = $"{Service.Name}";
+                ChartName = $"{Service.Name}";
             }
             else
             {
-                ChartXRow = $"{chartNameInput.Text}";
+                ChartName = $"{chartNameInput.Text}";
             }
         }
 

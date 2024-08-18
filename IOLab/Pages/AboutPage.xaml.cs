@@ -44,5 +44,10 @@ namespace IOLab.Pages
         {
             await new OpenWebLink(URLBundle.DGYZWebsite).ShowAsync();
         }
+
+        private async void AboutOSPButton_Click(object sender, RoutedEventArgs e)
+        {
+            await new QuoteOSP().ShowAsync();
+        }
     }
 }
