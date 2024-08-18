@@ -17,7 +17,17 @@ namespace IOLab.Core.Util.FilesBehavior
         public static List<string> GetAllFiles(string dir,int level)
         {
             DirectoryInfo d = new DirectoryInfo(dir);
-            FileSystemInfo[] fsinfos = d.GetFileSystemInfos();
+            FileSystemInfo[] fsinfos;
+            try
+            {
+                fsinfos = d.GetFileSystemInfos();
+            }
+            catch
+            {
+                DirectoryInfo newdir = new DirectoryInfo(dir);
+                newdir.Create();
+                return null;
+            }
             List<string> dirs = new List<string>();
             foreach (FileSystemInfo fsinfo in fsinfos)
             {

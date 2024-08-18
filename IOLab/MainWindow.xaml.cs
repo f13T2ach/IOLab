@@ -1,6 +1,6 @@
 ﻿using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Local;
+using IOLab.Core.Generic;
 using IOLab.Core.Models.Records;
 using IOLab.Pages.Appreciations;
 using System;
