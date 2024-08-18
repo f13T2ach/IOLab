@@ -3,7 +3,7 @@
     "name": "氧气传感器",
     "serviceID": 100001,
     "type": "I2C",
-    "yrow": "浓度%"
+    "yrow": "ppm%"
   },
   {
     "name": "pH传感器",

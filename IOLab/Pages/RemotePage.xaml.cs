@@ -1,24 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Page = iNKORE.UI.WPF.Modern.Controls.Page;
-
-using IOLab.Pages.Remote;
-using iNKORE.UI.WPF.Modern.Controls;
-using iNKORE.UI.WPF.Modern;
-using IOLab.Pages.ViewModel;
+﻿using iNKORE.UI.WPF.Modern;
 using IOLab.Core.Serial;
+using IOLab.Pages.Remote;
+using IOLab.Pages.ViewModel;
+using System;
+using System.Windows.Media.Imaging;
+using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab.Pages
 {
@@ -38,7 +24,7 @@ namespace IOLab.Pages
 
         private void Preparations()
         {
-            if(InstanceBundle.connectTool == null)
+            if (InstanceBundle.connectTool == null)
             {
                 ViewField.Navigate(PageRemote_NoRemoteTarget);
             }
@@ -46,7 +32,7 @@ namespace IOLab.Pages
             {
                 ViewField.Navigate(PageRemote_Managers);
             }
-            
+
             ShallowShadow.Source = BitmapFrame.Create(
                 new Uri(Static.Theme.themeMode == ApplicationTheme.Dark ? @"pack://application:,,,/Resources/Images/Tiny/ShallowShadowDark.png" : "pack://application:,,,/Resources/Images/Tiny/ShallowShadow.png"),
                 BitmapCreateOptions.None,

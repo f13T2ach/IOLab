@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IOLab.Core.Util;
-
-namespace IOLab.Core.Util.FilesBehavior
+﻿namespace IOLab.Core.Util.FilesBehavior
 {
     public class Traversal
     {
@@ -14,7 +7,7 @@ namespace IOLab.Core.Util.FilesBehavior
         /// </summary>
         /// <param name="dir">文件夹地址</param>
         /// <param name="level">搜索深度</param>
-        public static List<string> GetAllFiles(string dir,int level)
+        public static List<string> GetAllFiles(string dir, int level)
         {
             DirectoryInfo d = new DirectoryInfo(dir);
             FileSystemInfo[] fsinfos;
@@ -33,7 +26,7 @@ namespace IOLab.Core.Util.FilesBehavior
             {
                 if (fsinfo is DirectoryInfo && level > 1)
                 {
-                    dirs = Collection.Merge<string>(dirs,GetAllFiles(fsinfo.FullName,level-1));
+                    dirs = Collection.Merge<string>(dirs, GetAllFiles(fsinfo.FullName, level - 1));
                 }
                 else
                 {

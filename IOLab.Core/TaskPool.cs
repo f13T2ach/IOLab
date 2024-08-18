@@ -1,10 +1,4 @@
 ﻿using IOLab.Core.Interfaces.Threads;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace IOLab.Core
 {
@@ -12,15 +6,16 @@ namespace IOLab.Core
     {
         List<ITaskAnnounce> tasks;
 
-        public TaskPool() {
+        public TaskPool()
+        {
             tasks = new List<ITaskAnnounce>();
         }
 
         public ITaskAnnounce FindTaskByTag(string tag)
         {
-            foreach(ITaskAnnounce announcer in tasks)
+            foreach (ITaskAnnounce announcer in tasks)
             {
-                if(announcer.Tag == tag)
+                if (announcer.Tag == tag)
                 {
                     return announcer;
                 }

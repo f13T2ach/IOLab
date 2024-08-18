@@ -1,17 +1,10 @@
-﻿using IOLab.Commands;
-using IOLab.Core.Models;
+﻿using IOLab.Core.Models;
 using IOLab.Core.Serial;
 using IOLab.Models.Related;
-using IOLab.Pages.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace IOLab.Windows.Dialog.ViewModel
 {
@@ -19,10 +12,13 @@ namespace IOLab.Windows.Dialog.ViewModel
     {
         public ObservableCollection<PortPair> MyPorts { get; set; }
         private string _selectedPortID = "?";
-        public string SelectedPortID { get=>_selectedPortID; set {
+        public string SelectedPortID
+        {
+            get => _selectedPortID; set
+            {
                 _selectedPortID = value;
                 OnPropertyChanged(nameof(SelectedPortID));
-            } 
+            }
         }
         public PortsViewModelBase()
         {
@@ -39,8 +35,8 @@ namespace IOLab.Windows.Dialog.ViewModel
             //List<Service> services = InstanceBundle.services;
             foreach (string port in ports)
             {
-                
-                PortPair target = new PortPair {PortId=port,ChartId=0,IsChecked=false };
+
+                PortPair target = new PortPair { PortId = port, ChartId = 0, IsChecked = false };
                 /**
                 // 寻找监听列表 看是否匹配
                 if(services != null)
@@ -57,7 +53,7 @@ namespace IOLab.Windows.Dialog.ViewModel
                 // 寻找表列表，看是否有匹配的
                 foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                 {
-                    if(chart.PortId == port)
+                    if (chart.PortId == port)
                     {
                         target.ChartId = chart.Id;
                         target.IsChecked = true;
@@ -71,9 +67,9 @@ namespace IOLab.Windows.Dialog.ViewModel
         // 可优化 PortPair的用法
         public PortPair FindPortPairByContent(string content)
         {
-            foreach(PortPair item in MyPorts)
+            foreach (PortPair item in MyPorts)
             {
-                if(item.PortId == content)
+                if (item.PortId == content)
                 {
                     return item;
                 }
@@ -85,7 +81,8 @@ namespace IOLab.Windows.Dialog.ViewModel
         {
             foreach (ChartTableModel chart in InstanceBundle.ChartTables)
             {
-                if (chart.PortId == pair.PortId) {
+                if (chart.PortId == pair.PortId)
+                {
                     return chart;
                 }
             }

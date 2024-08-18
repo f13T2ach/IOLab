@@ -3,18 +3,13 @@ using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Models;
 using IOLab.Core.Serial;
-using IOLab.Models.Related;
 using IOLab.Pages.Event.MonitorPages;
 using IOLab.Windows.Dialog;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -38,7 +33,7 @@ namespace IOLab.Pages.ViewModel
 
         // 获取主题色并转换成 hex 再转换成 SolidColorBrush
         public SolidColorBrush AccentColor { get => new SolidColorBrush((Color)ColorConverter.ConvertFromString(new ThemeResources().AccentColor.ToString())); set { } }
-        
+
         // RelayCommand实现
         public ICommand SelectChartCommand { get; set; }
         public ICommand RemoveSelectedChartsCommand { get; set; }
@@ -66,7 +61,7 @@ namespace IOLab.Pages.ViewModel
         public MonitorPageViewModel()
         {
             MappedChartTables ??= new ObservableCollection<ChartTableModel>();
-            
+
 
             SelectChartCommand = new RelayCommand(OnChartSelected);
             RemoveSelectedChartsCommand = new RelayCommand(RemoveSelectedCharts);
@@ -174,7 +169,7 @@ namespace IOLab.Pages.ViewModel
                 XRow = "秒",
                 PortId = add.PortID,
                 ChartSevice = add.Service,
-                
+
             });
         }
 

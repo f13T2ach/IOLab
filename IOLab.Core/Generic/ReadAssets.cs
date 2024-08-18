@@ -3,12 +3,6 @@ using IOLab.Core.Models;
 using IOLab.Core.Models.Records;
 using IOLab.Core.Util.FilesBehavior;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IOLab.Core.Generic
 {
@@ -20,7 +14,7 @@ namespace IOLab.Core.Generic
             List<string> records = Traversal.GetAllFiles(root, 1);
             if (records == null)
             {
-                
+
                 return;
             }
             foreach (string record in records)

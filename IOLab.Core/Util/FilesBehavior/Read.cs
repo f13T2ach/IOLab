@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace IOLab.Core.Util.FilesBehavior
 {
@@ -23,7 +18,7 @@ namespace IOLab.Core.Util.FilesBehavior
                 UTF8Encoding temp = new UTF8Encoding(true);
                 while (fs.Read(b, 0, b.Length) > 0)
                 {
-                    content+= (temp.GetString(b) + "\n");
+                    content += (temp.GetString(b) + "\n");
                 }
             }
             return content;

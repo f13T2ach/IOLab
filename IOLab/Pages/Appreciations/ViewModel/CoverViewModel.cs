@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IOLab.Pages.Appreciations.ViewModel
+﻿namespace IOLab.Pages.Appreciations.ViewModel
 {
     internal class CoverViewModel
     {
@@ -25,7 +19,7 @@ namespace IOLab.Pages.Appreciations.ViewModel
         {
             get
             {
-                return (int)(_ProgressValue/2);
+                return (int)(_ProgressValue / 2);
             }
         }
     }

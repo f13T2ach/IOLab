@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using iNKORE.UI.WPF.Modern.Controls.Primitives;
-using IOLab.Interfaces.ViewModel;
+﻿using IOLab.Interfaces.ViewModel;
 namespace IOLab.Util.StaticModel
 {
     class DeviceName : INameEditViewModel
     {
         private static string? _title;
-        public static string? Title {
+        public static string? Title
+        {
             get
             {
                 return _title;

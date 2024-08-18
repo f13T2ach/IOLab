@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Page = iNKORE.UI.WPF.Modern.Controls.Page;
-using System.Threading;
-using Windows.Media.Transcoding;
-using IOLab.Core.Tasks;
-using IOLab.Core.Serial;
+﻿using IOLab.Core;
 using IOLab.Core.Interfaces.Threads;
-using IOLab.Core;
+using IOLab.Core.Serial;
+using IOLab.Core.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Navigation;
+using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab.Pages.Remote
 {
@@ -52,9 +40,9 @@ namespace IOLab.Pages.Remote
             // 等待对话
             Windows.Dialog.ManualConnect mc = new Windows.Dialog.ManualConnect();
             var result = await mc.ShowAsync();
-            if(!Windows.Dialog.ViewModel.ManualConnectViewModel.isConfirmed)
+            if (!Windows.Dialog.ViewModel.ManualConnectViewModel.isConfirmed)
             {
-                return; 
+                return;
             }
             int index = MyDataContainer.selectedItemIndex;
 
@@ -68,7 +56,7 @@ namespace IOLab.Pages.Remote
         private async void TryConnect(int index, string[]? array)
         {
             ConnectTool ct = new ConnectTool();
-            if(array != null)
+            if (array != null)
             {
                 ct.InitializeSerialSet(array[index]);
                 Exception? result = ct.OpenComport();
@@ -81,9 +69,9 @@ namespace IOLab.Pages.Remote
                         st
                     };
 
-                    
+
                     await st.task.ConfigureAwait(false);
-                    
+
                     // 判断错误返回
                     if (st.task.Result.ToString() != "")
                     {
@@ -124,7 +112,7 @@ namespace IOLab.Pages.Remote
 
         private void RefreshConfig_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

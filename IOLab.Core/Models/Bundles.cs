@@ -1,11 +1,4 @@
 ﻿using IOLab.Core.Models.Records;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel;
-using static IOLab.Core.Models.IOExperiment;
 
 namespace IOLab.Core.Models
 {
@@ -26,7 +19,7 @@ namespace IOLab.Core.Models
         public static List<MonitorService> LocalMonitorService
         {
             get { return _localMonitorService; }
-            set { _localMonitorService = value; } 
+            set { _localMonitorService = value; }
         }
 
         // 本地记录

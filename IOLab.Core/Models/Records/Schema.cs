@@ -1,13 +1,5 @@
-﻿using IOLab.Core.Util.FilesBehavior;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IOLab.Core.Assets;
-using static IOLab.Core.Models.IOExperiment;
-using System.Data;
-using Newtonsoft.Json;
+﻿using IOLab.Core.Assets;
+using IOLab.Core.Util.FilesBehavior;
 using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Models.Records
@@ -16,7 +8,7 @@ namespace IOLab.Core.Models.Records
     {
         // 名称不能重复 因此可以用来检索
         private string _name;
-        public string Name { get => _name;set { _name = value; } }
+        public string Name { get => _name; set { _name = value; } }
 
         private string _description;
         public string Description { get => _description; set { _description = value; } }
@@ -32,7 +24,7 @@ namespace IOLab.Core.Models.Records
         public List<string> RecordJSONData { get => _recordJSONData; set { _recordJSONData = value; } }
 
         private long _time;
-        public long Time { get => _time;set { _time = value; } }
+        public long Time { get => _time; set { _time = value; } }
 
         /// <summary>
         /// 构造函数
@@ -41,7 +33,7 @@ namespace IOLab.Core.Models.Records
         public Schema(string address)
         {
             // 完善路径
-            if (!address.EndsWith(@"\")|| !address.EndsWith(@"/"))
+            if (!address.EndsWith(@"\") || !address.EndsWith(@"/"))
             {
                 address += @"\";
             }
@@ -50,15 +42,15 @@ namespace IOLab.Core.Models.Records
 
             // 遍历文件夹寻找资源
             List<string> files = Traversal.GetAllFiles(address, 1);
-            foreach(string file in files)
+            foreach (string file in files)
             {
                 if (file.StartsWith(FileNames.RecordDetail))
                 {
                     // 读取JSON数据
                     string? content = Read.ReadFileUTF8(address + file);
                     if (content != null)
-                    { 
-                        recordDetail = JObject.Parse(content); 
+                    {
+                        recordDetail = JObject.Parse(content);
                     }
                 }
                 else if (file.StartsWith(FileNames.ChartDataPrefix))

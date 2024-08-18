@@ -1,20 +1,7 @@
 ﻿using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Assets;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace IOLab.Windows.Dialog
 {
@@ -30,7 +17,8 @@ namespace IOLab.Windows.Dialog
         public SaveRecords(int mode)
         {
             InitializeComponent();
-            switch (mode) {
+            switch (mode)
+            {
                 case 0:
                     ConatinerA.Visibility = Visibility.Hidden;
                     ConatinerB.Visibility = Visibility.Visible;

@@ -1,14 +1,7 @@
 ﻿using IOLab.Core.Assets;
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Serial;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 // 注意！！正式做串口通信要修改测试代码
 namespace IOLab.Core;
@@ -39,7 +32,7 @@ public class ConnectTool
         UartPort.ParityCheckBit = 0; // 不校验
 
         // 测试 
-        UartPort.Ports = new List<string> { "I2C_1","I2C_2","EXT_A","EXT_B" };
+        UartPort.Ports = new List<string> { "I2C_1", "I2C_2", "EXT_A", "EXT_B" };
     }
 
     public Exception? OpenComport()

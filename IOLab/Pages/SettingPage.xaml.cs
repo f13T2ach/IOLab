@@ -1,28 +1,18 @@
 ﻿using iNKORE.UI.WPF.Modern;
 using IOLab.Models.Related;
 using IOLab.Static;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 
 namespace IOLab.Pages
 {
 
-    
+
     /// <summary>
     /// Interaction logic for SettingPage.xaml
     /// </summary>
@@ -44,7 +34,7 @@ namespace IOLab.Pages
         private void LoadSettings()
         {
             ComboBox_ThemeMode.SelectedIndex = Properties.Settings.Default.ThemeSelection;
-            
+
         }
 
         // 颜色选取器载入
@@ -63,7 +53,7 @@ namespace IOLab.Pages
 
             Color? setColor = new ThemeResources().AccentColor;
             // 遍历找到设置颜色
-            for (int index=0;index<colors.Count;index++)
+            for (int index = 0; index < colors.Count; index++)
             {
                 ColorItem item = colors[index];
                 if (item.Color.Color == setColor)
@@ -76,7 +66,7 @@ namespace IOLab.Pages
         }
         private void ColorPickerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(ColorPickerComboBox.SelectedItem is ColorItem selectedColor)
+            if (ColorPickerComboBox.SelectedItem is ColorItem selectedColor)
             {
                 new ThemeResources().AccentColor = selectedColor.Color.Color;
                 Properties.Settings.Default["AccentColorHex"] = selectedColor.Color.Color.ToString();
@@ -87,7 +77,7 @@ namespace IOLab.Pages
         // 连接社区
         private async void ToggleSwitch_UseOnlineCommunity_Toggled(object sender, RoutedEventArgs e)
         {
-            if(ToggleSwitch_UseOnlineCommunity.IsOn == false)
+            if (ToggleSwitch_UseOnlineCommunity.IsOn == false)
             {
                 return; // 下面的语句会重新触发此方法
             }
@@ -113,12 +103,12 @@ namespace IOLab.Pages
         private void EntryOfGame_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TotalClick++;
-            if(TotalClick == 6)
+            if (TotalClick == 6)
             {
                 TotalClick = 0;
             }
         }
 
-        
+
     }
 }

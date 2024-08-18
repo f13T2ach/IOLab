@@ -1,28 +1,12 @@
 ﻿using iNKORE.UI.WPF.Modern.Controls;
-using System;
+using IOLab.Core.Config;
+using IOLab.Core.Models;
+using IOLab.Core.Serial;
+using IOLab.Windows.Dialog.ViewModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using IOLab.Interfaces.ViewModel;
-using iNKORE.UI.WPF.Modern;
-using iNKORE.UI.WPF.Helpers;
 using System.Windows.Controls.Primitives;
-using IOLab.Windows.Dialog.ViewModel;
-using IOLab.Models.Related;
-using IOLab.Pages.ViewModel;
-using IOLab.Core.Config;
-using IOLab.Core.Serial;
-using IOLab.Core.Models;
-using System.Collections.ObjectModel;
 
 namespace IOLab.Windows.Dialog
 {
@@ -47,14 +31,14 @@ namespace IOLab.Windows.Dialog
             InitContent(); //初始化内容
             CheckUserContents();
 
-            
+
         }
 
         private void InitContent()
         {
             // 获取表ID最大值
             int maxID = 0;
-            foreach(ChartTableModel chart in InstanceBundle.ChartTables)
+            foreach (ChartTableModel chart in InstanceBundle.ChartTables)
             {
                 if (chart.Id > maxID)
                 {
@@ -65,7 +49,7 @@ namespace IOLab.Windows.Dialog
 
             chartIDInput.Value = maxID;
 
-            
+
         }
 
         // 此处与 PortDefine 重复冗余
@@ -108,7 +92,7 @@ namespace IOLab.Windows.Dialog
             ToggleButton? button = sender as ToggleButton;
             string name = button.Content.ToString();
             string type = name.Contains("_") ? name.Split("_")[0] : name;
-            
+
 
             List<MonitorService> services = new List<MonitorService>();
             foreach (MonitorService item in Bundles.LocalMonitorService)
@@ -127,19 +111,20 @@ namespace IOLab.Windows.Dialog
 
         private void CheckUserContents()
         {
-            if(chartIDInput.Value == 99)
+            if (chartIDInput.Value == 99)
             {
                 TipFor99.Visibility = Visibility.Visible;
             }
             // 检查选择端口是否有效
-            if(!IsValidPortSelected) {
+            if (!IsValidPortSelected)
+            {
                 IsPrimaryButtonEnabled = false;
                 return;
             }
 
             // 检查是否选用模板了
             MonitorService service = (MonitorService)ServiceComboBox.SelectedItem;
-            if(service == null)
+            if (service == null)
             {
                 IsPrimaryButtonEnabled = false;
                 return;
@@ -155,7 +140,7 @@ namespace IOLab.Windows.Dialog
                 }
                 count++;
             }
-            if(count >= InternalConfig.MaxChartNumber)
+            if (count >= InternalConfig.MaxChartNumber)
             {
                 IsPrimaryButtonEnabled = false;
                 return;
@@ -169,7 +154,7 @@ namespace IOLab.Windows.Dialog
             PortID = viewModel.SelectedPortID;
             ChartID = (int)chartIDInput.Value;
             Service = (MonitorService)ServiceComboBox.SelectedItem;
-            if(chartNameInput.Text == "")
+            if (chartNameInput.Text == "")
             {
                 ChartName = $"{Service.Name}";
             }
