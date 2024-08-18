@@ -33,6 +33,7 @@ namespace IOLab
         public MainWindow()
         {
             Prepare();
+
             App.AlreadyInit = true;
             InitializeComponent();
             //测试代码
@@ -52,10 +53,15 @@ namespace IOLab
             {
                 return;
             }
-            ReadAssets.ReadLocalServices(); // 必须第一个加载
 
+            // 读取设置
+            ChangeThemeByIndex(Properties.Settings.Default.ThemeSelection);
+            new ThemeResources().AccentColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.AccentColorHex);
+
+            ReadAssets.ReadLocalServices(); // 必须第一个加载
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
+
             
         }
 
@@ -64,7 +70,7 @@ namespace IOLab
             
             NavigationView_Root.Visibility = Visibility.Hidden;
             Frame_Secondary.Visibility = Visibility.Visible;
-            ChangeTheme(ApplicationTheme.Dark);
+            Static.Theme.themeMode = ApplicationTheme.Dark;
             Cover cover = new Cover();
             Frame_Secondary.Navigate(cover);
         }
@@ -121,10 +127,36 @@ namespace IOLab
         }
 
 
+        /// <summary>
+        /// 使用Static.Theme.themeMode = theme;调用而不是次方法
+        /// </summary>
+        /// <param name="theme"></param>
         public static void ChangeTheme(ApplicationTheme theme)
         {
             ThemeManager.Current.ApplicationTheme = theme;
-            
+        }
+
+        public static void ChangeThemeByIndex(int index)
+        {
+            if (index == 0)
+            {
+                if (Util.ThemeMode.GetSystemDarkMode())
+                {
+                    Static.Theme.themeMode = ApplicationTheme.Dark;
+                }
+                else
+                {
+                    Static.Theme.themeMode = ApplicationTheme.Light;
+                }
+            }
+            else if (index == 1)
+            {
+                Static.Theme.themeMode = ApplicationTheme.Light;
+            }
+            else if(index ==2)
+            {
+                Static.Theme.themeMode = ApplicationTheme.Dark;
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)

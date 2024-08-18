@@ -36,7 +36,7 @@ namespace IOLab.Pages.ViewModel
             }
         }
 
-        // 获取主题色并转换成 hex 再转换成SolidColorBrush
+        // 获取主题色并转换成 hex 再转换成 SolidColorBrush
         public SolidColorBrush AccentColor { get => new SolidColorBrush((Color)ColorConverter.ConvertFromString(new ThemeResources().AccentColor.ToString())); set { } }
         
         // RelayCommand实现
