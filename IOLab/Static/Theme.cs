@@ -1,10 +1,5 @@
 ﻿using iNKORE.UI.WPF.Modern;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace IOLab.Static
 {
@@ -12,9 +7,10 @@ namespace IOLab.Static
     {
         private static ApplicationTheme _themeMode;
         public static ApplicationTheme themeMode
-        { 
+        {
             get { return _themeMode; }
-            set { 
+            set
+            {
                 _themeMode = value;
                 MainWindow.ChangeTheme(_themeMode);
             }

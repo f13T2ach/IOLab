@@ -1,11 +1,6 @@
 ﻿using IOLab.Core.Assets;
 using IOLab.Core.Util.FilesBehavior;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IOLab.Core.Models
 {
@@ -39,7 +34,7 @@ namespace IOLab.Core.Models
         public string Description { get => _description; set { _description = value; } }
         // ui应用的实际名称
         private string _realName;
-        public string RealName {get{ return _realName; } set{ _realName = value; } }
+        public string RealName { get { return _realName; } set { _realName = value; } }
 
         /// <summary>
         /// 本地实验构造函数
@@ -51,7 +46,7 @@ namespace IOLab.Core.Models
             PackageName = Path.GetFileNameWithoutExtension(Read.GetLastLevelName(address));
             // 读取所有内容
             JObject json = JObject.Parse(Read.ReadFileUTF8(address));
-            
+
             // 读取名称和化学方程式
             Name = json["name"].ToString();
             Formula = json["formula"].ToString();
@@ -62,7 +57,7 @@ namespace IOLab.Core.Models
             if (tags.Count != 0)
             {
                 // 获取小标签
-                foreach(var item in tags)
+                foreach (var item in tags)
                 {
                     string str = item.ToString();
                     Tags.Add(str);
@@ -74,7 +69,7 @@ namespace IOLab.Core.Models
 
             // 读取步骤
             JObject stepsNode = (JObject)json["steps"];
-            foreach(var child in stepsNode)
+            foreach (var child in stepsNode)
             {
                 Content.Add(child.Key, child.Value.ToString());
             }
@@ -82,16 +77,16 @@ namespace IOLab.Core.Models
             // 读取指标
             string preloadDescription = "";
             JArray services = (JArray)json["services"];
-            foreach(var child in services)
+            foreach (var child in services)
             {
                 int id = (int)child;
 
-                foreach(MonitorService service in Bundles.LocalMonitorService)
+                foreach (MonitorService service in Bundles.LocalMonitorService)
                 {
-                    if(service.Id == id)
+                    if (service.Id == id)
                     {
                         Parameters.Add(service);
-                        preloadDescription += service.Name+ Text.SplitSymbol;
+                        preloadDescription += service.Name + Text.SplitSymbol;
                         break;
                     }
                 }

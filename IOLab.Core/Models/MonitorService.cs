@@ -1,12 +1,4 @@
-﻿
-using IOLab.Core.Models;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Models
 {
@@ -25,11 +17,12 @@ namespace IOLab.Core.Models
         public int Id { get => _id; set => _id = value; }
         public string YRow { get => _yRow; set => _yRow = value; }
 
-        public MonitorService(JObject data) {
-             Name = data["name"].ToString();
-             Id = (int)data["serviceID"];
-             PortType = data["type"].ToString();
-             YRow = data["yrow"].ToString();
+        public MonitorService(JObject data)
+        {
+            Name = data["name"].ToString();
+            Id = (int)data["serviceID"];
+            PortType = data["type"].ToString();
+            YRow = data["yrow"].ToString();
         }
     }
 }

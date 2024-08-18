@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IOLab.Core.Util
+﻿namespace IOLab.Core.Util
 {
     // 使用Int存储时间是危险的
     public static class Time
@@ -32,10 +26,11 @@ namespace IOLab.Core.Util
         /// <param name="timeStamp">时间戳</param>
         /// <param name="onlyDate">只要日期</param>
         /// <returns></returns>
-        public static string GetDateTime(long timeStamp,bool onlyDate = true)
+        public static string GetDateTime(long timeStamp, bool onlyDate = true)
         {
             long lTime = timeStamp;
-            if (onlyDate) {
+            if (onlyDate)
+            {
                 return DateTimeOffset.FromUnixTimeSeconds(lTime).LocalDateTime.ToShortDateString();
             }
             else

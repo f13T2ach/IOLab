@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using LiveChartsCore;
+﻿using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView.VisualElements;
-using Microsoft.Windows.Themes;
 using SkiaSharp;
 
 namespace IOLab.Core.Models
@@ -51,7 +42,8 @@ namespace IOLab.Core.Models
                 new LineSeries<double>
                 {
                     Values = new double[] { 2, 1, 3, 5, 3, 4, 6 },
-                    Name = yrow
+                    Name = yrow,
+
                 }
             };
 

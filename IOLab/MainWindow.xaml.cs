@@ -1,24 +1,10 @@
 ﻿using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Generic;
-using IOLab.Core.Models.Records;
 using IOLab.Pages.Appreciations;
 using System;
-using System.Collections.Generic;
-using System.DirectoryServices.ActiveDirectory;
-using System.Linq;
-using System.Printing.IndexedProperties;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab
@@ -62,23 +48,23 @@ namespace IOLab
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
 
-            
+
         }
 
         private void StartAppreciations()
         {
-            
+
             NavigationView_Root.Visibility = Visibility.Hidden;
             Frame_Secondary.Visibility = Visibility.Visible;
             Static.Theme.themeMode = ApplicationTheme.Dark;
             Cover cover = new Cover();
             Frame_Secondary.Navigate(cover);
         }
-        
+
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            
+
             var item = sender.SelectedItem;
             Page? page = null;
 
@@ -97,12 +83,12 @@ namespace IOLab
                 Pages.MonitorPage Page_Monitor = new Pages.MonitorPage();
                 page = Page_Monitor;
             }
-            else if(item == NavigationViewItem_Setting)
+            else if (item == NavigationViewItem_Setting)
             {
                 Pages.SettingPage Page_Setting = new Pages.SettingPage();
                 page = Page_Setting;
             }
-            else if(item == NavigationViewItem_About)
+            else if (item == NavigationViewItem_About)
             {
                 Pages.AboutPage Page_About = new Pages.AboutPage();
                 page = Page_About;
@@ -122,8 +108,8 @@ namespace IOLab
                 return;
             }
             NavigationView_Root.SelectedItem = NavigationViewItem_Home;
-            
-            
+
+
         }
 
 
@@ -153,7 +139,7 @@ namespace IOLab
             {
                 Static.Theme.themeMode = ApplicationTheme.Light;
             }
-            else if(index ==2)
+            else if (index == 2)
             {
                 Static.Theme.themeMode = ApplicationTheme.Dark;
             }
@@ -172,5 +158,5 @@ namespace IOLab
             //base.OnClosed(e);
         }
     }
-    
+
 }

@@ -1,25 +1,10 @@
 ﻿using iNKORE.UI.WPF.Modern.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using IOLab.Interfaces.ViewModel;
-using iNKORE.UI.WPF.Modern;
-using iNKORE.UI.WPF.Helpers;
-using System.Windows.Controls.Primitives;
-using IOLab.Windows.Dialog.ViewModel;
-using IOLab.Models.Related;
-using IOLab.Core.Models;
 using IOLab.Core.Assets;
+using IOLab.Core.Models;
+using IOLab.Models.Related;
+using IOLab.Windows.Dialog.ViewModel;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace IOLab.Windows.Dialog
 {
@@ -49,7 +34,7 @@ namespace IOLab.Windows.Dialog
             isEditedFlag = true;
 
             button.IsChecked = !button.IsChecked;
-            
+
 
             viewModel.SelectedPortID = button.Content.ToString();
             // 处理事件

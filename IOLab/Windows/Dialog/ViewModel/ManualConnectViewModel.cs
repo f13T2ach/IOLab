@@ -1,11 +1,5 @@
 ﻿using IOLab.Core.Serial;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 
@@ -23,10 +17,12 @@ namespace IOLab.Windows.Dialog.ViewModel
         private int _indexOfSelection;
         public int IndexOfSelection
         {
-            get { 
+            get
+            {
                 return _indexOfSelection;
             }
-            set { 
+            set
+            {
                 _indexOfSelection = value;
                 MyDataContainer.selectedItemIndex = value;
             }
@@ -56,7 +52,8 @@ namespace IOLab.Windows.Dialog.ViewModel
             ObservableCollection<string> collection = new ObservableCollection<string>();
             Scanner scanner = new Scanner();
             _comIDArray = scanner.ScanAllSerial();
-            foreach ( string item in _comIDArray)  {
+            foreach (string item in _comIDArray)
+            {
                 collection.Add(item);
             }
             return collection;
