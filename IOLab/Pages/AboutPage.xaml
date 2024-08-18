@@ -104,7 +104,7 @@
             </Button>
 
             <StackPanel Orientation="Horizontal" Height="20" Margin="0,40,0,0" HorizontalAlignment="Center">
-                <TextBlock Opacity="0.7">阿里云提供云计算支持</TextBlock>
+                <TextBlock Opacity="0.7">实名仅用作著作权标志，开源后不再显示人名</TextBlock>
             </StackPanel>
         </StackPanel>
 
