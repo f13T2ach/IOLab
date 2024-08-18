@@ -35,7 +35,9 @@ namespace IOLab.Pages.ViewModel
                 OnPropertyChanged(nameof(MappedChartTables));
             }
         }
-        
+
+        // 获取主题色并转换成 hex 再转换成SolidColorBrush
+        public SolidColorBrush AccentColor { get => new SolidColorBrush((Color)ColorConverter.ConvertFromString(new ThemeResources().AccentColor.ToString())); set { } }
         
         // RelayCommand实现
         public ICommand SelectChartCommand { get; set; }

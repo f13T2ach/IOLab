@@ -35,20 +35,23 @@
 
                     </Grid>
                     <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
-                        <!--最多显示三项-->
-                        <ItemsControl ItemsSource="{Binding RecordsSchema}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <lab:RecordDetail/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
+                        <Grid>
+                            <TextBlock HorizontalAlignment="Center" Visibility="{Binding CanShowNoRecordText}" Text="没有记录" VerticalAlignment="Center"/>
+                            <!--最多显示三项-->
+                            <ItemsControl ItemsSource="{Binding RecordsSchema}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <lab:RecordDetail/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
 
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Grid>
 
                     </ui:ScrollViewerEx>
 
