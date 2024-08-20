@@ -9,17 +9,110 @@
          mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="Manager">
-    <Grid>
-        <cyct:InfoBar Margin="0,10,0,0" Visibility="Hidden" x:Name="MyInfoBar"/>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        
-        <TextBlock Text="连接成功" Opacity="0.8" FontSize="120" FontWeight="Bold"/>
-        <TextBlock Text="&lt; 瑞克五代 />" Opacity="0.5" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Width="50" Height="50" Foreground="Red" ToolTip="断开连接" Command="{Binding DisconnectCommand}" Padding="6" Cursor="Hand">
-                <ui:FontIcon FontSize="22" Icon="{x:Static ui:SegoeFluentIcons.DisconnectDrive}"/>
-            </Button>
-        </StackPanel>
-    </StackPanel>
-    </Grid>
+    <ui:ScrollViewerEx>
+        <Grid>
+
+            <cyct:InfoBar Margin="0,10,0,0" Visibility="Hidden" x:Name="MyInfoBar"/>
+            <Grid>
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    <TextBlock Text="认证通过" FontStyle="Italic" TextAlignment="Right" Opacity="0.5" FontSize="64" FontWeight="Bold"/>
+                    <TextBlock Text="Connected" FontStyle="Italic"  TextAlignment="Right" Opacity="0.5" FontSize="64" FontWeight="Bold"/>
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <StackPanel Orientation="Vertical" Margin="50" Width="640" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Grid>
+                        <TextBlock FontSize="30" Text="瑞克五代" FontWeight="Bold" FontStyle="Italic" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0">
+                            <TextBlock Text="负载" FontSize="20"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="70" FontWeight="Bold" FontStyle="Italic" FontSize="60"/>
+                                <TextBlock Text="%" VerticalAlignment="Bottom" FontWeight="Bold" FontStyle="Italic" FontSize="25"/>
+                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SmartcardVirtual}" VerticalAlignment="Top" Foreground="#0078D7" FontSize="25"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <TextBlock Text="存储" FontSize="20"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="20" FontWeight="Bold" FontStyle="Italic" FontSize="60"/>
+                                <TextBlock Text="%" VerticalAlignment="Bottom" FontWeight="Bold" FontStyle="Italic" FontSize="25"/>
+                                <!--<ui:FontIcon VerticalAlignment="Top" Foreground="Yellow" FontSize="25"/>-->
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="2">
+                            <TextBlock Text="电量" FontSize="20"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="--" FontWeight="Bold" FontStyle="Italic" FontSize="60"/>
+                                <TextBlock Text="%" VerticalAlignment="Bottom" FontWeight="Bold" FontStyle="Italic" FontSize="25"/>
+                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Leaf}" VerticalAlignment="Top" Foreground="#FF00D477" FontSize="25"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <ui:ScrollViewerEx Orientation="Horizontal">
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Vertical" Grid.Column="0">
+                                <TextBlock Text="RFID 状态" FontSize="20"  Margin="0,0,0,5"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:FontIcon FontSize="70" Icon="{x:Static ui:SegoeFluentIcons.PaymentCard}" />
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="8,5,5,5">
+                                        <TextBlock Text="授权系统未启用" FontSize="20"/>
+                                        <TextBlock Text="配置后仅能使用卡片启动采集器" FontSize="15"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <TextBlock Text="固件状态" HorizontalAlignment="Right" FontSize="20"  Margin="0,0,0,5"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="8,5,5,5">
+                                        <TextBlock Text="固件已是最新" TextAlignment="Right" FontSize="20"/>
+                                        <TextBlock Text="固件版本 V1.0.0 与官网版本一致" TextAlignment="Right" FontSize="15"/>
+                                    </StackPanel>
+                                    <ui:FontIcon FontSize="70" Icon="{x:Static ui:SegoeFluentIcons.AppIconDefault}" />
+                                </StackPanel>
+
+                            </StackPanel>
+                        </Grid>
+                    </ui:ScrollViewerEx>
+                    <ui:ScrollViewerEx Orientation="Horizontal">
+                        <Grid Margin="0,8,0,0">
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <TextBlock Text="操作" FontSize="20"  Margin="0,0,0,5"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,8,0">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Width="50" Height="50" Foreground="Red" ToolTip="断开连接" Command="{Binding DisconnectCommand}" Padding="6" Cursor="Hand">
+                                                <ui:FontIcon FontSize="22" Icon="{x:Static ui:SegoeFluentIcons.DisconnectDrive}"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,8,0">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Width="50" Height="50"  ToolTip="RFID 配置" Command="{Binding DisconnectCommand}" Padding="6" Cursor="Hand">
+                                                <ui:FontIcon FontSize="22" Icon="{x:Static ui:SegoeFluentIcons.PaymentCard}"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </ui:ScrollViewerEx>
+                </StackPanel>
+            </Grid>
+
+
+        </Grid>
+    </ui:ScrollViewerEx>
 </ui:Page>

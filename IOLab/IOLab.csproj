@@ -79,6 +79,9 @@
     <Compile Update="Windows\Dialog\AddChart.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\Dialog\RFIDConfig.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Dialog\QuoteOSP.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
