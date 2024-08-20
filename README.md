@@ -86,7 +86,7 @@ IOCore是上位机的固件，由C语言开发而成，采用串口通信的方�
 
 #### IOLab
 
-**推荐配置**：至少64MB的磁盘空间，正常配置CPU，GeForce GTX660，Windows10
+**推荐配置**：至少64MB的磁盘空间，至少2GB可用内存，Intel酷睿7代或以上，GeForce GTX660，Windows10 64-bit
 
 #### IOCore
 
