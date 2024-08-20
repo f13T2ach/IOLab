@@ -1,0 +1,213 @@
+﻿<UserControl x:Class="IOLab.Resources.Control.Cyber.InfoBar"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:IOLab.Resources.Control.Cyber"
+      mc:Ignorable="d" >
+    <UserControl.Resources>
+        <DrawingImage x:Key="Cyber_Info_Bar">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing>
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="0,39,38,14"></RectangleGeometry>
+                            </GeometryDrawing.Geometry>
+                            <GeometryDrawing.Brush>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
+                                        <TextBlock Text="PROTOCOL&#13;IOLAB-DVCE" TextAlignment="Center"  FontFamily="{StaticResource BlenderProBold}"  FontSize="1" Foreground="#FF00D477"></TextBlock>
+
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                        <DrawingGroup Transform="1,0,0,1,45.737,0">
+                            <DrawingGroup.Children>
+                                <DrawingGroup Transform="1,0,0,1,0,0.428">
+                                    <DrawingGroup.Children>
+                                        <GeometryDrawing Brush="#FF00D477">
+                                            <GeometryDrawing.Geometry>
+                                                <PathGeometry FillRule="Nonzero" Figures="M385.5992126464844,36.74648666381836L5.198433399200439,36.4489631652832 0.4999890625476837,34.42597198486328 0.4999890625476837,1.211432218551636 8.455188751220703,1.211432218551636 8.516139030456543,1.211432218551636 8.575339317321777,1.196782231330872 11.37837982177734,0.502963662147522 392.08203125,0.07254818826913834 392.08203125,10.25728225708008 392.08203125,10.75728225708008 392.58203125,10.75728225708008 396.080078125,10.75728225708008 396.080078125,22.64498138427734 392.58203125,22.64498138427734 392.08203125,22.64498138427734 392.08203125,23.14498138427734 392.08203125,28.23799705505371 385.5992126464844,36.74648666381836z" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+
+                                        <GeometryDrawing Brush="#FF00C588">
+                                            <GeometryDrawing.Geometry>
+                                                <PathGeometry FillRule="Nonzero" Figures="M391.58203125,0.5731124877929688L11.4395751953125,1.002895355224609 8.57708740234375,1.711383819580078 1,1.711383819580078 1,34.09688568115234 5.3016357421875,35.94904327392578 385.3517456054688,36.24629592895508 391.58203125,28.06926345825195 391.58203125,22.14498138427734 395.580078125,22.14498138427734 395.580078125,11.25728225708008 391.58203125,11.25728225708008 391.58203125,0.5731124877929688 M392.58203125,-0.4280166625976562L392.58203125,10.25728225708008 396.580078125,10.25728225708008 396.580078125,23.14498138427734 392.58203125,23.14498138427734 392.58203125,28.40678215026855 385.8466796875,37.24668121337891 5.0950927734375,36.94888305664062 0,34.75508117675781 0,0.7113838195800781 8.4552001953125,0.7113838195800781 11.317138671875,0.003032684326171875 392.58203125,-0.4280166625976562z" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingGroup.Children>
+                                </DrawingGroup>
+                                <GeometryDrawing Brush="{x:Null}">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF00C588" Thickness="1.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                    <GeometryDrawing.Geometry>
+                                        <LineGeometry StartPoint="0,0" EndPoint="0,25.479" Transform="1,0,0,1,11.16,6.098" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup.Children>
+                        </DrawingGroup>
+                        <DrawingGroup Transform="1,0,0,1,396.237,44.669">
+                            <DrawingGroup.Children>
+
+                                <DrawingGroup Transform="1,0,0,1,0.983,1.015">
+                                    <DrawingGroup.Children>
+                                        <GeometryDrawing Brush="#FF00D477">
+                                            <GeometryDrawing.Geometry>
+                                                <PathGeometry FillRule="Nonzero" Figures="M7.515225410461426,0.4852409362792969L0.5172958374023438,7.461158752441406 0.5172958374023438,9.868040084838867 8.017505645751953,17.50754165649414 10.78690910339355,17.50754165649414 18.13671684265137,9.876402854919434 18.13671684265137,7.479477882385254 10.82300472259521,0.4852409362792969 7.515225410461426,0.4852409362792969 M6.895286560058594,-1.014759063720703L11.42479610443115,-1.014759063720703 19.63671684265137,6.838451385498047 19.63671684265137,10.48129081726074 11.42479610443115,19.00754165649414 7.388086318969727,19.00754165649414 -0.9827041625976562,10.48129081726074 -0.9827041625976562,6.838451385498047 6.895286560058594,-1.014759063720703z" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingGroup.Children>
+                                </DrawingGroup>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Brush>
+                                        <SolidColorBrush Color="#FF00D477" Opacity="1" Transform="1,0,0,1,8.5,3.015" />
+                                    </GeometryDrawing.Brush>
+                                    <GeometryDrawing.Geometry>
+                                        <PathGeometry FillRule="Nonzero" Figures="M1,0L3.146,0 3.146,4.5 4,4.5 4,11.983 2.1,14 0,11.983 0,4.5 1,4.5z" Transform="1,0,0,1,8.5,3.015" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="{x:Null}">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF00D477" Thickness="0.6" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                    <GeometryDrawing.Geometry>
+                                        <PathGeometry FillRule="Nonzero" Figures="M4,0L-0.214,3.878" Transform="1,0,0,1,4,4.015" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="{x:Null}">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF00D477" Thickness="0.6" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                    <GeometryDrawing.Geometry>
+                                        <LineGeometry StartPoint="0,0" EndPoint="4,3.5" Transform="1,0,0,1,13,4.015" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="{x:Null}">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF00D477" Thickness="0.6" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                    <GeometryDrawing.Geometry>
+                                        <LineGeometry StartPoint="5,0" EndPoint="0,4.5" Transform="1,0,0,1,3,6.015" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="{x:Null}">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF00D477" Thickness="0.6" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                    <GeometryDrawing.Geometry>
+                                        <LineGeometry StartPoint="0,0" EndPoint="5,4.5" Transform="1,0,0,1,13,6.015" />
+                                    </GeometryDrawing.Geometry>
+
+                                </GeometryDrawing>
+                                <GeometryDrawing x:Name="WarningBar_FadingLog">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="-350,-3,80,11"></RectangleGeometry>
+                                    </GeometryDrawing.Geometry>
+                                    <GeometryDrawing.Brush>
+                                        <VisualBrush>
+                                            <VisualBrush.Visual>
+                                                <TextBlock Text="IOLab.Monitor.VersionCtrlInfoEvent&#13;EventLoader" FontFamily="{StaticResource BlenderProThin}"  FontSize="20" Foreground="#FF00D477"></TextBlock>
+
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </GeometryDrawing.Brush>
+                                </GeometryDrawing>
+
+                            </DrawingGroup.Children>
+
+                        </DrawingGroup>
+                        <DrawingGroup Transform="1,0,0,1,0,0.947">
+                            <DrawingGroup.Children>
+                                <DrawingGroup Transform="1,0,0,1,3,0">
+                                    <DrawingGroup.Children>
+                                        <GeometryDrawing Brush="{x:Null}">
+                                            <GeometryDrawing.Pen>
+                                                <Pen Brush="#FF00D477" Thickness="3" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <EllipseGeometry RadiusX="15.5" RadiusY="15.5" Center="17,17" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingGroup.Children>
+                                </DrawingGroup>
+                                <GeometryDrawing Brush="{x:Null}">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF00D477" Thickness="3" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                    <GeometryDrawing.Geometry>
+                                        <LineGeometry StartPoint="0,0" EndPoint="0,13" Transform="1,0,0,1,20,7" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Brush>
+                                        <SolidColorBrush Color="#FF00D477" Opacity="1" Transform="1,0,0,1,17.5,23" />
+                                    </GeometryDrawing.Brush>
+                                    <GeometryDrawing.Geometry>
+                                        <EllipseGeometry RadiusX="2.5" RadiusY="2.5" Center="2.5,2.5" Transform="1,0,0,1,17.5,23" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Brush>
+                                        <SolidColorBrush Color="#FF00D477" Opacity="1" Transform="1,0,0,1,0,4" />
+                                    </GeometryDrawing.Brush>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,3,6" Transform="1,0,0,1,0,4" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Brush>
+                                        <SolidColorBrush Color="#FF00D477" Opacity="1" Transform="1,0,0,1,37,4" />
+                                    </GeometryDrawing.Brush>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,3,6" Transform="1,0,0,1,37,4" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Brush>
+                                        <SolidColorBrush Color="#FF00D477" Opacity="1" Transform="1,0,0,1,0,25" />
+                                    </GeometryDrawing.Brush>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,3,6" Transform="1,0,0,1,0,25" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Brush>
+                                        <SolidColorBrush Color="#FF00D477" Opacity="1" Transform="1,0,0,1,37,26" />
+                                    </GeometryDrawing.Brush>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,3,6" Transform="1,0,0,1,37,26" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="418,45,12,16"></RectangleGeometry>
+                                    </GeometryDrawing.Geometry>
+                                    <GeometryDrawing.Brush>
+                                        <VisualBrush>
+                                            <VisualBrush.Visual>
+                                                <TextBlock Text="A80D90&#xA;C87F6D&#xA;A80D90&#xA;C87F6D" FontFamily="{StaticResource BlenderProThin}"  FontSize="1" Foreground="#FF00D477"></TextBlock>
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </GeometryDrawing.Brush>
+                                </GeometryDrawing>
+                            </DrawingGroup.Children>
+                        </DrawingGroup>
+                    </DrawingGroup.Children>
+                    <DrawingGroup.ClipGeometry>
+                        <RectangleGeometry Rect="0,0,442.317,64.691" />
+                    </DrawingGroup.ClipGeometry>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+    </UserControl.Resources>
+    <Grid>
+        <Grid x:Name="WarningBarContainer" Width="40" Height="65" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <Image x:Name="WarningBarImage" Source="{StaticResource Cyber_Info_Bar}" Stretch="None" HorizontalAlignment="Left" />
+            <TextBlock x:Name="WarningBarText" Margin="64,9,0,32" Text="" Foreground="Black"  FontSize="17" FontWeight="Light"></TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

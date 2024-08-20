@@ -23,7 +23,7 @@
             <TextBlock FontSize="13" x:Name="TextBlock_StylusToDraw_Description2" Text="{Binding Description}" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.RowSpan="2">
                 <Button Content="实践" Margin="2" x:Name="TestButton3"  Width="80" Height="32"/>
-                <Button Content="详情" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="2" x:Name="TestButton4"  Width="80" Height="32"/>
+                <Button Content="详情" CommandParameter="{Binding}" Command="{Binding DataContext.OnShowDetailDialogCommand, RelativeSource={RelativeSource AncestorType=Page}}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="2" x:Name="TestButton4"  Width="80" Height="32"/>
             </StackPanel>
         </Grid>
     </Border>

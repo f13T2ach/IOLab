@@ -1,9 +1,16 @@
-﻿using IOLab.Core.Models;
+﻿using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Commands;
+using IOLab.Core.Models;
 using IOLab.Core.Models.Records;
+using IOLab.Core.Serial;
+using IOLab.Resources.Control;
+using IOLab.Windows.Dialog.Universal;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -12,6 +19,8 @@ namespace IOLab.Pages.ViewModel
         public ObservableCollection<Schema> RecordsSchema { get; set; }
         public ObservableCollection<IOExperiment> IOExperiments { get; set; }
 
+
+        public ICommand OnShowDetailDialogCommand { get; set; }
         public Visibility CanShowNoRecordText { get => RecordsSchema.Count == 0 ? Visibility.Visible : Visibility.Hidden; protected set { } }
         public HomePageViewModel()
         {
@@ -27,6 +36,8 @@ namespace IOLab.Pages.ViewModel
             {
                 IOExperiments.Add(item);
             }
+
+            OnShowDetailDialogCommand = new RelayCommand(OnShowDetailDialog);
         }
 
         // 统计数据
@@ -36,6 +47,51 @@ namespace IOLab.Pages.ViewModel
         public string LocalServicesCount { get => Bundles.LocalMonitorService.Count > 99 ? "99" : Bundles.LocalMonitorService.Count.ToString(); set { } }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public async void OnShowDetailDialog(object sender)
+        {
+            IOExperiment? experiment = sender as IOExperiment;
+            if (experiment == null)
+            {
+                return;
+            }
+            var result = await new ExperimentDialog(experiment).ShowAsync();
+            if(result!= ContentDialogResult.Primary)
+            {
+                return;
+            }
+            TryPractise(experiment);
+        }
+
+        private void TryPractise(IOExperiment experiment)
+        {
+            // 如果有表正在运行
+            if (InstanceBundle.ChartTables != null)
+            {
+                if (InstanceBundle.ChartTables.Count > 0)
+                {
+                    ShowBannedDialog($"请处理正在运行的 {InstanceBundle.ChartTables.Count} 个监视器");
+                }
+            }
+            // 如果没有连接
+            if (InstanceBundle.connectTool == null)
+            {
+                ShowBannedDialog($"未连接设备或者此设备无效");
+            }
+        }
+
+        private async void ShowBannedDialog(string text)
+        {
+            ContentDialog Dialog = new ContentDialog()
+            {
+                Title = "无法实践此实验",
+                Content = text,
+                CloseButtonText = "好"
+            };
+
+            await Dialog.ShowAsync();
+            return;
+        }
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

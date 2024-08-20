@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Font\Blender Pro Bold.ttf" />
+    <None Remove="Resources\Font\Blender Pro Book.ttf" />
     <None Remove="Resources\Font\MiSans VF.ttf" />
     <None Remove="Resources\Images\Icon\IOLab1024.png" />
     <None Remove="Resources\Images\Icon\IOLab128.png" />
@@ -28,6 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Font\Blender Pro Bold.ttf" />
+    <Resource Include="Resources\Font\Blender Pro Book.ttf" />
     <Resource Include="Resources\Images\Tiny\ShallowShadow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -69,6 +73,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Control\Cyber\InfoBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Dialog\AddChart.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -78,7 +85,7 @@
     <Compile Update="Windows\Dialog\SaveRecords.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Dialog\Universal\ExperimentDetail.xaml.cs">
+    <Compile Update="Windows\Dialog\Universal\ExperimentDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\Dialog\Universal\OpenWebLink.xaml.cs">

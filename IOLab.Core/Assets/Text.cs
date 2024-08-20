@@ -19,8 +19,10 @@
             "来看看这是什么记录",
             "虚空索敌？",
             "操作无效",
+            "Pardon?",
         };
-        public static string ConnectTimeOut = "连接超时";
+        public static string ConnectTimeOut = "连接失败：认证超时";
+        public static string ConnectAccessDenied = "连接失败：拒绝访问";
 
         public static string ReceivingMessageFromIONet = "正在从 IONet 收取信息";
         public static string ReceivingUpdateFromIONet = "正在从 IONet 下载重要更新";
@@ -37,5 +39,9 @@
 
         public static string NeedToPrepare = "需要准备";
         public static string Collector = "采集仪器";
+
+        public static string AboutThisExperiment = "关于此实验";
+        public static string NoSensorNeeded = "此实验不需要传感器";
+        public static string NoDescriptions = "此实验没有介绍\n"; // \n是必须的
     }
 }

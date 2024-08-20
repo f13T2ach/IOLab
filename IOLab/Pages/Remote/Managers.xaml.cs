@@ -13,6 +13,9 @@ namespace IOLab.Pages.Remote
             InitializeComponent();
             ManagersViewModel viewModel = new ManagersViewModel();
             this.DataContext = viewModel;
+
+            MyInfoBar.ForceStop();
+            MyInfoBar.ShowWaringBar("采集仪器：连接成功");
             // InitInformation();
         }
 

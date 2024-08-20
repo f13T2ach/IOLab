@@ -2,6 +2,7 @@
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Serial;
 using System.IO.Ports;
+using System.Text;
 
 // 注意！！正式做串口通信要修改测试代码
 namespace IOLab.Core;
@@ -77,6 +78,7 @@ public class ConnectTool
     {
         try
         {
+            _SerialPort.ReadBufferSize = 4096;
             _SerialPort.Close(); //关闭串口
             return null;
         }
@@ -91,9 +93,7 @@ public class ConnectTool
     {
         if (on_off)
         {
-            ListenThread = new Thread(ReceiveData);//开启一个线程来不断的接收数据
-            ListenThread.IsBackground = true;
-            ListenThread.Start();
+            _SerialPort.DataReceived += new SerialDataReceivedEventHandler(ReceiveData);
 
         }
         else
@@ -105,7 +105,7 @@ public class ConnectTool
         }
     }
 
-    public void ReceiveData()
+    public async void ReceiveData(object sender,SerialDataReceivedEventArgs e)
     {
         //接收线程
         while (_SerialPort.IsOpen && !rx_thread_stop_flag)//线程循环
@@ -114,8 +114,19 @@ public class ConnectTool
             {
                 continue;
             }
-
-            // string content = _SerialPort.ReadLine();
+            try
+            {
+                string content = await ReadLineAsync();
+                System.Diagnostics.Debug.WriteLine(content);
+                if(content == null)
+                {
+                    continue;
+                }
+            }
+            catch
+            {
+                continue;
+            }
             // 测试 没有实际内容上面的会卡住
             string tag = Tags.ShakeHand;
             string jsonCommand = "command";
@@ -131,6 +142,21 @@ public class ConnectTool
             }
         }
 
+    }
+
+    public Task<string?> ReadLineAsync()
+    {
+        return Task.Run(() =>
+        {
+            try
+            {
+                return _SerialPort.ReadLine();
+            }
+            catch
+            {
+                return null;
+            }
+        });
     }
 
 }

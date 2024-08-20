@@ -4,6 +4,9 @@
   "tags": [ "长时实验" ],
   "services": [100002],
   "formula": "",
-  "steps": { "A": "B" },
-  "description": ""
+  "steps": {
+    "A": "B",
+    "C": "D"
+  },
+  "description": "通过 pH 传感器探究新制氯水的变质"
 }

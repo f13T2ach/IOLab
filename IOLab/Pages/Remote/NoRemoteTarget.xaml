@@ -4,22 +4,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cyct="clr-namespace:IOLab.Resources.Control.Cyber"
       xmlns:local="clr-namespace:IOLab.Pages.Remote"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="NoRemoteTarget">
 
     <Grid>
-        <ui:InfoBar x:Name="MyNotification"
-            Severity="Success"
-            Title="连接成功"
-            Message="测试"
-            IsClosable="True" />
-        <ui:InfoBar x:Name="MyErrorNotification"
-            Severity="Error"
-            Title="连接失败"
-            Message=""
-            IsClosable="True" />
+        <cyct:Attention Margin="0,10,0,0" Visibility="Hidden" x:Name="AttentionBar"/>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.USB}" Width="64" Height="64" FontSize="45"></ui:FontIcon>
             <TextBlock Name="Title" Text="Text" Foreground="{DynamicResource {x:Static ui:ThemeKeys.TextControlForegroundKey}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>

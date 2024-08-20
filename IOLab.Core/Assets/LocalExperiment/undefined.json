@@ -1,7 +1,7 @@
 {
   "name": "未知实验",
   "experiment": "undefined",
-  "tags": [ "跨学科" ],
+  "tags": [ "测试用" ],
   "services": [],
   "formula": "",
   "steps": { "A": "B" },
