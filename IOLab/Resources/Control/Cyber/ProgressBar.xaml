@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="IOLab.Resources.Control.Cyber.ProgressBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IOLab.Resources.Control.Cyber"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <Grid Width="120" Height="20" x:Name="Conatiner">
+        <TextBlock x:Name="Foregrounder"/>
+        <Rectangle Margin="5" Fill="{Binding Path=Foreground,ElementName=Foregrounder}"/>
+    </Grid>
+</UserControl>
