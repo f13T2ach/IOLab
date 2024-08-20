@@ -1,6 +1,7 @@
 ﻿using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Generic;
+using IOLab.Core.Serial;
 using IOLab.Pages.Appreciations;
 using System;
 using System.Windows;
@@ -47,6 +48,8 @@ namespace IOLab
             ReadAssets.ReadLocalServices(); // 必须第一个加载
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
+
+            
 
 
         }

@@ -6,10 +6,9 @@ namespace IOLab.Core.Serial
 {
     public static class InstanceBundle
     {
-        public static volatile List<ITaskAnnounce>? list;
+        public static volatile List<ITaskAnnounce>? list = new List<ITaskAnnounce>();
 
         public static ConnectTool connectTool; // 连接实例
-
         public static ObservableCollection<ChartTableModel> ChartTables { get; set; } // 监视器
     }
 }

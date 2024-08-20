@@ -87,6 +87,9 @@
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">统计</TextBlock>
                     </Grid>
+
+                    
+
                     <StackPanel HorizontalAlignment="Center" Margin="10,0,0,0" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
                             <TextBlock Text="{Binding LocalRecordCount}" TextAlignment="Center" FontSize="36" Width="48"/>

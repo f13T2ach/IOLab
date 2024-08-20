@@ -6,10 +6,12 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemeResources x:Name="AccentColorHex" AccentColor="#0078D7"/>
                 <ResourceDictionary Source="Resources/VectorImage.xaml"/>
                 <ResourceDictionary Source="Resources/ControlStyle.xaml"/>
+                
                 <ui:XamlControlsResources/>
             </ResourceDictionary.MergedDictionaries>
 
@@ -21,14 +23,22 @@
                 <Setter Property="CornerRadius" Value="4"/>
                 <Setter Property="Padding" Value="15,0,20,0"/>
             </Style>
-            
+
             <Style TargetType="{x:Type TextElement }">
                 <Setter Property="FontFamily" Value="Resources/Font/#MiSans VF"/>
             </Style>
             <Style TargetType="{x:Type TextBlock }">
                 <Setter Property="FontFamily" Value="Resources/Font/#MiSans VF"/>
             </Style>
+
+            <!--字体-->
+            <FontFamily x:Key="BlenderProBold">
+                pack://application:,,,/Resources/Font/#Blender Pro Bold
+            </FontFamily>
+            <FontFamily x:Key="BlenderProThin">
+                pack://application:,,,/Resources/Font/#Blender Pro Book
+            </FontFamily>
         </ResourceDictionary>
-        
+
     </Application.Resources>
 </Application>

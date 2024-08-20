@@ -1,7 +1,9 @@
 ﻿using IOLab.Core;
+using IOLab.Core.Assets;
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Serial;
 using IOLab.Core.Tasks;
+using IOLab.Resources.Control.Cyber;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -33,9 +35,6 @@ namespace IOLab.Pages.Remote
 
         private async void ManualConfig_Click(object sender, RoutedEventArgs e)
         {
-            // 关闭存在的提示
-            MyNotification.IsOpen = false;
-            MyErrorNotification.IsOpen = false;
 
             // 等待对话
             Windows.Dialog.ManualConnect mc = new Windows.Dialog.ManualConnect();
@@ -56,6 +55,8 @@ namespace IOLab.Pages.Remote
         private async void TryConnect(int index, string[]? array)
         {
             ConnectTool ct = new ConnectTool();
+            AttentionBar.ForceStop(); // 防止中途打开
+
             if (array != null)
             {
                 ct.InitializeSerialSet(array[index]);
@@ -64,10 +65,7 @@ namespace IOLab.Pages.Remote
                 {
                     // 测试
                     ShakeHandTask st = new ShakeHandTask();
-                    InstanceBundle.list = new List<ITaskAnnounce>
-                    {
-                        st
-                    };
+                    InstanceBundle.list.Add(st);
 
 
                     await st.task.ConfigureAwait(false);
@@ -77,8 +75,7 @@ namespace IOLab.Pages.Remote
                     {
                         this.Dispatcher.Invoke(new Action(delegate
                         {
-                            MyErrorNotification.IsOpen = true;
-                            MyErrorNotification.Message = st.task.Result.ToString();
+                            AttentionBar.ShowWaringBar(st.task.Result.ToString());
                         }));
                         ct.CloseComport();
                         InstanceBundle.connectTool = null;
@@ -100,9 +97,11 @@ namespace IOLab.Pages.Remote
                 // 判断串口通信异常
                 else
                 {
-                    MyErrorNotification.IsOpen = true;
-                    MyErrorNotification.Message = result.Message + " 关闭可能占用串口的程序（如Arduino）、插拔设备或重启本程序";
+                    ct.CloseComport();
+                    // 显示错误 判断是否为端口占用
+                    AttentionBar.ShowWaringBar(result.Message.EndsWith("denied.")?Text.ConnectAccessDenied: result.Message);
                     InstanceBundle.connectTool = null;
+
                 }
 
             }

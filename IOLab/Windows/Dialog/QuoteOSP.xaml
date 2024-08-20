@@ -15,7 +15,7 @@
     <ui:ScrollViewerEx>
         <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TextBlock FontWeight="Bold">序言</TextBlock>
-            <TextBlock HorizontalAlignment="Left" Width="400" TextWrapping="Wrap">我们使用开源项目和第三方 API 来提高开发效率，添加更多功能。</TextBlock>
+            <TextBlock HorizontalAlignment="Left" Width="400" TextWrapping="Wrap">我们使用开源项目和第三方 API 来提高开发效率、改善视觉体验、添加更多功能。</TextBlock>
 
             <TextBlock FontWeight="Bold" Margin="0,4,0,0">Newtonsoft.JSON</TextBlock>
             <TextBlock>Newtonsoft</TextBlock>
