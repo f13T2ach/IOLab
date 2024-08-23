@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Core.Generic
+namespace IOLab.Core.Generic
 {
     internal class ConnectOperation
     {

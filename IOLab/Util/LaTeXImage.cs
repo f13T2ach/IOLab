@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Util
+uamespace IOLab.Util
 {
     class LaTeXImage
     {

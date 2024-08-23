@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using iNKORE.UI.WPF.Modern;
+using iNKORE.UI.WPF.Modern;
 using IOLab.Core.Serial;
 using IOLab.Pages.Remote;
 using IOLab.Pages.ViewModel;

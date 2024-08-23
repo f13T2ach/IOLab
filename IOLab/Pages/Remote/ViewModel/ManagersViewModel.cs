@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Commands;
+using IOLab.Commands;
 using System.ComponentModel;
 using System.Windows.Input;
 

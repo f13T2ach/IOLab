@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Windows.Dialog.ViewModel
+namespace IOLab.Windows.Dialog.ViewModel
 {
     class AddChartViewModel : PortsViewModelBase
     {
