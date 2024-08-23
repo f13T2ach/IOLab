@@ -19,3 +19,11 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "Nyard.h"
+#include <Arduino.h>
+
+// 构造函数实现
+Nyard::Nyard(int pin) : sensorPin(pin) {
+    // 构造函数的初始化内容（如果有的话）
+}
+
