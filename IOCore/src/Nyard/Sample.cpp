@@ -19,3 +19,22 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "Nyard.h"
+#include<Arduino.h>
+// 实现一个具体的采集器类
+class Sample : public Nyard {
+public:
+    // 构造函数，调用基类构造函数
+    Sample(int pin) : Nyard(pin) {}
+
+    // 重写基类的虚函数
+    void begin() override {
+        pinMode(sensorPin, INPUT);
+    }
+
+    int collectData() override {
+        // 模拟采集数据
+        return analogRead(sensorPin);
+    }
+};
+

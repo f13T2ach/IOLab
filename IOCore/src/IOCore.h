@@ -22,4 +22,4 @@
 #include<Arduino.h>
 int coreVersion = 1;
 String Authentication = "{\"command\":\"ShakeHand\",\"version\":1}"; // 认证消息
-String ShankeHanded = "{\"command\":\"ShakeHand\",\"msg\":\"认证成功\",\"code\":0}";
+String ShankeHanded = "{\"command\":\"ShakeHand\",\"name\":\"瑞克五代\",\"code\":0}";

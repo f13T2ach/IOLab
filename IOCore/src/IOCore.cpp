@@ -20,8 +20,10 @@
  */
 
 #include <Arduino.h>
-#include "IOCore.h"
 #include <ArduinoJson.h>
+
+#include "IOCore.h"
+#include "Nyard\Nyard.h"
 using namespace std;
 
 void loop(){
@@ -41,14 +43,14 @@ bool handleAuthentication(String content){
   }
   const int* versionID = document["version"];
   if(versionID > &coreVersion){
-    return false; // 协议太屌
+    return false; 
   }
   return true;
 }
 
 // 握手
 void sendHandShake(){
-
+  Serial.println(ShankeHanded);
 }
 
 void setup(){
@@ -60,10 +62,11 @@ void setup(){
       String content = Serial.readString();
       if(handleAuthentication(content)){
         break;
-      }
+      }// 失败就晾着它
     }
     Serial.println(Authentication);
     delay(150);
   }
-  // 
+  // 握手
+  sendAuthentication();
 }

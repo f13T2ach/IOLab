@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2024 Redmaple. All rights reserved.
  *
- * Sample.h is part of the IOLab project.
+ * Nyard.h is part of the IOLab project.
  *
  * IOLab is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,4 +18,22 @@
  * You should have received a copy of the GNU General Public License
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
+
+#ifndef NYARD_H
+#define NYARD_H
+
+class Nyard {
+public:
+    // 构造函数
+    Nyard(int pin);
+    
+    // 虚函数（可被子类重写）
+    virtual void begin() = 0;
+    virtual int collectData() = 0;
+
+protected:
+    int sensorPin;
+};
+
+#endif
 
