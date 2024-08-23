@@ -105,7 +105,7 @@ public class ConnectTool
         }
     }
 
-    public async void ReceiveData(object sender,SerialDataReceivedEventArgs e)
+    public void ReceiveData(object sender,SerialDataReceivedEventArgs e)
     {
         //接收线程
         while (_SerialPort.IsOpen && !rx_thread_stop_flag)//线程循环
@@ -116,7 +116,7 @@ public class ConnectTool
             }
             try
             {
-                string content = await ReadLineAsync();
+                string content = _SerialPort.ReadLine();
                 System.Diagnostics.Debug.WriteLine(content);
                 if(content == null)
                 {
@@ -142,21 +142,6 @@ public class ConnectTool
             }
         }
 
-    }
-
-    public Task<string?> ReadLineAsync()
-    {
-        return Task.Run(() =>
-        {
-            try
-            {
-                return _SerialPort.ReadLine();
-            }
-            catch
-            {
-                return null;
-            }
-        });
     }
 
 }

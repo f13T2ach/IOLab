@@ -16,7 +16,7 @@ namespace IOLab.Core.Tasks
 
         object ITaskHandler<object>.Handler()
         {
-            // 等待验证
+            // 等待验证  
             for (int i = 0; i < InternalConfig.ConnectTimeout / InternalConfig.ShakeHandTimeStep; i++)
             {
                 if (_parameter != "command")

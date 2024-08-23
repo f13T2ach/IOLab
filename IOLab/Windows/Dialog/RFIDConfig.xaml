@@ -17,7 +17,7 @@
 
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
-        <TextBlock>认真阅读以下协议，点击对应条目可以跳转到对应网页</TextBlock>
+        <TextBlock>当前固件版本不支持 RFID 射频识别技术</TextBlock>
 
     </StackPanel>
 </ui:ContentDialog>

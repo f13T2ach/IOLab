@@ -19,7 +19,6 @@
             "来看看这是什么记录",
             "虚空索敌？",
             "操作无效",
-            "Pardon?",
         };
         public static string ConnectTimeOut = "连接失败：认证超时";
         public static string ConnectAccessDenied = "连接失败：拒绝访问";
@@ -39,6 +38,8 @@
 
         public static string NeedToPrepare = "需要准备";
         public static string Collector = "采集仪器";
+
+        public static string NotSupportRFID = "当前固件版本不支持 RFID 射频识别技术";
 
         public static string AboutThisExperiment = "关于此实验";
         public static string NoSensorNeeded = "此实验不需要传感器";
