@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Core.Serial
+namespace IOLab.Core.Serial
 {
     public class MyDataContainer
     {

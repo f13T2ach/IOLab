@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Core
+namespace IOLab.Core
 {
     internal static class MainInit
     {

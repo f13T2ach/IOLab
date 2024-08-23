@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Core.Interfaces.Threads;
+using IOLab.Core.Interfaces.Threads;
 
 namespace IOLab.Core
 {

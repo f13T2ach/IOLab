@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Core.Serial;
+using IOLab.Core.Serial;
 using System.Collections.ObjectModel;
 
 

@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Core.Models;
+using IOLab.Core.Models;
 
 namespace IOLab.Pages.Event.MonitorPages
 {

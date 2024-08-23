@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Core.Interfaces.Threads
+namespace IOLab.Core.Interfaces.Threads
 {
     public interface ITaskAnnounce
     {

@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Network.IONet
+namespace IOLab.Network.IONet
 {
     public class VersionControl
     {

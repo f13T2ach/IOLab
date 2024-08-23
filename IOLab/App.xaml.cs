@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using System.Windows;
+using System.Windows;
 
 namespace IOLab
 {

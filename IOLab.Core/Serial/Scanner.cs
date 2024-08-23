@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using System.IO.Ports;
+using System.IO.Ports;
 
 namespace IOLab.Core.Serial
 {

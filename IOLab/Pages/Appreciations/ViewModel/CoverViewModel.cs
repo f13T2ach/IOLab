@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Pages.Appreciations.ViewModel
+namespace IOLab.Pages.Appreciations.ViewModel
 {
     internal class CoverViewModel
     {
