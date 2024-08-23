@@ -1,0 +1,67 @@
+/**
+ * IOLab - A Full-Stack Experimentation Platform
+ *
+ * Copyright (C) 2024 Redmaple. All rights reserved.
+ *
+ * Sample.h is part of the IOLab project.
+ *
+ * IOLab is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * IOLab is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#ifndef SAMPLE_H
+#define SAMPLE_H
+
+#include "Nyard.h"
+
+
+class SampleSensor : public Nyard {
+private:
+    int dataPin;
+    int powerPin;
+public:
+    // 构造函数
+    SampleSensor(int id)
+        : Nyard(id), dataPin(-1), powerPin(-1) {}  // 初始引脚设置为空值
+
+    // 动态设置引脚
+    void setPins(const std::vector<int>& pins) override {
+        if (pins.size() == 2) {
+            dataPin = pins[0];
+            powerPin = pins[1];
+        }
+    }
+
+    // 设置引脚模式
+    void setupPins() override {
+        if (dataPin != -1 && powerPin != -1) {
+            pinMode(dataPin, INPUT);
+            pinMode(powerPin, OUTPUT);
+        }
+    }
+
+    void begin() override {
+        if (powerPin != -1) {
+            digitalWrite(powerPin, HIGH);  // 打开传感器
+        }
+    }
+
+    int collectData() override {
+        if (dataPin != -1) {
+            return analogRead(dataPin);  // 模拟采集数据
+        }
+        return -1; // 错误码，表示未正确配置引脚
+    }
+};
+
+#endif

@@ -19,7 +19,8 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include<Arduino.h>
+#include <Arduino.h>
+#include "Nyard/Sample.h"
 int coreVersion = 1;
 String Authentication = "{\"command\":\"ShakeHand\",\"version\":1}"; // 认证消息
 String ShankeHanded = "{\"command\":\"ShakeHand\",\"name\":\"瑞克五代\",\"code\":0}";

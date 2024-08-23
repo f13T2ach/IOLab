@@ -21,18 +21,25 @@
 
 #ifndef NYARD_H
 #define NYARD_H
-
+#include<Arduino.h>
 class Nyard {
 public:
     // 构造函数
-    Nyard(int pin);
+    Nyard(int id);
     
     // 虚函数（可被子类重写）
+    virtual void setupPins() = 0;
     virtual void begin() = 0;
     virtual int collectData() = 0;
+    virtual void setPins(const std::vector<int>& pins) = 0;
+
+    // 获取id
+    int getId() const {
+        return id;
+    }
 
 protected:
-    int sensorPin;
+    int id;
 };
 
 #endif
