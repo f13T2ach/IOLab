@@ -23,50 +23,107 @@
 #include <ArduinoJson.h>
 
 #include "IOCore.h"
-#include "Nyard\Nyard.h"
+#include "Utils/Convert.h"
+#include "Nyard/Nyard.h"
+
 using namespace std;
 
-void loop(){
+// 预定义最大采集器数量
+#define MAX_SENSORS 10
+
+// 创建一个指针数组来存储所有的采集器
+Nyard *sensors[MAX_SENSORS];
+int sensorCount = 0;
+
+// 载入Nyard
+void initNyard()
+{
+  sensors[sensorCount++] = new SampleSensor(100000);
 }
-
+// 载入认证消息
+void initAuthentication()
+{
+}
 // 发送认证消息
-void sendAuthentication(){
-
+void sendAuthentication()
+{
+  Serial.println(Authentication);
 }
 
 // 处理认证消息
-bool handleAuthentication(String content){
+bool handleAuthentication(String content)
+{
   JsonDocument document;
   DeserializationError error = deserializeJson(document, content);
-  if (error) {
+  if (error)
+  {
     return false; // 解析失败
   }
-  const int* versionID = document["version"];
-  if(versionID > &coreVersion){
-    return false; 
+  const int *versionID = document["version"];
+  if (versionID > &coreVersion)
+  {
+    return false;
   }
   return true;
 }
 
-// 握手
-void sendHandShake(){
+// 握手消息
+void sendHandShake()
+{
   Serial.println(ShankeHanded);
 }
 
-void setup(){
+// 处理引脚配置指令
+void handlePinConfig(const JsonDocument doc)
+{
+  int commandId = doc["id"]; // 模拟接收到的指令id
+
+  // 模拟接收到的引脚配置
+  std::vector<int> pins = jsonArrayToVector(doc["pins"]);
+
+  // 遍历所有传感器并匹配id
+  for (int i = 0; i < sensorCount; i++)
+  {
+    if (sensors[i]->getId() == commandId)
+    {
+      sensors[i]->setPins(pins);            // 动态设置引脚
+      sensors[i]->setupPins();              // 配置引脚
+      sensors[i]->begin();                  // 启动传感器
+      Serial.print("匹配：");
+      Serial.print(commandId);
+      Serial.print(" 引脚要求：");
+      Serial.println(vectorToString(pins));
+      break; // 找到匹配的传感器后退出循环
+    }
+  }
+
+  delay(1000);
+}
+
+
+void setup()
+{
   Serial.begin(115200);
-  while(true)
+  initAuthentication();
+
+  while (true)
   {
     // 收取信息
-    if(Serial.available()){
+    if (Serial.available())
+    {
       String content = Serial.readString();
-      if(handleAuthentication(content)){
+      if (handleAuthentication(content))
+      {
         break;
-      }// 失败就晾着它
+      } // 失败就晾着它
     }
-    Serial.println(Authentication);
+
     delay(150);
   }
   // 握手
   sendAuthentication();
+}
+
+void loop()
+{
 }
