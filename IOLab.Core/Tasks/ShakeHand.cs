@@ -22,14 +22,24 @@
 ﻿using IOLab.Core.Assets;
 using IOLab.Core.Config;
 using IOLab.Core.Interfaces.Threads;
+using IOLab.Core.Serial;
+using Newtonsoft.Json.Linq;
+using System.Reflection.Metadata;
 
 namespace IOLab.Core.Tasks
 {
     public class ShakeHand : ITaskHandler<object>
     {
-        public static string _parameter = "";
+        public static JObject _parameter = null;
 
-        string ITaskHandler<object>.Parameter
+        public bool Inhibit { get => _parameter != null; set { } }
+
+
+        // 握手步骤
+        // 单片机发送请求
+        // 电脑发送成功
+        // 单片机发送设备详细
+        JObject ITaskHandler<object>.Parameter
         {
             get { return _parameter; }
             set { _parameter = value; }
@@ -37,20 +47,48 @@ namespace IOLab.Core.Tasks
 
         object ITaskHandler<object>.Handler()
         {
+            return handler(false);
+        }
+
+        /// <summary>
+        /// 处理器（自迭代）
+        /// </summary>
+        /// <param name="isSecondCallback">是否等待第二次握手</param>
+        /// <returns></returns>
+        string handler(bool isSecondCallback)
+        {
             // 等待验证  
             for (int i = 0; i < InternalConfig.ConnectTimeout / InternalConfig.ShakeHandTimeStep; i++)
             {
-                if (_parameter != "command")
+                if (_parameter == null)
                 {
                     Thread.Sleep(InternalConfig.ShakeHandTimeStep);
                 }
                 else
                 {
-                    // 配置一个串口实例
-                    return "";
+                    if (!isSecondCallback)
+                    {
+                        // 握手
+                        InstanceBundle.connectTool._SerialPort.WriteLine(CommandsV1.ReceivedRequest);
+                        return handler(true);
+                    }
+                    else
+                    {
+                        // 创建串口设备
+                        return "";
+
+                    }
+
                 }
             }
-            return Text.ConnectTimeOut;
+            if (!isSecondCallback)
+            {
+                return Text.ConnectTimeOut;
+            }
+            else
+            {
+                return Text.CallbackTimeOut;
+            }
         }
     }
 }

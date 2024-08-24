@@ -42,6 +42,7 @@
             "操作无效",
         };
         public static string ConnectTimeOut = "连接失败：认证超时";
+        public static string CallbackTimeOut = "连接失败：回调超时";
         public static string ConnectAccessDenied = "连接失败：拒绝访问";
 
         public static string ReceivingMessageFromIONet = "正在从 IONet 收取信息";
