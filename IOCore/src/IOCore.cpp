@@ -25,6 +25,7 @@
 #include "IOCore.h"
 #include "Utils/Convert.h"
 #include "Nyard/Nyard.h"
+#include "Nyard/NyardPorts.h"
 
 using namespace std;
 
@@ -40,6 +41,15 @@ void initNyard()
 {
   sensors[sensorCount++] = new SampleSensor(100000);
 }
+
+std::vector<int> getPinsByName(String name){
+  auto item = ports.find(name);
+  if (item == ports.end()) {
+    return {};
+  }
+  return ports[name];
+}
+
 // 载入认证消息
 void initAuthentication()
 {
@@ -59,8 +69,8 @@ bool handleAuthentication(String content)
   {
     return false; // 解析失败
   }
-  const int *versionID = document["version"];
-  if (versionID > &coreVersion)
+  const int versionID = document["version"];
+  if (versionID > coreVersion)
   {
     return false;
   }
@@ -76,10 +86,14 @@ void sendHandShake()
 // 处理引脚配置指令
 void handlePinConfig(const JsonDocument doc)
 {
+  
   int commandId = doc["id"]; // 模拟接收到的指令id
 
   // 模拟接收到的引脚配置
-  std::vector<int> pins = jsonArrayToVector(doc["pins"]);
+  std::vector<int> pins = getPinsByName(doc["port"]);
+  if(pins.size()==0){
+    
+  }
 
   // 遍历所有传感器并匹配id
   for (int i = 0; i < sensorCount; i++)
@@ -89,10 +103,6 @@ void handlePinConfig(const JsonDocument doc)
       sensors[i]->setPins(pins);            // 动态设置引脚
       sensors[i]->setupPins();              // 配置引脚
       sensors[i]->begin();                  // 启动传感器
-      Serial.print("匹配：");
-      Serial.print(commandId);
-      Serial.print(" 引脚要求：");
-      Serial.println(vectorToString(pins));
       break; // 找到匹配的传感器后退出循环
     }
   }
