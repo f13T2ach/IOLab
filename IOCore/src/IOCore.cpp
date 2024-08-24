@@ -24,6 +24,9 @@
 
 #include "IOCore.h"
 #include "Utils/Convert.h"
+#include "Utils/Generic.h"
+#include "Commands.h"
+// Nyard
 #include "Nyard/Nyard.h"
 #include "Nyard/NyardPorts.h"
 
@@ -63,15 +66,9 @@ void sendAuthentication()
 // 处理认证消息
 bool handleAuthentication(String content)
 {
-  JsonDocument document;
-  DeserializationError error = deserializeJson(document, content);
-  if (error)
-  {
-    return false; // 解析失败
-  }
-  const int versionID = document["version"];
-  if (versionID > coreVersion)
-  {
+  println(content,"验证");
+
+  if(content != ReceivedRequest){
     return false;
   }
   return true;
@@ -118,6 +115,7 @@ void setup()
 
   while (true)
   {
+    Serial.println(Authentication);
     // 收取信息
     if (Serial.available())
     {

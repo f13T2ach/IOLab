@@ -22,6 +22,7 @@
 ﻿using IOLab.Core.Assets;
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Serial;
+using Newtonsoft.Json.Linq;
 using System.IO.Ports;
 using System.Text;
 
@@ -128,29 +129,40 @@ public class ConnectTool
 
     public void ReceiveData(object sender,SerialDataReceivedEventArgs e)
     {
+        _SerialPort.NewLine = "\n";
+        _SerialPort.ReadTimeout = 500;
         //接收线程
         while (_SerialPort.IsOpen && !rx_thread_stop_flag)//线程循环
         {
+            string content = "";
             if (InstanceBundle.list == null)
             {
                 continue;
             }
             try
             {
-                string content = _SerialPort.ReadLine();
+                content = _SerialPort.ReadLine();
                 System.Diagnostics.Debug.WriteLine(content);
                 if(content == null)
                 {
                     continue;
                 }
             }
+            catch(Exception)
+            {
+                continue;
+            }
+            string tag = Tags.ShakeHand;
+
+            JObject? obj = null;
+            try
+            {
+                obj = JObject.Parse(content);
+            }
             catch
             {
                 continue;
             }
-            // 测试 没有实际内容上面的会卡住
-            string tag = Tags.ShakeHand;
-            string jsonCommand = "command";
 
             // 在线程列表中匹配 tag
             // 测试
@@ -158,7 +170,10 @@ public class ConnectTool
             {
                 if (announcer.Tag == tag)
                 {
-                    announcer.GetHandlerInstance().Parameter = jsonCommand;
+                    if (!announcer.GetHandlerInstance().Inhibit)
+                    {
+                        announcer.GetHandlerInstance().Parameter = obj;
+                    }
                 }
             }
         }

@@ -82,6 +82,7 @@ namespace IOLab.Pages.Remote
             {
                 ct.InitializeSerialSet(array[index]);
                 Exception? result = ct.OpenComport();
+                InstanceBundle.connectTool = ct;
                 if (result == null)
                 {
                     // 测试
@@ -104,8 +105,6 @@ namespace IOLab.Pages.Remote
                     // 可以连接
                     else
                     {
-                        // 配置实例
-                        InstanceBundle.connectTool = ct;
                         this.Dispatcher.Invoke(new Action(delegate
                         {
                             if (this.NavigationService != null)

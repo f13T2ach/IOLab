@@ -24,5 +24,5 @@
 int coreVersion = 1;
 String Authentication = "{\"command\":\"ShakeHand\",\"version\":1}"; // 认证消息
 String ShankeHanded = "{\"command\":\"ShakeHand\",\"name\":\"瑞克五代\",\"code\":0}";
-String CallbackNewPortSuccess = "{\"command\":\"NewPortCallback\",\"code\":0}";
-String CallbackNewPortFailed = "{\"command\":\"NewPortCallback\",\"code\":1,\"msg\":\"连接失败\"}";
+String CallbackNewPortSuccess = "{\"command\":\"NewPortCallback\",\"code\":0,\"msg\":\"委任端口成功\"}";
+String CallbackNewPortFailed_Invalid1 = "{\"command\":\"NewPortCallback\",\"code\":1,\"msg\":\"委任的端口无效\"}";
