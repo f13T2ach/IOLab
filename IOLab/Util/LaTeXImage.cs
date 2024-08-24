@@ -18,8 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
-
-uamespace IOLab.Util
+namespace IOLab.Util
 {
     class LaTeXImage
     {

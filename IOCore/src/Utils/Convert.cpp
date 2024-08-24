@@ -2,6 +2,7 @@
 #include <vector>
 #include <ArduinoJson.h>
 
+
 String vectorToString(const std::vector<int>& vec) {
     String result = "";
     for (size_t i = 0; i < vec.size(); ++i) {
