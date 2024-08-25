@@ -26,7 +26,7 @@
 
 
 class SampleSensor : public Nyard {
-private:
+private: // 定义使能和数据
     int dataPin;
     int powerPin;
 public:
@@ -37,7 +37,7 @@ public:
     // 动态设置引脚
     void setPins(const std::vector<int>& pins) override {
         if (pins.size() == 2) {
-            dataPin = pins[0];
+            dataPin = pins[0];  // 设置引脚
             powerPin = pins[1];
         }
     }
@@ -52,7 +52,13 @@ public:
 
     void begin() override {
         if (powerPin != -1) {
-            digitalWrite(powerPin, HIGH);  // 打开传感器
+            digitalWrite(powerPin, HIGH);  // 打开传感器（如果不需要使能可不继承）
+        }
+    }
+
+    void close() override {
+        if (powerPin != -1) {
+            digitalWrite(powerPin, LOW);  // 关闭传感器（如果不需要使能可不继承）
         }
     }
 

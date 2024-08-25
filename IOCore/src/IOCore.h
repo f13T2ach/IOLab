@@ -20,7 +20,6 @@
  */
 
 #include <Arduino.h>
-#include "Nyard/Sample.h"
 int coreVersion = 1;
 
 // 成品JSON
@@ -32,3 +31,6 @@ String ShankeHanded = "{\"command\":\"ShakeHand\",\"name\":\"瑞克五代\",\"po
 // 命令
 String ReceivedRequest = "#Success";
 String Disconnect = "#Disconnect";
+// 使能命令判断头
+String EnablePort = "#Enable"; //#Enable#端口名称#采样间隔
+String DisablePort = "#Disable"; //#Disable#端口名称

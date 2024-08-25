@@ -28,6 +28,7 @@
 // Nyard
 #include "Nyard/Nyard.h"
 #include "Nyard/NyardPorts.h"
+#include "Nyard/NyardDrivers.h"
 
 #include "System.h"
 
