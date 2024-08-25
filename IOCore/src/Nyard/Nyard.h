@@ -30,6 +30,7 @@ public:
     // 虚函数（可被子类重写）
     virtual void setupPins() = 0;
     virtual void begin() = 0;
+    virtual void close() = 0;
     virtual int collectData() = 0;
     virtual void setPins(const std::vector<int>& pins) = 0;
 
