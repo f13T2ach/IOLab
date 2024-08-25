@@ -20,6 +20,7 @@
  */
 
 using IOLab.Commands;
+using IOLab.Core.Serial;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -30,6 +31,8 @@ namespace IOLab.Pages.Remote.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand DisconnectCommand { get; set; }
+
+        public string DeviceName { get => InstanceBundle.connectTool==null? "": InstanceBundle.connectTool.Device.DeviceName; private set { } }
 
         public ManagersViewModel()
         {

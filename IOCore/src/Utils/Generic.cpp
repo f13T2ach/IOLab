@@ -1,5 +1,5 @@
 #include <Arduino.h>
 #include "Generic.h"
-void println(String content,String tag){
+void println(String tag,String content){
     Serial.println("["+tag+"]"+content);
 }

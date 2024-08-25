@@ -22,7 +22,13 @@
 #include <Arduino.h>
 #include "Nyard/Sample.h"
 int coreVersion = 1;
+
+// 成品JSON
 String Authentication = "{\"command\":\"ShakeHand\",\"version\":1}"; // 认证消息
-String ShankeHanded = "{\"command\":\"ShakeHand\",\"name\":\"瑞克五代\",\"code\":0}";
 String CallbackNewPortSuccess = "{\"command\":\"NewPortCallback\",\"code\":0,\"msg\":\"委任端口成功\"}";
 String CallbackNewPortFailed_Invalid1 = "{\"command\":\"NewPortCallback\",\"code\":1,\"msg\":\"委任的端口无效\"}";
+// JSON框架
+String ShankeHanded = "{\"command\":\"ShakeHand\",\"name\":\"瑞克五代\",\"ports\":[]}"; // 三次握手
+// 命令
+String ReceivedRequest = "#Success";
+String Disconnect = "#Disconnect";

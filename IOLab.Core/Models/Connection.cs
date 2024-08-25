@@ -25,17 +25,23 @@ namespace IOLab.Core.Models
 {
     public class Connection
     {
-        public struct USBConnection
-        {
-            public string DeviceName; // 设备名称
-            public List<string> Ports; // port列表
+        private string _deviceName = ""; // 设备名称
+        private List<string> _ports = new List<string>(); // port列表
 
-            public string PortName;
-            public int BaudRate; // 115200
-            public int DataBit;
-            public Parity ParityCheckBit;
-            public StopBits StopBit;
-            public string ComportNumber;
-        }
+        private string _portName;
+        private int _baudRate; // 115200
+        private int _dataBit;
+        private Parity _parityCheckBit;
+        private StopBits _stopBit;
+        private string _comportNumber;
+
+        public string DeviceName { get => _deviceName; set => _deviceName = value; }
+        public List<string> Ports { get => _ports; set => _ports = value; }
+        public string PortName { get => _portName; set => _portName = value; }
+        public int BaudRate { get => _baudRate; set => _baudRate = value; }
+        public int DataBit { get => _dataBit; set => _dataBit = value; }
+        public Parity ParityCheckBit { get => _parityCheckBit; set => _parityCheckBit = value; }
+        public StopBits StopBit { get => _stopBit; set => _stopBit = value; }
+        public string ComportNumber { get => _comportNumber; set => _comportNumber = value; }
     }
 }

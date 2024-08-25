@@ -16,8 +16,9 @@
             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.USB}" Width="64" Height="64" FontSize="45"></ui:FontIcon>
             <TextBlock Name="Title" Text="Text" Foreground="{DynamicResource {x:Static ui:ThemeKeys.TextControlForegroundKey}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="刷新状态" Margin="0,10,0,0" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Name="RefreshConfig" Click="RefreshConfig_Click"/>
-                <Button Content="手动配置" Margin="16,10,0,0" Cursor="Hand" Name="ManualConfig" Click="ManualConfig_Click"/>
+
+                <Button Content="选取端口" Margin="0,10,0,0" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Name="ManualConfig" Click="ManualConfig_Click"/>
+                <Button Content="连接帮助" Margin="16,10,0,0" Cursor="Hand" Name="RefreshConfig" Click="RefreshConfig_Click"/>
             </StackPanel>
         </StackPanel>
         

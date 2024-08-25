@@ -49,7 +49,7 @@ namespace IOLab.Windows.Dialog.ViewModel
             {
                 return;
             }
-            List<string> ports = InstanceBundle.connectTool.UartPort.Ports;
+            List<string> ports = InstanceBundle.connectTool.Device.Ports;
 
             // 代码优化：直接读取静态MonitorPageViewModel.ChartTables
             // 再从监听服务列表中读取所有监听

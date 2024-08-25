@@ -22,6 +22,7 @@
 ﻿using IOLab.Core.Assets;
 using IOLab.Core.Config;
 using IOLab.Core.Interfaces.Threads;
+using IOLab.Core.Models;
 using IOLab.Core.Serial;
 using Newtonsoft.Json.Linq;
 using System.Reflection.Metadata;
@@ -32,7 +33,8 @@ namespace IOLab.Core.Tasks
     {
         public static JObject _parameter = null;
 
-        public bool Inhibit { get => _parameter != null; set { } }
+
+        public bool Inhibit { get => false; set { } }
 
 
         // 握手步骤
@@ -70,11 +72,18 @@ namespace IOLab.Core.Tasks
                     {
                         // 握手
                         InstanceBundle.connectTool._SerialPort.WriteLine(CommandsV1.ReceivedRequest);
+                        _parameter = null;
                         return handler(true);
                     }
                     else
                     {
-                        // 创建串口设备
+                        if(_parameter["name"] == null)
+                        {
+                            _parameter = null;
+                            continue;
+                        }
+                        // 补全串口信息
+                        InstanceBundle.connectTool.Device.DeviceName = _parameter["name"].ToString(); ;
                         return "";
 
                     }
