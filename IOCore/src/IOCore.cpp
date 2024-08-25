@@ -25,10 +25,11 @@
 #include "IOCore.h"
 #include "Utils/Convert.h"
 #include "Utils/Generic.h"
-#include "Commands.h"
 // Nyard
 #include "Nyard/Nyard.h"
 #include "Nyard/NyardPorts.h"
+
+#include "System.h"
 
 using namespace std;
 
@@ -45,9 +46,11 @@ void initNyard()
   sensors[sensorCount++] = new SampleSensor(100000);
 }
 
-std::vector<int> getPinsByName(String name){
+std::vector<int> getPinsByName(String name)
+{
   auto item = ports.find(name);
-  if (item == ports.end()) {
+  if (item == ports.end())
+  {
     return {};
   }
   return ports[name];
@@ -60,15 +63,17 @@ void initAuthentication()
 // 发送认证消息
 void sendAuthentication()
 {
-  Serial.println(Authentication);
+  Serial.println(ShankeHanded);
 }
 
 // 处理认证消息
 bool handleAuthentication(String content)
 {
-  println(content,"验证");
+  content.trim();
+  println("验证", content);
 
-  if(content != ReceivedRequest){
+  if (content != ReceivedRequest)
+  {
     return false;
   }
   return true;
@@ -83,13 +88,13 @@ void sendHandShake()
 // 处理引脚配置指令
 void handlePinConfig(const JsonDocument doc)
 {
-  
+
   int commandId = doc["id"]; // 模拟接收到的指令id
 
   // 模拟接收到的引脚配置
   std::vector<int> pins = getPinsByName(doc["port"]);
-  if(pins.size()==0){
-    
+  if (pins.size() == 0)
+  {
   }
 
   // 遍历所有传感器并匹配id
@@ -97,17 +102,23 @@ void handlePinConfig(const JsonDocument doc)
   {
     if (sensors[i]->getId() == commandId)
     {
-      sensors[i]->setPins(pins);            // 动态设置引脚
-      sensors[i]->setupPins();              // 配置引脚
-      sensors[i]->begin();                  // 启动传感器
-      break; // 找到匹配的传感器后退出循环
+      sensors[i]->setPins(pins); // 动态设置引脚
+      sensors[i]->setupPins();   // 配置引脚
+      sensors[i]->begin();       // 启动传感器
+      break;                     // 找到匹配的传感器后退出循环
     }
   }
 
   delay(1000);
 }
 
-
+void handleCommands(String command)
+{
+  if (command == Disconnect)
+  {
+    resetFunc();
+  }
+}
 void setup()
 {
   Serial.begin(115200);
@@ -126,7 +137,7 @@ void setup()
       } // 失败就晾着它
     }
 
-    delay(150);
+    delay(500);
   }
   // 握手
   sendAuthentication();
@@ -134,4 +145,8 @@ void setup()
 
 void loop()
 {
+  if (Serial.available())
+  {
+    handleCommands(Serial.readString());
+  }
 }

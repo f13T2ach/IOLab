@@ -21,6 +21,7 @@
 
 ﻿using IOLab.Core.Assets;
 using IOLab.Core.Interfaces.Threads;
+using IOLab.Core.Models;
 using IOLab.Core.Serial;
 using Newtonsoft.Json.Linq;
 using System.IO.Ports;
@@ -31,7 +32,7 @@ namespace IOLab.Core;
 public class ConnectTool
 {
     // 串口参数
-    public Models.Connection.USBConnection UartPort;
+    public Connection Device = new Connection();
     public System.IO.Ports.SerialPort _SerialPort = new System.IO.Ports.SerialPort();
 
     //实例化串口类
@@ -44,18 +45,19 @@ public class ConnectTool
     public void InitializeSerialSet(string portName)
     {
         // 串口名
-        UartPort.PortName = portName;
+        Device.PortName = portName;
         // 波特率
-        UartPort.BaudRate = 115200;
+        Device.BaudRate = 115200;
         // 数据位
-        UartPort.DataBit = 8;
+        Device.DataBit = 8;
         // 停止位
-        UartPort.StopBit = (StopBits)1;
+        Device.StopBit = (StopBits)1;
         // 校验位
-        UartPort.ParityCheckBit = 0; // 不校验
-
+        Device.ParityCheckBit = 0; // 不校验
+        // 空置
+        Device.DeviceName = "";
         // 测试 
-        UartPort.Ports = new List<string> { "I2C_1", "I2C_2", "EXT_A", "EXT_B" };
+        Device.Ports = new List<string> { "I2C_1", "I2C_2", "EXT_A", "EXT_B" };
     }
 
     public Exception? OpenComport()
@@ -69,17 +71,17 @@ public class ConnectTool
             CloseComport();
             if (_SerialPort.IsOpen)//如果关闭失败就退出
             {
-
                 return new Models.Exceptions.SerialFault("无法关闭 " + _SerialPort);
             }
 
         }
         //串口设置
-        _SerialPort.PortName = UartPort.PortName;            //串口名称
-        _SerialPort.BaudRate = UartPort.BaudRate;      //波特率
-        _SerialPort.DataBits = UartPort.DataBit;      //数据位
-        _SerialPort.Parity = UartPort.ParityCheckBit;//校验位
-        _SerialPort.StopBits = UartPort.StopBit;      //停止位
+        _SerialPort.PortName = Device.PortName;            //串口名称
+        _SerialPort.BaudRate = Device.BaudRate;      //波特率
+        _SerialPort.DataBits = Device.DataBit;      //数据位
+        _SerialPort.Parity = Device.ParityCheckBit;//校验位
+        _SerialPort.StopBits = Device.StopBit;      //停止位
+        //_SerialPort.ReadBufferSize = 4096;
 
         try
         {
@@ -100,7 +102,7 @@ public class ConnectTool
     {
         try
         {
-            _SerialPort.ReadBufferSize = 4096;
+
             _SerialPort.Close(); //关闭串口
             return null;
         }
@@ -115,6 +117,7 @@ public class ConnectTool
     {
         if (on_off)
         {
+            _SerialPort.Encoding = Encoding.UTF8;
             _SerialPort.DataReceived += new SerialDataReceivedEventHandler(ReceiveData);
 
         }
@@ -127,45 +130,52 @@ public class ConnectTool
         }
     }
 
-    public void ReceiveData(object sender,SerialDataReceivedEventArgs e)
+    private StringBuilder _buffer = new StringBuilder();
+
+    public void ReceiveData(object sender, SerialDataReceivedEventArgs e)
     {
-        _SerialPort.NewLine = "\n";
-        _SerialPort.ReadTimeout = 500;
-        //接收线程
-        while (_SerialPort.IsOpen && !rx_thread_stop_flag)//线程循环
+        try
         {
-            string content = "";
-            if (InstanceBundle.list == null)
+            string content = _SerialPort.ReadExisting(); // 读取所有可用的数据
+            _buffer.Append(content); // 将新数据追加到缓冲区
+
+            // 处理完整的数据包（假设以换行符作为消息结束符）
+            while (_buffer.ToString().Contains("\n"))
             {
-                continue;
-            }
-            try
-            {
-                content = _SerialPort.ReadLine();
-                System.Diagnostics.Debug.WriteLine(content);
-                if(content == null)
+                string line = _buffer.ToString();
+                int index = line.IndexOf("\n");
+
+                if (index >= 0)
                 {
-                    continue;
+                    string message = line.Substring(0, index).Trim();
+                    _buffer.Remove(0, index + 1); // 移除已处理的数据
+
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        System.Diagnostics.Debug.WriteLine(message);
+                        if (!message.StartsWith('['))
+                        {
+                            ProcessMessage(message);
+                        }
+                        
+                    }
                 }
             }
-            catch(Exception)
-            {
-                continue;
-            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"发生读取错误: {ex.Message}");
+        }
+    }
+
+    private void ProcessMessage(string content)
+    {
+        try
+        {
+            JObject obj = JObject.Parse(content); // 解析JSON数据
             string tag = Tags.ShakeHand;
 
-            JObject? obj = null;
-            try
-            {
-                obj = JObject.Parse(content);
-            }
-            catch
-            {
-                continue;
-            }
-
             // 在线程列表中匹配 tag
-            // 测试
             foreach (ITaskAnnounce announcer in InstanceBundle.list)
             {
                 if (announcer.Tag == tag)
@@ -177,7 +187,10 @@ public class ConnectTool
                 }
             }
         }
-
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"无法读取 JSON 数据: {ex.Message}");
+        }
     }
 
 }

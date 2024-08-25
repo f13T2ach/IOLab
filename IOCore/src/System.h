@@ -1,0 +1,1 @@
+void(* resetFunc) (void) = 0; //重启

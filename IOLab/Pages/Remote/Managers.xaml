@@ -22,7 +22,7 @@
             <Grid>
                 <StackPanel Orientation="Vertical" Margin="50" Width="640" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Grid>
-                        <TextBlock FontSize="30" Text="瑞克五代" FontWeight="Bold" FontStyle="Italic" VerticalAlignment="Center"/>
+                        <TextBlock FontSize="30" Text="{Binding DeviceName}" FontWeight="Bold" FontStyle="Italic" VerticalAlignment="Center"/>
                     </Grid>
                     <Grid Margin="0,8,0,0">
                         <Grid.ColumnDefinitions>
