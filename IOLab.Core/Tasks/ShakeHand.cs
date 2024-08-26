@@ -24,7 +24,9 @@ using IOLab.Core.Config;
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;
 using IOLab.Core.Serial;
+using IOLab.Core.Util;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 using System.Reflection.Metadata;
 
 namespace IOLab.Core.Tasks
@@ -88,6 +90,7 @@ namespace IOLab.Core.Tasks
                         //System.Diagnostics.Debug.WriteLine("Success Second" + i);
                         // 补全串口信息
                         InstanceBundle.connectTool.Device.DeviceName = _parameter["name"].ToString();
+                        InstanceBundle.connectTool.Device.Ports = JSONConverter.JArrayToListString(JArray.Parse(_parameter["ports"].ToString()));
                         
                         return "";
 

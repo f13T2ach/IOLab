@@ -25,6 +25,7 @@
 #include "IOCore.h"
 #include "Utils/Convert.h"
 #include "Utils/Generic.h"
+#include "Utils/JsonUtils.h"
 // Nyard
 #include "Nyard/Nyard.h"
 #include "Nyard/NyardPorts.h"
@@ -49,22 +50,17 @@ void initNyard()
 
 std::vector<int> getPinsByName(String name)
 {
-  auto item = ports.find(name);
-  if (item == ports.end())
+  auto item = nyardPorts.find(name);
+  if (item == nyardPorts.end())
   {
     return {};
   }
-  return ports[name];
+  return nyardPorts[name];
 }
 
 // 载入认证消息
 void initAuthentication()
 {
-}
-// 发送认证消息
-void sendAuthentication()
-{
-  Serial.println(ShankeHanded);
 }
 
 // 处理认证消息
@@ -83,7 +79,13 @@ bool handleAuthentication(String content)
 // 握手消息
 void sendHandShake()
 {
-  Serial.println(ShankeHanded);
+  JsonDocument doc;
+  deserializeJson(doc, ShankeHanded);
+  JsonUtils<String, std::vector<int>>::addKeysToJsonArray(nyardPorts,doc, "ports");
+
+  // 使用工具类方法将JsonDocument序列化并输出到串口
+  serializeJson(doc,Serial);
+  Serial.println(); // 换行
 }
 
 // 处理引脚配置指令
@@ -140,8 +142,8 @@ void setup()
 
     delay(200);
   }
-  // 握手
-  sendAuthentication();
+  // 发送本机详情
+  sendHandShake();
 }
 
 void loop()
