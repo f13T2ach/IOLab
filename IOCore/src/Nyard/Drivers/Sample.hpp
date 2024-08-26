@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2024 Redmaple. All rights reserved.
  *
- * Sample.h is part of the IOLab project.
+ * Sample.hpp is part of the IOLab project.
  *
  * IOLab is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 #ifndef SAMPLE_H
 #define SAMPLE_H
 
-#include "Nyard.h"
+#include "../Nyard.h"
 
 
 class SampleSensor : public Nyard {
