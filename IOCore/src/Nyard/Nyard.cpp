@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "Nyard.h"
+#include "Nyard.hpp"
 #include <Arduino.h>
 
 // 构造函数实现

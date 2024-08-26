@@ -27,7 +27,7 @@
 #include "Utils/Generic.h"
 #include "Utils/JsonUtils.h"
 // Nyard
-#include "Nyard/Nyard.h"
+#include "Nyard/Nyard.hpp"
 #include "Nyard/NyardPorts.h"
 #include "Nyard/NyardDrivers.h"
 

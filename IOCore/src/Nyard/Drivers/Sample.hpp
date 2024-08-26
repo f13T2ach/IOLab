@@ -19,10 +19,10 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef SAMPLE_H
-#define SAMPLE_H
+#ifndef SAMPLE_HPP
+#define SAMPLE_HPP
 
-#include "../Nyard.h"
+#include "../Nyard.hpp"
 
 
 class SampleSensor : public Nyard {
