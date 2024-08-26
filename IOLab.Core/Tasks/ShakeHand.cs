@@ -88,6 +88,7 @@ namespace IOLab.Core.Tasks
                         //System.Diagnostics.Debug.WriteLine("Success Second" + i);
                         // 补全串口信息
                         InstanceBundle.connectTool.Device.DeviceName = _parameter["name"].ToString();
+                        
                         return "";
 
                     }
