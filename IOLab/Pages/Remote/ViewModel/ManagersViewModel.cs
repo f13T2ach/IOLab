@@ -32,7 +32,7 @@ namespace IOLab.Pages.Remote.ViewModel
 
         public ICommand DisconnectCommand { get; set; }
 
-        public string DeviceName { get => InstanceBundle.connectTool==null? "": InstanceBundle.connectTool.Device.DeviceName; private set { } }
+        public string DeviceName { get => InstanceBundle.IsConnected ? InstanceBundle.connectTool.Device.DeviceName : ""; private set { } }
 
         public ManagersViewModel()
         {

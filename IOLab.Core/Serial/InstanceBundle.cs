@@ -31,7 +31,7 @@ namespace IOLab.Core.Serial
 
         public static ConnectTool connectTool; // 连接实例
 
-        
+        public static bool IsConnected = false;
         public static ObservableCollection<ChartTableModel> ChartTables { get; set; } // 监视器
     }
 }

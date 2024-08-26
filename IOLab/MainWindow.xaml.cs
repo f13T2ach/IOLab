@@ -88,6 +88,7 @@ namespace IOLab
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
+            BreakPageTask();
 
             var item = sender.SelectedItem;
             Page? page = null;
@@ -122,6 +123,20 @@ namespace IOLab
             {
                 NavigationView_Root.Header = page.Title;
                 Frame_Main.Navigate(page);
+            }
+        }
+
+        // 打断页面行为
+        public void BreakPageTask()
+        {
+            // 打断连接行为
+            if(InstanceBundle.connectTool != null)
+            {
+                if (!InstanceBundle.IsConnected)
+                {
+                    InstanceBundle.connectTool.CloseComport();
+                    InstanceBundle.connectTool = null;
+                }
             }
         }
 

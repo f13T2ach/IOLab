@@ -45,13 +45,13 @@ namespace IOLab.Pages
 
         private void Preparations()
         {
-            if (InstanceBundle.connectTool == null)
+            if (InstanceBundle.IsConnected)
             {
-                ViewField.Navigate(PageRemote_NoRemoteTarget);
+                ViewField.Navigate(PageRemote_Managers);
             }
             else
             {
-                ViewField.Navigate(PageRemote_Managers);
+                ViewField.Navigate(PageRemote_NoRemoteTarget);
             }
 
             ShallowShadow.Source = BitmapFrame.Create(
