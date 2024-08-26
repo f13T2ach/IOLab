@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Tasks\Util\" />
-    <Folder Include="Util\JSON\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,7 +3,7 @@ import os
 def count_code_lines(file_path, file_ext):
     """Counts the number of non-empty, non-comment lines in a given file."""
     count = 0
-    with open(file_path, 'r',encoding='utf-8') as file:
+    with open(file_path, 'r') as file:
         lines = file.readlines()
 
     if file_ext in ['.cpp', '.h']:

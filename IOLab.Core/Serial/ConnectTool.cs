@@ -57,7 +57,7 @@ public class ConnectTool
         // 空置
         Device.DeviceName = "";
         // 测试 
-        Device.Ports = new List<string> { "I2C_1", "I2C_2", "EXT_A", "EXT_B" };
+        //Device.Ports = new List<string> { "I2C_1", "I2C_2", "EXT_A", "EXT_B" };
     }
 
     public Exception? OpenComport()
