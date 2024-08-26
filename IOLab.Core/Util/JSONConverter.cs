@@ -14,7 +14,7 @@ namespace IOLab.Core.Util
             List<string> list = new List<string>();
             foreach(JToken jToken in array)
             {
-                list.Add(list.ToString());
+                list.Add(jToken.ToString());
             }
             return list;
         }
