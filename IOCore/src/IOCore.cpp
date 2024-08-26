@@ -138,7 +138,7 @@ void setup()
       } // 失败就晾着它
     }
 
-    delay(500);
+    delay(200);
   }
   // 握手
   sendAuthentication();
