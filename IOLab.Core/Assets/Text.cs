@@ -66,5 +66,7 @@
         public static string AboutThisExperiment = "关于此实验";
         public static string NoSensorNeeded = "此实验不需要传感器";
         public static string NoDescriptions = "此实验没有介绍\n"; // \n是必须的
+
+        public static string ConnectToManagePins = "连接设备以管理插口";
     }
 }

@@ -22,6 +22,7 @@
 ﻿using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
+using IOLab.Core.Assets;
 using IOLab.Core.Models;
 using IOLab.Core.Serial;
 using IOLab.Pages.Event.MonitorPages;
@@ -31,6 +32,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -58,11 +60,13 @@ namespace IOLab.Pages.ViewModel
         // RelayCommand实现
         public ICommand SelectChartCommand { get; set; }
         public ICommand RemoveSelectedChartsCommand { get; set; }
-
         public ICommand AddNewChartCommand { get; set; }
-
         public ICommand SaveRecordsCommand { get; set; }
 
+        // 数据Binding
+        public string DeviceNameText { get => InstanceBundle.IsConnected ? InstanceBundle.connectTool.Device.DeviceName : Text.ConnectToManagePins; private set { } }
+
+        public bool ManageButtonEnable { get => InstanceBundle.IsConnected; private set { } }
         // 选中事件
         private ChartTableModel _selectedChart;
         public ChartTableModel? SelectedChart

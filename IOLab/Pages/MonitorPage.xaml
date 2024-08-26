@@ -27,10 +27,10 @@
 
             </ui:CommandBar>
         </ui:AcrylicPanel>
-        <Button VerticalAlignment="Top" Cursor="Hand" IsEnabled="True" x:Name="ManagePins" Click="ManagePins_Click" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Center" Margin="0,8,0,0">
+        <Button IsEnabled="{Binding ManageButtonEnable}" VerticalAlignment="Top" Cursor="Hand" x:Name="ManagePins" Click="ManagePins_Click" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Center" Margin="0,8,0,0">
             <StackPanel Orientation="Horizontal">
                 <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Wire}"/>
-                <TextBlock Text="瑞克五代" Margin="5,0,0,0"/>
+                <TextBlock Text="{Binding DeviceNameText}" Margin="5,0,0,0"/>
             </StackPanel>
 
         </Button>

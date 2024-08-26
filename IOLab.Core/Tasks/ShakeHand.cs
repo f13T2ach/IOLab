@@ -91,7 +91,7 @@ namespace IOLab.Core.Tasks
                         // 补全串口信息
                         InstanceBundle.connectTool.Device.DeviceName = _parameter["name"].ToString();
                         InstanceBundle.connectTool.Device.Ports = JSONConverter.JArrayToListString(JArray.Parse(_parameter["ports"].ToString()));
-                        
+                        InstanceBundle.IsConnected = true;
                         return "";
 
                     }
