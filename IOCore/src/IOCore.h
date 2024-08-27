@@ -28,6 +28,7 @@ String CallbackNewPortSuccess = "{\"command\":\"NewPortCallback\",\"code\":0,\"m
 String CallbackNewPortFailed_Invalid1 = "{\"command\":\"NewPortCallback\",\"code\":1,\"msg\":\"委任的端口无效\"}";
 // JSON框架
 String ShankeHanded = "{\"command\":\"ShakeHand\",\"name\":\"瑞克五代\",\"ports\":[]}"; // 三次握手
+String PerformanceColt = "{\"command\":\"PerfColt\",\"payload\":-1,\"eeprom\":-1}"; // 三次握手
 // 命令
 String ReceivedRequest = "#Success";
 String Disconnect = "#Disconnect";

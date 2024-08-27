@@ -66,14 +66,12 @@ namespace IOLab.Core.Tasks
             {
                 if (_parameter == null)
                 {
-                    //System.Diagnostics.Debug.WriteLine("Failed First"+i);
                     Thread.Sleep(InternalConfig.ShakeHandTimeStep);
                 }
                 else
                 {
                     if (!isSecondCallback)
                     {
-                        //System.Diagnostics.Debug.WriteLine("Success First" + i);
                         // 握手
                         InstanceBundle.connectTool._SerialPort.WriteLine(CommandsV1.ReceivedRequest);
                         return handler(true);
@@ -83,15 +81,15 @@ namespace IOLab.Core.Tasks
                         
                         if (_parameter["name"] == null)
                         {
-                            //System.Diagnostics.Debug.WriteLine("Failed Second" + i);
                             Thread.Sleep(InternalConfig.ShakeHandTimeStep);
                             continue;
                         }
-                        //System.Diagnostics.Debug.WriteLine("Success Second" + i);
                         // 补全串口信息
                         InstanceBundle.connectTool.Device.DeviceName = _parameter["name"].ToString();
                         InstanceBundle.connectTool.Device.Ports = JSONConverter.JArrayToListString(JArray.Parse(_parameter["ports"].ToString()));
                         InstanceBundle.IsConnected = true;
+                        // 添加性能收集检测器
+                        InstanceBundle.list.Add(new PerformanceColtTask());
                         return "";
 
                     }
