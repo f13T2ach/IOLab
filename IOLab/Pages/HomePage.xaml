@@ -14,7 +14,7 @@
         <StackPanel Orientation="Vertical" MaxWidth="1280" Margin="40,20,40,40" VerticalAlignment="Top">
             <Grid>
                 <emoji:TextBlock HorizontalAlignment="Left" FontSize="32">✨</emoji:TextBlock>
-                <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">瑞克五代 就绪 - 铁离子与KSCN溶液反应的产物探究</TextBlock>
+                <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">即插即用的全栈实验平台</TextBlock>
             </Grid>
             <ui:AcrylicPanel CornerRadius="20" Width="640" Height="180">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">

@@ -38,6 +38,7 @@ namespace IOLab.Core.Tasks
 
         public bool Inhibit { get => false; set { } }
 
+        public ITaskAnnounce? Announcer { get; set; }
 
         JObject ITaskHandler<object>.Parameter
         {

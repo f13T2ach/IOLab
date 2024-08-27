@@ -19,24 +19,61 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using iNKORE.UI.WPF.Modern;
+using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Core.Assets;
 using IOLab.Core.Generic;
+using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Serial;
+using IOLab.Pages;
 using IOLab.Pages.Appreciations;
+using IOLab.Pages.Remote;
+using IOLab.Pages.Remote.ViewModel;
+using IOLab.Windows.Dialog;
+using LiveChartsCore.Measure;
+using Microsoft.Xaml.Behaviors.Core;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Ports;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
 using System.Windows.Media;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab
 {
+    public class NavigationManager
+    {
+        // 定义缓存字典，用于存储已创建的页面对象，使用 NavigationViewItem 的 Name 作为键
+        private readonly Dictionary<string, Page> _pageCache = new();
+
+        public Page GetPage(NavigationViewItem item)
+        {
+            // 此处可用进行缓存操作 基于内存考虑 不使用该方法
+            Page page = item.Name switch
+            {
+                "NavigationViewItem_Home" => new HomePage(),
+                "NavigationViewItem_Remote" => new RemotePage(),
+                "NavigationViewItem_Monitor" => new MonitorPage(),
+                "NavigationViewItem_Setting" => new SettingPage(),
+                "NavigationViewItem_About" => new AboutPage(),
+                _ => throw new InvalidOperationException("Unknown navigation item.")
+            };
+            return page;
+        }
+    }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         private static bool _FirstStarup = false;
+        private readonly NavigationManager _navigationManager = new();
 
         public MainWindow()
         {
@@ -46,8 +83,6 @@ namespace IOLab
             InitializeComponent();
             //测试代码
             //Static.Theme.themeMode = ApplicationTheme.Dark;
-            Util.StaticModel.DeviceName.TextContent = "瑞克五代";
-
             if (_FirstStarup)
             {
                 StartAppreciations();
@@ -71,8 +106,54 @@ namespace IOLab
             ReadAssets.ReadExperiments();
 
             
+        }
 
+        public const int WM_DEVICECHANGE = 0x219;//U盘插入后，OS的底层会自动检测到，然后向应用程序发送“硬件设备状态改变“的消息  
+        public const int DBT_DEVICEREMOVECOMPLETE = 0x8004;  //一个设备或媒体片已被删除。
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == WM_DEVICECHANGE)
+            {
+                switch (wParam.ToInt32())
+                {
+                    case DBT_DEVICEREMOVECOMPLETE:
+                        // 检测到设备拔出
+                        if(!InstanceBundle.IsConnected)
+                        {
+                            break;
+                        }
+                        // 验证是不是连接的串口
+                        bool flag = true ;
+                        foreach (string item in new Scanner().ScanAllSerial())
+                        {
+                            if(item == InstanceBundle.connectTool._SerialPort.PortName)
+                            {
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if (!flag)
+                        {
+                            break;
+                        }
 
+                        var currentDialog = Application.Current.MainWindow?.Content as ContentDialog;
+
+                        if (currentDialog != null)
+                        {
+                            // 关闭当前对话框
+                            currentDialog.Hide();
+                        }
+
+                        new ManagersViewModel().OnUIDisconnectDevice(this);
+                        InstanceBundle.IsConnected = false;
+                        Frame_Main.Navigate(new RemotePage());
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return IntPtr.Zero;
         }
 
         private void StartAppreciations()
@@ -89,48 +170,16 @@ namespace IOLab
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             BreakPageTask();
-
-            var item = sender.SelectedItem;
-            Page? page = null;
-
-            if (item == NavigationViewItem_Home)
-            {
-                Pages.HomePage Page_Home = new Pages.HomePage();
-                page = Page_Home;
-            }
-            else if (item == NavigationViewItem_Remote)
-            {
-                Pages.RemotePage Page_Remote = new Pages.RemotePage();
-                page = Page_Remote;
-            }
-            else if (item == NavigationViewItem_Monitor)
-            {
-                Pages.MonitorPage Page_Monitor = new Pages.MonitorPage();
-                page = Page_Monitor;
-            }
-            else if (item == NavigationViewItem_Setting)
-            {
-                Pages.SettingPage Page_Setting = new Pages.SettingPage();
-                page = Page_Setting;
-            }
-            else if (item == NavigationViewItem_About)
-            {
-                Pages.AboutPage Page_About = new Pages.AboutPage();
-                page = Page_About;
-            }
-
-            if (page != null)
-            {
-                NavigationView_Root.Header = page.Title;
-                Frame_Main.Navigate(page);
-            }
+            var page = _navigationManager.GetPage((NavigationViewItem)sender.SelectedItem);
+            NavigationView_Root.Header = page.Title;
+            Frame_Main.Content = page;
         }
 
         // 打断页面行为
         public void BreakPageTask()
         {
             // 打断连接行为
-            if(InstanceBundle.connectTool != null)
+            if (InstanceBundle.connectTool != null)
             {
                 if (!InstanceBundle.IsConnected)
                 {
@@ -148,6 +197,11 @@ namespace IOLab
             }
             NavigationView_Root.SelectedItem = NavigationViewItem_Home;
 
+            HwndSource hwndSource = PresentationSource.FromVisual(this) as HwndSource;//窗口过程
+            if (hwndSource != null)
+            {
+                hwndSource.AddHook(new HwndSourceHook(WndProc));//挂钩
+            }
 
         }
 
@@ -196,6 +250,12 @@ namespace IOLab
 
             //base.OnClosed(e);
         }
+
+
+
+
+
     }
+
 
 }
