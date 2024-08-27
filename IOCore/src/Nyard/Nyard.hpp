@@ -39,8 +39,12 @@ public:
         return id;
     }
 
+    int getPreload() const{
+        return preload;
+    }
 protected:
     int id;
+    int preload;
 };
 
 #endif

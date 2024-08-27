@@ -147,6 +147,7 @@ namespace IOLab
 
                         new ManagersViewModel().OnUIDisconnectDevice(this);
                         InstanceBundle.IsConnected = false;
+                        NavigationView_Root.SelectedItem = NavigationViewItem_Remote;
                         Frame_Main.Navigate(new RemotePage());
                         break;
                     default:

@@ -32,7 +32,9 @@ private: // 定义使能和数据
 public:
     // 构造函数
     SampleSensor(int id)
-        : Nyard(id), dataPin(-1), powerPin(-1) {}  // 初始引脚设置为空值
+        : Nyard(id), dataPin(-1), powerPin(-1) {
+            preload = 20000;
+        }  // 初始引脚设置为空值
 
     // 动态设置引脚
     void setPins(const std::vector<int>& pins) override {
