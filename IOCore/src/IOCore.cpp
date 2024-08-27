@@ -81,10 +81,10 @@ void sendHandShake()
 {
   JsonDocument doc;
   deserializeJson(doc, ShankeHanded);
-  JsonUtils<String, std::vector<int>>::addKeysToJsonArray(nyardPorts,doc, "ports");
+  JsonUtils<String, std::vector<int>>::addKeysToJsonArray(nyardPorts, doc, "ports");
 
   // 使用工具类方法将JsonDocument序列化并输出到串口
-  serializeJson(doc,Serial);
+  serializeJson(doc, Serial);
   Serial.println(); // 换行
 }
 
@@ -121,6 +121,34 @@ void handleCommands(String command)
   {
     resetFunc();
   }
+  else if (command.startsWith(EnablePort))
+  {
+    char* idChar = getSingleParameter(command.c_str(),1);
+
+  }
+}
+
+// 获取单个参数 index为段数
+char* getSingleParameter(const char* str,int index)
+{
+  char delimiter[] = "#";
+  // 修复：计算字符串长度并分配足够的内存空间，包括 '\0'
+  char *pc = (char *)malloc(strlen(str) + 1);
+  strcpy(pc, str);
+
+  char *split = strtok(pc, delimiter);
+  int i = 0;  // 初始化计数器
+  while (split != NULL)
+  {
+    if(index == i){
+      return split;
+    }
+    split = strtok(NULL, delimiter);
+    i++;  // 递增计数器
+  }
+
+  free(pc);
+  free(split);
 }
 void setup()
 {

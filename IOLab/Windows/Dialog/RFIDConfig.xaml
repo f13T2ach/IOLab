@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="RFID 配置"
-    PrimaryButtonText="好"  
+    PrimaryButtonText="取消"  
     DefaultButton="Primary"
     >
 

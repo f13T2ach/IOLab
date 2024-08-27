@@ -33,7 +33,7 @@ namespace IOLab.Core.Tasks
 {
     public class ShakeHand : ITaskHandler<object>
     {
-        public static JObject _parameter = null;
+        public JObject _parameter = null;
 
 
         public bool Inhibit { get => false; set { } }

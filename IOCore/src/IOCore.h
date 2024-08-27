@@ -33,5 +33,5 @@ String PerformanceColt = "{\"command\":\"PerfColt\",\"payload\":-1,\"eeprom\":-1
 String ReceivedRequest = "#Success";
 String Disconnect = "#Disconnect";
 // 使能命令判断头
-String EnablePort = "#Enable"; //#Enable#端口名称#采样间隔
+String EnablePort = "#Enable"; //#Enable#端口名称
 String DisablePort = "#Disable"; //#Disable#端口名称
