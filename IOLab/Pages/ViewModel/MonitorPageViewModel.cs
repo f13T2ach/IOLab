@@ -188,6 +188,13 @@ namespace IOLab.Pages.ViewModel
             {
                 return;
             }
+            
+            // 防止突然拔出
+            if (!InstanceBundle.IsConnected)
+            {
+                return;
+            }
+
             MappedChartTables.Add(new ChartTableModel(add.Service.YRow, add.ChartName, (new ThemeResources().AccentColor.ToString()))
             {
                 Id = add.ChartID,

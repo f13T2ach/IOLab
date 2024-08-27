@@ -25,6 +25,7 @@ namespace IOLab.Core.Interfaces.Threads
 {
     public interface ITaskHandler<TType>
     {
+        public ITaskAnnounce Announcer { get; set; }
         public TType Handler();
 
         public JObject Parameter { get; set; }

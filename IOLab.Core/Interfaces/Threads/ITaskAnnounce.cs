@@ -1,3 +1,9 @@
+
+
+using IOLab.Core.Serial;
+
+
+using System.Threading.Tasks;
 /**
  * IOLab - A Full-Stack Experimentation Platform
  *
@@ -23,9 +29,13 @@ namespace IOLab.Core.Interfaces.Threads
 {
     public interface ITaskAnnounce
     {
-        public void GetResult();
-
+        public CancellationTokenSource tokenSource { get; set; }
+        public CancellationToken cancellationToken { get; set; }
         public Task GetTaskInstance();
+
+        public void MemoryReserve();
+
+        public void StopTask();
 
         public ITaskHandler<object> GetHandlerInstance();
 

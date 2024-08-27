@@ -38,6 +38,8 @@ namespace IOLab.Core.Tasks
 
         public bool Inhibit { get => false; set { } }
 
+        public ITaskAnnounce? Announcer { get; set; }
+
 
         // 握手步骤
         // 单片机发送请求
@@ -51,6 +53,7 @@ namespace IOLab.Core.Tasks
 
         object ITaskHandler<object>.Handler()
         {
+            
             return handler(false);
         }
 
@@ -64,6 +67,11 @@ namespace IOLab.Core.Tasks
             // 等待验证  
             for (int i = 0; i < InternalConfig.ConnectTimeout / InternalConfig.ShakeHandTimeStep; i++)
             {
+                if (Announcer.tokenSource.IsCancellationRequested)
+                {
+                    return Text.ForcedCancledBySystem;
+                }
+
                 if (_parameter == null)
                 {
                     Thread.Sleep(InternalConfig.ShakeHandTimeStep);
@@ -89,7 +97,8 @@ namespace IOLab.Core.Tasks
                         InstanceBundle.connectTool.Device.Ports = JSONConverter.JArrayToListString(JArray.Parse(_parameter["ports"].ToString()));
                         InstanceBundle.IsConnected = true;
                         // 添加性能收集检测器
-                        InstanceBundle.list.Add(new PerformanceColtTask());
+                        InstanceBundle.list.Add(new TaskAnnouncer(new PerformanceColt(),Tags.PerformanceColt));
+
                         return "";
 
                     }

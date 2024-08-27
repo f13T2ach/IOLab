@@ -27,6 +27,7 @@ using IOLab.Core.Tasks;
 using IOLab.Resources.Control.Cyber;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
@@ -86,18 +87,18 @@ namespace IOLab.Pages.Remote
                 if (result == null)
                 {
                     // 测试
-                    ShakeHandTask st = new ShakeHandTask();
-                    InstanceBundle.list.Add(st);
+                    TaskAnnouncer announcer = new TaskAnnouncer(new ShakeHand(),Tags.ShakeHand);
+                    InstanceBundle.list.Add(announcer);
 
 
-                    await st.task.ConfigureAwait(false);
+                    await announcer.task.ConfigureAwait(announcer.task.IsCompleted);
 
                     // 判断错误返回
-                    if (st.task.Result.ToString() != "")
+                    if (announcer.task.Result.ToString() != "")
                     {
                         this.Dispatcher.Invoke(new Action(delegate
                         {
-                            AttentionBar.ShowWaringBar(st.task.Result.ToString());
+                            AttentionBar.ShowWaringBar(announcer.task.Result.ToString());
                         }));
                         ct.CloseComport();
                         InstanceBundle.connectTool = null;

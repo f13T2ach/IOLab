@@ -41,10 +41,21 @@
             "虚空索敌？",
             "操作无效",
         };
+
+        // 窗口
+        public static string DisconnectDialog_SureToDisconnect = "确定断开连接吗";
+        public static string DisconnectDialog_AlertText = "如果你有未保存的工作，继续操作你仍可保存";
+
+        public static string DisconnectDialog_Disconnected = "设备断开连接";
+        public static string DisconnectDialog_Hint = "你仍可保存未完成的工作，如果这并非你所操作，请检查你的 USB 线缆";
+        public static string DisconnectDialog_HintFailed = "如果这并非你所操作，请检查你的 USB 线缆\n你正在配置的窗口阻碍我们提示你，如果你在配置与采集有关的项目，保存配置不会有效\n你仍可保存未完成的工作，但暂时不能重命名实验了\n点击“是”我们就为你保存（如果有的话）";
+        // 线程
         public static string ConnectTimeOut = "连接失败：认证超时";
         public static string CallbackTimeOut = "连接失败：回调超时";
         public static string ConnectAccessDenied = "连接失败：拒绝访问";
+        public static string ForcedCancledBySystem = "操作被强制中止";
 
+        // 加载页面
         public static string ReceivingMessageFromIONet = "正在从 IONet 收取信息";
         public static string ReceivingUpdateFromIONet = "正在从 IONet 下载重要更新";
         public static string DownloadUpdateCompleted = "更新已完成，关闭 IOLab 后开始安装";
@@ -58,6 +69,7 @@
         public static string PleaseWait = "请稍等";
         public static string InstallCompleted = "准备就绪，即将重新启动";
 
+        // 设备管理器与实验管理
         public static string NeedToPrepare = "需要准备";
         public static string Collector = "采集仪器";
 

@@ -19,7 +19,8 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Pages.Remote.ViewModel;
+using IOLab.Pages.Remote.ViewModel;
+using System;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab.Pages.Remote
@@ -33,8 +34,10 @@ namespace IOLab.Pages.Remote
         {
             InitializeComponent();
             ManagersViewModel viewModel = new ManagersViewModel();
-            this.DataContext = viewModel;
+            
+            viewModel.ChangePageEvent += OnChangePage;
 
+            this.DataContext = viewModel;
             MyInfoBar.ForceStop();
             MyInfoBar.ShowWaringBar("采集仪器：连接成功");
             // InitInformation();
@@ -45,6 +48,17 @@ namespace IOLab.Pages.Remote
             // Header.Text = DeviceName.TextContent;
             // DeviceNameText.Text = DeviceName.TextContent;
 
+        }
+
+        private void OnChangePage(object sender, EventArgs e)
+        {
+            this.Dispatcher.Invoke(new Action(delegate
+            {
+                if (this.NavigationService != null)
+                {
+                    System.Windows.Navigation.NavigationService.GetNavigationService(this).Navigate(new NoRemoteTarget());
+                }
+            }));
         }
 
         /**

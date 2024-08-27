@@ -33,5 +33,12 @@ namespace IOLab.Windows.Dialog
             InitializeComponent();
 
         }
+
+        /*
+         if (!InstanceBundle.IsConnected)
+            {
+                return;
+            }
+         */
     }
 }

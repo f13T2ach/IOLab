@@ -77,5 +77,11 @@ namespace IOLab.Windows.Dialog
 
 
         }
+
+        /*
+         if (!InstanceBundle.IsConnected)
+            {
+                return;
+            }*/
     }
 }

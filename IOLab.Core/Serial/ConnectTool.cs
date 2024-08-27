@@ -102,7 +102,7 @@ public class ConnectTool
     {
         try
         {
-
+            _SerialPort.Dispose();
             _SerialPort.Close(); //关闭串口
             return null;
         }
@@ -117,6 +117,7 @@ public class ConnectTool
     {
         if (on_off)
         {
+            
             _SerialPort.Encoding = Encoding.UTF8;
             _SerialPort.DataReceived += new SerialDataReceivedEventHandler(ReceiveData);
 
