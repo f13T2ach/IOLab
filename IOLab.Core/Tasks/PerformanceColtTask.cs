@@ -45,7 +45,7 @@ namespace IOLab.Core.Tasks
         {
             Tag = Tags.ShakeHand;
 
-            handler = new PerformanceColl();
+            handler = new PerformanceColt();
             task = new Task<object>(handler.Handler);
             task.Start();
 
