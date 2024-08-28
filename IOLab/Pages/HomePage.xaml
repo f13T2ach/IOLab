@@ -7,6 +7,7 @@
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
       xmlns:lab="clr-namespace:IOLab.Resources.Control"
       mc:Ignorable="d" 
+         Unloaded="Page_Unloaded"
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="实验">
     <ui:ScrollViewerEx>

@@ -37,23 +37,28 @@ namespace IOLab
 {
     public class NavigationManager
     {
-        // 定义缓存字典，用于存储已创建的页面对象，使用 NavigationViewItem 的 Name 作为键
-        private readonly Dictionary<string, Page> _pageCache = new();
+        private readonly Dictionary<string, Page> _pageCache = new Dictionary<string, Page>();
 
+        // 缓存页面
         public Page GetPage(NavigationViewItem item)
         {
-            // 此处可用进行缓存操作 基于内存考虑 不使用该方法
-            Page page = item.Name switch
+            var pageKey = item.Name;
+            if (!_pageCache.TryGetValue(pageKey, out var page))
             {
-                "NavigationViewItem_Home" => new HomePage(),
-                "NavigationViewItem_Remote" => new RemotePage(),
-                "NavigationViewItem_Monitor" => new MonitorPage(),
-                "NavigationViewItem_Setting" => new SettingPage(),
-                "NavigationViewItem_About" => new AboutPage(),
-                _ => throw new InvalidOperationException("Unknown navigation item.")
-            };
+                page = item.Name switch
+                {
+                    "NavigationViewItem_Home" => new HomePage(),
+                    "NavigationViewItem_Remote" => new RemotePage(),
+                    "NavigationViewItem_Monitor" => new MonitorPage(),
+                    "NavigationViewItem_Setting" => new SettingPage(),
+                    "NavigationViewItem_About" => new AboutPage(),
+                    _ => throw new InvalidOperationException("Unknown navigation item.")
+                };
+                _pageCache[pageKey] = page;
+            }
             return page;
         }
+
     }
 
     /// <summary>

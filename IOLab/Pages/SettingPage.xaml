@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:IOLab.Pages"
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
       mc:Ignorable="d" 
+         Unloaded="Page_Unloaded"
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="设置">
 

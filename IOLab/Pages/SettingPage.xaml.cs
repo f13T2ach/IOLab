@@ -22,6 +22,7 @@
 using iNKORE.UI.WPF.Modern;
 using IOLab.Models.Related;
 using IOLab.Static;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -129,6 +130,15 @@ namespace IOLab.Pages
                 TotalClick = 0;
             }
         }
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is IDisposable disposableContext)
+            {
+                disposableContext.Dispose();
+            }
+        }
+
+
 
 
     }

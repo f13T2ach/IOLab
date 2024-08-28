@@ -22,6 +22,7 @@
 using iNKORE.UI.WPF.Modern;
 using IOLab.Pages.ViewModel;
 using System;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
@@ -47,5 +48,14 @@ namespace IOLab.Pages
                 BitmapCreateOptions.None,
                 BitmapCacheOption.Default);
         }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is IDisposable disposableContext)
+            {
+                disposableContext.Dispose();
+            }
+        }
+
     }
 }
