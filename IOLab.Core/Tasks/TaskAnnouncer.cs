@@ -1,11 +1,5 @@
-﻿using IOLab.Core.Assets;
-using IOLab.Core.Interfaces.Threads;
+﻿using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Serial;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IOLab.Core.Tasks
 {
@@ -28,7 +22,7 @@ namespace IOLab.Core.Tasks
 
 
 
-        public TaskAnnouncer(ITaskHandler<object> handle,string tag)
+        public TaskAnnouncer(ITaskHandler<object> handle, string tag)
         {
             tokenSource = new CancellationTokenSource();
             cancellationToken = tokenSource.Token;

@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:IOLab.Windows.Dialog"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf" xmlns:viewmodel="clr-namespace:IOLab.Windows.Dialog.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddChartViewModel}"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodel="clr-namespace:IOLab.Windows.Dialog.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddChartViewModel}"
     mc:Ignorable="d"
     Title="新建监视器"
     PrimaryButtonText="提交变动"  
@@ -51,9 +51,9 @@
             <TextBlock Text="表ID" FontSize="15" Margin="6" HorizontalAlignment="Left"/>
             <Slider x:Name="chartIDInput" Style="{StaticResource NumbericSlider}" FontSize="16" Value="1" Minimum="1" Maximum="99" ValueChanged="chartIDInput_ValueChanged" Height="32" Width="80" Margin="0,0,5,0" HorizontalAlignment="Right"/>
         </Grid>
-        <emoji:TextBlock Text="🤔 正用于采样的插口不能被用于新建监视；后续可在新建图表中使用已配置的插口" Opacity="0.7"/>
-        <emoji:TextBlock Text="🤯 最多支持 4 个插口同时绘图，绘图的插口过多会导致采样延迟" Opacity="0.7"/>
-        <emoji:TextBlock Text="🤪 算法自动匹配最大值，已达99自己下调" Visibility="Hidden" Name="TipFor99"/>
+        <TextBlock Text="正用于采样的插口不能被用于新建监视；后续可在新建图表中使用已配置的插口" Opacity="0.7"/>
+        <TextBlock Text="最多支持 4 个插口同时绘图，绘图的插口过多会导致采样延迟" Opacity="0.7"/>
+        <TextBlock Text="算法自动匹配最大值，已达99自己下调" Visibility="Hidden" Name="TipFor99"/>
 
     </StackPanel>
 

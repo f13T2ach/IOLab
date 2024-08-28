@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using iNKORE.UI.WPF.Modern.Controls;
+using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Config;
 using IOLab.Core.Models;
 using IOLab.Core.Serial;
@@ -172,7 +172,7 @@ namespace IOLab.Windows.Dialog
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            
+
 
             PortID = viewModel.SelectedPortID;
             ChartID = (int)chartIDInput.Value;

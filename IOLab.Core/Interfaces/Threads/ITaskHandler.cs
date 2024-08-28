@@ -33,6 +33,6 @@ namespace IOLab.Core.Interfaces.Threads
         /// <summary>
         /// 抑制标志（赋值只开放一次）置为 true 则总是准许赋值
         /// </summary>
-        public bool Inhibit { get; set; } 
+        public bool Inhibit { get; set; }
     }
 }

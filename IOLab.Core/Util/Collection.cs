@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Core.Util
+namespace IOLab.Core.Util
 {
     internal static class Collection
     {

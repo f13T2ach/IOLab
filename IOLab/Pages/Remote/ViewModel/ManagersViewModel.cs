@@ -89,7 +89,7 @@ namespace IOLab.Pages.Remote.ViewModel
             {
                 return;
             }
-            
+
             // 恢复标记
             InstanceBundle.IsConnected = false;
             // 清除所有队列
@@ -110,7 +110,7 @@ namespace IOLab.Pages.Remote.ViewModel
                     await new SaveRecords(2).ShowAsync();
                     InstanceBundle.ChartTables.Clear();
                 }
-                
+
             }
 
             // 如果无法显示对话框

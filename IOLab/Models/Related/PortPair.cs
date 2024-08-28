@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Models.Related
+namespace IOLab.Models.Related
 {
     // 该类被Service对象和viewmodel同时引用
     /// <summary>

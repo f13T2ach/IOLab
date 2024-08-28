@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Pages.Event.MonitorPages;
+using IOLab.Pages.Event.MonitorPages;
 using IOLab.Pages.ViewModel;
 using IOLab.Windows.Dialog;
 using System;

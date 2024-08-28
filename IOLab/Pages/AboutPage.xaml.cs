@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Network;
+using IOLab.Network;
 using IOLab.Windows.Dialog;
 using IOLab.Windows.Dialog.Universal;
 using System.Windows;

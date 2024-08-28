@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Core.Models.Records;
+using IOLab.Core.Models.Records;
 
 namespace IOLab.Core.Models
 {

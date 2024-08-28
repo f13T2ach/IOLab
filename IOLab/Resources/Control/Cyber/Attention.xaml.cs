@@ -19,21 +19,10 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace IOLab.Resources.Control.Cyber
@@ -72,7 +61,8 @@ namespace IOLab.Resources.Control.Cyber
         public void ShowWaringBar(string text)
         {
 
-            this.Dispatcher.Invoke(new Action(() => {
+            this.Dispatcher.Invoke(new Action(() =>
+            {
                 WarningBarText.Text = text;
                 this.Visibility = Visibility.Visible;
             }));
@@ -146,8 +136,9 @@ namespace IOLab.Resources.Control.Cyber
                     //完成后隐藏
                     BlinkAnimation.Completed += (sender, e) =>
                     {
-                        this.Dispatcher.Invoke(new Action(() => {
-                           
+                        this.Dispatcher.Invoke(new Action(() =>
+                        {
+
                             this.Visibility = Visibility.Hidden;
                             ForceStop();
                         }));
@@ -165,9 +156,10 @@ namespace IOLab.Resources.Control.Cyber
         /// </summary>
         public void ForceStop()
         {
-            this.Dispatcher.Invoke(new Action(() => {
+            this.Dispatcher.Invoke(new Action(() =>
+            {
                 this.Visibility = Visibility.Hidden;
-                if(warningBarTimer != null)
+                if (warningBarTimer != null)
                 {
                     warningBarTimer.Stop();
 
@@ -175,7 +167,7 @@ namespace IOLab.Resources.Control.Cyber
                 WarningBarContainer.BeginAnimation(Button.WidthProperty, null); // 终止动画
 
                 WarningBarContainer.Width = 38;
-                
+
                 WarningBarImage.HorizontalAlignment = HorizontalAlignment.Left;
                 WarningBarContainer.HorizontalAlignment = HorizontalAlignment.Center;
 

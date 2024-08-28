@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using iNKORE.UI.WPF.Modern;
+using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Assets;
@@ -32,7 +32,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -188,7 +187,7 @@ namespace IOLab.Pages.ViewModel
             {
                 return;
             }
-            
+
             // 防止突然拔出
             if (!InstanceBundle.IsConnected)
             {

@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using iNKORE.UI.WPF.Modern.Controls;
+using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Assets;
 using IOLab.Core.Models;
 using System.Collections.Generic;
@@ -40,8 +40,8 @@ namespace IOLab.Windows.Dialog.Universal
         {
             InitializeComponent();
             MyTitle = experiment.Name;
-            
-            foreach(string item in experiment.Tags)
+
+            foreach (string item in experiment.Tags)
             {
                 Subtitle += $"{item} ";
             }
@@ -49,13 +49,13 @@ namespace IOLab.Windows.Dialog.Universal
 
             Description = experiment.Description;
 
-            foreach(MonitorService service in experiment.Parameters)
+            foreach (MonitorService service in experiment.Parameters)
             {
                 Sensors += $"{service.Name} ";
             }
             Sensors ??= Text.NoSensorNeeded;
 
-            foreach(KeyValuePair<string,string> step in experiment.Content)
+            foreach (KeyValuePair<string, string> step in experiment.Content)
             {
                 Steps += $"{step.Key}\n{step.Value}\n";
             }

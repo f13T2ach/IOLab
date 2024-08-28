@@ -1,9 +1,3 @@
-
-
-using IOLab.Core.Serial;
-
-
-using System.Threading.Tasks;
 /**
  * IOLab - A Full-Stack Experimentation Platform
  *

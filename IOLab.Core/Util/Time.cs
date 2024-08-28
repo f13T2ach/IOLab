@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Core.Util
+namespace IOLab.Core.Util
 {
     // 使用Int存储时间是危险的
     public static class Time

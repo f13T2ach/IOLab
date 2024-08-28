@@ -21,25 +21,14 @@
 
 using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Assets;
 using IOLab.Core.Generic;
-using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Serial;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
-using IOLab.Pages.Remote;
 using IOLab.Pages.Remote.ViewModel;
-using IOLab.Windows.Dialog;
-using LiveChartsCore.Measure;
-using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Ports;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
@@ -105,7 +94,7 @@ namespace IOLab
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
 
-            
+
         }
 
         public const int WM_DEVICECHANGE = 0x219;//U盘插入后，OS的底层会自动检测到，然后向应用程序发送“硬件设备状态改变“的消息  
@@ -118,15 +107,15 @@ namespace IOLab
                 {
                     case DBT_DEVICEREMOVECOMPLETE:
                         // 检测到设备拔出
-                        if(!InstanceBundle.IsConnected)
+                        if (!InstanceBundle.IsConnected)
                         {
                             break;
                         }
                         // 验证是不是连接的串口
-                        bool flag = true ;
+                        bool flag = true;
                         foreach (string item in new Scanner().ScanAllSerial())
                         {
-                            if(item == InstanceBundle.connectTool._SerialPort.PortName)
+                            if (item == InstanceBundle.connectTool._SerialPort.PortName)
                             {
                                 flag = false;
                                 break;

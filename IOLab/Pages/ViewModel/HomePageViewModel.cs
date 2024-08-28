@@ -19,18 +19,16 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using iNKORE.UI.WPF.Modern.Controls;
+using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Models;
 using IOLab.Core.Models.Records;
 using IOLab.Core.Serial;
-using IOLab.Resources.Control;
 using IOLab.Windows.Dialog.Universal;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace IOLab.Pages.ViewModel
@@ -77,7 +75,7 @@ namespace IOLab.Pages.ViewModel
                 return;
             }
             var result = await new ExperimentDialog(experiment).ShowAsync();
-            if(result!= ContentDialogResult.Primary)
+            if (result != ContentDialogResult.Primary)
             {
                 return;
             }

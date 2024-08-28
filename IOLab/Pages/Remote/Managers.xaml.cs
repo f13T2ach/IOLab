@@ -34,7 +34,7 @@ namespace IOLab.Pages.Remote
         {
             InitializeComponent();
             ManagersViewModel viewModel = new ManagersViewModel();
-            
+
             viewModel.ChangePageEvent += OnChangePage;
 
             this.DataContext = viewModel;
