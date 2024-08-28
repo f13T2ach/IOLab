@@ -22,6 +22,7 @@
 using IOLab.Network;
 using IOLab.Windows.Dialog;
 using IOLab.Windows.Dialog.Universal;
+using System;
 using System.Windows;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
@@ -56,6 +57,14 @@ namespace IOLab.Pages
         private async void AboutOSPButton_Click(object sender, RoutedEventArgs e)
         {
             await new QuoteOSP().ShowAsync();
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is IDisposable disposableContext)
+            {
+                disposableContext.Dispose();
+            }
         }
     }
 }

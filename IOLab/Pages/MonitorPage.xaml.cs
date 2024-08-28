@@ -21,6 +21,7 @@
 
 using IOLab.Pages.Event.MonitorPages;
 using IOLab.Pages.ViewModel;
+using IOLab.Windows;
 using IOLab.Windows.Dialog;
 using System;
 using System.Linq;
@@ -45,6 +46,8 @@ namespace IOLab.Pages
             viewModel.NoChartSelected += OnNoChartSelected;
 
             this.DataContext = viewModel;
+
+            
         }
 
         #region 按钮响应
@@ -117,6 +120,14 @@ namespace IOLab.Pages
             Tool_MergeCharts.IsEnabled = false;
         }
         #endregion
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is IDisposable disposableContext)
+            {
+                disposableContext.Dispose();
+            }
+        }
 
     }
 }
