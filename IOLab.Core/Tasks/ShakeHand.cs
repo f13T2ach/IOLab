@@ -19,15 +19,12 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Core.Assets;
+using IOLab.Core.Assets;
 using IOLab.Core.Config;
 using IOLab.Core.Interfaces.Threads;
-using IOLab.Core.Models;
 using IOLab.Core.Serial;
 using IOLab.Core.Util;
 using Newtonsoft.Json.Linq;
-using System.Linq;
-using System.Reflection.Metadata;
 
 namespace IOLab.Core.Tasks
 {
@@ -53,7 +50,7 @@ namespace IOLab.Core.Tasks
 
         object ITaskHandler<object>.Handler()
         {
-            
+
             return handler(false);
         }
 
@@ -86,7 +83,7 @@ namespace IOLab.Core.Tasks
                     }
                     else
                     {
-                        
+
                         if (_parameter["name"] == null)
                         {
                             Thread.Sleep(InternalConfig.ShakeHandTimeStep);
@@ -97,7 +94,7 @@ namespace IOLab.Core.Tasks
                         InstanceBundle.connectTool.Device.Ports = JSONConverter.JArrayToListString(JArray.Parse(_parameter["ports"].ToString()));
                         InstanceBundle.IsConnected = true;
                         // 添加性能收集检测器
-                        InstanceBundle.list.Add(new TaskAnnouncer(new PerformanceColt(),Tags.PerformanceColt));
+                        InstanceBundle.list.Add(new TaskAnnouncer(new PerformanceColt(), Tags.PerformanceColt));
 
                         return "";
 

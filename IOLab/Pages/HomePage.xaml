@@ -1,7 +1,6 @@
 ﻿<ui:Page x:Class="IOLab.Pages.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:IOLab.Pages"
@@ -13,7 +12,7 @@
     <ui:ScrollViewerEx>
         <StackPanel Orientation="Vertical" MaxWidth="1280" Margin="40,20,40,40" VerticalAlignment="Top">
             <Grid>
-                <emoji:TextBlock HorizontalAlignment="Left" FontSize="32">✨</emoji:TextBlock>
+                <TextBlock HorizontalAlignment="Left" FontSize="32">✨</TextBlock>
                 <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">即插即用的全栈实验平台</TextBlock>
             </Grid>
             <ui:AcrylicPanel CornerRadius="20" Width="640" Height="180">

@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:IOLab.Windows.Dialog"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="保存记录"
     PrimaryButtonText="关闭所有监视器"
@@ -43,16 +43,15 @@
             </Button>
             <Button Width="60" Height="60" Margin="5">
                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-                    <!--<ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SaveAs}"/>-->
-                    <emoji:TextBlock TextAlignment="Center" Text="🥵"/>
-                    <TextBlock Text="导出" FontSize="12" Margin="0,5,0,0"/>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Export}"/>
+                        <TextBlock Text="导出" FontSize="12" Margin="0,5,0,0"/>
                 </StackPanel>
             </Button>
         </StackPanel>
          <CheckBox Content="只对选中的表操作"/>
         </StackPanel>
         <StackPanel x:Name="ConatinerB" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <emoji:TextBlock TextAlignment="Center" Text="🖐" FontSize="20"/>
+            <TextBlock TextAlignment="Center" Text="🖐" FontSize="20"/>
             <TextBlock x:Name="TipForFun" Text="" FontSize="14" Margin="0,5,0,0"/>
         </StackPanel>
     </Grid>

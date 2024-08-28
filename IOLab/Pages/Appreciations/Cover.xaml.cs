@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Pages.Appreciations.ViewModel;
+using IOLab.Pages.Appreciations.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;

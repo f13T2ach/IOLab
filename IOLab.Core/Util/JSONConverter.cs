@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IOLab.Core.Util
 {
@@ -12,7 +7,7 @@ namespace IOLab.Core.Util
         public static List<string> JArrayToListString(JArray array)
         {
             List<string> list = new List<string>();
-            foreach(JToken jToken in array)
+            foreach (JToken jToken in array)
             {
                 list.Add(jToken.ToString());
             }

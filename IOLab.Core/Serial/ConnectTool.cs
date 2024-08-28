@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Core.Assets;
+using IOLab.Core.Assets;
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;
 using IOLab.Core.Serial;
@@ -117,7 +117,7 @@ public class ConnectTool
     {
         if (on_off)
         {
-            
+
             _SerialPort.Encoding = Encoding.UTF8;
             _SerialPort.DataReceived += new SerialDataReceivedEventHandler(ReceiveData);
 
@@ -158,7 +158,7 @@ public class ConnectTool
                         {
                             ProcessMessage(message);
                         }
-                        
+
                     }
                 }
             }

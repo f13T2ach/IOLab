@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
 namespace IOLab.Resources.Control
 {

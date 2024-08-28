@@ -19,15 +19,8 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using IOLab.Core.Assets;
-using IOLab.Core.Config;
 using IOLab.Core.Interfaces.Threads;
-using IOLab.Core.Models;
-using IOLab.Core.Serial;
-using IOLab.Core.Util;
 using Newtonsoft.Json.Linq;
-using System.Linq;
-using System.Reflection.Metadata;
 
 namespace IOLab.Core.Tasks
 {
@@ -51,7 +44,7 @@ namespace IOLab.Core.Tasks
             return handler();
         }
 
-        (int,int) handler()
+        (int, int) handler()
         {
             return (50, 50);
         }

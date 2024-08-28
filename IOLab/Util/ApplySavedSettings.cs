@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿namespace IOLab.Util
+namespace IOLab.Util
 {
     class ApplySavedSettings // 读取设置并应用
     {

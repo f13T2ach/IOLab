@@ -19,15 +19,11 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Core;
+using IOLab.Core;
 using IOLab.Core.Assets;
-using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Serial;
 using IOLab.Core.Tasks;
-using IOLab.Resources.Control.Cyber;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
@@ -87,7 +83,7 @@ namespace IOLab.Pages.Remote
                 if (result == null)
                 {
                     // 测试
-                    TaskAnnouncer announcer = new TaskAnnouncer(new ShakeHand(),Tags.ShakeHand);
+                    TaskAnnouncer announcer = new TaskAnnouncer(new ShakeHand(), Tags.ShakeHand);
                     InstanceBundle.list.Add(announcer);
 
 
@@ -120,7 +116,7 @@ namespace IOLab.Pages.Remote
                 {
                     ct.CloseComport();
                     // 显示错误 判断是否为端口占用
-                    AttentionBar.ShowWaringBar(result.Message.EndsWith("denied.")?Text.ConnectAccessDenied: result.Message);
+                    AttentionBar.ShowWaringBar(result.Message.EndsWith("denied.") ? Text.ConnectAccessDenied : result.Message);
                     InstanceBundle.connectTool = null;
 
                 }

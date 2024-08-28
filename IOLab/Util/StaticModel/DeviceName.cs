@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Interfaces.ViewModel;
+using IOLab.Interfaces.ViewModel;
 namespace IOLab.Util.StaticModel
 {
     class DeviceName : INameEditViewModel

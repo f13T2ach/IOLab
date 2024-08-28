@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using IOLab.Core.Assets;
+using IOLab.Core.Assets;
 using IOLab.Core.Util.FilesBehavior;
 using Newtonsoft.Json.Linq;
 

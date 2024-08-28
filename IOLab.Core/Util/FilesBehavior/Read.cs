@@ -19,7 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿using System.Text;
+using System.Text;
 
 namespace IOLab.Core.Util.FilesBehavior
 {
