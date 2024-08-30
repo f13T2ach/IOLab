@@ -24,7 +24,7 @@ using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Assets;
 using IOLab.Core.Models;
-using IOLab.Core.Serial;
+using IOLab.Core.Generic;
 using IOLab.Pages.Event.MonitorPages;
 using IOLab.Windows.Dialog;
 using System;

@@ -20,7 +20,7 @@
  */
 
 using IOLab.Core.Models;
-using IOLab.Core.Serial;
+using IOLab.Core.Generic;
 using IOLab.Models.Related;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

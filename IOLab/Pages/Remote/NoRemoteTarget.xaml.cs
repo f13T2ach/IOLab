@@ -21,7 +21,7 @@
 
 using IOLab.Core;
 using IOLab.Core.Assets;
-using IOLab.Core.Serial;
+using IOLab.Core.Generic;
 using IOLab.Core.Tasks;
 using System;
 using System.Windows;

@@ -22,7 +22,7 @@
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Config;
 using IOLab.Core.Models;
-using IOLab.Core.Serial;
+using IOLab.Core.Generic;
 using IOLab.Windows.Dialog.ViewModel;
 using System.Collections.Generic;
 using System.Windows;

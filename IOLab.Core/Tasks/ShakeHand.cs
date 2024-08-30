@@ -21,8 +21,8 @@
 
 using IOLab.Core.Assets;
 using IOLab.Core.Config;
+using IOLab.Core.Generic;
 using IOLab.Core.Interfaces.Threads;
-using IOLab.Core.Serial;
 using IOLab.Core.Util;
 using Newtonsoft.Json.Linq;
 

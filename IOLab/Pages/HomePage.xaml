@@ -5,8 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:IOLab.Pages"
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-      xmlns:lab="clr-namespace:IOLab.Resources.Control"
-      mc:Ignorable="d" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:lab="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomePageViewModel}"
+         mc:Ignorable="d" 
          Unloaded="Page_Unloaded"
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="实验">
@@ -59,7 +60,8 @@
                         <TextBlock HorizontalAlignment="Left" FontSize="26">准备</TextBlock>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Width="345">
                             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Search}" Margin="8,2,16,2" FontSize="20"/>
-                            <TextBox HorizontalAlignment="Right" Width="300"></TextBox>
+                            <TextBox x:Name="SearchBox" HorizontalAlignment="Right" Width="300" Text="" TextChanged="SearchBox_TextChanged">
+                            </TextBox>
                         </StackPanel>
                     </Grid>
                     <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">

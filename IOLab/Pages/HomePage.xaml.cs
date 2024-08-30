@@ -34,11 +34,12 @@ namespace IOLab.Pages
     /// </summary>
     public partial class HomePage : Page
     {
+        HomePageViewModel viewModel;
         public HomePage()
         {
             InitializeComponent();
             Preparations();
-            HomePageViewModel viewModel = new HomePageViewModel();
+            viewModel = new HomePageViewModel();
             this.DataContext = viewModel;
         }
 
@@ -62,6 +63,11 @@ namespace IOLab.Pages
         {
             TeachPlatform platform = new TeachPlatform();
             platform.Show();
+        }
+
+        private void SearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            viewModel.OnSearchTextChanged(SearchBox.Text);
         }
     }
 }
