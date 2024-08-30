@@ -1,5 +1,5 @@
-﻿using IOLab.Core.Interfaces.Threads;
-using IOLab.Core.Serial;
+﻿using IOLab.Core.Generic;
+using IOLab.Core.Interfaces.Threads;
 
 namespace IOLab.Core.Tasks
 {

@@ -44,7 +44,7 @@
         <ControlTemplate TargetType="UserControl">
             <Grid>
                 <Border MaxHeight="680" MaxWidth="1200" x:Name="ChartBorder" BorderBrush="DimGray" BorderThickness="1" Margin="10" CornerRadius="3">
-                        <Grid>
+                    <Grid>
                         <lvc:CartesianChart x:Name="MyChart" Background="Transparent" XAxes="{Binding XAxes}" YAxes="{Binding YAxes}" ZoomMode="PanX" Series="{Binding Series}" >
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDown">
@@ -53,16 +53,15 @@
                             </i:Interaction.Triggers>
                         </lvc:CartesianChart>
                         <Grid Width="{Binding Path=ActualWidth,ElementName=ChartBorder}" Height="{Binding Path=ActualHeight,ElementName=ChartBorder}">
-                                <StackPanel Margin="5,5,8,5" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                    <Border Style="{StaticResource Style_SectionBorderStyle}" Background="White" Width="32" Height="32" Padding="0" Margin="5">
-                                        <Grid>
-                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <TextBlock Text="{Binding Id}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            </Grid>
+                            <StackPanel Margin="5,5,8,5" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <Border Style="{StaticResource Style_SectionBorderStyle}" Background="White" Width="32" Height="32" Padding="0" Margin="5">
+                                    <Grid>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Id}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         </Grid>
-
-                                    </Border>
-                                    <ToggleButton
+                                    </Grid>
+                                </Border>
+                                <ToggleButton
                                         ToolTip="选中"
                                         Margin="5,0,5,5"
                                         HorizontalAlignment="Center"
@@ -72,21 +71,24 @@
                                         Command="{Binding DataContext.SelectChartCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                         CommandParameter="{Binding}"
                                         IsChecked="{Binding IsSelected,Mode=TwoWay}">
-                                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SelectAll}"/>
-                                    </ToggleButton>
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SelectAll}"/>
+                                </ToggleButton>
 
                                 <Button Cursor="Hand" Padding="2" ToolTip="跟随" Width="32" Height="32" HorizontalAlignment="Center" Command="{Binding DataContext.FollowLatestCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding Id}" Margin="5,0,5,5">
                                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Next}"/>
                                 </Button>
 
+                                <Slider AutoToolTipPlacement="TopLeft" ToolTip="视野" Orientation="Vertical" Height="240" Margin="5,0,5,5" Minimum="2" Value="{Binding XViewField}" Maximum="150" TickFrequency="1"/>
+
+
                             </StackPanel>
-                                
-                                <TextBlock Margin="8" FontSize="18" Text="{Binding Name}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                            </Grid>
+
+                            <TextBlock Margin="8" FontSize="18" Text="{Binding Name}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
                         </Grid>
-                    </Border>
-                    
-                    
+                    </Grid>
+                </Border>
+
+
             </Grid>
             <ControlTemplate.Triggers>
                 <DataTrigger Binding="{Binding IsSelected}" Value="True">

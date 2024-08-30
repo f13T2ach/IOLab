@@ -24,7 +24,7 @@ using IOLab.Core.Models;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
-namespace IOLab.Core.Serial
+namespace IOLab.Core.Generic
 {
     public static class InstanceBundle
     {

@@ -38,6 +38,20 @@ namespace IOLab.Core.Models
 
         public string PortId { get; set; }
 
+        private int _xViewField;
+
+        public int XViewField
+        {
+            get => _xViewField;
+            set
+            {
+                int delta = value - _xViewField;
+                _xViewField = value;
+                XAxes.FirstOrDefault().MaxLimit += delta;
+                OnPropertyChanged(nameof(XAxes));
+
+            }
+        }
         public MonitorService ChartServicer { get; set; }
         public ObservableCollection<Axis> XAxes { get; set; }
         public ObservableCollection<Axis> YAxes { get; set; }
@@ -76,7 +90,7 @@ namespace IOLab.Core.Models
                 new LineSeries<double>
                 {
                     Values = new ObservableCollection<double> { 2, 1, 3, 5, 3, 4, 6 },
-                    Name = yrow,
+                    Name = yrow
                 }
             };
 
@@ -86,9 +100,11 @@ namespace IOLab.Core.Models
                 {
                     Name = name,
                     MinLimit = 0,
-                    MaxLimit = 10
+                    MaxLimit = 20
                 }
             };
+
+            _xViewField = 20;
 
             YAxes = new ObservableCollection<Axis>
             {
@@ -113,10 +129,21 @@ namespace IOLab.Core.Models
                 if (lineSeries.Values is ObservableCollection<double> collection)
                 {
                     collection.Add(point);
+
+                    // 追随最新的点
                     if (!isDragged)
                     {
                         AdjustToLatestPoint();
                     }
+                    YAxes = new ObservableCollection<Axis>
+                    {
+                        new Axis
+                        {
+                            Name = YRow,
+                            MinLimit = 0,
+                            MaxLimit = collection.Max()
+                        }
+                    };
                     OnPropertyChanged(nameof(Series));
                 }
 
@@ -136,7 +163,7 @@ namespace IOLab.Core.Models
                 if (xAxis != null)
                 {
                     xAxis.MaxLimit = latestIndex + 1;
-                    xAxis.MinLimit = Math.Max(latestIndex - 10, 0); // Show a window of 10 points before the latest point
+                    xAxis.MinLimit = Math.Max(latestIndex - XViewField, 0); // Show a window of 10 points before the latest point
                     //yAxis.MaxLimit = latestValue + 1;
                     //yAxis.MinLimit = latestValue - 1;
 

@@ -20,9 +20,9 @@
  */
 
 using IOLab.Core.Assets;
+using IOLab.Core.Generic;
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;
-using IOLab.Core.Serial;
 using Newtonsoft.Json.Linq;
 using System.IO.Ports;
 using System.Text;

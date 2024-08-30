@@ -23,7 +23,7 @@ using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Models;
 using IOLab.Core.Models.Records;
-using IOLab.Core.Serial;
+using IOLab.Core.Generic;
 using IOLab.Windows.Dialog.Universal;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -35,26 +35,40 @@ namespace IOLab.Pages.ViewModel
 {
     internal class HomePageViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Schema> RecordsSchema { get; set; }
-        public ObservableCollection<IOExperiment> IOExperiments { get; set; }
+        private ObservableCollection<Schema> _recordsSchema;
+        public ObservableCollection<Schema> RecordsSchema
+        {
+            get => _recordsSchema;
+            set
+            {
+                _recordsSchema = value;
+                OnPropertyChanged(nameof(RecordsSchema));
+            }
+        }
+        private ObservableCollection<IOExperiment> _ioExperiments;
+        public ObservableCollection<IOExperiment> IOExperiments { get => _ioExperiments;
+            set
+            {
+                _ioExperiments = value;
+                OnPropertyChanged(nameof(IOExperiments));
+            }
+        }
+
 
 
         public ICommand OnShowDetailDialogCommand { get; set; }
         public Visibility CanShowNoRecordText { get => RecordsSchema.Count == 0 ? Visibility.Visible : Visibility.Hidden; protected set { } }
         public HomePageViewModel()
         {
-            // 读入实验
             RecordsSchema = new ObservableCollection<Schema>();
             foreach (Schema item in Bundles.LocalRecords)
             {
                 RecordsSchema.Add(item);
             }
+            // 读入实验
+            ResetExperiments();
 
-            IOExperiments = new ObservableCollection<IOExperiment>();
-            foreach (IOExperiment item in Bundles.LocalExperiments)
-            {
-                IOExperiments.Add(item);
-            }
+
 
             OnShowDetailDialogCommand = new RelayCommand(OnShowDetailDialog);
         }
@@ -66,6 +80,15 @@ namespace IOLab.Pages.ViewModel
         public string LocalServicesCount { get => Bundles.LocalMonitorService.Count > 99 ? "99" : Bundles.LocalMonitorService.Count.ToString(); set { } }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void ResetExperiments()
+        {
+            IOExperiments = new ObservableCollection<IOExperiment>();
+            foreach (IOExperiment item in Bundles.LocalExperiments)
+            {
+                IOExperiments.Add(item);
+            }
+        }
 
         public async void OnShowDetailDialog(object sender)
         {
@@ -110,6 +133,31 @@ namespace IOLab.Pages.ViewModel
 
             await Dialog.ShowAsync();
             return;
+        }
+
+        public void OnSearchTextChanged(string SearchText)
+        {
+            ResetExperiments();
+            if (SearchText == "" || SearchText == "[" || SearchText == "]")
+            {
+                return;
+            }
+            // 防止直接复制指针
+            ObservableCollection<IOExperiment> unmodifiableCollection = new ObservableCollection<IOExperiment>();
+            foreach (IOExperiment experiment in IOExperiments)
+            {
+                unmodifiableCollection.Add(experiment);
+            }
+            foreach (IOExperiment experiment in IOExperiments)
+            {
+                if (!experiment.RealName.Contains(SearchText))
+                {
+                    unmodifiableCollection.Remove(experiment);
+                }
+
+            }
+            IOExperiments = unmodifiableCollection;
+
         }
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

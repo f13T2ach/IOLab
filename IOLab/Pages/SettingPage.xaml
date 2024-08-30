@@ -149,7 +149,7 @@
                     </Grid.ColumnDefinitions>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SpeedHigh}" Grid.RowSpan="2" Margin="5,15,20,15"/>
                     <TextBlock Text="GPU Draft Turbo 性能优化(GDT)" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                    <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="GDT 通过削减特效性能占用和智能简化长段记录，优化低配设备绘表表现"/><Run Language="zh-cn" Text=" 启用需要重启"/></TextBlock>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="IOLab 在没有显示卡的设备运行会增高 CPU 占用率。可打开 GDT ，这将关闭动画效果，并自动化简图表。"/></TextBlock>
 
                     <ui:ToggleSwitch x:Name="ToggleSwitch_UseFastMode" Grid.Column="2" Grid.RowSpan="2" IsEnabled="True"/>
                 </Grid>

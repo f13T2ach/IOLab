@@ -23,7 +23,7 @@ using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Assets;
 using IOLab.Core.Interfaces.Threads;
-using IOLab.Core.Serial;
+using IOLab.Core.Generic;
 using IOLab.Windows.Dialog;
 using System;
 using System.ComponentModel;

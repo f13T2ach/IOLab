@@ -20,7 +20,7 @@
  */
 
 using iNKORE.UI.WPF.Modern;
-using IOLab.Core.Serial;
+using IOLab.Core.Generic;
 using IOLab.Pages.Remote;
 using IOLab.Pages.ViewModel;
 using System;
