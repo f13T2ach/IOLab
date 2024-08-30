@@ -17,14 +17,45 @@
     <Grid Margin="0,40,0,0">
         
         
-        <ui:AcrylicPanel CornerRadius="4" VerticalAlignment="Top" Padding="0,0,10,0">
+        <ui:AcrylicPanel CornerRadius="4" VerticalAlignment="Top" >
             <ui:CommandBar Height="48">
-                <ui:AppBarToggleButton Label="暂停 "/>
+                <ui:AppBarButton IsCompact="True" ToolTipService.ToolTip="Sort">
+                    <ui:AppBarButton.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Trackers}"/>
+                    </ui:AppBarButton.Icon>
+                    <ui:AppBarButton.Label>
+                        <TextBlock Text="实验助理"/>
+                    </ui:AppBarButton.Label>
+                    <ui:AppBarButton.Flyout>
+                        <ui:MenuFlyout ShowMode="Standard">
+                            <Grid Width="400" Height="250">
+                                <ct:ExperimentAssistance/>
+                            </Grid>
+                        </ui:MenuFlyout>
+                    </ui:AppBarButton.Flyout>
+                </ui:AppBarButton>
+                <ui:AppBarToggleButton Label="暂停">
+                    <ui:AppBarToggleButton.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Pause}"/>
+                    </ui:AppBarToggleButton.Icon>
+                </ui:AppBarToggleButton>
                 <ui:AppBarSeparator/>
-                <ui:AppBarButton Label="详情 " />
-                <ui:AppBarButton Label="简化图表 " />
+                <ui:AppBarButton Label="详情" >
+                    <ui:AppBarButton.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}"/>
+                    </ui:AppBarButton.Icon>
+                </ui:AppBarButton>
+                <ui:AppBarButton Label="简化图表" >
+                    <ui:AppBarButton.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.LightningBolt}"/>
+                    </ui:AppBarButton.Icon>
+                </ui:AppBarButton>
                 <ui:AppBarSeparator/>
-                <ui:AppBarButton Label="帮助 " />
+                <ui:AppBarButton Label="帮助" >
+                    <ui:AppBarButton.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Help}"/>
+                    </ui:AppBarButton.Icon>
+                </ui:AppBarButton>
                 <ui:CommandBar.Content>
                     <TextBlock Text="未命名实验" Margin="12,14"/>
                 </ui:CommandBar.Content>

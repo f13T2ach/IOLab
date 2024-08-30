@@ -82,11 +82,7 @@ namespace IOLab.Pages.Remote
                 InstanceBundle.connectTool = ct;
                 if (result == null)
                 {
-                    // 测试
                     TaskAnnouncer announcer = new TaskAnnouncer(new ShakeHand(), Tags.ShakeHand);
-                    InstanceBundle.list.Add(announcer);
-
-
                     await announcer.task.ConfigureAwait(announcer.task.IsCompleted);
 
                     // 判断错误返回

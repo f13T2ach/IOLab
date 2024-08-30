@@ -174,14 +174,7 @@ namespace IOLab
         public void BreakPageTask()
         {
             // 打断连接行为
-            if (InstanceBundle.connectTool != null)
-            {
-                if (!InstanceBundle.IsConnected)
-                {
-                    InstanceBundle.connectTool.CloseComport();
-                    InstanceBundle.connectTool = null;
-                }
-            }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -27,6 +27,8 @@ namespace IOLab.Core.Tasks
             tokenSource = new CancellationTokenSource();
             cancellationToken = tokenSource.Token;
 
+            InstanceBundle.list?.Enqueue(this);
+
             Tag = tag;
 
             handler = handle;
@@ -42,11 +44,9 @@ namespace IOLab.Core.Tasks
             await GetTaskInstance().ConfigureAwait(GetTaskInstance().IsCompleted);
             if (InstanceBundle.list != null)
             {
-                try
-                {
-                    InstanceBundle.list.Remove(this);
-                }
-                catch { }
+                ITaskAnnounce removedTask;
+                // 尝试从队列中移除当前任务
+                InstanceBundle.list.TryDequeue(out removedTask);
             }
             if (task != null)
             {
@@ -68,7 +68,14 @@ namespace IOLab.Core.Tasks
             if (task != null)
             {
                 tokenSource.Cancel();
-                task.Dispose();
+                try
+                {
+                    task.Dispose();
+                }
+                catch
+                {
+                    // 无需理会 问题不大
+                }
             }
         }
     }

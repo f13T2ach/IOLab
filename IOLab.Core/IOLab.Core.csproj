@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\LocalExperiment\liquid_cl2_modification.json" />
-    <None Remove="Assets\LocalExperiment\plant_metabolism.json" />
-    <None Remove="Assets\LocalExperiment\produce_oxygen.json" />
-    <None Remove="Assets\LocalExperiment\undefined.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Tasks\Util\" />
   </ItemGroup>
 
@@ -24,21 +17,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\LocalExperiment\liquid_cl2_modification.json">
+    <None Update="Assets\LocalExperiment\liquid_cl2_modification.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\LocalExperiment\plant_metabolism.json">
+    </None>
+    <None Update="Assets\LocalExperiment\plant_metabolism.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\LocalExperiment\produce_oxygen.json">
+    </None>
+    <None Update="Assets\LocalExperiment\produce_oxygen.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\LocalExperiment\undefined.json">
+    </None>
+    <None Update="Assets\LocalExperiment\undefined.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
+    </None>
     <None Update="Assets\local_services.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

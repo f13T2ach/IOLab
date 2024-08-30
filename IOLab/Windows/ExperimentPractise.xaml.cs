@@ -1,8 +1,7 @@
 ﻿
-using System.Windows.Input;
 using System.Windows;
-using Windows.Security.Cryptography.Certificates;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace IOLab.Windows
 {

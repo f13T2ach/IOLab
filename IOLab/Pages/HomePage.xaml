@@ -83,7 +83,7 @@
 
 
                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
-
+                    
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">统计</TextBlock>
                     </Grid>
@@ -204,8 +204,9 @@
 
             </Grid>
             <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents | 在16:9屏幕下具有最佳体验</TextBlock>
-
+            <Button FontSize="12" x:Name="TestButton_ShowTeachPage" Content="View 3D Sketch" Click="TestButton_ShowTeachPage_Click"/>
         </StackPanel>
+        
 
 
     </ui:ScrollViewerEx>

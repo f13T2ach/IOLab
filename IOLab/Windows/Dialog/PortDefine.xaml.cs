@@ -70,7 +70,7 @@ namespace IOLab.Windows.Dialog
             else
             {
                 chartNameText.Text = model.Name.ToString();
-                chartServiceText.Text = model.ChartSevice.Name;
+                chartServiceText.Text = model.ChartServicer.Name;
             }
 
             isEditedFlag = false; // 复位标志
