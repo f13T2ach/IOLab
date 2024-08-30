@@ -49,7 +49,7 @@ namespace IOLab.Core.Generic
             }
         }
 
-        private static ObservableCollection<ChartTableModel> _chartTables = new ObservableCollection<ChartTableModel> { new ChartTableModel("Test", "测试", "#0078D7") };
+        private static ObservableCollection<ChartTableModel> _chartTables = new ObservableCollection<ChartTableModel>();
         public static ObservableCollection<ChartTableModel> ChartTables { get => _chartTables; set => _chartTables = value; } // 监视器
     }
 }
