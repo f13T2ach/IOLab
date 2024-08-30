@@ -105,7 +105,7 @@ namespace IOLab.Pages.ViewModel
             TryPractise(experiment);
         }
 
-        private void TryPractise(IOExperiment experiment)
+        private async void TryPractise(IOExperiment experiment)
         {
             // 如果有表正在运行
             if (InstanceBundle.ChartTables != null)
@@ -113,26 +113,44 @@ namespace IOLab.Pages.ViewModel
                 if (InstanceBundle.ChartTables.Count > 0)
                 {
                     ShowBannedDialog($"请处理正在运行的 {InstanceBundle.ChartTables.Count} 个监视器");
+                    return;
                 }
             }
             // 如果没有连接
             if (InstanceBundle.connectTool == null)
             {
                 ShowBannedDialog($"未连接设备或者此设备无效");
+                return;
             }
+            // 如果已经在实验中
+            if(InstanceBundle.UsingExperiment != null)
+            {
+                ContentDialog Dialog = new ContentDialog()
+                {
+                    Title = "无法实践此实验",
+                    Content = "尽管没有运行中的图表，你仍在进行实验\n继续则覆盖当前实验",
+                    PrimaryButtonText = "继续",
+                    SecondaryButtonText = "取消"
+                };
+                if(await Dialog.ShowAsync() == ContentDialogResult.Secondary)
+                {
+                    return;
+                }
+            }
+            InstanceBundle.UsingExperiment = experiment;
         }
+
 
         private async void ShowBannedDialog(string text)
         {
-            ContentDialog Dialog = new ContentDialog()
+            ContentDialog Dialog;
+            Dialog = new ContentDialog()
             {
                 Title = "无法实践此实验",
                 Content = text,
                 CloseButtonText = "好"
             };
-
             await Dialog.ShowAsync();
-            return;
         }
 
         public void OnSearchTextChanged(string SearchText)

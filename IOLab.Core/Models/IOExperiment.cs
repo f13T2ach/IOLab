@@ -20,13 +20,22 @@
  */
 
 using IOLab.Core.Assets;
+using IOLab.Core.Util;
 using IOLab.Core.Util.FilesBehavior;
 using Newtonsoft.Json.Linq;
+using System.Linq.Expressions;
 
 namespace IOLab.Core.Models
 {
     public class IOExperiment
     {
+        public struct Checkpoint
+        {
+            public List<int> FrozenList; // 本步骤要冻结的服务
+            public string Name; // 本步骤的步骤标题
+            public List<int> ChartList; // 本步骤要见到的服务
+        }
+
         // 名称
         private string _name;
         public string Name { get { return _name; } set { _name = value; } }
@@ -53,6 +62,10 @@ namespace IOLab.Core.Models
         // 描述
         private string _description;
         public string Description { get => _description; set { _description = value; } }
+
+        // 检查点
+        private List<Checkpoint> _checkpoints = new List<Checkpoint>();
+        public List<Checkpoint> Checkpoints { get => _checkpoints; set { _checkpoints = value; } }
         // ui应用的实际名称
         private string _realName;
         public string RealName { get { return _realName; } set { _realName = value; } }
@@ -129,6 +142,19 @@ namespace IOLab.Core.Models
             {
                 // 没有预设标签就根据指标合成描述
                 Description = $"{Text.NeedToPrepare} {preloadDescription}";
+            }
+
+            // 读取检查点
+            JArray checkpointsRaw = (JArray)json["checkpoints"];
+            foreach(var item in checkpointsRaw)
+            {
+                JObject jobect = (JObject)item;
+                Checkpoint checkpoint = new Checkpoint();
+                checkpoint.Name = jobect["name"].ToString();
+                checkpoint.ChartList = JSONConverter.JArrayToListInt((JArray)jobect["require"]);
+                checkpoint.FrozenList = JSONConverter.JArrayToListInt((JArray)jobect["freeze"]);
+
+                Checkpoints.Add(checkpoint);
             }
 
 

@@ -4,6 +4,8 @@
   "tags": [ "测试用" ],
   "services": [],
   "formula": "",
+  "checkpoints": [
+  ],
   "steps": { "A": "B" },
   "description": ""
 }
