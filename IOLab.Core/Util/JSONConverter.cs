@@ -13,5 +13,15 @@ namespace IOLab.Core.Util
             }
             return list;
         }
+
+        public static List<int> JArrayToListInt(JArray array)
+        {
+            List<int> list = new List<int>();
+            foreach (JToken jToken in array)
+            {
+                list.Add((int)jToken);
+            }
+            return list;
+        }
     }
 }

@@ -5,5 +5,7 @@
   "services": [],
   "formula": "",
   "steps": { "A": "B" },
+  "checkpoints": [
+  ],
   "description": ""
 }

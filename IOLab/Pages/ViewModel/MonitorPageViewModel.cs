@@ -160,6 +160,10 @@ namespace IOLab.Pages.ViewModel
             }
         }
 
+        //**************************************
+        // 对表进行增删改操作必须手动触发委托
+        //**************************************
+
         // 删除选中表
         private void RemoveSelectedCharts(object sender)
         {
@@ -172,6 +176,7 @@ namespace IOLab.Pages.ViewModel
                 // 销毁监听线程
             }
             System.Diagnostics.Debug.WriteLine($"移除了共 {selectedCharts.Count()} 个选中的表");
+            InstanceBundle.ManualInvokeChartTables();
         }
 
         // 保存表
@@ -211,6 +216,8 @@ namespace IOLab.Pages.ViewModel
                 ChartServicer = add.Service,
 
             });
+
+            InstanceBundle.ManualInvokeChartTables();
         }
 
         //连接状态变更

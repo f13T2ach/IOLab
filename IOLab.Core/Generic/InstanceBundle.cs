@@ -23,6 +23,7 @@ using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using Windows.Networking.NetworkOperators;
 
 namespace IOLab.Core.Generic
 {
@@ -33,6 +34,7 @@ namespace IOLab.Core.Generic
         public static ConnectTool connectTool; // 连接实例
 
         private static bool _isConnected = false;
+
 
         public static event Action<bool> IsConnectedChanged; // 变更连接状态事件
 
@@ -49,7 +51,32 @@ namespace IOLab.Core.Generic
             }
         }
 
+        public static event Action ChartTablesUpdated;
         private static ObservableCollection<ChartTableModel> _chartTables = new ObservableCollection<ChartTableModel>();
-        public static ObservableCollection<ChartTableModel> ChartTables { get => _chartTables; set => _chartTables = value; } // 监视器
+        public static ObservableCollection<ChartTableModel> ChartTables { // Add等操作必须手动触发
+            get => _chartTables;
+            set
+            {
+                if (_chartTables != value) {
+                    _chartTables = value;
+                    ChartTablesUpdated?.Invoke();
+                }
+            }
+        } // 监视器
+
+        public static event Action<IOExperiment> UsingExperimentChanged; // 变更选用实验事件
+
+        private static IOExperiment _usingExperiment;
+        public static IOExperiment UsingExperiment { get => _usingExperiment; set {
+                _usingExperiment = value;
+                UsingExperimentChanged?.Invoke(UsingExperiment);
+            } 
+        }
+
+        public static void ManualInvokeChartTables()
+        {
+            InstanceBundle.ChartTablesUpdated?.Invoke();
+        }
+
     }
 }

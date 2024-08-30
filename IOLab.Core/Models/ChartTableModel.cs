@@ -40,6 +40,7 @@ namespace IOLab.Core.Models
 
         private int _xViewField;
 
+        // X轴视野
         public int XViewField
         {
             get => _xViewField;
@@ -56,6 +57,13 @@ namespace IOLab.Core.Models
         public ObservableCollection<Axis> XAxes { get; set; }
         public ObservableCollection<Axis> YAxes { get; set; }
 
+        private bool _isFrozen = false;
+        public bool isFrozen { get => _isFrozen; set
+            {
+                isFrozen = value;
+                OnPropertyChanged(nameof(isFrozen));
+            } 
+        }
         private ISeries[] _series;
         public ISeries[] Series
         {
@@ -120,11 +128,14 @@ namespace IOLab.Core.Models
             Name = name;
 
         }
-
+        /// <summary>
+        /// 添加一个点
+        /// </summary>
+        /// <param name="point">值</param>
         public void AddDataPoint(double point)
         {
             // Add a new data point to the LineSeries
-            if (Series[0] is LineSeries<double> lineSeries)
+            if (Series[0] is LineSeries<double> lineSeries&& !isFrozen)
             {
                 if (lineSeries.Values is ObservableCollection<double> collection)
                 {
@@ -150,6 +161,9 @@ namespace IOLab.Core.Models
             }
         }
 
+        /// <summary>
+        /// 令表跟随第一个点
+        /// </summary>
         public void AdjustToLatestPoint()
         {
             if (Series[0] is LineSeries<double> lineSeries && lineSeries.Values is ObservableCollection<double> collection && collection.Count > 0)

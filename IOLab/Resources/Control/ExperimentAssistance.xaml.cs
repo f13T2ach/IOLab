@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using IOLab.Resources.Control.ViewModel;
+using SkiaSharp;
+using System.Windows.Controls;
 
 namespace IOLab.Resources.Control
 {
@@ -10,6 +12,8 @@ namespace IOLab.Resources.Control
         public ExperimentAssistance()
         {
             InitializeComponent();
+            ExperimentAssistanceViewModel viewModel = new ExperimentAssistanceViewModel();
+            this.DataContext = viewModel;
         }
     }
 }

@@ -27,12 +27,12 @@
                         <TextBlock Text="实验助理"/>
                     </ui:AppBarButton.Label>
                     <ui:AppBarButton.Flyout>
-                        <ui:MenuFlyout ShowMode="Standard">
+                        <ui:Flyout>
                             <Grid Width="400" Height="250">
                                 <ct:ExperimentAssistance/>
                             </Grid>
-                        </ui:MenuFlyout>
-                    </ui:AppBarButton.Flyout>
+                        </ui:Flyout>
+                        </ui:AppBarButton.Flyout>
                 </ui:AppBarButton>
                 <ui:AppBarToggleButton Label="暂停">
                     <ui:AppBarToggleButton.Icon>
