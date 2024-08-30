@@ -21,7 +21,6 @@
 
 using IOLab.Pages.Event.MonitorPages;
 using IOLab.Pages.ViewModel;
-using IOLab.Windows;
 using IOLab.Windows.Dialog;
 using System;
 using System.Linq;
@@ -47,7 +46,7 @@ namespace IOLab.Pages
 
             this.DataContext = viewModel;
 
-            
+
         }
 
         #region 按钮响应

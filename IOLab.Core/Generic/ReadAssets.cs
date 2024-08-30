@@ -31,6 +31,7 @@ namespace IOLab.Core.Generic
     {
         public static void ReadRecords()
         {
+            Bundles.LocalRecords = new List<Schema>();
             string root = $".\\{FolderNames.RecordFolder}\\";
             List<string> records = Traversal.GetAllFiles(root, 1);
             if (records == null)
@@ -47,6 +48,7 @@ namespace IOLab.Core.Generic
 
         public static void ReadExperiments()
         {
+            Bundles.LocalExperiments = new List<IOExperiment>();
             string root = $".\\{FolderNames.AssetsFolder}\\{FolderNames.AssetsExperimentLocalFolder}\\";
             List<string> files = Traversal.GetAllFiles(root, 1);
             if (files == null)
@@ -63,6 +65,7 @@ namespace IOLab.Core.Generic
 
         public static void ReadLocalServices()
         {
+            Bundles.LocalMonitorService = new List<MonitorService>();
             string file = $".\\{FolderNames.AssetsFolder}\\{FolderNames.AssetsServicesLocalFile}";
             string content = Read.ReadFileUTF8(file);
             if (content == null)

@@ -21,6 +21,7 @@
 
 using iNKORE.UI.WPF.Modern;
 using IOLab.Pages.ViewModel;
+using IOLab.Windows;
 using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -57,5 +58,10 @@ namespace IOLab.Pages
             }
         }
 
+        private void TestButton_ShowTeachPage_Click(object sender, RoutedEventArgs e)
+        {
+            TeachPlatform platform = new TeachPlatform();
+            platform.Show();
+        }
     }
 }

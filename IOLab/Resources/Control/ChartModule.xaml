@@ -3,11 +3,14 @@
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:behaviors="http://schemas.microsoft.com/expression/2010/interactions"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
-    xmlns:wpf="clr-namespace:System.Windows;assembly=PresentationFramework">
+    xmlns:wpf="clr-namespace:System.Windows;assembly=PresentationFramework" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:models="clr-namespace:IOLab.Core.Models;assembly=IOLab.Core" >
+
     <UserControl.Resources>
         <!--关闭Toggle Button选中效果-->
-        <Style TargetType="ToggleButton">
+        <Style x:Key="CustomToggleButtonStyle" TargetType="ToggleButton">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">
@@ -33,37 +36,58 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
+
         </Style>
-        
+
     </UserControl.Resources>
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
-            <Border MaxHeight="680" MaxWidth="1200" x:Name="ChartBorder" BorderBrush="DimGray" BorderThickness="1" Margin="10" CornerRadius="3">
-                <Grid>
-                    <ToggleButton 
-                        Width="{Binding Path=ActualWidth,ElementName=ChartBorder}" 
-                        Height="{Binding Path=ActualHeight,ElementName=ChartBorder}" 
-                        Background="Transparent" 
-                        BorderThickness="0" 
-                        Command="{Binding DataContext.SelectChartCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                        CommandParameter="{Binding}"
-                        IsChecked="{Binding IsSelected,Mode=TwoWay}">
+            <Grid>
+                <Border MaxHeight="680" MaxWidth="1200" x:Name="ChartBorder" BorderBrush="DimGray" BorderThickness="1" Margin="10" CornerRadius="3">
+                        <Grid>
+                        <lvc:CartesianChart x:Name="MyChart" Background="Transparent" XAxes="{Binding XAxes}" YAxes="{Binding YAxes}" ZoomMode="PanX" Series="{Binding Series}" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction CommandParameter="{Binding Id}" Command="{Binding DataContext.MouseDownOnChart, RelativeSource={RelativeSource AncestorType=Page}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </lvc:CartesianChart>
                         <Grid Width="{Binding Path=ActualWidth,ElementName=ChartBorder}" Height="{Binding Path=ActualHeight,ElementName=ChartBorder}">
+                                <StackPanel Margin="5,5,8,5" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                    <Border Style="{StaticResource Style_SectionBorderStyle}" Background="White" Width="32" Height="32" Padding="0" Margin="5">
+                                        <Grid>
+                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Id}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Grid>
+                                        </Grid>
 
-                            <lvc:CartesianChart Title="{Binding Title}" Series="{Binding Series}">
-                            </lvc:CartesianChart>
-                            
-                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource Style_SectionBorderStyle}" Background="White" Width="22" Height="22" Padding="0" Margin="5">
-                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock Text="{Binding Id}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Grid>
-                            </Border>
+                                    </Border>
+                                    <ToggleButton
+                                        ToolTip="选中"
+                                        Margin="5,0,5,5"
+                                        HorizontalAlignment="Center"
+                                        Padding="2"
+                                        Width="32" Height="32"
+                                        Cursor="Hand"
+                                        Command="{Binding DataContext.SelectChartCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding}"
+                                        IsChecked="{Binding IsSelected,Mode=TwoWay}">
+                                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SelectAll}"/>
+                                    </ToggleButton>
+
+                                <Button Cursor="Hand" Padding="2" ToolTip="跟随" Width="32" Height="32" HorizontalAlignment="Center" Command="{Binding DataContext.FollowLatestCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding Id}" Margin="5,0,5,5">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Next}"/>
+                                </Button>
+
+                            </StackPanel>
+                                
+                                <TextBlock Margin="8" FontSize="18" Text="{Binding Name}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                            </Grid>
                         </Grid>
-                    </ToggleButton>
-                </Grid>
-            </Border>
-
+                    </Border>
+                    
+                    
+            </Grid>
             <ControlTemplate.Triggers>
                 <DataTrigger Binding="{Binding IsSelected}" Value="True">
                     <!--修复存在表格时调整颜色导致颜色不改变的问题-->
@@ -78,4 +102,5 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Template>
+
 </UserControl>

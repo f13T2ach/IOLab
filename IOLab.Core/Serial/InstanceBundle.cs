@@ -21,17 +21,35 @@
 
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
 namespace IOLab.Core.Serial
 {
     public static class InstanceBundle
     {
-        public static volatile List<ITaskAnnounce>? list = new List<ITaskAnnounce>();
+        public static ConcurrentQueue<ITaskAnnounce>? list = new ConcurrentQueue<ITaskAnnounce>();
 
         public static ConnectTool connectTool; // 连接实例
 
-        public static bool IsConnected = false;
-        public static ObservableCollection<ChartTableModel> ChartTables { get; set; } // 监视器
+        private static bool _isConnected = false;
+
+        public static event Action<bool> IsConnectedChanged; // 变更连接状态事件
+
+        public static bool IsConnected
+        {
+            get => _isConnected;
+            set
+            {
+                if (_isConnected != value)
+                {
+                    _isConnected = value;
+                    IsConnectedChanged?.Invoke(_isConnected);
+                }
+            }
+        }
+
+        private static ObservableCollection<ChartTableModel> _chartTables = new ObservableCollection<ChartTableModel> { new ChartTableModel("Test", "测试", "#0078D7") };
+        public static ObservableCollection<ChartTableModel> ChartTables { get => _chartTables; set => _chartTables = value; } // 监视器
     }
 }

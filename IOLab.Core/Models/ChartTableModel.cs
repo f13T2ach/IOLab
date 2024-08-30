@@ -21,9 +21,8 @@
 
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Painting;
-using LiveChartsCore.SkiaSharpView.VisualElements;
-using SkiaSharp;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace IOLab.Core.Models
 {
@@ -39,10 +38,24 @@ namespace IOLab.Core.Models
 
         public string PortId { get; set; }
 
-        public MonitorService ChartSevice { get; set; }
+        public MonitorService ChartServicer { get; set; }
+        public ObservableCollection<Axis> XAxes { get; set; }
+        public ObservableCollection<Axis> YAxes { get; set; }
 
-        public ISeries[] Series { get; set; }
-        public LabelVisual Title { get; set; }
+        private ISeries[] _series;
+        public ISeries[] Series
+        {
+            get => _series;
+            set
+            {
+                _series = value;
+
+                OnPropertyChanged(nameof(Series));
+            }
+        }
+
+        // 拖动事件
+        public bool isDragged = false;
 
         public bool IsSelected
         {
@@ -62,35 +75,82 @@ namespace IOLab.Core.Models
             {
                 new LineSeries<double>
                 {
-                    Values = new double[] { 2, 1, 3, 5, 3, 4, 6 },
+                    Values = new ObservableCollection<double> { 2, 1, 3, 5, 3, 4, 6 },
                     Name = yrow,
-
                 }
             };
 
-
-            Title = new LabelVisual
+            XAxes = new ObservableCollection<Axis>
             {
-                Text = name,
-                TextSize = 20,
-                Paint = new SolidColorPaint
+                new Axis
                 {
-                    Color = SKColor.Parse(hex),
-                    SKTypeface = SKFontManager.Default.MatchCharacter('汉')
-                },
+                    Name = name,
+                    MinLimit = 0,
+                    MaxLimit = 10
+                }
+            };
+
+            YAxes = new ObservableCollection<Axis>
+            {
+                new Axis
+                {
+                    Name = yrow,
+                    MinLimit = 0,
+                    MaxLimit = 10
+                }
             };
 
             YRow = yrow;
             Name = name;
+
         }
 
-        /**
+        public void AddDataPoint(double point)
+        {
+            // Add a new data point to the LineSeries
+            if (Series[0] is LineSeries<double> lineSeries)
+            {
+                if (lineSeries.Values is ObservableCollection<double> collection)
+                {
+                    collection.Add(point);
+                    if (!isDragged)
+                    {
+                        AdjustToLatestPoint();
+                    }
+                    OnPropertyChanged(nameof(Series));
+                }
+
+            }
+        }
+
+        public void AdjustToLatestPoint()
+        {
+            if (Series[0] is LineSeries<double> lineSeries && lineSeries.Values is ObservableCollection<double> collection && collection.Count > 0)
+            {
+                var latestIndex = collection.Count - 1;
+                var latestValue = collection[latestIndex];
+
+                var xAxis = XAxes.FirstOrDefault();
+                //var yAxis = YAxes.FirstOrDefault();
+
+                if (xAxis != null)
+                {
+                    xAxis.MaxLimit = latestIndex + 1;
+                    xAxis.MinLimit = Math.Max(latestIndex - 10, 0); // Show a window of 10 points before the latest point
+                    //yAxis.MaxLimit = latestValue + 1;
+                    //yAxis.MinLimit = latestValue - 1;
+
+                    OnPropertyChanged(nameof(XAxes));
+                    OnPropertyChanged(nameof(YAxes));
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        **/
     }
 
 

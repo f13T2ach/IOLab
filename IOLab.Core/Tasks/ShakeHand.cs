@@ -78,6 +78,10 @@ namespace IOLab.Core.Tasks
                     if (!isSecondCallback)
                     {
                         // 握手
+                        if (InstanceBundle.connectTool == null)
+                        {
+                            return "对象超时或消失";
+                        }
                         InstanceBundle.connectTool._SerialPort.WriteLine(CommandsV1.ReceivedRequest);
                         return handler(true);
                     }
@@ -94,7 +98,7 @@ namespace IOLab.Core.Tasks
                         InstanceBundle.connectTool.Device.Ports = JSONConverter.JArrayToListString(JArray.Parse(_parameter["ports"].ToString()));
                         InstanceBundle.IsConnected = true;
                         // 添加性能收集检测器
-                        InstanceBundle.list.Add(new TaskAnnouncer(new PerformanceColt(), Tags.PerformanceColt));
+                        new TaskAnnouncer(new PerformanceColt(), Tags.PerformanceColt);
 
                         return "";
 

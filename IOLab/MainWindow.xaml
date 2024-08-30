@@ -8,11 +8,10 @@
         mc:Ignorable="d"
         Title="IOLab" Height="720" Width="1280"
         ui:ThemeManager.IsThemeAware="True"
-        ui:WindowHelper.SystemBackdropType="Acrylic11"
-        ui:WindowHelper.ApplyBackground="True"
+        ui:WindowHelper.SystemBackdropType="Mica"
         ui:WindowHelper.UseModernWindowStyle="True" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
-    <ui:NavigationView x:Name="NavigationView_Root" IsPaneOpen="False"
+        <ui:NavigationView x:Name="NavigationView_Root" IsPaneOpen="False"
                        SelectionChanged="NavigationView_SelectionChanged" Margin="0,0,0,0">
 
         <ui:NavigationView.FooterMenuItems>
@@ -54,7 +53,7 @@
 
 
         </ui:NavigationView.MenuItems>
-        <ui:Frame Margin="40,0,40,40" x:Name="Frame_Main"/>
+            <ui:Frame Margin="40,0,40,40" x:Name="Frame_Main"/>
 
 
     </ui:NavigationView>

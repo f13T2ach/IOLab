@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\3D\OBJ_PCB.mtl" />
+    <None Remove="Resources\3D\OBJ_PCB.obj" />
     <None Remove="Resources\Font\Blender Pro Bold.ttf" />
     <None Remove="Resources\Font\Blender Pro Book.ttf" />
     <None Remove="Resources\Font\MiSans VF.ttf" />
@@ -30,6 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\3D\OBJ_PCB.mtl" />
+    <Resource Include="Resources\3D\OBJ_PCB.obj" />
     <Resource Include="Resources\Font\Blender Pro Bold.ttf" />
     <Resource Include="Resources\Font\Blender Pro Book.ttf" />
     <Resource Include="Resources\Images\Tiny\ShallowShadow.png">
@@ -59,11 +63,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="HelixToolkit" Version="2.25.0" />
+    <PackageReference Include="HelixToolkit.Wpf" Version="2.25.0" />
     <PackageReference Include="iNKORE.UI.WPF" Version="1.2.7.1" />
     <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.9.30" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
@@ -105,8 +112,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\" />
     <Folder Include="Resources\Images\DoubleImages\" />
-    <Folder Include="Resources\Video\" />
     <Folder Include="Util\Files\" />
   </ItemGroup>
 

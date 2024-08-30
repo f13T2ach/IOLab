@@ -20,6 +20,8 @@
  */
 
 using IOLab.Core.Interfaces.Threads;
+using IOLab.Core.Models;
+using IOLab.Core.Serial;
 using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Tasks
@@ -44,9 +46,25 @@ namespace IOLab.Core.Tasks
             return handler();
         }
 
-        (int, int) handler()
+        object handler()
         {
-            return (50, 50);
+            while (true)
+            {
+                if (Announcer.tokenSource.IsCancellationRequested)
+                {
+                    break;
+                }
+                Thread.Sleep(1000);
+                if (InstanceBundle.ChartTables == null)
+                {
+                    continue;
+                }
+                foreach (ChartTableModel model in InstanceBundle.ChartTables)
+                {
+                    model.AddDataPoint(new Random().Next(0, 10));
+                }
+            }
+            return null;
         }
     }
 }

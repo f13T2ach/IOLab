@@ -61,6 +61,10 @@ namespace IOLab.Pages.ViewModel
         public ICommand RemoveSelectedChartsCommand { get; set; }
         public ICommand AddNewChartCommand { get; set; }
         public ICommand SaveRecordsCommand { get; set; }
+        public ICommand FollowLatestCommand { get; set; }
+        public ICommand MouseDownOnChart { get; set; }
+
+
 
         // 数据Binding
         public string DeviceNameText { get => InstanceBundle.IsConnected ? InstanceBundle.connectTool.Device.DeviceName : Text.ConnectToManagePins; private set { } }
@@ -91,6 +95,11 @@ namespace IOLab.Pages.ViewModel
             RemoveSelectedChartsCommand = new RelayCommand(RemoveSelectedCharts);
             AddNewChartCommand = new RelayCommand(AddNewChart);
             SaveRecordsCommand = new RelayCommand(SaveMyRecords);
+            FollowLatestCommand = new RelayCommand(FollowLatest);
+            MouseDownOnChart = new RelayCommand(OnMouseDragChart);
+
+            // 订阅变更连接状态事件
+            InstanceBundle.IsConnectedChanged += OnIsConnectedChanged;
         }
 
         public event EventHandler<ChartSelectionChangedEventArgs> ChartSelectionChanged;
@@ -199,10 +208,47 @@ namespace IOLab.Pages.ViewModel
                 Id = add.ChartID,
                 XRow = "秒",
                 PortId = add.PortID,
-                ChartSevice = add.Service,
+                ChartServicer = add.Service,
 
             });
         }
+
+        //连接状态变更
+        private void OnIsConnectedChanged(bool isConnected)
+        {
+            OnPropertyChanged(nameof(DeviceNameText));  // 通知DeviceNameText属性的更改
+            OnPropertyChanged(nameof(ManageButtonEnable));
+        }
+
+        // 图表跟随最新点
+        private void FollowLatest(object parameter)
+        {
+            int id = (int)parameter;
+            foreach (ChartTableModel model in InstanceBundle.ChartTables)
+            {
+                if (model.Id == id)
+                {
+                    model.isDragged = false;
+                    model.AdjustToLatestPoint();
+                    break;
+                }
+            }
+        }
+
+        // 图表被拖动（放弃跟随最新点）
+        private void OnMouseDragChart(object parameter)
+        {
+            int id = (int)parameter;
+            foreach (ChartTableModel model in InstanceBundle.ChartTables)
+            {
+                if (model.Id == id)
+                {
+                    model.isDragged = true;
+                    break;
+                }
+            }
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
