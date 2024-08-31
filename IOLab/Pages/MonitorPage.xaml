@@ -5,6 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ct="clr-namespace:IOLab.Resources.Control"
+         xmlns:custom="clr-namespace:IOLab.Resources.Control.Custom"
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:local1="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MonitorPageViewModel}"
       mc:Ignorable="d" 
          xmlns:windows="clr-namespace:IOLab.Windows"
@@ -77,7 +78,8 @@
 
         </Button>
         <Grid Margin="0,64,0,48">
-            <ItemsControl ItemsSource="{Binding MappedChartTables}">
+            
+                <ItemsControl ItemsSource="{Binding MappedChartTables}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <ct:ChartModule/>
@@ -86,7 +88,7 @@
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid />
+                        <custom:EqualAreaPanel/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
