@@ -24,6 +24,7 @@ using IOLab.Core.Assets;
 using IOLab.Core.Generic;
 using IOLab.Core.Tasks;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Navigation;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
@@ -98,6 +99,7 @@ namespace IOLab.Pages.Remote
                     // 可以连接
                     else
                     {
+                        
                         this.Dispatcher.Invoke(new Action(delegate
                         {
                             if (this.NavigationService != null)

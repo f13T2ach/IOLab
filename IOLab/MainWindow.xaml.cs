@@ -28,6 +28,7 @@ using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -98,6 +99,9 @@ namespace IOLab
             ReadAssets.ReadLocalServices(); // 必须第一个加载
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
+
+            // 初始化 以挂载事件
+            InstanceBundle.ChartTables = new ObservableCollection<Core.Models.ChartTableModel>();
 
 
         }

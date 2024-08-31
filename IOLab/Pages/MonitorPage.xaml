@@ -34,7 +34,7 @@
                         </ui:Flyout>
                         </ui:AppBarButton.Flyout>
                 </ui:AppBarButton>
-                <ui:AppBarToggleButton Label="暂停">
+                <ui:AppBarToggleButton Label="暂停" IsChecked="{Binding IsPauseRecord}">
                     <ui:AppBarToggleButton.Icon>
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Pause}"/>
                     </ui:AppBarToggleButton.Icon>

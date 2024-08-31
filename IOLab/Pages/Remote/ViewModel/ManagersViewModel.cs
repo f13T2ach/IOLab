@@ -49,6 +49,7 @@ namespace IOLab.Pages.Remote.ViewModel
         {
             bool directly = false;
 
+            // null表示是UI发起的删除，不会出异常 非null表示热插拔
             if (sender == null)
             {
                 var cd = new ContentDialog
@@ -109,9 +110,11 @@ namespace IOLab.Pages.Remote.ViewModel
                 {
                     await new SaveRecords(2).ShowAsync();
                     InstanceBundle.ChartTables.Clear();
+                    
                 }
 
             }
+
 
             // 如果无法显示对话框
             if (directly)
@@ -129,9 +132,13 @@ namespace IOLab.Pages.Remote.ViewModel
                             // 保存
                         }
                         InstanceBundle.ChartTables.Clear();
+                        
                     }
                 }
             }
+
+            // 取消实验
+            InstanceBundle.UsingExperiment = null;
         }
 
         private void OnPropertyChanged(string name = null)

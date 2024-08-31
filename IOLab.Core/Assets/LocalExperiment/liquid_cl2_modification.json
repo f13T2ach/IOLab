@@ -13,8 +13,8 @@
   "checkpoints": [
     {
       "name": "三、采集",
-      "freeze": [],
-      "require": [100001]
+      "freeze": [ 100001 ],
+      "require": [ 100001 ]
     }
   ],
   "description": "通过 pH 传感器探究新制氯水的变质"

@@ -53,6 +53,7 @@
                             </i:Interaction.Triggers>
                         </lvc:CartesianChart>
                         <Grid Width="{Binding Path=ActualWidth,ElementName=ChartBorder}" Height="{Binding Path=ActualHeight,ElementName=ChartBorder}">
+                            <ui:FontIcon Margin="5,5,8,5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="32" Height="32" Icon="{x:Static ui:SegoeFluentIcons.Lock}"  Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" Visibility="{Binding FreezeIconVisibility}"/>
                             <StackPanel Margin="5,5,8,5" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top">
                                 <Border Style="{StaticResource Style_SectionBorderStyle}" Background="White" Width="32" Height="32" Padding="0" Margin="5">
                                     <Grid>
@@ -77,6 +78,10 @@
                                 <Button Cursor="Hand" Padding="2" ToolTip="跟随" Width="32" Height="32" HorizontalAlignment="Center" Command="{Binding DataContext.FollowLatestCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding Id}" Margin="5,0,5,5">
                                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Next}"/>
                                 </Button>
+
+                                <ToggleButton Cursor="Hand" Padding="2" ToolTip="暂停" Width="32" Height="32" HorizontalAlignment="Center" IsChecked="{Binding isPause}"  Margin="5,0,5,5">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Pause}"/>
+                                </ToggleButton>
 
                                 <Slider AutoToolTipPlacement="TopLeft" ToolTip="视野" Orientation="Vertical" Height="240" Margin="5,0,5,5" Minimum="2" Value="{Binding XViewField}" Maximum="150" TickFrequency="1"/>
 

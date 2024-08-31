@@ -23,6 +23,7 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace IOLab.Core.Models
 {
@@ -34,7 +35,25 @@ namespace IOLab.Core.Models
         public string XRow { get; set; }
         public string YRow { get; set; }
 
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name; set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        private Visibility _freezeIconVisibility = Visibility.Collapsed;
+        public Visibility FreezeIconVisibility
+        {
+            get => _freezeIconVisibility;
+            set {
+                _freezeIconVisibility = value;
+                OnPropertyChanged(nameof(FreezeIconVisibility));
+            }
+        }
 
         public string PortId { get; set; }
 
@@ -58,11 +77,23 @@ namespace IOLab.Core.Models
         public ObservableCollection<Axis> YAxes { get; set; }
 
         private bool _isFrozen = false;
+        // TODO 表在冻结状态时的销毁
+        // 表是不能被复活的 因为复活可能会对冻结后产生的表冲突
         public bool isFrozen { get => _isFrozen; set
             {
-                isFrozen = value;
+                _isFrozen = value;
+                FreezeIconVisibility = isFrozen ? Visibility.Visible : Visibility.Collapsed;
                 OnPropertyChanged(nameof(isFrozen));
-            } 
+            }
+        }
+
+        private bool _isPause = false;
+        public bool isPause { get => _isPause; set
+            {
+                _isPause = value;
+                // 暂停不会停止监听
+                OnPropertyChanged(nameof(isPause));
+            }
         }
         private ISeries[] _series;
         public ISeries[] Series

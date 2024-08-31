@@ -41,6 +41,12 @@ namespace IOLab.Pages
             Preparations();
             viewModel = new HomePageViewModel();
             this.DataContext = viewModel;
+            viewModel.OnTryPractiseSuccess += TryPractiseSuccess;
+        }
+
+        private void TryPractiseSuccess()
+        {
+            MyInfoBar.ShowWaringBar("已开始实践实验");
         }
 
         private void Preparations()
