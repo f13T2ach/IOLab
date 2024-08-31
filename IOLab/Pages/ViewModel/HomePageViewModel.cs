@@ -30,6 +30,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using System;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -81,6 +82,8 @@ namespace IOLab.Pages.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // 事件
+        public event Action OnTryPractiseSuccess;
         private void ResetExperiments()
         {
             IOExperiments = new ObservableCollection<IOExperiment>();
@@ -138,6 +141,7 @@ namespace IOLab.Pages.ViewModel
                 }
             }
             InstanceBundle.UsingExperiment = experiment;
+            OnTryPractiseSuccess?.Invoke();
         }
 
 

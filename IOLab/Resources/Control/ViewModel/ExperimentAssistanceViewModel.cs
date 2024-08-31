@@ -1,57 +1,94 @@
-﻿using IOLab.Core.Generic;
+﻿using iNKORE.UI.WPF.DragDrop;
+using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Commands;
+using IOLab.Core.Assets;
+using IOLab.Core.Generic;
 using IOLab.Core.Models;
+using IOLab.Windows.Dialog.Universal;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace IOLab.Resources.Control.ViewModel
 {
     internal class ExperimentAssistanceViewModel : INotifyPropertyChanged
     {
-        
+
         private IOExperiment current;
-        public string ExperimentName { get => current == null?"未选择实验":current.Name;private set { } }
-        private string _stepName = "无步骤";
-        public string StepName { get => _stepName; set
+
+        private string _experimentName = Text.NoItemSelected;
+
+        public string ExperimentName
+        {
+            get => _experimentName; set
+            {
+                _experimentName = value;
+                OnPropertyChanged(nameof(ExperimentName));
+            }
+        }
+
+        private string _stepName = Text.NoStepExists;
+        public string StepName
+        {
+            get => _stepName; set
             {
                 _stepName = value;
                 OnPropertyChanged(nameof(StepName));
-            } 
+            }
         }
 
-        private string _stepDescription = "你正在自由实验，实践一个实验，小助手才可帮你";
+        private string _stepDescription = Text.NoStepExistsExplanation;
         public string StepDescription
         {
             get => _stepDescription; set
             {
-                _stepName = value;
+                _stepDescription = value;
                 OnPropertyChanged(nameof(StepDescription));
             }
         }
+
+
         // 步骤列表
-        private List<KeyValuePair<string,string>> steps = new List<KeyValuePair<string,string>>();
+        private List<KeyValuePair<string, string>> steps = new List<KeyValuePair<string, string>>();
         private List<IOExperiment.Checkpoint> checkpoints = new List<IOExperiment.Checkpoint>();
 
         private bool _enableForNextStep;
 
-        public bool EnableForNextStep { get => _enableForNextStep; set {
+        public bool EnableForNextStep
+        {
+            get => _enableForNextStep; set
+            {
                 _enableForNextStep = value;
                 OnPropertyChanged(nameof(EnableForNextStep));
             }
         }
 
         private int stepIndex = 0;
+
+        // RelayCommand 实现
+        public ICommand NextStepButtonClicked { get; set; }
+
+        public ICommand PreviousStepButtonClicked { get; set; }
+
+        public ICommand ReleaseExperimentButtonClicked { get; set; }
         public ExperimentAssistanceViewModel()
         {
 
             current = InstanceBundle.UsingExperiment;
             InstanceBundle.UsingExperimentChanged += OnUsingExperimentChanged;
             InstanceBundle.ChartTablesUpdated += ValidateStep; // Add事件不能由此触发！
-            ReadAll(); 
+
+            NextStepButtonClicked = new RelayCommand(OnNextStepButtonClicked);
+            PreviousStepButtonClicked = new RelayCommand(OnPreviousStepButtonClicked);
+            ReleaseExperimentButtonClicked = new RelayCommand(ReleaseExperiment);
+            ReadAll();
         }
 
         private void OnUsingExperimentChanged(IOExperiment experiment)
@@ -59,21 +96,25 @@ namespace IOLab.Resources.Control.ViewModel
             steps.Clear();
             checkpoints.Clear();
             if (current == experiment) return;
-            if (experiment == null) return;
+            if (experiment == null)
+            {
+                StepName = Text.NoStepExists;
+                StepDescription = Text.NoStepExistsExplanation;
+                ExperimentName = Text.NoItemSelected;
+            };
             current = InstanceBundle.UsingExperiment;
             ReadAll();
         }
 
         private void ReadAll()
         {
-            
-
             if (current == null) return;
-            foreach(KeyValuePair<string,string> pair in current.Content)
+            ExperimentName = current.Name;
+            foreach (KeyValuePair<string, string> pair in current.Content)
             {
                 steps.Add(pair);
             }
-            foreach(IOExperiment.Checkpoint checkpoint in current.Checkpoints)
+            foreach (IOExperiment.Checkpoint checkpoint in current.Checkpoints)
             {
                 checkpoints.Add(checkpoint);
             }
@@ -81,16 +122,69 @@ namespace IOLab.Resources.Control.ViewModel
             UpdateStep();
         }
 
-        private void UpdateStep()
+        private async void UpdateStep()
         {
-            if (stepIndex >= 0) {
+            if (stepIndex >= 0)
+            {
                 FreezeStep();   // 冻结（第一步是不用冻结上一步的）
             }
             stepIndex++;
-            _stepName = steps[stepIndex].Key;
-            _stepDescription = steps[stepIndex].Value;
-            OnPropertyChanged(nameof(StepDescription));
-            OnPropertyChanged(nameof(StepName));
+            if (stepIndex >= steps.Count)
+            {
+                ExperimentCompleted();
+                return;
+            }
+            StepName = steps[stepIndex].Key;
+            StepDescription = steps[stepIndex].Value;
+            ValidateStep();     // 检测
+            // 阻止继续下一步
+        }
+
+        /// <summary>
+        /// 解除（结束）实验
+        /// </summary>
+        /// <param name="sender"></param>
+        private async void ReleaseExperiment(object sender)
+        {
+            // 如果不是null就问问
+            if(sender != null)
+            {
+                var cd = new ContentDialog
+                {
+                    Title = Text.ReleaseExperiment,
+                    Content = Text.ReleaseExperiment_Hint,
+                    PrimaryButtonText = "继续",
+                    SecondaryButtonText = "取消",
+                    DefaultButton = ContentDialogButton.Primary,
+                };
+                if (await cd.ShowAsync() != ContentDialogResult.Primary) return;
+            }
+            ActionBundle.DoPauseOrStart(true);
+            InstanceBundle.UsingExperiment = null;
+        }
+
+        /// <summary>
+        /// 实验完成
+        /// </summary>
+        private async void ExperimentCompleted()
+        {
+            // 显示完成页面
+            ExperimentCompleted ec = new ExperimentCompleted(current);
+            await ec.ShowAsync();
+            ReleaseExperiment(null);
+            return;
+        }
+
+
+        private void PreviousStep()
+        {
+            if (stepIndex - 1 < 0) return;
+            stepIndex--;
+            
+            StepName = steps[stepIndex].Key;
+            StepDescription = steps[stepIndex].Value;
+            // 删除上一步被冻结的表
+            FreezeStep(false);
             ValidateStep();     // 检测
         }
 
@@ -124,18 +218,26 @@ namespace IOLab.Resources.Control.ViewModel
                             break;
                         }
                     }
-                    if(loopFlag == false)
+                    if (loopFlag == false)
                     {
                         flag = false;
                         break;
                     }
                 }
             }
-            
+            else
+            {
+                flag = true;
+            }
+
             EnableForNextStep = flag;
         }
 
-        private void FreezeStep()
+        /// <summary>
+        /// 冻结/解冻项目
+        /// </summary>
+        /// <param name="gentle">为false时直接删除这个表</param>
+        private void FreezeStep(bool gentle = true)
         {
             if (current == null) return;
             IOExperiment.Checkpoint? nullableCheckpoint = FindCheckpointByName(steps[stepIndex].Key);
@@ -145,28 +247,64 @@ namespace IOLab.Resources.Control.ViewModel
             // 检查
             if (checkpoint.FrozenList.Count > 0)
             {
-                foreach (int item in checkpoint.FrozenList) {
-                    foreach (ChartTableModel chart in InstanceBundle.ChartTables)
+                if (!gentle)
+                {
+                    List<ChartTableModel> deleteModels = new List<ChartTableModel>();
+                    foreach (int item in checkpoint.FrozenList)
                     {
-                        if (chart.ChartServicer.Id == item)
+                        foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                         {
-                            chart.isFrozen = true;
+                            if (chart.ChartServicer.Id == item)
+                            {
+                                deleteModels.Add(chart);
+                            }
+                        }
+                    }
+                    // 集合取差集
+                    var exceptResult = InstanceBundle.ChartTables.Except(deleteModels);
+                    InstanceBundle.ChartTables = new ObservableCollection<ChartTableModel>(exceptResult);
+                }
+                else
+                {
+                    foreach (int item in checkpoint.FrozenList)
+                    {
+                        foreach (ChartTableModel chart in InstanceBundle.ChartTables)
+                        {
+                            if (chart.ChartServicer.Id == item)
+                            {
+                                chart.isFrozen = true;
+                                chart.Name += Text.FrozenChart;
+                            }
                         }
                     }
                 }
             }
         }
 
+        
+
         private IOExperiment.Checkpoint? FindCheckpointByName(string name)
         {
-            foreach(IOExperiment.Checkpoint checkpoint in checkpoints)
+            foreach (IOExperiment.Checkpoint checkpoint in checkpoints)
             {
-                if(checkpoint.Name == name)
+                if (checkpoint.Name == name)
                 {
                     return checkpoint;
                 }
             }
             return null;
+        }
+
+        public void OnNextStepButtonClicked(object sender)
+        {
+            if (current == null) return;
+            UpdateStep();
+        }
+
+        public void OnPreviousStepButtonClicked(object sender)
+        {
+            if (current == null) return;
+            PreviousStep();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -26,12 +26,14 @@ using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Tasks
 {
-    public class PerformanceColt : ITaskHandler<object>
+    public class DataColt : ITaskHandler<object>
     {
         public static JObject _parameter = null;
 
 
         public bool Inhibit { get => false; set { } }
+
+        private bool pause = false;
 
         public ITaskAnnounce? Announcer { get; set; }
 
@@ -43,9 +45,14 @@ namespace IOLab.Core.Tasks
 
         object ITaskHandler<object>.Handler()
         {
+            ActionBundle.PauseOrStartRecord += ChangePauseStat;
             return handler();
         }
 
+        private void ChangePauseStat(bool value)
+        {
+            pause = value;
+        }
         object handler()
         {
             while (true)
@@ -55,13 +62,23 @@ namespace IOLab.Core.Tasks
                     break;
                 }
                 Thread.Sleep(1000);
+                if (pause)
+                {
+                    continue;
+                }
                 if (InstanceBundle.ChartTables == null)
                 {
                     continue;
                 }
                 foreach (ChartTableModel model in InstanceBundle.ChartTables)
                 {
-                    model.AddDataPoint(new Random().Next(0, 10));
+                    // TODO 实装采集数据
+                    // 注意：实装时不需要判断是不是Frozen态 因为它会主动取消监听
+                    if (!model.isFrozen&&!model.isPause)
+                    {
+                        model.AddDataPoint(new Random().Next(0, 10));
+                    }
+                    
                 }
             }
             return null;

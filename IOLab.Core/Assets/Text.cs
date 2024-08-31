@@ -44,7 +44,7 @@ namespace IOLab.Core.Assets
 
         // 窗口
         public static string DisconnectDialog_SureToDisconnect = "确定断开连接吗";
-        public static string DisconnectDialog_AlertText = "如果你有未保存的工作，继续操作你仍可保存";
+        public static string DisconnectDialog_AlertText = "如果你有未保存的工作，继续操作可保存\n断开连接后实验助理不再可用";
 
         public static string DisconnectDialog_Disconnected = "设备断开连接";
         public static string DisconnectDialog_Hint = "你仍可保存未完成的工作，如果这并非你所操作，请检查你的 USB 线缆";
@@ -53,7 +53,7 @@ namespace IOLab.Core.Assets
         public static string ConnectTimeOut = "连接失败：认证超时";
         public static string CallbackTimeOut = "连接失败：回调超时";
         public static string ConnectAccessDenied = "连接失败：拒绝访问";
-        public static string ForcedCancledBySystem = "操作被强制中止";
+        public static string ForcedCanceledBySystem = "操作被强制中止";
 
         // 加载页面
         public static string ReceivingMessageFromIONet = "正在从 IONet 收取信息";
@@ -80,5 +80,19 @@ namespace IOLab.Core.Assets
         public static string NoDescriptions = "此实验没有介绍\n"; // \n是必须的
 
         public static string ConnectToManagePins = "连接设备以管理插口";
+
+        
+
+        // 实验助手
+        public static string NoItemSelected = "未定实验项";
+        public static string NoStepExists = "无步骤";
+        public static string NoStepExistsExplanation = "你正在自由实验，因此实验助手无法帮到你；可前往主页选择一个实验以实践。";
+        public static string FrozenChart = " - 已冻结";
+
+        public static string SureToDelete = "确定移除吗";
+        public static string SureToDeleteExplain_Part1 = "你选择的表「";
+        public static string SureToDeleteExplain_Part2 = "」是当前实验需要的表，继续删除可能对实验有所影响\n如果你在较早的步骤记录了这张表，则不要删除它：为防止插口占用，每回溯一次都会删除上一步的表";
+        public static string ReleaseExperiment = "确定结束吗";
+        public static string ReleaseExperiment_Hint = "你不会丢失实验数据，且已经被冻结的表不能再接收数据";
     }
 }

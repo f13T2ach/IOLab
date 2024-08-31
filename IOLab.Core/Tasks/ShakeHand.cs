@@ -66,7 +66,7 @@ namespace IOLab.Core.Tasks
             {
                 if (Announcer.tokenSource.IsCancellationRequested)
                 {
-                    return Text.ForcedCancledBySystem;
+                    return Text.ForcedCanceledBySystem;
                 }
 
                 if (_parameter == null)
@@ -98,7 +98,7 @@ namespace IOLab.Core.Tasks
                         InstanceBundle.connectTool.Device.Ports = JSONConverter.JArrayToListString(JArray.Parse(_parameter["ports"].ToString()));
                         InstanceBundle.IsConnected = true;
                         // 添加性能收集检测器
-                        new TaskAnnouncer(new PerformanceColt(), Tags.PerformanceColt);
+                        new TaskAnnouncer(new DataColt(), Tags.PerformanceColt);
 
                         return "";
 

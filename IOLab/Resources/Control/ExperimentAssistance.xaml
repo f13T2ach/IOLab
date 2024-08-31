@@ -16,8 +16,8 @@
             <Grid>
                 <TextBlock FontSize="15" Margin="8,5,5,5" Text="{Binding ExperimentName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="解除" Margin="2" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
-                    <Button Content="反馈" Margin="2"/>
+                    <Button Content="解除" Margin="2" Command="{Binding ReleaseExperimentButtonClicked}" CommandParameter="{Binding}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
+                    <Button Content="..." Margin="2"/>
                 </StackPanel>
                 
             </Grid>
@@ -56,12 +56,12 @@
                         <TextBlock FontSize="13" Text=""/>
                     </StackPanel>
                     <StackPanel Margin="0,15,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
-                        <Button HorizontalAlignment="Center" Margin="2" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}">
+                        <Button Command="{Binding PreviousStepButtonClicked}" HorizontalAlignment="Center" Margin="2" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}">
                             <Button.Content>
                                 <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Up}"/>
                             </Button.Content>
                         </Button>
-                        <Button HorizontalAlignment="Center" Margin="2" IsEnabled="{Binding EnableForNextStep}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}">
+                        <Button Command="{Binding NextStepButtonClicked}" HorizontalAlignment="Center" Margin="2" IsEnabled="{Binding EnableForNextStep}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}">
                             <Button.Content>
                                 <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Down}"/>
                             </Button.Content>

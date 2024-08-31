@@ -86,6 +86,22 @@ namespace IOLab.Pages.ViewModel
             }
         }
 
+        private bool _isPauseRecord;
+        public bool IsPauseRecord
+        {
+            get => _isPauseRecord;
+            set
+            {
+                if (_isPauseRecord != value)
+                {
+                    _isPauseRecord = value;
+                    ActionBundle.DoPauseOrStart(value);
+
+                    OnPropertyChanged(nameof(IsPauseRecord));
+                }
+            }
+        }
+
         public MonitorPageViewModel()
         {
             MappedChartTables ??= new ObservableCollection<ChartTableModel>();
@@ -98,8 +114,11 @@ namespace IOLab.Pages.ViewModel
             FollowLatestCommand = new RelayCommand(FollowLatest);
             MouseDownOnChart = new RelayCommand(OnMouseDragChart);
 
-            // 订阅变更连接状态事件
+            // 订阅事件
             InstanceBundle.IsConnectedChanged += OnIsConnectedChanged;
+            InstanceBundle.ChartTablesUpdated += OnChartsChanged;
+            // 订阅外部暂停事件
+            ActionBundle.PauseOrStartRecord += OnPauseChangedAction;
         }
 
         public event EventHandler<ChartSelectionChangedEventArgs> ChartSelectionChanged;
@@ -160,23 +179,27 @@ namespace IOLab.Pages.ViewModel
             }
         }
 
-        //**************************************
-        // 对表进行增删改操作必须手动触发委托
-        //**************************************
-
         // 删除选中表
-        private void RemoveSelectedCharts(object sender)
+        private async void RemoveSelectedCharts(object sender)
         {
             var selectedCharts = MappedChartTables.Where(c => c.IsSelected).ToList();
             foreach (var chart in selectedCharts)
             {
+                // 如果用户在实验期间打算删除实验记录，就警告他（不过应该没人这么做吧...）
+                if(chart.isFrozen&&InstanceBundle.UsingExperiment != null)
+                {
+                    var result = await GetSureToDeleteDialog(chart.Name).ShowAsync();
+                    if(result != ContentDialogResult.Primary)
+                    {
+                        continue;
+                    }
+                }
                 chart.IsSelected = false;
                 OnChartSelected(chart);
                 MappedChartTables.Remove(chart);
-                // 销毁监听线程
+                // TODO 表删除时销毁监听
             }
             System.Diagnostics.Debug.WriteLine($"移除了共 {selectedCharts.Count()} 个选中的表");
-            InstanceBundle.ManualInvokeChartTables();
         }
 
         // 保存表
@@ -217,7 +240,6 @@ namespace IOLab.Pages.ViewModel
 
             });
 
-            InstanceBundle.ManualInvokeChartTables();
         }
 
         //连接状态变更
@@ -256,7 +278,31 @@ namespace IOLab.Pages.ViewModel
             }
         }
 
+        // 外部暂停事件
+        private void OnPauseChangedAction(bool isPause)
+        {
+            IsPauseRecord = isPause;
+        }
 
+        // 外部修改图表事件
+        private void OnChartsChanged()
+        {
+            OnPropertyChanged(nameof(MappedChartTables));
+        }
+
+        // 获取询问是否继续删除窗口
+        private ContentDialog GetSureToDeleteDialog(string name)
+        {
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = Text.SureToDelete,
+                Content = $"{Text.SureToDeleteExplain_Part1}{name}{Text.SureToDeleteExplain_Part2}",
+                PrimaryButtonText = "删除",
+                CloseButtonText = "取消",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            return dialog;
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

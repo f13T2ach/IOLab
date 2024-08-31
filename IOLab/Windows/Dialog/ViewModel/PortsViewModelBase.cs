@@ -74,7 +74,8 @@ namespace IOLab.Windows.Dialog.ViewModel
                 // 寻找表列表，看是否有匹配的
                 foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                 {
-                    if (chart.PortId == port)
+                    // 处于Frozen态的图表已经被销毁 无需检测
+                    if (chart.PortId == port&&!chart.isFrozen)
                     {
                         target.ChartId = chart.Id;
                         target.IsChecked = true;

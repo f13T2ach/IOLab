@@ -23,6 +23,7 @@ using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Windows.Networking.NetworkOperators;
 
 namespace IOLab.Core.Generic
@@ -51,32 +52,49 @@ namespace IOLab.Core.Generic
             }
         }
 
-        public static event Action ChartTablesUpdated;
         private static ObservableCollection<ChartTableModel> _chartTables = new ObservableCollection<ChartTableModel>();
-        public static ObservableCollection<ChartTableModel> ChartTables { // Add等操作必须手动触发
+
+        public static ObservableCollection<ChartTableModel> ChartTables
+        {
             get => _chartTables;
             set
             {
-                if (_chartTables != value) {
-                    _chartTables = value;
+                if (_chartTables != value)
+                {
+                    // 取消旧集合的事件监听
+                    if (_chartTables != null)
+                    {
+                        _chartTables.CollectionChanged -= OnChartTablesCollectionChanged;
+                    }
+
+                    _chartTables = value ?? new ObservableCollection<ChartTableModel>();
+
+                    // 监听新集合的 CollectionChanged 事件
+                    _chartTables.CollectionChanged += OnChartTablesCollectionChanged;
+
+                    // 手动触发 ChartTablesUpdated 事件
                     ChartTablesUpdated?.Invoke();
                 }
             }
-        } // 监视器
+        }
 
+        private static void OnChartTablesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            // 当集合内容变化时触发 ChartTablesUpdated 事件
+            ChartTablesUpdated?.Invoke();
+        }
+
+        // 声明事件
+        public static event Action ChartTablesUpdated;
         public static event Action<IOExperiment> UsingExperimentChanged; // 变更选用实验事件
 
-        private static IOExperiment _usingExperiment;
-        public static IOExperiment UsingExperiment { get => _usingExperiment; set {
+        private static IOExperiment? _usingExperiment;
+        public static IOExperiment? UsingExperiment { get => _usingExperiment; set {
                 _usingExperiment = value;
                 UsingExperimentChanged?.Invoke(UsingExperiment);
             } 
         }
 
-        public static void ManualInvokeChartTables()
-        {
-            InstanceBundle.ChartTablesUpdated?.Invoke();
-        }
 
     }
 }

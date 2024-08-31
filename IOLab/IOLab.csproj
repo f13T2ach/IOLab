@@ -22,6 +22,7 @@
     <None Remove="Resources\Images\Mareix.jpg" />
     <None Remove="Resources\Images\Microsoft.png" />
     <None Remove="Resources\Images\Redmaple.jpg" />
+    <None Remove="Resources\Images\Tiny\Rewards.png" />
     <None Remove="Resources\Images\Tiny\ShallowShadow.png" />
     <None Remove="Resources\Images\Tiny\ShallowShadowDark.png" />
     <None Remove="Resources\Images\YeJianFeng.jpg" />
@@ -36,6 +37,7 @@
     <Resource Include="Resources\3D\OBJ_PCB.obj" />
     <Resource Include="Resources\Font\Blender Pro Bold.ttf" />
     <Resource Include="Resources\Font\Blender Pro Book.ttf" />
+    <Resource Include="Resources\Images\Tiny\Rewards.png" />
     <Resource Include="Resources\Images\Tiny\ShallowShadow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -92,6 +94,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\Dialog\SaveRecords.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Dialog\Universal\ExperimentCompleted.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\Dialog\Universal\ExperimentDialog.xaml.cs">
