@@ -7,8 +7,9 @@
     <UseWPF>true</UseWPF>
     <Title>IOLab</Title>
     <ApplicationIcon>Resources\Images\Icon\Favicon.ico</ApplicationIcon>
-  </PropertyGroup>
+</PropertyGroup>
 
+  <!-- 原有的配置 -->
   <ItemGroup>
     <None Remove="Resources\3D\OBJ_PCB.mtl" />
     <None Remove="Resources\3D\OBJ_PCB.obj" />
