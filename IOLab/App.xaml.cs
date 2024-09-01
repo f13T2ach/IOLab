@@ -19,6 +19,8 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System.Reflection;
+using System;
 using System.Windows;
 
 namespace IOLab
@@ -29,5 +31,7 @@ namespace IOLab
     public partial class App : Application
     {
         public static bool AlreadyInit = false;
+        
+
     }
 }
