@@ -13,6 +13,7 @@ namespace IOLab.Windows
         public TeachPlatform()
         {
             InitializeComponent();
+            /*
             //ModelImporter import = new ModelImporter();//导入模型的类对象
             // 创建一个 3D 模型组
             ModelVisual3D visual3D = new ModelVisual3D();
@@ -61,9 +62,11 @@ namespace IOLab.Windows
             visual3D = new ModelVisual3D { Content = modelGroup, Transform = translation };
             */
 
+            /*
             visual3D = new ModelVisual3D { Content = modelGroup };
             // 创建 HelixViewport3D 控件，并将模型容器添加到其中
             viewPort3D.Children.Add(visual3D);
+            */
 
         }
     }
