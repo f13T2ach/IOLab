@@ -276,7 +276,7 @@ namespace IOLab.Resources.Control.ViewModel
                                 chart.Name += Text.FrozenChart;
                             }
                         }
-                    0}
+                    }
                 }
             }
         }

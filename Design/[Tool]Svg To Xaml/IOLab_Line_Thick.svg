@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M1024 0L1024 0L1024 1024L0 1024L0 0L1024 0Z" id="path_1" />
+    <path d="M628 630.965L666.778 550L816.268 802.566L721.716 802.566L628 630.965Z" id="path_2" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+    </clipPath>
+    <clipPath id="clip_2">
+      <use xlink:href="#path_2" />
+    </clipPath>
+  </defs>
+  <g id="母本">
+    <path d="M1024 0L1024 0L1024 1024L0 1024L0 0L1024 0Z" id="母本" fill="none" stroke="none" />
+    <g id="编组" transform="translate(385 490)" clip-path="url(#clip_1)">
+      <path d="M0 312.761L174.65 0L309.698 0.2594L230.698 58.7594L92.6977 312.761L0 312.761Z" id="小路" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="20" stroke-linecap="square" />
+    </g>
+    <path d="M532.991 222L615.573 222L301.982 802.586L209 802.586L532.991 222Z" id="矩形" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="20" clip-path="url(#clip_1)" />
+    <g id="矩形" clip-path="url(#clip_1)">
+      <g clip-path="url(#clip_2)">
+        <use xlink:href="#path_2" fill="none" stroke="#FFFFFF" stroke-width="40" />
+      </g>
+    </g>
+  </g>
+</svg>
