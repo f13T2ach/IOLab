@@ -9,10 +9,15 @@
     <ApplicationIcon>Resources\Images\Icon\Favicon.ico</ApplicationIcon>
 </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Resources\3D\**" />
+    <EmbeddedResource Remove="Resources\3D\**" />
+    <None Remove="Resources\3D\**" />
+    <Page Remove="Resources\3D\**" />
+  </ItemGroup>
+
   <!-- 原有的配置 -->
   <ItemGroup>
-    <None Remove="Resources\3D\OBJ_PCB.mtl" />
-    <None Remove="Resources\3D\OBJ_PCB.obj" />
     <None Remove="Resources\Font\Blender Pro Bold.ttf" />
     <None Remove="Resources\Font\Blender Pro Book.ttf" />
     <None Remove="Resources\Font\MiSans VF.ttf" />
@@ -34,8 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\3D\OBJ_PCB.mtl" />
-    <Resource Include="Resources\3D\OBJ_PCB.obj" />
     <Resource Include="Resources\Font\Blender Pro Bold.ttf" />
     <Resource Include="Resources\Font\Blender Pro Book.ttf" />
     <Resource Include="Resources\Images\Tiny\Rewards.png" />
