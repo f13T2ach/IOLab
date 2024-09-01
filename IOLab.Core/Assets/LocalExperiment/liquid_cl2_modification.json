@@ -17,5 +17,6 @@
       "require": [ 100001 ]
     }
   ],
+  "repeatPins": false,
   "description": "通过 pH 传感器探究新制氯水的变质"
 }

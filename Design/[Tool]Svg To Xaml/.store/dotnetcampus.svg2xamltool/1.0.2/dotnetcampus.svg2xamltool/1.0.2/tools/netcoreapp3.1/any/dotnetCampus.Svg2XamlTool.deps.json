@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "dotnetCampus.Svg2XamlTool/1.0.2": {
+        "runtime": {
+          "dotnetCampus.Svg2XamlTool.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "dotnetCampus.Svg2XamlTool/1.0.2": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

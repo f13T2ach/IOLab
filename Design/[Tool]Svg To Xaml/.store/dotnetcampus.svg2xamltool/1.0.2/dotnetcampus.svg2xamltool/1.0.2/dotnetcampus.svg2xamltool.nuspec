@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>dotnetCampus.Svg2XamlTool</id>
+    <version>1.0.2</version>
+    <authors>dotnet-campus</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://github.com/dotnet-campus/dotnetCampus.Svg2XamlTool</projectUrl>
+    <description>拖入 SVG 文件，即可转换为 XAML 可用代码</description>
+    <copyright>Copyright © 2020 dotnet campus, All Rights Reserved.</copyright>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+    <repository type="git" url="https://github.com/dotnet-campus/dotnetCampus.Svg2XamlTool" />
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.1">
+        <frameworkReference name="Microsoft.WindowsDesktop.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+</package>
