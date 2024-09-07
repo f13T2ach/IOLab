@@ -92,11 +92,11 @@ IOCore是上位机的固件，由C++开发而成，采用串口通信的方式�
 
 #### IOLab
 
-**推荐配置**：至少64MB的磁盘空间，至少2GB可用内存，Intel酷睿7代或以上，GeForce GTX660，Windows10 64-bit
+**推荐配置**：至少512MB的磁盘空间，至少4GB可用内存，64bit 架构处理器，独立显示卡，Windows10 操作系统。
 
 #### IOCore
 
-**推荐配置**：至少2MB Flash 空间的ESP8266
+**推荐配置**：至少2MB Flash 空间 Espressif-32E
 
 ### 注意事项和注释
 
