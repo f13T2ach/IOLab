@@ -176,17 +176,28 @@ namespace IOLab.Resources.Control.ViewModel
         }
 
 
-        private void PreviousStep()
+        private async void PreviousStep()
         {
             if (stepIndex - 1 < 0) return;
+            var dialog = new ContentDialog()
+            {
+                Title = "确定回到上一步吗",
+                Content = "为避免端口重用，将删除使用同一传感器的所有表（包含当前步骤创建的表）\n 这将影响所有包含此传感器的表的步骤\n如果多个步骤使用同一传感器，请不要回到上一步\n",
+                PrimaryButtonText = "继续",
+                SecondaryButtonText = "取消"
+            };
+            if(await dialog.ShowAsync() != ContentDialogResult.Primary)
+            {
+                return;
+            }
+            FreezeStep(false); // 删除相关的的表
             stepIndex--;
             
             StepName = steps[stepIndex].Key;
             StepDescription = steps[stepIndex].Value;
-            // 删除上一步被冻结的表
-            FreezeStep(false);
             ValidateStep();     // 检测
         }
+
 
         private void ValidateStep()
         {
@@ -234,7 +245,7 @@ namespace IOLab.Resources.Control.ViewModel
         }
 
         /// <summary>
-        /// 冻结/解冻项目
+        /// 冻结当前freeze列表中的表（含之前所有步骤）
         /// </summary>
         /// <param name="gentle">为false时直接删除这个表</param>
         private void FreezeStep(bool gentle = true)
