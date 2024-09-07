@@ -10,13 +10,12 @@
       xmlns:lab="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomePageViewModel}"
          mc:Ignorable="d" 
          Unloaded="Page_Unloaded"
-      d:DesignHeight="720" d:DesignWidth="1280"
       Title="实验">
     <ui:ScrollViewerEx>
         <Grid>
             
 
-            <StackPanel Orientation="Vertical" MaxWidth="1280" Margin="40,20,40,40" VerticalAlignment="Top">
+            <StackPanel Orientation="Vertical" Margin="40,20,40,40" VerticalAlignment="Top">
                 <Grid>
                     <TextBlock HorizontalAlignment="Left" FontSize="32">✨</TextBlock>
                     <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">即插即用的全栈实验平台</TextBlock>
