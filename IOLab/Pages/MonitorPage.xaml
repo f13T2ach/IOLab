@@ -147,10 +147,10 @@
         </Canvas> -->
         <!--消息中心-->
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="380">
-            <ui:InfoBar Severity="Error" IsOpen="True" Height="60" Title="警告" Message="采集仪器回报：超过量程极限"/>
-            <ui:InfoBar Severity="Success" IsOpen="True" Height="60" Title="实验助手" Message="你可以开始实验了"/>
-            <ui:InfoBar Severity="Warning" IsOpen="True" Height="60" Title="移除表格" Message="已移除 2 个表，双击重回下一步"/>
-            <ui:InfoBar Severity="Informational" IsOpen="True" Height="60" Title="移除表格" Message="已移除 1 个表，双击撤销操作"/>
+            <ui:InfoBar Severity="Error" IsOpen="False" Height="60" Title="警告" Message="采集仪器回报：超过量程极限"/>
+            <ui:InfoBar Severity="Success" IsOpen="False" Height="60" Title="实验助手" Message="你可以开始实验了"/>
+            <ui:InfoBar Severity="Warning" IsOpen="False" Height="60" Title="移除表格" Message="已移除 2 个表，双击重回下一步"/>
+            <ui:InfoBar Severity="Informational" IsOpen="False" Height="60" Title="移除表格" Message="已移除 1 个表，双击撤销操作"/>
         </StackPanel>
     </Grid>
 
