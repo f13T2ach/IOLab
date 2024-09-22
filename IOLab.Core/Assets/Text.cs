@@ -94,5 +94,9 @@ namespace IOLab.Core.Assets
         public static string SureToDeleteExplain_Part2 = "」是当前实验需要的表，继续删除可能对实验有所影响\n如果你在较早的步骤记录了这张表，则不要删除它：为防止插口占用，每回溯一次都会删除上一步的表";
         public static string ReleaseExperiment = "确定结束吗";
         public static string ReleaseExperiment_Hint = "你不会丢失实验数据，且已经被冻结的表不能再接收数据";
+        // 异常捕获
+
+        public static string SureToReset = "确定重置 IOLab 吗";
+        public static string SureToResetExplain = "这将删除你的实验记录和设置，并且会重新生成本地实验\n这可能需要一些时间，IOLab 将自动重启";
     }
 }
