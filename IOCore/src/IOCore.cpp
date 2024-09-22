@@ -115,6 +115,7 @@ void handlePinConfig(const JsonDocument doc)
   delay(1000);
 }
 
+
 void handleCommands(String command)
 {
   if (command == Disconnect)
@@ -123,33 +124,12 @@ void handleCommands(String command)
   }
   else if (command.startsWith(EnablePort))
   {
-    char* idChar = getSingleParameter(command.c_str(),1);
-
+     vector<string> parts = splitMyCommand(command.c_str(), "#");
+     const char* id = getSingleParameter(parts, 1);
   }
 }
 
-// 获取单个参数 index为段数
-char* getSingleParameter(const char* str,int index)
-{
-  char delimiter[] = "#";
-  // 修复：计算字符串长度并分配足够的内存空间，包括 '\0'
-  char *pc = (char *)malloc(strlen(str) + 1);
-  strcpy(pc, str);
 
-  char *split = strtok(pc, delimiter);
-  int i = 0;  // 初始化计数器
-  while (split != NULL)
-  {
-    if(index == i){
-      return split;
-    }
-    split = strtok(NULL, delimiter);
-    i++;  // 递增计数器
-  }
-
-  free(pc);
-  free(split);
-}
 void setup()
 {
   Serial.begin(115200);

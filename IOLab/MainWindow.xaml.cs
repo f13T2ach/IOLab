@@ -106,8 +106,8 @@ namespace IOLab
             // 初始化 以挂载事件
             InstanceBundle.ChartTables = new ObservableCollection<Core.Models.ChartTableModel>();
 
-            GlobalExceptionCatch gec = new GlobalExceptionCatch();
-            gec.ShowDialog();
+            //GlobalExceptionCatch gec = new GlobalExceptionCatch();
+            //gec.ShowDialog();
 
         }
 

@@ -46,14 +46,14 @@
                     </StackPanel>
                 </Button>
                     
-                <Button Margin="480,0,5,0" x:Name="IgnoreException" Cursor="Hand" IsEnabled="True" >
+                <Button Margin="320,0,5,0" x:Name="IgnoreException" Cursor="Hand" IsEnabled="True" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="继续执行程序"/>
                     </StackPanel>
                 </Button>
                 
             </StackPanel>
-            <TextBlock>继续执行应用程序可能会导致重复的异常，但这可以保存实验数据</TextBlock>
+            <TextBlock>继续执行可能会导致重复的异常，但这可能允许你保存实验数据。对因为异常导致的实验数据丢失，我们深表抱歉！</TextBlock>
         </StackPanel>
     </Grid>
 </Window>
