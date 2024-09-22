@@ -1,0 +1,59 @@
+﻿<Window x:Class="IOLab.Windows.GlobalExceptionCatch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IOLab.Windows"
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+        Title="IOLab 异常捕获程序"
+        ui:ThemeManager.IsThemeAware="True"
+        ui:WindowHelper.SystemBackdropType="Mica"
+        ui:WindowHelper.UseModernWindowStyle="True" 
+        mc:Ignorable="d" Height="520" Width="880" ResizeMode="CanMinimize">
+    <Grid Margin="12,10,12,0">
+        <StackPanel Orientation="Vertical" >
+            <Grid Margin="0,0,0,5">
+            <Grid HorizontalAlignment="Left">
+                <TextBlock Text="崩溃了！" FontSize="48"/>
+                <Rectangle Width="100" Margin="0,-1,0,2" Height="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Fill="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" Opacity="0.6"/>
+            </Grid>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <TextBlock Text="IOLab v1.0.0" HorizontalAlignment="Right"/>
+                <TextBlock Text="我知道你很急，但你先别急" HorizontalAlignment="Right" Opacity="0.7"/>
+            </StackPanel>
+            
+        </Grid>
+            <TextBlock Name="ExceptionName" Text="System.DivideByZeroException" FontSize="25" Opacity="0.7"/>
+            <TextBlock Text="调用栈与系统信息" FontSize="15"/>
+            <TextBox Margin="0,4,0,0" Height="280" IsReadOnly="True" TextWrapping="Wrap" Text="System.DivideByZeroException: Attempted to divide by zero. &#x0a; at ExamplesProject.Program.Main(String[] args) in D:\Projects\ExamplesProject\ExamplesProject\Program.cs:line 16"/>
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Button Margin="0,0,5,0" x:Name="GotoCompareMode" Cursor="Hand" IsEnabled="True" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Upload}"/>
+                        <TextBlock Text="上传异常记录"/>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0,0,5,0"  x:Name="CopyData" Cursor="Hand" IsEnabled="True" >
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Copy}"/>
+                        <TextBlock Text="复制信息"/>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0,0,5,0"  x:Name="ReloadStore" Click="ReloadStore_Click" Cursor="Hand" IsEnabled="True" >
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ResetDrive}"/>
+                        <TextBlock Text="重置 IOLab 到初始状态"/>
+                    </StackPanel>
+                </Button>
+                    
+                <Button Margin="480,0,5,0" x:Name="IgnoreException" Cursor="Hand" IsEnabled="True" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="继续执行程序"/>
+                    </StackPanel>
+                </Button>
+                
+            </StackPanel>
+            <TextBlock>继续执行应用程序可能会导致重复的异常，但这可以保存实验数据</TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>
