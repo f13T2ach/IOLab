@@ -3,6 +3,6 @@
     public static class CommandsV1
     {
         public static string ReceivedRequest = "#Success";
-        public static string Disconnect = "#Success";
+        public static string Disconnect = "#Disconnect";
     }
 }

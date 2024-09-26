@@ -184,7 +184,7 @@
                                 <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Link}" Grid.RowSpan="2" Margin="5,15,20,15"/>
                                 <TextBlock Text="全服公告" Grid.Column="1" FontSize="16" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
                                 <TextBlock Grid.Column="1" VerticalAlignment="Top" FontSize="14" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">
-                                「成龙」智慧实验室，英文名IO Experiment，是以软硬件联合的方式、独出一辙的“探索 实践 总结”实验学习路线和强大的“社区”功能构建基于实验数据的学习平台架构。
+                                
                                 </TextBlock>
                             </Grid>
                         </Border>
