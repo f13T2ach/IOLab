@@ -26,6 +26,7 @@ using IOLab.Core.Serial;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
+using IOLab.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -92,6 +93,8 @@ namespace IOLab
                 return;
             }
 
+            
+
             // 读取设置
             ChangeThemeByIndex(Properties.Settings.Default.ThemeSelection);
             new ThemeResources().AccentColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.AccentColorHex);
@@ -103,6 +106,8 @@ namespace IOLab
             // 初始化 以挂载事件
             InstanceBundle.ChartTables = new ObservableCollection<Core.Models.ChartTableModel>();
 
+            //GlobalExceptionCatch gec = new GlobalExceptionCatch();
+            //gec.ShowDialog();
 
         }
 
