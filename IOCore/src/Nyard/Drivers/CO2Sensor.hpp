@@ -42,7 +42,7 @@ public:
     // 动态设置引脚
     void setPins(const std::vector<int> &parg) override
     {
-        if (pins.size() == 2)
+        if (parg.size() == 2)
         {
             dataPin = parg[0]; // 设置引脚
         }
