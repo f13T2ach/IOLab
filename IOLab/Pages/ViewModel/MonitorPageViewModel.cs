@@ -34,6 +34,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.IO.Ports;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -52,6 +53,17 @@ namespace IOLab.Pages.ViewModel
                 OnPropertyChanged(nameof(MappedChartTables));
             }
         }
+
+        // 通知类
+        public class Notification
+        {
+            public string Title { get; set; }
+            public string Message { get; set; }
+            public bool IsOpen { get; set; } = true; // 默认为打开状态
+            public InfoBarSeverity Severity { get; set; } // 新增Severity属性
+        }
+
+        public ObservableCollection<Notification> Notifications { get; } = new ObservableCollection<Notification>();
 
         // 获取主题色并转换成 hex 再转换成 SolidColorBrush
         public SolidColorBrush AccentColor { get => new SolidColorBrush((Color)ColorConverter.ConvertFromString(new ThemeResources().AccentColor.ToString())); set { } }
@@ -186,10 +198,10 @@ namespace IOLab.Pages.ViewModel
             foreach (var chart in selectedCharts)
             {
                 // 如果用户在实验期间打算删除实验记录，就警告他（不过应该没人这么做吧...）
-                if(chart.isFrozen&&InstanceBundle.UsingExperiment != null)
+                if (chart.isFrozen && InstanceBundle.UsingExperiment != null)
                 {
                     var result = await GetSureToDeleteDialog(chart.Name).ShowAsync();
-                    if(result != ContentDialogResult.Primary)
+                    if (result != ContentDialogResult.Primary)
                     {
                         continue;
                     }
@@ -224,6 +236,28 @@ namespace IOLab.Pages.ViewModel
             {
                 return;
             }
+            string response = string.Empty;
+
+            try
+            {
+                // 创建 SerialCommandHooker 实例
+                var hooker = new SerialCommandHooker();
+
+                // 发送消息并等待 ID 为 10010 的响应
+                response = await hooker.SendMessageAsync("#Enable#AL#100001", 10010);
+            }
+            catch (TimeoutException ex)
+            {
+                // 处理超时异常
+                CreateNotification("创建表", "创建失败，返回超时", InfoBarSeverity.Error);
+                return;
+            }
+            catch (Exception ex)
+            {
+                CreateNotification("创建表", ex.Message, InfoBarSeverity.Error);
+                return;
+            }
+            CreateNotification("创建表", response, InfoBarSeverity.Informational);
 
             // 防止突然拔出
             if (!InstanceBundle.IsConnected)
@@ -303,6 +337,18 @@ namespace IOLab.Pages.ViewModel
             };
             return dialog;
         }
+
+        // 添加通知
+        public void CreateNotification(string title, string message, InfoBarSeverity severity)
+        {
+            Notifications.Add(new Notification
+            {
+                Title = title,
+                Message = message,
+                Severity = severity // 设置通知类型
+            });
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

@@ -29,19 +29,23 @@ class SampleSensor : public Nyard {
 private: // 定义使能和数据
     int dataPin;
     int powerPin;
+    
 public:
     // 构造函数
     SampleSensor(int id)
         : Nyard(id), dataPin(-1), powerPin(-1) {
-            preload = 20000;
+            preload = 20000; //preload 是延迟时间
+            pins = {};
+            name = "ExampleSensor";
         }  // 初始引脚设置为空值
 
     // 动态设置引脚
-    void setPins(const std::vector<int>& pins) override {
-        if (pins.size() == 2) {
-            dataPin = pins[0];  // 设置引脚
-            powerPin = pins[1];
+    void setPins(const std::vector<int>& parg) override {
+        if (parg.size() == 2) {
+            dataPin = parg[0];  // 设置引脚
+            powerPin = parg[1];
         }
+        pins = parg; //注意：此行必须带，除非该传感器不能被移除
     }
 
     // 设置引脚模式
@@ -62,6 +66,7 @@ public:
         if (powerPin != -1) {
             digitalWrite(powerPin, LOW);  // 关闭传感器（如果不需要使能可不继承）
         }
+        Nyard::close(); // 必须销毁端口占用
     }
 
     int collectData() override {

@@ -22,8 +22,4 @@
 #include "Nyard.hpp"
 #include <Arduino.h>
 
-// 构造函数实现
-Nyard::Nyard(int id) {
-    // 构造函数的初始化内容（如果有的话）
-}
 

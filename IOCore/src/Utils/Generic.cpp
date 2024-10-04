@@ -7,6 +7,22 @@ void println(String tag,String content){
     Serial.println("["+tag+"]"+content);
 }
 
+void throwError(String error,int id,String title){
+    // 创建 JSON 格式的字符串
+    String json = "{\"type\":\"error\",\"title\":\"" + title + "\", \"id\":" + String(id) + ", \"msg\":\"" + error + "\"}";
+    
+    // 使用 Serial.println 输出 JSON
+    Serial.println(json);
+}
+
+void throwCallback(String content,int id,String title){
+    // 创建 JSON 格式的字符串
+    String json = "{\"type\":\"callback\",\"title\":\"" + title + "\", \"id\":" + String(id) + ", \"msg\":\"" + content + "\"}";
+    
+    // 使用 Serial.println 输出 JSON
+    Serial.println(json);
+}
+
 
 // 分割函数：将字符串按照指定的分隔符进行分割并返回一个 vector
 vector<string> splitMyCommand(const char* str, const char* delimiter)
