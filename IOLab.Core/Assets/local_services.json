@@ -1,14 +1,8 @@
 [
   {
-    "name": "氧气传感器",
+    "name": "二氧化碳传感器",
     "serviceID": 100001,
-    "type": "I2C",
-    "yrow": "ppm%"
+    "type": "AL",
+    "yrow": "ppm"
   },
-  {
-    "name": "pH传感器",
-    "serviceID": 100002,
-    "type": "ALG",
-    "yrow": "pH"
-  }
 ]

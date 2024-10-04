@@ -78,6 +78,7 @@
 
         </Button>
         <Grid Margin="0,64,0,48">
+            <!--
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock TextAlignment="Center" FontSize="16" Text="创建一个表以开始实验"/>
                 <TextBlock TextAlignment="Center" FontSize="16" Text="或"/>
@@ -89,6 +90,7 @@
                 </Button>
                 <TextBlock Opacity="0.6" TextAlignment="Center" Text="对照实验模式是实验性功能，可能有影响体验的问题"/>
             </StackPanel>
+            -->
                 <ItemsControl ItemsSource="{Binding MappedChartTables}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -147,10 +149,18 @@
         </Canvas> -->
         <!--消息中心-->
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="380">
-            <ui:InfoBar Severity="Error" IsOpen="False" Height="60" Title="警告" Message="采集仪器回报：超过量程极限"/>
-            <ui:InfoBar Severity="Success" IsOpen="False" Height="60" Title="实验助手" Message="你可以开始实验了"/>
-            <ui:InfoBar Severity="Warning" IsOpen="False" Height="60" Title="移除表格" Message="已移除 2 个表，双击重回下一步"/>
-            <ui:InfoBar Severity="Informational" IsOpen="False" Height="60" Title="移除表格" Message="已移除 1 个表，双击撤销操作"/>
+            <ItemsControl ItemsSource="{Binding Notifications}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ui:InfoBar 
+                Title="{Binding Title}" 
+                Message="{Binding Message}" 
+                IsOpen="{Binding IsOpen}" 
+                Severity="{Binding Severity}" />
+                        <!-- 绑定Severity -->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 

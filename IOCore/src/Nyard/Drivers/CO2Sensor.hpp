@@ -1,23 +1,3 @@
-/**
- * IOLab - A Full-Stack Experimentation Platform
- *
- * Copyright (C) 2024 Redmaple. All rights reserved.
- *
- * Sample.hpp is part of the IOLab project.
- *
- * IOLab is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * IOLab is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
- */
 
 
 #define         DC_GAIN                      (8.5)   //define the DC gain of amplifier
@@ -54,16 +34,19 @@ public:
     CO2Sensor(int id)
         : Nyard(id), dataPin(-1)
     {
-        preload = 20000;
+        preload = 500;
+        pins = {};
+        name = "CO2Sensor";
     } // 初始引脚设置为空值
 
     // 动态设置引脚
-    void setPins(const std::vector<int> &pins) override
+    void setPins(const std::vector<int> &parg) override
     {
         if (pins.size() == 2)
         {
-            dataPin = pins[0]; // 设置引脚
+            dataPin = parg[0]; // 设置引脚
         }
+        pins = parg;
     }
 
     // 设置引脚模式
@@ -90,6 +73,7 @@ public:
         {
             digitalWrite(dataPin, LOW); // 关闭传感器（如果不需要使能可不继承）
         }
+        Nyard::close();
     }
 
     int collectData() override
@@ -114,7 +98,7 @@ public:
             return percentage;
         }
 
-        delay(500);
+        //delay(500);
     }
 
     /*****************************  MGRead *********************************************

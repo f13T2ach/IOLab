@@ -19,33 +19,68 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef NYARD_H
-#define NYARD_H
-#include<Arduino.h>
+#ifndef NYARD_HPP
+#define NYARD_HPP
+
+#include <Arduino.h>
+#include "NyardPorts.h"
+#include <vector>
+
 class Nyard {
 public:
     // 构造函数
-    Nyard(int id);
-    
+    Nyard(int id) : id(id) {}
+
     // 虚函数（可被子类重写）
     virtual void setupPins() = 0;
     virtual void begin() = 0;
-    virtual void close() = 0;
-    virtual int collectData() = 0;
-    virtual void setPins(const std::vector<int>& pins) = 0;
 
-    // 获取id
+    // 在关闭传感器时释放引脚
+    virtual void close() {
+        releasePins();  // 释放引脚
+    }
+
+    virtual int collectData() = 0;
+    
+    // 设置引脚
+    virtual void setPins(const std::vector<int>& pins) {
+        this->pins = pins;
+    }
+
+    // 获取传感器id
     int getId() const {
         return id;
     }
 
-    int getPreload() const{
+    // 获取预加载状态
+    int getPreload() const {
         return preload;
     }
+
+    String getName() const {
+        return name;
+    }
+
+    // 获取pin
+    std::vector<int> getPins() const{
+        return this->pins;
+    }
+
 protected:
     int id;
     int preload;
+    std::vector<int> pins;  // 记录传感器使用的引脚
+    String name;
+
+    // 释放引脚（占用引脚在解析时就执行）
+    void releasePins() {
+        for (int pin : pins) {
+            pinUsage[pin] = false;  // 更新引脚状态，标记为未占用
+        }
+        pins.clear();  // 清空引脚列表
+    }
 };
 
 #endif
+
 

@@ -28,6 +28,7 @@
 #include "Utils/JsonUtils.h"
 // Nyard
 #include "Nyard/Nyard.hpp"
+#include "Nyard/Nyard.cpp"
 #include "Nyard/NyardPorts.h"
 #include "Nyard/NyardDrivers.h"
 
@@ -46,6 +47,8 @@ int sensorCount = 0;
 void initNyard()
 {
   sensors[sensorCount++] = new SampleSensor(100000);
+  sensors[sensorCount++] = new CO2Sensor(100001);
+  
 }
 
 std::vector<int> getPinsByName(String name)
@@ -89,32 +92,72 @@ void sendHandShake()
 }
 
 // 处理引脚配置指令
-void handlePinConfig(const JsonDocument doc)
+void handlePinConfig(String port, int serviceID)
 {
+    println("配置", "接到对 " + port + " 采用方案 " + serviceID + " 监听的配置");
 
-  int commandId = doc["id"]; // 模拟接收到的指令id
+    // 模拟接收到的引脚配置
+    std::vector<int> pins = getPinsByName(port);
+    if (pins.size() == 0)
+    {
+        throwError("固件异常", 10010, "配置端口");
+        return;  // 添加返回以避免继续执行
+    }
 
-  // 模拟接收到的引脚配置
-  std::vector<int> pins = getPinsByName(doc["port"]);
-  if (pins.size() == 0)
-  {
-  }
+    for (int pin : pins)
+    {
+        if (isPinOccupied(pin))
+        {
+            throwError("引脚已被占用", 10010, "配置端口");
+            return;
+        }
+    }
 
-  // 遍历所有传感器并匹配id
+    // 遍历所有传感器并匹配id
+    for (int i = 0; i < sensorCount; i++)
+    {
+        //println("Debug", "第" + String(i) + "个传感器是" + String(sensors[i]->getId()));
+        if (sensors[i]->getId() == serviceID)
+        {
+            // 动态设置引脚
+            sensors[i]->setPins(pins); 
+
+            // 配置引脚
+            sensors[i]->setupPins();  
+            sensors[i]->begin();       // 启动传感器
+            occupyPins(pins);
+
+            // 确保成功设置引脚后再获取引脚
+            println("配置后的引脚: " + vectorToString(sensors[i]->getPins()), "Debug");
+
+            throwCallback("成功配置 "+sensors[i]->getName() + " 到插口 "+port, 10010, "配置端口");
+            break; // 找到匹配的传感器后退出循环
+        }
+    }
+}
+
+
+//根据引脚释放服务
+void removePinConfig(String port){
+  std::vector<int> pins = getPinsByName(port);
+  bool flag = false;
+  //Serial.println(String(sensorCount));
   for (int i = 0; i < sensorCount; i++)
   {
-    if (sensors[i]->getId() == commandId)
+    //println(vectorToString(sensors[i]->getPins()),String(i));
+    if (sensors[i]->getPins() == pins)
     {
-      sensors[i]->setPins(pins); // 动态设置引脚
-      sensors[i]->setupPins();   // 配置引脚
-      sensors[i]->begin();       // 启动传感器
+      sensors[i]->close();
+      flag = true;
+      throwCallback("成功移除引脚",10011,"管理监视器");
       break;                     // 找到匹配的传感器后退出循环
     }
   }
 
-  delay(1000);
+  if(!flag){
+    throwError("移除引脚失败",10011,"管理监视器");
+  }
 }
-
 
 void handleCommands(String command)
 {
@@ -122,18 +165,35 @@ void handleCommands(String command)
   {
     resetFunc();
   }
-  else if (command.startsWith(EnablePort))
+  else if (command.startsWith(EnablePort)) // 启用端口
   {
-     vector<string> parts = splitMyCommand(command.c_str(), "#");
-     const char* id = getSingleParameter(parts, 1);
+    vector<string> parts = splitMyCommand(command.c_str(), "#");
+    String id = getSingleParameter(parts, 1);
+    int sid = -1;
+    try
+    {
+      sid = std::stoi(getSingleParameter(parts, 2));
+    }
+    catch (const std::invalid_argument &e)
+    {
+      // 输入不是有效整数
+      throwError("数据异常", 10010, "配置端口");
+    }
+    handlePinConfig(id, sid);
+  }
+  else if (command.startsWith(DisablePort)) // 关闭端口和端口上跑的传感器
+  {
+    vector<string> parts = splitMyCommand(command.c_str(), "#");
+    String id = getSingleParameter(parts, 1);
+    removePinConfig(id);
   }
 }
-
 
 void setup()
 {
   Serial.begin(115200);
   initAuthentication();
+  initNyard();
 
   while (true)
   {
@@ -151,6 +211,7 @@ void setup()
     delay(200);
   }
   // 发送本机详情
+  //Serial.println("传感器已添加: " + String(sensorCount));
   sendHandShake();
 }
 
@@ -160,4 +221,5 @@ void loop()
   {
     handleCommands(Serial.readString());
   }
+
 }
