@@ -35,6 +35,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.IO.Ports;
+using Newtonsoft.Json.Linq;
+using System.Windows;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -76,6 +78,7 @@ namespace IOLab.Pages.ViewModel
         public ICommand FollowLatestCommand { get; set; }
         public ICommand MouseDownOnChart { get; set; }
 
+        public ICommand FreezeChartsCommand { get; set; }
 
 
         // 数据Binding
@@ -125,17 +128,55 @@ namespace IOLab.Pages.ViewModel
             SaveRecordsCommand = new RelayCommand(SaveMyRecords);
             FollowLatestCommand = new RelayCommand(FollowLatest);
             MouseDownOnChart = new RelayCommand(OnMouseDragChart);
+            FreezeChartsCommand = new RelayCommand(FreezeCharts);
 
             // 订阅事件
             InstanceBundle.IsConnectedChanged += OnIsConnectedChanged;
             InstanceBundle.ChartTablesUpdated += OnChartsChanged;
             // 订阅外部暂停事件
             ActionBundle.PauseOrStartRecord += OnPauseChangedAction;
+            ActionBundle.NewestSerialCommand += ProcessJSONNotification;
         }
 
         public event EventHandler<ChartSelectionChangedEventArgs> ChartSelectionChanged;
         public event EventHandler<MultipleChartsSelectedEventArgs> MultipleChartsSelected;
         public event EventHandler NoChartSelected;
+
+        // 归档选中表
+        private async void FreezeCharts(object sender)
+        {
+            var selectedCharts = MappedChartTables.Where(c => c.IsSelected).ToList();
+            // TODO 修改文案
+
+            if (InstanceBundle.UsingExperiment != null)
+            {
+                var result = await GetSureToDialog("确定冻结吗","正在实验中，冻结可能对实验有影响").ShowAsync();
+                if (result != ContentDialogResult.Primary)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                var result = await GetSureToDialog("确定冻结吗", "不可撤销").ShowAsync();
+                if (result != ContentDialogResult.Primary)
+                {
+                    return;
+                }
+            }
+
+            foreach (var chart in selectedCharts)
+            {
+                
+                chart.IsSelected = false;
+                chart.isFrozen = true;
+
+                // TODO 表删除时销毁监听
+            }
+            CreateNotification("冻结表", $"冻结了共 {selectedCharts.Count()} 个选中的表", InfoBarSeverity.Success);
+            System.Diagnostics.Debug.WriteLine($"冻结了共 {selectedCharts.Count()} 个选中的表");
+        }
+
 
         // 更新选中表
         private void OnChartSelected(object parameter)
@@ -236,28 +277,36 @@ namespace IOLab.Pages.ViewModel
             {
                 return;
             }
-            string response = string.Empty;
-
+            // 显示等待弹窗
+            WaitSerial wait = new WaitSerial();
+            wait.ShowAsync(); // 无需等待
             try
             {
-                // 创建 SerialCommandHooker 实例
                 var hooker = new SerialCommandHooker();
 
                 // 发送消息并等待 ID 为 10010 的响应
-                response = await hooker.SendMessageAsync("#Enable#AL#100001", 10010);
+                var (responseMsg, isSuccess) = await hooker.SendMessageAsync("#Enable#AL#100001", 10010);
+                if (!isSuccess)
+                {
+                    wait.Hide();
+                    return;
+                }
             }
             catch (TimeoutException ex)
             {
                 // 处理超时异常
-                CreateNotification("创建表", "创建失败，返回超时", InfoBarSeverity.Error);
+                wait.Hide();
+                CreateNotification("创建表", "操作超时，请重试", InfoBarSeverity.Error);
+                // TODO 发送撤销操作指令
                 return;
             }
             catch (Exception ex)
             {
+                wait.Hide();
                 CreateNotification("创建表", ex.Message, InfoBarSeverity.Error);
                 return;
             }
-            CreateNotification("创建表", response, InfoBarSeverity.Informational);
+            wait.Hide();
 
             // 防止突然拔出
             if (!InstanceBundle.IsConnected)
@@ -324,7 +373,7 @@ namespace IOLab.Pages.ViewModel
             OnPropertyChanged(nameof(MappedChartTables));
         }
 
-        // 获取询问是否继续删除窗口
+        // 获取询问是否继续删除
         private ContentDialog GetSureToDeleteDialog(string name)
         {
             ContentDialog dialog = new ContentDialog()
@@ -336,6 +385,47 @@ namespace IOLab.Pages.ViewModel
                 DefaultButton = ContentDialogButton.Primary,
             };
             return dialog;
+        }
+
+        // 获取询问继续
+        private ContentDialog GetSureToDialog(string title,string content)
+        {
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = title,
+                Content = content,
+                PrimaryButtonText = "继续",
+                CloseButtonText = "取消",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            return dialog;
+        }
+
+        // 处理并添加JSON通知
+        public void ProcessJSONNotification(JObject obj)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (obj["command"].ToString() != "Message")
+                {
+                    return;
+                }
+                InfoBarSeverity severity;
+                string type = obj["type"].ToString();
+                if (type == "error")
+                {
+                    severity = InfoBarSeverity.Error;
+                }
+                else if (type == "callback")
+                {
+                    severity = InfoBarSeverity.Informational;
+                }
+                else
+                {
+                    severity = InfoBarSeverity.Informational;
+                }
+                CreateNotification(obj["title"].ToString(), obj["msg"].ToString(), severity);
+            });
         }
 
         // 添加通知

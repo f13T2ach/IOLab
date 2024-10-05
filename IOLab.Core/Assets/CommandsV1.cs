@@ -4,5 +4,7 @@
     {
         public static string ReceivedRequest = "#Success";
         public static string Disconnect = "#Disconnect";
+
+        
     }
 }

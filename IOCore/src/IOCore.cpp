@@ -208,7 +208,7 @@ void setup()
       } // 失败就晾着它
     }
 
-    delay(200);
+    delay(500);
   }
   // 发送本机详情
   //Serial.println("传感器已添加: " + String(sensorCount));

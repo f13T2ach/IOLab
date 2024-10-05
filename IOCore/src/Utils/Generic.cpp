@@ -7,9 +7,10 @@ void println(String tag,String content){
     Serial.println("["+tag+"]"+content);
 }
 
+// 此处与MonitorPageViewModel对应
 void throwError(String error,int id,String title){
     // 创建 JSON 格式的字符串
-    String json = "{\"type\":\"error\",\"title\":\"" + title + "\", \"id\":" + String(id) + ", \"msg\":\"" + error + "\"}";
+    String json = "{\"command\":\"Message\",\"type\":\"error\",\"title\":\"" + title + "\", \"id\":" + String(id) + ", \"msg\":\"" + error + "\"}";
     
     // 使用 Serial.println 输出 JSON
     Serial.println(json);
@@ -17,7 +18,7 @@ void throwError(String error,int id,String title){
 
 void throwCallback(String content,int id,String title){
     // 创建 JSON 格式的字符串
-    String json = "{\"type\":\"callback\",\"title\":\"" + title + "\", \"id\":" + String(id) + ", \"msg\":\"" + content + "\"}";
+    String json = "{\"command\":\"Message\",\"type\":\"callback\",\"title\":\"" + title + "\", \"id\":" + String(id) + ", \"msg\":\"" + content + "\"}";
     
     // 使用 Serial.println 输出 JSON
     Serial.println(json);

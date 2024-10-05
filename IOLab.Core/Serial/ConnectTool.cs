@@ -183,10 +183,16 @@ public class ConnectTool
                 {
                     if (!announcer.GetHandlerInstance().Inhibit)
                     {
-                        announcer.GetHandlerInstance().Parameter = obj;
+                        Task.Run(() =>
+                        {
+                            announcer.GetHandlerInstance().Parameter = obj;
+                        });
                     }
                 }
             }
+
+            // 全局消息线广播
+            ActionBundle.DoUpdateNewest(obj);
         }
         catch (Exception ex)
         {
