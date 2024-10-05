@@ -92,7 +92,7 @@ namespace IOLab.Pages
         {
             Tool_DeleteCharts.IsEnabled = true;
             Tool_EditChart.IsEnabled = true;
-            Tool_MergeCharts.IsEnabled = false;
+            Tool_ForzenCharts.IsEnabled = true;
         }
 
         // 双表操作
@@ -100,7 +100,7 @@ namespace IOLab.Pages
         {
             Tool_DeleteCharts.IsEnabled = true;
             Tool_EditChart.IsEnabled = false;
-            Tool_MergeCharts.IsEnabled = true;
+            Tool_ForzenCharts.IsEnabled = true;
         }
 
         // 批量操作
@@ -108,7 +108,7 @@ namespace IOLab.Pages
         {
             Tool_DeleteCharts.IsEnabled = true;
             Tool_EditChart.IsEnabled = false;
-            Tool_MergeCharts.IsEnabled = false;
+            Tool_ForzenCharts.IsEnabled = false;
         }
 
         // 无可用操作
@@ -116,7 +116,7 @@ namespace IOLab.Pages
         {
             Tool_DeleteCharts.IsEnabled = false;
             Tool_EditChart.IsEnabled = false;
-            Tool_MergeCharts.IsEnabled = false;
+            Tool_ForzenCharts.IsEnabled = false;
         }
         #endregion
 

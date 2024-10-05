@@ -23,7 +23,9 @@ namespace IOLab.Core.Config
 {
     public class InternalConfig
     {
-        public static int ConnectTimeout = 10000;   // 3000毫秒后超时
+        public static int ConnectTimeout = 10000;
+
+        public static int OperationTimeout = 5000;
 
         public static int ShakeHandTimeStep = 20; // 100毫秒检测一次
 

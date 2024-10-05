@@ -14,16 +14,45 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace IOLab.Resources.Control.ViewModel
 {
     internal class ExperimentAssistanceViewModel : INotifyPropertyChanged
     {
-
+        
         private IOExperiment current;
 
         private string _experimentName = Text.NoItemSelected;
+
+        private int newestStepId = 0;
+
+        private bool absolveStep = false;
+        public bool _absolveStep
+        {
+            get => absolveStep; set
+            {
+                absolveStep = value;
+                OnPropertyChanged(nameof(_absolveStep));
+                OnPropertyChanged(nameof(AbsolveStepVisibility));
+            }
+        }
+
+        public Visibility AbsolveStepVisibility
+        {
+            get
+            {
+                if (absolveStep)
+                    return Visibility.Visible;
+                else
+                    return Visibility.Hidden;
+            }
+            set
+            {
+
+            }
+        }
 
         public string ExperimentName
         {
@@ -95,6 +124,9 @@ namespace IOLab.Resources.Control.ViewModel
         {
             steps.Clear();
             checkpoints.Clear();
+            newestStepId = 0;
+            absolveStep = false;
+
             if (current == experiment) return;
             if (experiment == null)
             {
@@ -129,6 +161,13 @@ namespace IOLab.Resources.Control.ViewModel
                 FreezeStep();   // 冻结（第一步是不用冻结上一步的）
             }
             stepIndex++;
+
+            if(newestStepId == stepIndex)
+            {
+                _absolveStep = false;
+            }
+            newestStepId = stepIndex; // 更新最新步骤
+
             if (stepIndex >= steps.Count)
             {
                 ExperimentCompleted();
@@ -179,10 +218,11 @@ namespace IOLab.Resources.Control.ViewModel
         private async void PreviousStep()
         {
             if (stepIndex - 1 < 0) return;
+
             var dialog = new ContentDialog()
             {
                 Title = "确定回到上一步吗",
-                Content = "为避免端口重用，将删除使用同一传感器的所有表（包含当前步骤创建的表）\n 这将影响所有包含此传感器的表的步骤\n如果多个步骤使用同一传感器，请不要回到上一步\n",
+                Content = "本步骤产生的表会被归档，已归档的表不能继续接受数据",
                 PrimaryButtonText = "继续",
                 SecondaryButtonText = "取消"
             };
@@ -190,9 +230,10 @@ namespace IOLab.Resources.Control.ViewModel
             {
                 return;
             }
-            FreezeStep(false); // 删除相关的的表
+            FreezeStep(true); // 归档
             stepIndex--;
             
+
             StepName = steps[stepIndex].Key;
             StepDescription = steps[stepIndex].Value;
             ValidateStep();     // 检测
@@ -203,6 +244,11 @@ namespace IOLab.Resources.Control.ViewModel
         {
             bool flag = false;
             if (current == null) return;
+            if(stepIndex < newestStepId) {
+                _absolveStep = true;// 本步骤为先前的步骤
+                EnableForNextStep = true;
+                return;
+            }
 
             IOExperiment.Checkpoint? nullableCheckpoint = FindCheckpointByName(steps[stepIndex].Key);
 
@@ -211,10 +257,12 @@ namespace IOLab.Resources.Control.ViewModel
                 // 这一条不需要检查
                 flag = true;
                 EnableForNextStep = flag;
+
                 return;
             }
             IOExperiment.Checkpoint checkpoint = (IOExperiment.Checkpoint)nullableCheckpoint;
             // 检查
+            // TODO 支持单步骤重复传感器
             if (checkpoint.ChartList.Count > 0)
             {
                 flag = true;
@@ -223,7 +271,7 @@ namespace IOLab.Resources.Control.ViewModel
                     bool loopFlag = false;
                     foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                     {
-                        if (chart.ChartServicer.Id == item)
+                        if (chart.ChartServicer.Id == item && chart.isFrozen == false) 
                         {
                             loopFlag = true;
                             break;
@@ -240,6 +288,7 @@ namespace IOLab.Resources.Control.ViewModel
             {
                 flag = true;
             }
+
 
             EnableForNextStep = flag;
         }
@@ -258,7 +307,7 @@ namespace IOLab.Resources.Control.ViewModel
             // 检查
             if (checkpoint.FrozenList.Count > 0)
             {
-                if (!gentle)
+                if (!gentle) // 删除表
                 {
                     List<ChartTableModel> deleteModels = new List<ChartTableModel>();
                     foreach (int item in checkpoint.FrozenList)
@@ -275,7 +324,7 @@ namespace IOLab.Resources.Control.ViewModel
                     var exceptResult = InstanceBundle.ChartTables.Except(deleteModels);
                     InstanceBundle.ChartTables = new ObservableCollection<ChartTableModel>(exceptResult);
                 }
-                else
+                else // 归档表
                 {
                     foreach (int item in checkpoint.FrozenList)
                     {
@@ -283,7 +332,7 @@ namespace IOLab.Resources.Control.ViewModel
                         {
                             if (chart.ChartServicer.Id == item)
                             {
-                                chart.isFrozen = true;
+                                chart.isFrozen = true; // 标记为已归档
                                 chart.Name += Text.FrozenChart;
                             }
                         }

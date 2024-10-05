@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:IOLab.Resources.Control"
-             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:viewmodel="clr-namespace:IOLab.Resources.Control.ViewModel"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:viewmodel="clr-namespace:IOLab.Resources.Control.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ExperimentAssistanceViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="400">
     <Grid>
@@ -31,6 +31,10 @@
                 <StackPanel Margin="5" Orientation="Vertical" VerticalAlignment="Center">
                     <TextBlock FontSize="20" Margin="5" Text="{Binding StepName}" FontWeight="Bold"/>
                     <TextBlock FontSize="15" Margin="5" Text="{Binding StepDescription}" TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding AbsolveStepVisibility}">
+                        <ui:FontIcon Margin="2" Icon="{x:Static ui:SegoeFluentIcons.Info}" FontSize="13" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
+                        <TextBlock Margin="0,2,0,2" Text="非最新步骤，此修改不会被检查" TextWrapping="Wrap" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
+                    </StackPanel>
                 </StackPanel>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -50,7 +54,7 @@
 
             <Grid Grid.Column="1">
                 <Grid Margin="5">
-                    <TextBlock Text="Assistance 1.0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.6"/>
+                    
                     <StackPanel VerticalAlignment="Top" Margin="5" Orientation="Vertical">
                         <TextBlock FontSize="18" Text="还剩 0 个表"/>
                         <TextBlock FontSize="13" Text=""/>
