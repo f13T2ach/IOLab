@@ -374,6 +374,7 @@ namespace IOLab.Pages.ViewModel
         }
 
         // 获取询问是否继续删除
+        // 此方法可以被替代
         private ContentDialog GetSureToDeleteDialog(string name)
         {
             ContentDialog dialog = new ContentDialog()
