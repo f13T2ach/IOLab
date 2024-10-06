@@ -61,6 +61,19 @@ namespace IOLab
             return page;
         }
 
+        // 重载页面
+        public void ResetPage(string name)
+        {
+            try
+            {
+                _pageCache.Remove(name);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
     }
 
     /// <summary>
@@ -150,6 +163,8 @@ namespace IOLab
 
                         new ManagersViewModel().OnUIDisconnectDevice(this);
                         InstanceBundle.IsConnected = false;
+                        InstanceBundle.connectTool = null;
+                        _navigationManager.ResetPage("NavigationViewItem_Remote");// 重载页面
                         NavigationView_Root.SelectedItem = NavigationViewItem_Remote;
                         Frame_Main.Navigate(new RemotePage());
                         break;

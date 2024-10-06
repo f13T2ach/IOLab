@@ -46,6 +46,17 @@ namespace IOLab.Core.Assets
         public static string DisconnectDialog_SureToDisconnect = "确定断开连接吗";
         public static string DisconnectDialog_AlertText = "如果你有未保存的工作，继续操作可保存\n断开连接后实验助理不再可用";
 
+        public static string Help = "帮助";
+        public static string Help_Connect_Content = "1. 拒绝访问\n" +
+            "某些应用程序如 Arduino 和 Serial Studio 会占用目标端口，建议关闭程序或断开连接以取消占用。\n" +
+            "2. 连接超时\n" +
+            "IOLab 会等待 10 秒，如果 10 秒内该端口没有发送有效验证信息，即为超时。请检查串口驱动，并确保固件没有被修改。\n" +
+            "3. 连接断开\n" +
+            "检查你的接线，确保设备插口和 USB 线都正常。\n" +
+            "4. 我无法找到端口\n" +
+            "a. 先拔出设备，然后打开设备列表，记录列表。再关闭列表，插入设备，再次打开列表，多出的一项即为正确的端口；\n" +
+            "b. 如果没有多出任何一项，你可能没有安装串口驱动。安装 CH340 驱动；\n" +
+            "c. 某些 USB 线内部只有两根导线，无法传输数据；尝试在其它计算机连接设备排除计算机的问题。";
         public static string DisconnectDialog_Disconnected = "设备断开连接";
         public static string DisconnectDialog_Hint = "你仍可保存未完成的工作，如果这并非你所操作，请检查你的 USB 线缆";
         public static string DisconnectDialog_HintFailed = "如果这并非你所操作，请检查你的 USB 线缆\n你正在配置的窗口阻碍我们提示你，如果你在配置与采集有关的项目，保存配置不会有效\n你仍可保存未完成的工作，但暂时不能重命名实验了\n点击“是”我们就为你保存（如果有的话）";

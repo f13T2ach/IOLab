@@ -42,6 +42,7 @@ namespace IOLab.Pages.ViewModel
 {
     class MonitorPageViewModel : INotifyPropertyChanged
     {
+
         // Binding用 表对象列表映射
         public ObservableCollection<ChartTableModel> MappedChartTables
         {
@@ -279,6 +280,8 @@ namespace IOLab.Pages.ViewModel
             {
                 return;
             }
+
+            
             // 显示等待弹窗
             WaitSerial wait = new WaitSerial();
             wait.ShowAsync(); // 无需等待
@@ -309,7 +312,7 @@ namespace IOLab.Pages.ViewModel
                 return;
             }
             wait.Hide();
-
+            
             // 防止突然拔出
             if (!InstanceBundle.IsConnected)
             {
@@ -407,6 +410,10 @@ namespace IOLab.Pages.ViewModel
         // 处理并添加JSON通知
         public void ProcessJSONNotification(JObject obj)
         {
+            if(Application.Current == null)
+            {
+                return;
+            }
             Application.Current.Dispatcher.Invoke(() =>
             {
                 if (obj["command"].ToString() != "Message")

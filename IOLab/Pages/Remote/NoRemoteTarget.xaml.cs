@@ -19,6 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core;
 using IOLab.Core.Assets;
 using IOLab.Core.Generic;
@@ -27,6 +28,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Navigation;
+using System.Xml.Linq;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab.Pages.Remote
@@ -124,9 +126,16 @@ namespace IOLab.Pages.Remote
 
         }
 
-        private void RefreshConfig_Click(object sender, RoutedEventArgs e)
+        private async void RefreshConfig_Click(object sender, RoutedEventArgs e)
         {
-
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = Text.Help,
+                Content = $"{Text.Help_Connect_Content}",
+                PrimaryButtonText = "好",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            await dialog.ShowAsync();
         }
     }
 }

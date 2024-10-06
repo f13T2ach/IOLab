@@ -1,5 +1,5 @@
 
-
+#define PWR_SUPPLY (3.3)
 #define         DC_GAIN                      (8.5)   //define the DC gain of amplifier
 /***********************Software Related Macros************************************/
 #define         READ_SAMPLE_INTERVAL         (30)    //define how many samples you are going to take in normal operation
@@ -119,7 +119,7 @@ public:
             v += analogRead(dataPin);
             delay(READ_SAMPLE_INTERVAL);
         }
-        v = (v / READ_SAMPLE_TIMES) * 5 / 1024;
+        v = (v / READ_SAMPLE_TIMES) * PWR_SUPPLY / 1024;
         return v;
     }
 
