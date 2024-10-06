@@ -4,8 +4,6 @@ using System.Windows.Controls;
 
 namespace IOLab.Resources.Control.Custom
 {
-    
-
     public class EqualAreaPanel : Panel
     {
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
@@ -16,11 +14,24 @@ namespace IOLab.Resources.Control.Custom
             this.InvalidateMeasure();
             this.InvalidateArrange();
         }
+
         protected override Size MeasureOverride(Size availableSize)
         {
+            int count = InternalChildren.Count;
+            if (count == 0) return new Size();
+
+            // 计算行数和列数
+            int columns = (int)Math.Ceiling(Math.Sqrt(count));
+            int rows = (int)Math.Ceiling((double)count / columns);
+
+            // 计算子元素宽度和高度
+            double childWidth = availableSize.Width / columns;
+            double childHeight = availableSize.Height / rows;
+
+            // 测量每个子元素
             foreach (UIElement child in InternalChildren)
             {
-                child.Measure(availableSize);
+                child.Measure(new Size(childWidth, childHeight)); // 使用计算后的子元素尺寸
             }
 
             return availableSize;
@@ -31,11 +42,11 @@ namespace IOLab.Resources.Control.Custom
             int count = InternalChildren.Count;
             if (count == 0) return finalSize;
 
-            // 计算行数和列数，使得行列数量尽可能接近
-            int rows = (int)Math.Sqrt(count);
-            int columns = (int)Math.Ceiling((double)count / rows);
+            // 计算行数和列数
+            int columns = (int)Math.Ceiling(Math.Sqrt(count));
+            int rows = (int)Math.Ceiling((double)count / columns);
 
-            // 计算最终的子元素大小
+            // 计算最终的子元素宽度和高度
             double childWidth = finalSize.Width / columns;
             double childHeight = finalSize.Height / rows;
 
@@ -63,8 +74,5 @@ namespace IOLab.Resources.Control.Custom
 
             return finalSize;
         }
-
-
     }
-
 }

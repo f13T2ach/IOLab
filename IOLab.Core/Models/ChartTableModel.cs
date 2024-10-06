@@ -152,7 +152,7 @@ namespace IOLab.Core.Models
             {
                 new Axis
                 {
-                    Name = name,
+                    //Name = name,
                 }
             };
 

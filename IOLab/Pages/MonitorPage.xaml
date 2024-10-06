@@ -91,7 +91,7 @@
                 <TextBlock Opacity="0.6" TextAlignment="Center" Text="对照实验模式是实验性功能，可能有影响体验的问题"/>
             </StackPanel>
             -->
-                <ItemsControl ItemsSource="{Binding MappedChartTables}">
+            <ItemsControl ItemsSource="{Binding MappedChartTables}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <ct:ChartModule/>
@@ -104,7 +104,6 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-
 
         </Grid>
         <Grid VerticalAlignment="Bottom" Height="48" HorizontalAlignment="Center">
