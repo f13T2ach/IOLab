@@ -87,13 +87,15 @@ namespace IOLab.Core.Assets
         public static string NoItemSelected = "未定实验项";
         public static string NoStepExists = "无步骤";
         public static string NoStepExistsExplanation = "你正在自由实验，因此实验助手无法帮到你；可前往主页选择一个实验以实践。";
-        public static string FrozenChart = " - 已冻结";
-
+        public static string FrozenChart = " - 已归档";
         public static string SureToDelete = "确定移除吗";
         public static string SureToDeleteExplain_Part1 = "你选择的表「";
         public static string SureToDeleteExplain_Part2 = "」是当前实验需要的表，继续删除可能对实验有所影响\n如果你在较早的步骤记录了这张表，则不要删除它：为防止插口占用，每回溯一次都会删除上一步的表";
         public static string ReleaseExperiment = "确定结束吗";
         public static string ReleaseExperiment_Hint = "你不会丢失实验数据，且已经被冻结的表不能再接收数据";
+
+        public static string SureToFreeze = "确认归档吗";
+        public static string SureToFreezeExplain = "归档表格相当于删除表格但保留表格的数据，这意味着表格不能再接收数据，此操作不可撤销。";
         // 异常捕获
 
         public static string SureToReset = "确定重置 IOLab 吗";

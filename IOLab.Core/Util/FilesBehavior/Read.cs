@@ -32,18 +32,18 @@ namespace IOLab.Core.Util.FilesBehavior
         /// <returns></returns>
         public static string? ReadFileUTF8(string path)
         {
-            string? content = null;
+            StringBuilder content = new StringBuilder();
             using (FileStream fs = File.OpenRead(path))
             {
-                byte[] b = new byte[1024];
-                UTF8Encoding temp = new UTF8Encoding(true);
-                while (fs.Read(b, 0, b.Length) > 0)
+                byte[] buffer = new byte[1024];
+                UTF8Encoding encoding = new UTF8Encoding(true);
+                int bytesRead;
+                while ((bytesRead = fs.Read(buffer, 0, buffer.Length)) > 0)
                 {
-                    content += (temp.GetString(b) + "\n");
+                    content.Append(encoding.GetString(buffer, 0, bytesRead));
                 }
             }
-            return content;
-
+            return content.ToString();
         }
 
         public static string GetLastLevelName(string path)

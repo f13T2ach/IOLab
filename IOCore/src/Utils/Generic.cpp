@@ -1,7 +1,10 @@
 #include <Arduino.h>
 #include "Generic.h"
 #include <iostream>
+#include <ArduinoJson.h>
 #include <vector>
+#include "Nyard/Nyard.hpp"
+#include "Nyard/NyardPorts.h"
 using namespace std;
 void println(String tag,String content){
     Serial.println("["+tag+"]"+content);
@@ -10,18 +13,40 @@ void println(String tag,String content){
 // 此处与MonitorPageViewModel对应
 void throwError(String error,int id,String title){
     // 创建 JSON 格式的字符串
-    String json = "{\"command\":\"Message\",\"type\":\"error\",\"title\":\"" + title + "\", \"id\":" + String(id) + ", \"msg\":\"" + error + "\"}";
+    JsonDocument doc;
+    doc["command"] = "Message";
+    doc["type"] = "error";
+    doc["title"] = title;
+    doc["id"] = id;
+    doc["msg"] = error;
     
     // 使用 Serial.println 输出 JSON
-    Serial.println(json);
+    serializeJson(doc, Serial);
+    Serial.println();
 }
 
 void throwCallback(String content,int id,String title){
-    // 创建 JSON 格式的字符串
-    String json = "{\"command\":\"Message\",\"type\":\"callback\",\"title\":\"" + title + "\", \"id\":" + String(id) + ", \"msg\":\"" + content + "\"}";
+    JsonDocument doc;
+    doc["command"] = "Message";
+    doc["type"] = "callback";
+    doc["title"] = title;
+    doc["id"] = id;
+    doc["msg"] = content;
     
     // 使用 Serial.println 输出 JSON
-    Serial.println(json);
+    serializeJson(doc, Serial);
+    Serial.println();
+}
+
+void outdata( Nyard* sensor){
+    JsonDocument doc;
+    
+    doc["command"] = "Collect";
+    doc["pin"] = sensor->getPinName();
+    doc["data"] = sensor->collectData();
+    serializeJson(doc, Serial);
+    Serial.println();
+    
 }
 
 
@@ -52,13 +77,3 @@ const char* getSingleParameter(const vector<string>& parts, int index)
     }
     return NULL; // 如果索引超出范围，返回 NULL
 }
-
-/*
-    // 使用 '#' 作为分隔符分割字符串
-    vector<string> parts = splitString(str, "#");
-
-    // 根据索引查询子串
-    const char* ptr = getSingleParameter(parts, ind);
-
-
-*/

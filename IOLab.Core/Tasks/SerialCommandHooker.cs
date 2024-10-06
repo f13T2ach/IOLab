@@ -47,6 +47,10 @@ public class SerialCommandHooker
     private void OnNewestSerialCommand(JObject message)
     {
         // 解析 JObject，获取 ID 和消息
+        if (message["command"].ToString()!= "Message") //不多管闲事
+        {
+            return;
+        }
         int id = (int)message["id"];
         var msg = message["msg"]?.Value<string>();
         var type = message["type"]?.Value<string>();

@@ -203,11 +203,11 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Message}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-                    <TextBlock Text="启用 AI 助手模块" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                    <TextBlock Text="基于阿里云通义千问语言模型，AI 助手可帮你高效总结实验" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Repair}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+                    <TextBlock Text="Engineer Mode" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                    <TextBlock Text="Enable this mode allows you to use special functions" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
 
-                    <ui:ToggleSwitch x:Name="ToggleSwitch_UseTongYiAI" Grid.Column="2" Grid.RowSpan="2" IsEnabled="False" IsOn="True"/>
+                    <ui:ToggleSwitch x:Name="ToggleSwitch_UseTongYiAI" Grid.Column="2" Grid.RowSpan="2" IsOn="False"/>
                 </Grid>
             </Border>
             <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">

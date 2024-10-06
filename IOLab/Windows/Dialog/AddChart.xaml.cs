@@ -172,14 +172,14 @@ namespace IOLab.Windows.Dialog
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-
+            
 
             PortID = viewModel.SelectedPortID;
             ChartID = (int)chartIDInput.Value;
             Service = (MonitorService)ServiceComboBox.SelectedItem;
             if (chartNameInput.Text == "")
             {
-                ChartName = $"{Service.Name}";
+                ChartName = $"{Service.Name} - {ChartID}";
             }
             else
             {

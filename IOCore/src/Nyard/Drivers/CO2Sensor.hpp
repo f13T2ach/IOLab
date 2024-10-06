@@ -2,7 +2,7 @@
 
 #define         DC_GAIN                      (8.5)   //define the DC gain of amplifier
 /***********************Software Related Macros************************************/
-#define         READ_SAMPLE_INTERVAL         (50)    //define how many samples you are going to take in normal operation
+#define         READ_SAMPLE_INTERVAL         (30)    //define how many samples you are going to take in normal operation
 #define         READ_SAMPLE_TIMES            (5)     //define the time interval(in milisecond) between each samples in
                                                      //normal operation
 
@@ -34,19 +34,20 @@ public:
     CO2Sensor(int id)
         : Nyard(id), dataPin(-1)
     {
-        preload = 500;
+        preload = 2000;
         pins = {};
         name = "CO2Sensor";
     } // 初始引脚设置为空值
 
     // 动态设置引脚
-    void setPins(const std::vector<int> &parg) override
+    void setPins(const std::vector<int> &parg,String pin) override
     {
-        if (parg.size() == 2)
+        
+        if (parg.size() == 1)
         {
             dataPin = parg[0]; // 设置引脚
         }
-        pins = parg;
+        Nyard::setPins(parg,pin);
     }
 
     // 设置引脚模式
@@ -54,7 +55,7 @@ public:
     {
         if (dataPin != -1)
         {
-            pinMode(dataPin, INPUT);
+            //pinMode(dataPin, INPUT);
         }
     }
 
@@ -62,8 +63,8 @@ public:
     {
         if (dataPin != -1)
         {
-            pinMode(dataPin, INPUT);      // set pin to input
-            digitalWrite(dataPin, HIGH); // turn on pullup resistors
+            //pinMode(dataPin, INPUT);      // set pin to input
+            //digitalWrite(dataPin, HIGH); // turn on pullup resistors
         }
     }
 
@@ -71,12 +72,12 @@ public:
     {
         if (dataPin != -1)
         {
-            digitalWrite(dataPin, LOW); // 关闭传感器（如果不需要使能可不继承）
+            //digitalWrite(dataPin, LOW); // 关闭传感器（如果不需要使能可不继承）
         }
         Nyard::close();
     }
 
-    int collectData() override
+    float collectData() override
     {
         if (dataPin == -1)
         {
@@ -91,11 +92,13 @@ public:
         percentage = MGGetPercentage(volts, CO2Curve);
         if (percentage == -1)
         {
-            return 400;
+            return 0.04f;
         }
         else
         {
-            return percentage;
+            float pfloat = (float)percentage;
+            float nfloat = 10000.00;
+            return pfloat/nfloat; //转为百分比
         }
 
         //delay(500);

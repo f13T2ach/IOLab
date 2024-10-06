@@ -40,12 +40,12 @@ public:
         }  // 初始引脚设置为空值
 
     // 动态设置引脚
-    void setPins(const std::vector<int>& parg) override {
+    void setPins(const std::vector<int>& parg,String pin) override {
         if (parg.size() == 2) {
             dataPin = parg[0];  // 设置引脚
             powerPin = parg[1];
         }
-        pins = parg; //注意：此行必须带，除非该传感器不能被移除
+        Nyard::setPins(parg,pin); // 调用基类
     }
 
     // 设置引脚模式
@@ -69,7 +69,8 @@ public:
         Nyard::close(); // 必须销毁端口占用
     }
 
-    int collectData() override {
+    float collectData() override {
+        // 采样允许小段时间的delay 但是总等待长度不能超过250ms(通常最多8个引脚接入)
         if (dataPin != -1) {
             return analogRead(dataPin);  // 模拟采集数据
         }

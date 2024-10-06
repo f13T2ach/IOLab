@@ -79,6 +79,7 @@ namespace IOLab.Pages.ViewModel
         public ICommand MouseDownOnChart { get; set; }
 
         public ICommand FreezeChartsCommand { get; set; }
+        public ICommand ConfigChartCommand { get; set; }
 
 
         // 数据Binding
@@ -121,7 +122,7 @@ namespace IOLab.Pages.ViewModel
         {
             MappedChartTables ??= new ObservableCollection<ChartTableModel>();
 
-
+            // 订阅 RelayCommand
             SelectChartCommand = new RelayCommand(OnChartSelected);
             RemoveSelectedChartsCommand = new RelayCommand(RemoveSelectedCharts);
             AddNewChartCommand = new RelayCommand(AddNewChart);
@@ -129,6 +130,7 @@ namespace IOLab.Pages.ViewModel
             FollowLatestCommand = new RelayCommand(FollowLatest);
             MouseDownOnChart = new RelayCommand(OnMouseDragChart);
             FreezeChartsCommand = new RelayCommand(FreezeCharts);
+            ConfigChartCommand = new RelayCommand(ConfigChart);
 
             // 订阅事件
             InstanceBundle.IsConnectedChanged += OnIsConnectedChanged;
@@ -147,33 +149,25 @@ namespace IOLab.Pages.ViewModel
         {
             var selectedCharts = MappedChartTables.Where(c => c.IsSelected).ToList();
             // TODO 修改文案
-
-            if (InstanceBundle.UsingExperiment != null)
+            var result = await GetSureToDialog(Text.SureToFreeze, Text.SureToFreezeExplain).ShowAsync();
+            if (result != ContentDialogResult.Primary)
             {
-                var result = await GetSureToDialog("确定冻结吗","正在实验中，冻结可能对实验有影响").ShowAsync();
-                if (result != ContentDialogResult.Primary)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                var result = await GetSureToDialog("确定冻结吗", "不可撤销").ShowAsync();
-                if (result != ContentDialogResult.Primary)
-                {
-                    return;
-                }
-            }
+                return;
+            }    
 
             foreach (var chart in selectedCharts)
             {
-                
+                if (chart.isFrozen)
+                    continue;
                 chart.IsSelected = false;
                 chart.isFrozen = true;
+                
+                chart.Name = chart.Name + Text.FrozenChart;
+                OnPropertyChanged(nameof(MappedChartTables));
 
                 // TODO 表删除时销毁监听
             }
-            CreateNotification("冻结表", $"冻结了共 {selectedCharts.Count()} 个选中的表", InfoBarSeverity.Success);
+            CreateNotification("归档表", $"归档了共 {selectedCharts.Count()} 个选中的表", InfoBarSeverity.Success);
             System.Diagnostics.Debug.WriteLine($"冻结了共 {selectedCharts.Count()} 个选中的表");
         }
 
@@ -248,6 +242,7 @@ namespace IOLab.Pages.ViewModel
                     }
                 }
                 chart.IsSelected = false;
+                chart.isFrozen = true; // 标记为归档，以直接取消占用
                 OnChartSelected(chart);
                 MappedChartTables.Remove(chart);
                 // TODO 表删除时销毁监听
@@ -255,7 +250,14 @@ namespace IOLab.Pages.ViewModel
             System.Diagnostics.Debug.WriteLine($"移除了共 {selectedCharts.Count()} 个选中的表");
         }
 
-        // 保存表
+        //编辑表按钮触发
+        private async void ConfigChart(object sender)
+        {
+            ChartConfig config = new ChartConfig(SelectedChart);
+            await config.ShowAsync();
+        }
+
+        // 保存所有表
         private async void SaveMyRecords(object sender)
         {
             SaveRecords saveRecords;

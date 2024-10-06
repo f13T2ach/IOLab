@@ -40,11 +40,13 @@ public:
         releasePins();  // 释放引脚
     }
 
-    virtual int collectData() = 0;
+    virtual float collectData() = 0;
     
     // 设置引脚
-    virtual void setPins(const std::vector<int>& pins) {
+    virtual void setPins(const std::vector<int>& pins,String pin) {
+        this->pinName = pin;
         this->pins = pins;
+        this->isRunning = true;
     }
 
     // 获取传感器id
@@ -52,7 +54,7 @@ public:
         return id;
     }
 
-    // 获取预加载状态
+    // 获取更新时间间距预设值
     int getPreload() const {
         return preload;
     }
@@ -61,14 +63,26 @@ public:
         return name;
     }
 
+    bool getIsRunning() const {
+        return isRunning;
+    }
+
     // 获取pin
     std::vector<int> getPins() const{
         return this->pins;
     }
 
+    String getPinName() const {
+        return pinName;
+    }
+
+
+
 protected:
     int id;
+    String pinName;
     int preload;
+    bool isRunning = false;
     std::vector<int> pins;  // 记录传感器使用的引脚
     String name;
 
@@ -78,7 +92,11 @@ protected:
             pinUsage[pin] = false;  // 更新引脚状态，标记为未占用
         }
         pins.clear();  // 清空引脚列表
+        isRunning = false;
+        pinName = "";
     }
+
+    
 };
 
 #endif

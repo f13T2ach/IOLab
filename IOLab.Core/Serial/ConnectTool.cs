@@ -174,7 +174,7 @@ public class ConnectTool
         try
         {
             JObject obj = JObject.Parse(content); // 解析JSON数据
-            string tag = Tags.ShakeHand;
+            string tag = obj["command"].ToString();
 
             // 在线程列表中匹配 tag
             foreach (ITaskAnnounce announcer in InstanceBundle.list)
