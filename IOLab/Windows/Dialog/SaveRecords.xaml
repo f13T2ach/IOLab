@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     Title="保存记录"
     PrimaryButtonText="关闭所有监视器"
-    SecondaryButtonText="好"
+    SecondaryButtonText="关闭窗口"
     DefaultButton="Secondary"
     >
 

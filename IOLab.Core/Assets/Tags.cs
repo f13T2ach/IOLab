@@ -24,6 +24,6 @@ namespace IOLab.Core.Assets
     public class Tags
     {
         public static string ShakeHand = "ShakeHand";
-        public static string PerformanceColt = "PerfColt";
+        public static string PerformanceColt = "Collect";
     }
 }

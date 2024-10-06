@@ -26,9 +26,14 @@ using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Tasks
 {
+    /// <summary>
+    /// Tag: Collect 收集实验数据
+    /// </summary>
     public class DataColt : ITaskHandler<object>
     {
-        public static JObject _parameter = null;
+        public static JObject? _parameter = null;
+
+        public static Action<JObject>? parameterAction;
 
 
         public bool Inhibit { get => false; set { } }
@@ -40,48 +45,45 @@ namespace IOLab.Core.Tasks
         JObject ITaskHandler<object>.Parameter
         {
             get { return _parameter; }
-            set { _parameter = value; }
+            set
+            {
+                _parameter = value;
+                if (value != null)
+                    parameterAction?.Invoke(value);
+            }
         }
 
         object ITaskHandler<object>.Handler()
         {
             ActionBundle.PauseOrStartRecord += ChangePauseStat;
-            return handler();
+            parameterAction += handler;
+            return null;
         }
 
         private void ChangePauseStat(bool value)
         {
             pause = value;
         }
-        object handler()
+
+        void handler(JObject value)
         {
-            while (true)
+            if (pause)
             {
-                if (Announcer.tokenSource.IsCancellationRequested)
+                return;
+            }
+
+            foreach (ChartTableModel model in InstanceBundle.ChartTables)
+            {
+                // TODO 实装采集数据
+                // 注意：实装时不需要判断是不是Frozen态 因为它会主动取消监听
+                if (!model.isFrozen && !model.isPause)
                 {
-                    break;
-                }
-                Thread.Sleep(1000);
-                if (pause)
-                {
-                    continue;
-                }
-                if (InstanceBundle.ChartTables == null)
-                {
-                    continue;
-                }
-                foreach (ChartTableModel model in InstanceBundle.ChartTables)
-                {
-                    // TODO 实装采集数据
-                    // 注意：实装时不需要判断是不是Frozen态 因为它会主动取消监听
-                    if (!model.isFrozen&&!model.isPause)
+                    if (value["data"] != null)
                     {
-                        model.AddDataPoint(new Random().Next(0, 10));
+                        model.AddDataPoint((float)value["data"]);
                     }
-                    
                 }
             }
-            return null;
         }
     }
 }

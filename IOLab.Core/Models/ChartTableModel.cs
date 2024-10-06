@@ -19,15 +19,18 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using IOLab.Core.Assets;
+using IOLab.Core.Generic;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.WPF;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 
 namespace IOLab.Core.Models
 {
-    public class ChartTableModel
+    public class ChartTableModel : INotifyPropertyChanged
     {
         private bool _isSelected;
         public int Id { get; set; }
@@ -49,7 +52,8 @@ namespace IOLab.Core.Models
         public Visibility FreezeIconVisibility
         {
             get => _freezeIconVisibility;
-            set {
+            set
+            {
                 _freezeIconVisibility = value;
                 OnPropertyChanged(nameof(FreezeIconVisibility));
             }
@@ -79,16 +83,26 @@ namespace IOLab.Core.Models
         private bool _isFrozen = false;
         // TODO 表在冻结状态时的销毁
         // 表是不能被复活的 因为复活可能会对冻结后产生的表冲突
-        public bool isFrozen { get => _isFrozen; set
+        public bool isFrozen
+        {
+            get => _isFrozen; set
             {
                 _isFrozen = value;
                 FreezeIconVisibility = isFrozen ? Visibility.Visible : Visibility.Collapsed;
+                // 取消占用
+                if(InstanceBundle.connectTool != null)
+                {
+                    // 发送指令
+                    InstanceBundle.connectTool._SerialPort.WriteLine(CommandsV1.Disable + PortId);
+                }
                 OnPropertyChanged(nameof(isFrozen));
             }
         }
 
         private bool _isPause = false;
-        public bool isPause { get => _isPause; set
+        public bool isPause
+        {
+            get => _isPause; set
             {
                 _isPause = value;
                 // 暂停不会停止监听
@@ -118,6 +132,7 @@ namespace IOLab.Core.Models
                 if (_isSelected != value)
                 {
                     _isSelected = value;
+                    OnPropertyChanged(nameof(IsSelected));
                 }
             }
         }
@@ -126,9 +141,9 @@ namespace IOLab.Core.Models
         {
             Series = new ISeries[]
             {
-                new LineSeries<double>
+                new LineSeries<float>
                 {
-                    Values = new ObservableCollection<double> { 2, 1, 3, 5, 3, 4, 6 },
+                    Values = new ObservableCollection<float>{0},
                     Name = yrow
                 }
             };
@@ -138,8 +153,6 @@ namespace IOLab.Core.Models
                 new Axis
                 {
                     Name = name,
-                    MinLimit = 0,
-                    MaxLimit = 20
                 }
             };
 
@@ -150,8 +163,6 @@ namespace IOLab.Core.Models
                 new Axis
                 {
                     Name = yrow,
-                    MinLimit = 0,
-                    MaxLimit = 10
                 }
             };
 
@@ -163,12 +174,12 @@ namespace IOLab.Core.Models
         /// 添加一个点
         /// </summary>
         /// <param name="point">值</param>
-        public void AddDataPoint(double point)
+        public void AddDataPoint(float point)
         {
             // Add a new data point to the LineSeries
-            if (Series[0] is LineSeries<double> lineSeries&& !isFrozen)
+            if (Series[0] is LineSeries<float> lineSeries && !isFrozen)
             {
-                if (lineSeries.Values is ObservableCollection<double> collection)
+                if (lineSeries.Values is ObservableCollection<float> collection)
                 {
                     collection.Add(point);
 
@@ -177,27 +188,36 @@ namespace IOLab.Core.Models
                     {
                         AdjustToLatestPoint();
                     }
+
+                    // 动态调整 Y 轴范围，添加缓冲区
+                    float minValue = collection.Min();
+                    float maxValue = collection.Max();
+                    float buffer = (maxValue - minValue) * 0.1f; // 添加 10% 缓冲区
+
                     YAxes = new ObservableCollection<Axis>
                     {
                         new Axis
                         {
                             Name = YRow,
-                            MinLimit = 0,
-                            MaxLimit = collection.Max()
+                            MinLimit = minValue - buffer, // 调整最小值，留出缓冲空间
+                            MaxLimit = maxValue + buffer  // 调整最大值，留出缓冲空间
                         }
                     };
+
+
+                    OnPropertyChanged(nameof(YAxes));
                     OnPropertyChanged(nameof(Series));
                 }
-
             }
         }
+
 
         /// <summary>
         /// 令表跟随第一个点
         /// </summary>
         public void AdjustToLatestPoint()
         {
-            if (Series[0] is LineSeries<double> lineSeries && lineSeries.Values is ObservableCollection<double> collection && collection.Count > 0)
+            if (Series[0] is LineSeries<float> lineSeries && lineSeries.Values is ObservableCollection<float> collection && collection.Count > 0)
             {
                 var latestIndex = collection.Count - 1;
                 var latestValue = collection[latestIndex];
@@ -209,11 +229,11 @@ namespace IOLab.Core.Models
                 {
                     xAxis.MaxLimit = latestIndex + 1;
                     xAxis.MinLimit = Math.Max(latestIndex - XViewField, 0); // Show a window of 10 points before the latest point
-                    //yAxis.MaxLimit = latestValue + 1;
-                    //yAxis.MinLimit = latestValue - 1;
+                    // 全局最大值
+                    //yAxis.MaxLimit = 0;
+                    //yAxis.MinLimit = 0;
 
                     OnPropertyChanged(nameof(XAxes));
-                    OnPropertyChanged(nameof(YAxes));
                 }
             }
         }

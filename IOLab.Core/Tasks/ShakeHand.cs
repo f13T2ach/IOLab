@@ -98,7 +98,7 @@ namespace IOLab.Core.Tasks
                         InstanceBundle.connectTool.Device.Ports = JSONConverter.JArrayToListString(JArray.Parse(_parameter["ports"].ToString()));
                         InstanceBundle.IsConnected = true;
                         // 添加性能收集检测器
-                        new TaskAnnouncer(new DataColt(), Tags.PerformanceColt);
+                        InstanceBundle.list?.Enqueue(new TaskAnnouncer(new DataColt(), Tags.PerformanceColt));
 
                         return "";
 

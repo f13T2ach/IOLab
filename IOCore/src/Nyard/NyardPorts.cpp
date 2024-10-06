@@ -7,7 +7,7 @@
 using namespace std;
 
 std::map<String, std::vector<int>> nyardPorts = {
-        {"AL", {A0}},
+        {"AL", {32}},
 };
 
 std::unordered_map<int, bool> pinUsage;  // 记录引脚占用状态
@@ -28,5 +28,16 @@ void occupyPins(const std::vector<int>& pins) {
 void releasePins(const std::vector<int>& pins) {
     for (int pin : pins) {
         pinUsage[pin] = false;  // 标记引脚为释放
+    }
+}
+
+// 查询引脚名
+String findPinName(const std::vector<int>& pins){
+    std::map<String, std::vector<int>>::iterator iter;
+    for (iter = nyardPorts.begin(); iter != nyardPorts.end(); ++iter) 
+    {
+        if(iter->second == pins){
+            return iter->first;
+        }
     }
 }

@@ -316,6 +316,7 @@ namespace IOLab.Resources.Control.ViewModel
                         {
                             if (chart.ChartServicer.Id == item)
                             {
+                                chart.isFrozen = true;
                                 deleteModels.Add(chart);
                             }
                         }
@@ -330,10 +331,10 @@ namespace IOLab.Resources.Control.ViewModel
                     {
                         foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                         {
-                            if (chart.ChartServicer.Id == item)
+                            if (chart.ChartServicer.Id == item&&!chart.isFrozen)
                             {
                                 chart.isFrozen = true; // 标记为已归档
-                                chart.Name += Text.FrozenChart;
+                                chart.Name = chart.Name+Text.FrozenChart;
                             }
                         }
                     }

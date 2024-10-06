@@ -28,7 +28,9 @@
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
+                <ScrollViewer>
                 <StackPanel Margin="5" Orientation="Vertical" VerticalAlignment="Center">
+                    
                     <TextBlock FontSize="20" Margin="5" Text="{Binding StepName}" FontWeight="Bold"/>
                     <TextBlock FontSize="15" Margin="5" Text="{Binding StepDescription}" TextWrapping="Wrap"/>
                     <StackPanel Orientation="Horizontal" Visibility="{Binding AbsolveStepVisibility}">
@@ -36,6 +38,7 @@
                         <TextBlock Margin="0,2,0,2" Text="非最新步骤，此修改不会被检查" TextWrapping="Wrap" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
                     </StackPanel>
                 </StackPanel>
+                </ScrollViewer>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

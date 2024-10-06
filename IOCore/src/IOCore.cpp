@@ -42,6 +42,7 @@ using namespace std;
 // 创建一个指针数组来存储所有的采集器
 Nyard *sensors[MAX_SENSORS];
 int sensorCount = 0;
+unsigned int lastUpdate = 0;
 
 // 载入Nyard
 void initNyard()
@@ -120,7 +121,7 @@ void handlePinConfig(String port, int serviceID)
         if (sensors[i]->getId() == serviceID)
         {
             // 动态设置引脚
-            sensors[i]->setPins(pins); 
+            sensors[i]->setPins(pins,port); 
 
             // 配置引脚
             sensors[i]->setupPins();  
@@ -149,14 +150,15 @@ void removePinConfig(String port){
     {
       sensors[i]->close();
       flag = true;
-      throwCallback("成功移除引脚",10011,"管理监视器");
+      throwCallback("成功移除 "+port+" 上的传感器",10011,"移除");
       break;                     // 找到匹配的传感器后退出循环
     }
   }
-
+  
+  /*
   if(!flag){
-    throwError("移除引脚失败",10011,"管理监视器");
-  }
+    throwError("引脚"+port+"没有被占用",10011,"移除");
+  }*/
 }
 
 void handleCommands(String command)
@@ -177,7 +179,7 @@ void handleCommands(String command)
     catch (const std::invalid_argument &e)
     {
       // 输入不是有效整数
-      throwError("数据异常", 10010, "配置端口");
+      throwError("给定服务 ID 异常", 10010, "配置端口");
     }
     handlePinConfig(id, sid);
   }
@@ -219,7 +221,23 @@ void loop()
 {
   if (Serial.available())
   {
-    handleCommands(Serial.readString());
+    String command =Serial.readString();
+    command.replace("\n", "");  //必须替换,蜜汁bug
+    handleCommands(command);
+
+  }
+  // 采集并回报
+  for(Nyard* sensor : sensors){
+    if(sensor==NULL){
+      continue;
+    }
+    if(!sensor->getIsRunning()){
+      continue; // 忽略未在运行的监视器
+    }
+    if(millis()-lastUpdate >= sensor->getPreload()){ //如果达到更新时间
+      lastUpdate = millis(); // 更新
+      outdata(sensor);
+    }
   }
 
 }

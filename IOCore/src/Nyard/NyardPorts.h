@@ -18,8 +18,7 @@ bool isPinOccupied(int pin);
 
 // 设置引脚为占用状态
 void occupyPins(const std::vector<int>& pins);
-
 // 释放引脚
 void releasePins(const std::vector<int>& pins);
-
+String findPinName(std::vector<int>&pins);
 #endif
