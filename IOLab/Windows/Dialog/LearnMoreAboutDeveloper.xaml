@@ -31,7 +31,7 @@
         <TextBlock FontWeight="Bold" Margin="0,4,0,0">MareixHunk</TextBlock>
         <TextBlock>东莞一中 2023 级成誉鸿</TextBlock>
         <TextBlock> - 线路设计和 3D 打印</TextBlock>
-        <TextBlock> - 下位机驱动制作</TextBlock>
+        <TextBlock> - 下位机部分驱动设计</TextBlock>
 
         <TextBlock FontWeight="Bold" Margin="0,4,0,0">叶剑峰</TextBlock>
         <TextBlock>东莞一中科技创新指导老师</TextBlock>

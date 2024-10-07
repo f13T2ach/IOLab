@@ -24,8 +24,11 @@ using IOLab.Core.Assets;
 using IOLab.Core.Models;
 using IOLab.Models.Related;
 using IOLab.Windows.Dialog.ViewModel;
+using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media.Animation;
 
 namespace IOLab.Windows.Dialog
 {
@@ -77,6 +80,21 @@ namespace IOLab.Windows.Dialog
 
 
         }
+
+        private void ForceResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "确定强制空置端口吗",
+                Content = "此操作仅适用于未处于采集状态的插口",
+                PrimaryButtonText = "继续",
+                CloseButtonText = "取消",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+        }
+
+
+
 
         /*
          if (!InstanceBundle.IsConnected)

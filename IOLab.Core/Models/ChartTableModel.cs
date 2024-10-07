@@ -87,6 +87,11 @@ namespace IOLab.Core.Models
         {
             get => _isFrozen; set
             {
+                if (value == _isFrozen)
+                {
+                    return; // 防止消耗性能
+                }
+
                 _isFrozen = value;
                 FreezeIconVisibility = isFrozen ? Visibility.Visible : Visibility.Collapsed;
                 // 取消占用
