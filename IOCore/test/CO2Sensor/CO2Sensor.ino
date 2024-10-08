@@ -1,5 +1,5 @@
 /************************Hardware Related Macros************************************/
-#define         MG_PIN                       (A0)     //define which analog input channel you are going to use
+#define         MG_PIN                       (32)     //define which analog input channel you are going to use
 #define         BOOL_PIN                     (2)
 #define         DC_GAIN                      (8.5)   //define the DC gain of amplifier
 
@@ -72,12 +72,12 @@ float MGRead(int mg_pin)
 {
     int i;
     float v=0;
-
+    
     for (i=0;i<READ_SAMPLE_TIMES;i++) {
         v += analogRead(mg_pin);
         delay(READ_SAMPLE_INTERVAL);
     }
-    v = (v/READ_SAMPLE_TIMES) *5/1024 ;
+    v = (v/READ_SAMPLE_TIMES) *5/4095 ;
     return v;
 }
 

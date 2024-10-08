@@ -290,7 +290,7 @@ namespace IOLab.Pages.ViewModel
                 var hooker = new SerialCommandHooker();
 
                 // 发送消息并等待 ID 为 10010 的响应
-                var (responseMsg, isSuccess) = await hooker.SendMessageAsync("#Enable#AL#100001", 10010);
+                var (responseMsg, isSuccess) = await hooker.SendMessageAsync($"#Enable#{add.PortID}#{add.Service.Id}", 10010);
                 if (!isSuccess)
                 {
                     wait.Hide();
