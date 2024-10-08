@@ -3,6 +3,12 @@
     "name": "二氧化碳传感器",
     "serviceID": 100001,
     "type": "AL",
-    "yrow": "ppm"
+    "yrow": "%"
   },
+  {
+    "name": "pH传感器",
+    "serviceID": 100002,
+    "type": "AL",
+    "yrow": "pH"
+  }
 ]
