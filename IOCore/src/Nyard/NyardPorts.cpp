@@ -8,6 +8,8 @@ using namespace std;
 
 std::map<String, std::vector<int>> nyardPorts = {
         {"AL", {32}},
+        {"AL_1", {33}},
+        {"AL_1", {25}},
 };
 
 std::unordered_map<int, bool> pinUsage;  // 记录引脚占用状态

@@ -34,7 +34,7 @@ public:
     CO2Sensor(int id)
         : Nyard(id), dataPin(-1)
     {
-        preload = 2000;
+        preload = 1000;
         pins = {};
         name = "CO2Sensor";
     } // 初始引脚设置为空值
