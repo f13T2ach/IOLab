@@ -50,6 +50,7 @@ void initNyard()
   sensors[sensorCount++] = new SampleSensor(100000);
   sensors[sensorCount++] = new CO2Sensor(100001);
   sensors[sensorCount++] = new pHSensor(100002);
+  sensors[sensorCount++] = new ORPSensor(100003);
   
 }
 

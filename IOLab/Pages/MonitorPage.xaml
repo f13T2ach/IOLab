@@ -25,8 +25,9 @@
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Trackers}"/>
                     </ui:AppBarButton.Icon>
                     <ui:AppBarButton.Label>
-                        <TextBlock Text="实验助理"/>
+                        <TextBlock Text="实验"/>
                     </ui:AppBarButton.Label>
+                    
                     <ui:AppBarButton.Flyout>
                         <ui:Flyout>
                             <Grid Width="400" Height="250">
@@ -34,6 +35,22 @@
                             </Grid>
                         </ui:Flyout>
                         </ui:AppBarButton.Flyout>
+                </ui:AppBarButton>
+                <ui:AppBarButton IsCompact="True" ToolTipService.ToolTip="Sort">
+                    <ui:AppBarButton.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Health}"/>
+                    </ui:AppBarButton.Icon>
+                    <ui:AppBarButton.Label>
+                        <TextBlock Text="安全"/>
+                    </ui:AppBarButton.Label>
+
+                    <ui:AppBarButton.Flyout>
+                        <ui:Flyout>
+                            <Grid Width="400" Height="250">
+                                <ct:SeacurityAssistance/>
+                            </Grid>
+                        </ui:Flyout>
+                    </ui:AppBarButton.Flyout>
                 </ui:AppBarButton>
                 <ui:AppBarToggleButton Label="暂停" IsChecked="{Binding IsPauseRecord}">
                     <ui:AppBarToggleButton.Icon>
@@ -46,7 +63,7 @@
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}"/>
                     </ui:AppBarButton.Icon>
                 </ui:AppBarButton>
-                <ui:AppBarButton Label="简化图表" >
+                <ui:AppBarButton Label="简化" >
                     <ui:AppBarButton.Icon>
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.LightningBolt}"/>
                     </ui:AppBarButton.Icon>

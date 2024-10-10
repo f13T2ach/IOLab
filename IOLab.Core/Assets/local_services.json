@@ -10,5 +10,11 @@
     "serviceID": 100002,
     "type": "AL",
     "yrow": "pH"
+  },
+  {
+    "name": "氧化还原传感器",
+    "serviceID": 100003,
+    "type": "AL",
+    "yrow": "mV"
   }
 ]
