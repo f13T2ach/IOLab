@@ -52,7 +52,7 @@ namespace IOLab.Pages
         private void Preparations()
         {
             EquationImage.Source = BitmapFrame.Create(
-                new Uri(Util.LaTeXImage.GetRequestUrl(Static.Theme.themeMode == ApplicationTheme.Dark, @"\ce{Ba^2+ + SO4^2- = BaSO4 v}")),
+                new Uri(Util.LaTeXImage.GetRequestUrl(Static.Theme.themeMode == ApplicationTheme.Dark, @"\ce{CH_{3}COOH \space \rightleftharpoons \space  CH_{3}COO^{-} \space + \space H^{+}}")),
                 BitmapCreateOptions.None,
                 BitmapCacheOption.Default);
         }

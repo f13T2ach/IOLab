@@ -23,8 +23,8 @@
                 <ui:AcrylicPanel CornerRadius="20" Width="640" Height="180">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                         <Image Margin="5,5,5,5" Height="36" x:Name="EquationImage" HorizontalAlignment="Center"></Image>
-                        <TextBlock Text="通过硫酸钡检测硫酸根离子浓度" HorizontalAlignment="Center" FontSize="18" FontWeight="Medium"/>
-                        <TextBlock Text="氯化钡溶液 硫酸铜溶液" HorizontalAlignment="Center" FontSize="17" FontWeight="Light"/>
+                        <TextBlock Text="探究电离平衡的移动" HorizontalAlignment="Center" FontSize="18" FontWeight="Medium"/>
+                        <TextBlock Text="冰醋酸 水 醋酸钠" HorizontalAlignment="Center" FontSize="17" FontWeight="Light"/>
                         <Button Content="学习并实践" Margin="5,10,5,0" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
                     </StackPanel>
                 </ui:AcrylicPanel>
