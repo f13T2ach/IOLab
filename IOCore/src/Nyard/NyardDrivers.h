@@ -2,3 +2,5 @@
 #include"Drivers/CO2Sensor.hpp"
 #include"Drivers/pHSensor.hpp"
 #include"Drivers/ORPSensor.hpp"
+#include"Drivers/TempSensor.hpp"
+#include"Drivers/LightSensor.hpp"

@@ -16,5 +16,17 @@
     "serviceID": 100003,
     "type": "AL",
     "yrow": "mV"
+  },
+  {
+    "name": "温度传感器",
+    "serviceID": 100004,
+    "type": "I2C",
+    "yrow": "C"
+  },
+  {
+    "name": "光照传感器",
+    "serviceID": 100005,
+    "type": "I2C",
+    "yrow": "lx"
   }
 ]
