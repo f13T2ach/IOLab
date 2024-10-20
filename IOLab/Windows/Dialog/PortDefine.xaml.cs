@@ -85,8 +85,8 @@ namespace IOLab.Windows.Dialog
         {
             ContentDialog dialog = new ContentDialog()
             {
-                Title = "确定强制空置端口吗",
-                Content = "此操作仅适用于未处于采集状态的插口",
+                Title = "确定强制空置插口吗",
+                Content = "当添加监视器时发现无法创建监视器失败，且显示插口没有被占用时，可强制空置插口",
                 PrimaryButtonText = "继续",
                 CloseButtonText = "取消",
                 DefaultButton = ContentDialogButton.Primary,

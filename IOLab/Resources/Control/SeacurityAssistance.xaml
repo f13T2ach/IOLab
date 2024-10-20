@@ -17,7 +17,7 @@
                 <TextBlock FontSize="15" Margin="8,5,5,5" Text="{Binding ExperimentName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button Content="复位" Margin="2" Command="{Binding ReleaseExperimentButtonClicked}" CommandParameter="{Binding}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
-                    <Button Content="配置危险传感器" Margin="2"/>
+                    <Button Content="配置传感器" Margin="2"/>
                 </StackPanel>
                 
             </Grid>
@@ -28,10 +28,10 @@
                 <StackPanel Margin="5" Orientation="Vertical" VerticalAlignment="Center">
 
                         <TextBlock FontSize="50" Margin="5,-10,5,5" Text="安全" HorizontalAlignment="Center"  FontWeight="Bold"  Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
-                    <TextBlock FontSize="15" Margin="5" Text="当处...." TextWrapping="Wrap"/>
+                    <TextBlock FontSize="15" Margin="5" Text="一共 10 个布尔传感器，0 个检出危险数据" TextWrapping="Wrap"/>
                     <StackPanel Orientation="Horizontal" Visibility="{Binding AbsolveStepVisibility}">
                         <ui:FontIcon Margin="2" Icon="{x:Static ui:SegoeFluentIcons.Info}" FontSize="13" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
-                        <TextBlock Margin="0,2,0,2" Text="IOLab 不对因误差导致的危险负责" TextWrapping="Wrap" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
+                        <TextBlock Margin="0,2,0,2" Text="IOLab 不对因数据误差导致的危险负责" TextWrapping="Wrap" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
                     </StackPanel>
                 </StackPanel>
                 </ScrollViewer>
