@@ -21,6 +21,7 @@
 
 using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Core.Assets;
 using IOLab.Core.Generic;
 using IOLab.Core.Serial;
 using IOLab.Pages;
@@ -30,6 +31,8 @@ using IOLab.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -83,6 +86,7 @@ namespace IOLab
     {
         private static bool _FirstStarup = false;
         private readonly NavigationManager _navigationManager = new();
+        private int currentTeachStep = -1;
 
         public MainWindow()
         {
@@ -95,6 +99,33 @@ namespace IOLab
             if (_FirstStarup)
             {
                 StartAppreciations();
+            }
+
+            TeachNextStep();
+
+        }
+
+        private void TeachNextStep()
+        {
+            if(TeachGrid.Visibility == Visibility.Hidden)
+            {
+                TeachGrid.Visibility = Visibility.Visible;
+            }
+            if (currentTeachStep+1 >= Text.TeachingString.Count)
+            {
+                TeachSkip_Click(null, null);
+            }
+            currentTeachStep++;
+            var item = Text.TeachingString.ElementAt(currentTeachStep);
+            var itemKey = item.Key;
+            var itemValue = item.Value;
+            TitleTeach.Text = itemKey;
+            ContentTeach.Text = itemValue;
+
+            if (currentTeachStep + 1 >= Text.TeachingString.Count)
+            {
+
+                TeachNext.Content = "完成";
             }
         }
 
@@ -130,6 +161,7 @@ namespace IOLab
         {
             if (msg == WM_DEVICECHANGE)
             {
+                ActionBundle.DoUpdateSerialList();
                 switch (wParam.ToInt32())
                 {
                     case DBT_DEVICEREMOVECOMPLETE:
@@ -263,10 +295,35 @@ namespace IOLab
             //base.OnClosed(e);
         }
 
+        private void TeachNext_Click(object sender, RoutedEventArgs e)
+        {
+            TeachNextStep();
+        }
 
+        private void TeachSkip_Click(object sender, RoutedEventArgs e)
+        {
+            TeachGrid.Visibility = Visibility.Hidden;
+            currentTeachStep = -1;
+            TeachNext.Content = "下一步";
+        }
 
+        private void TeachPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTeachStep -1 < 0)
+            {
+                return;
+            }
 
+            currentTeachStep--;
 
+            var item = Text.TeachingString.ElementAt(currentTeachStep);
+            var itemKey = item.Key;
+            var itemValue = item.Value;
+            TitleTeach.Text = itemKey;
+            ContentTeach.Text = itemValue;
+            TeachNext.Content = "下一步";
+
+        }
     }
 
 

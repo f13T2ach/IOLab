@@ -11,41 +11,108 @@
          mc:Ignorable="d" 
          Unloaded="Page_Unloaded"
       Title="实验">
-    <ui:ScrollViewerEx>
-        <Grid>
-            
+    <Page.Resources>
+        <DataTemplate x:Key="GuideLayoutTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Stretch"
+                           TextAlignment="Center"
+                           Margin="0"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding TitleString}"
+                           FontSize="18" />
+                <TextBlock Margin="0,8,0,0"
+                           Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding DescriptString}"
+                           FontSize="14" />
+                <StackPanel Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <Button Content="下一步"
+                            Command="{Binding NextStepCommand}"
+                            Margin="0,0,8,0"
+                            Padding="10" />
+                    <Button Content="跳过"
+                            Command="{Binding SkipCommand}"
+                            Padding="10" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
+        <ui:ScrollViewerEx>
 
-            <StackPanel Orientation="Vertical" Margin="40,20,40,40" VerticalAlignment="Top">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Left" FontSize="32">✨</TextBlock>
-                    <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">即插即用的全栈实验平台</TextBlock>
-                </Grid>
-                <ui:AcrylicPanel CornerRadius="20" Width="640" Height="180">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        <Image Margin="5,5,5,5" Height="36" x:Name="EquationImage" HorizontalAlignment="Center"></Image>
-                        <TextBlock Text="探究电离平衡的移动" HorizontalAlignment="Center" FontSize="18" FontWeight="Medium"/>
-                        <TextBlock Text="冰醋酸 水 醋酸钠" HorizontalAlignment="Center" FontSize="17" FontWeight="Light"/>
-                        <Button Content="学习并实践" Margin="5,10,5,0" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
-                    </StackPanel>
-                </ui:AcrylicPanel>
-                <Grid Margin="0,5,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Grid>
-                            <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">记录</TextBlock>
+            <Grid>
 
-                        </Grid>
-                        <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
+
+                <StackPanel Name="MainStack" Orientation="Vertical" Margin="40,20,40,40" VerticalAlignment="Top">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" FontSize="32">✨</TextBlock>
+                        <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">即插即用的全栈实验平台</TextBlock>
+                    </Grid>
+                    <ui:AcrylicPanel CornerRadius="20" Width="640" Height="180">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image Margin="5,5,5,5" Height="36" x:Name="EquationImage" HorizontalAlignment="Center"></Image>
+                            <TextBlock Text="探究电离平衡的移动" HorizontalAlignment="Center" FontSize="18" FontWeight="Medium"/>
+                            <TextBlock Text="冰醋酸 水 醋酸钠" HorizontalAlignment="Center" FontSize="17" FontWeight="Light"/>
+                            <Button Content="学习并实践" Margin="5,10,5,0" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
+                        </StackPanel>
+                    </ui:AcrylicPanel>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
                             <Grid>
-                                <TextBlock HorizontalAlignment="Center" Visibility="{Binding CanShowNoRecordText}" Text="没有记录" VerticalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">记录</TextBlock>
+
+                            </Grid>
+                            <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
+                                <Grid>
+                                    <TextBlock HorizontalAlignment="Center" Visibility="{Binding CanShowNoRecordText}" Text="没有记录" VerticalAlignment="Center"/>
+                                    <!--最多显示三项-->
+                                    <ItemsControl ItemsSource="{Binding RecordsSchema}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <lab:RecordDetail/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </Grid>
+
+                            </ui:ScrollViewerEx>
+
+                            <Grid Margin="5">
+                                <TextBlock HorizontalAlignment="Left" FontSize="26">准备</TextBlock>
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Width="345">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Search}" Margin="8,2,16,2" FontSize="20"/>
+                                    <TextBox x:Name="SearchBox" HorizontalAlignment="Right" Width="300" Text="" TextChanged="SearchBox_TextChanged">
+                                    </TextBox>
+                                </StackPanel>
+                            </Grid>
+                            <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
                                 <!--最多显示三项-->
-                                <ItemsControl ItemsSource="{Binding RecordsSchema}">
+                                <ItemsControl ItemsSource="{Binding IOExperiments}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <lab:RecordDetail/>
+                                            <lab:ExperimentDetail/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
 
@@ -55,71 +122,44 @@
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                 </ItemsControl>
-                            </Grid>
 
-                        </ui:ScrollViewerEx>
-
-                        <Grid Margin="5">
-                            <TextBlock HorizontalAlignment="Left" FontSize="26">准备</TextBlock>
-                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Width="345">
-                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Search}" Margin="8,2,16,2" FontSize="20"/>
-                                <TextBox x:Name="SearchBox" HorizontalAlignment="Right" Width="300" Text="" TextChanged="SearchBox_TextChanged">
-                                </TextBox>
-                            </StackPanel>
-                        </Grid>
-                        <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
-                            <!--最多显示三项-->
-                            <ItemsControl ItemsSource="{Binding IOExperiments}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <lab:ExperimentDetail/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-
-                        </ui:ScrollViewerEx>
-                    </StackPanel>
-
-
-                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
-
-                        <Grid>
-                            <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">统计</TextBlock>
-                        </Grid>
-
-
-
-                        <StackPanel HorizontalAlignment="Center" Margin="10,0,0,0" Orientation="Horizontal">
-                            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
-                                <TextBlock Text="{Binding LocalRecordCount}" TextAlignment="Center" FontSize="36" Width="48"/>
-                                <TextBlock Text="次记录" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
-                                <TextBlock Text="{Binding LocalExperimentCount}" TextAlignment="Center" FontSize="36" Width="48"/>
-                                <TextBlock Text="条实验" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
-                                <TextBlock Text="{Binding LocalServicesCount}" TextAlignment="Center" FontSize="36" Width="48"/>
-                                <TextBlock Text="种采集器" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
-                            </StackPanel>
-
+                            </ui:ScrollViewerEx>
                         </StackPanel>
 
 
-                        <StackPanel Margin="10,0,0,6">
-                            <TextBlock Opacity="0.615" x:Name="StudyProgress" HorizontalAlignment="Left" FontSize="16" Margin="5">化学必修二·学习进度</TextBlock>
-                            <StackPanel 
+                        <StackPanel Grid.Column="1" Margin="10,0,0,0">
+
+                            <Grid>
+                                <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">统计</TextBlock>
+                            </Grid>
+
+
+
+                            <StackPanel HorizontalAlignment="Center" Margin="10,0,0,0" Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                                    <TextBlock Text="{Binding LocalRecordCount}" TextAlignment="Center" FontSize="36" Width="48"/>
+                                    <TextBlock Text="次记录" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                                    <TextBlock Text="{Binding LocalExperimentCount}" TextAlignment="Center" FontSize="36" Width="48"/>
+                                    <TextBlock Text="条实验" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                                    <TextBlock Text="{Binding LocalServicesCount}" TextAlignment="Center" FontSize="36" Width="48"/>
+                                    <TextBlock Text="种采集器" FontSize="16" VerticalAlignment="Bottom" Opacity="0.7"/>
+                                </StackPanel>
+
+                            </StackPanel>
+
+
+                            <StackPanel Margin="10,0,0,6">
+                                <TextBlock Opacity="0.615" x:Name="StudyProgress" HorizontalAlignment="Left" FontSize="16" Margin="5">化学必修二·学习进度</TextBlock>
+                                <StackPanel 
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Orientation="Horizontal"
                         Margin="8,0,0,0">
-                                <ProgressBar x:Name="Progress"
+                                    <ProgressBar x:Name="Progress"
                                 Value="100"
                                 Width="320"
                                 Height="10"
@@ -127,93 +167,103 @@
                                 Style="{StaticResource HorRoundedPbStyle}"
                                 Orientation="Horizontal"
                                 BorderThickness="0">
-                                    <ProgressBar.Foreground>
-                                        <LinearGradientBrush SpreadMethod="Repeat">
-                                            <LinearGradientBrush.Transform>
-                                                <TranslateTransform x:Name="LinearGradientBrushTranslate" />
-                                            </LinearGradientBrush.Transform>
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop Offset="0.00" Color="#FFFF2B88" />
-                                                <GradientStop Offset="0.14" Color="#FFFF9B6A" />
-                                                <GradientStop Offset="0.28" Color="#FFF3D64E" />
-                                                <GradientStop Offset="0.42" Color="#FFDCFF93" />
-                                                <GradientStop Offset="0.56" Color="#FFB8F1CC" />
-                                                <GradientStop Offset="0.70" Color="#FFD9B8F1" />
-                                                <GradientStop Offset="0.85" Color="#FFCA7497" />
-                                                <GradientStop Offset="1.00" Color="#FFFF2B88" />
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                    </ProgressBar.Foreground>
-                                    <ProgressBar.Background>
-                                        <VisualBrush ViewportUnits="Absolute" TileMode="Tile">
-                                            <VisualBrush.Visual>
-                                                <Border Style="{StaticResource Style_SectionBorderStyle}"/>
-                                            </VisualBrush.Visual>
-                                        </VisualBrush>
-                                    </ProgressBar.Background>
-                                    <ProgressBar.Triggers>
-                                        <EventTrigger RoutedEvent="TextBlock.Loaded">
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="LinearGradientBrushTranslate" Storyboard.TargetProperty="X" From="0" To="700" Duration="0:0:10" RepeatBehavior="Forever" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-                                    </ProgressBar.Triggers>
-                                </ProgressBar>
-                                <TextBlock Text="50" Margin="8,0,0,0"/>
-                                <TextBlock Text="%"/>
-                                <TextBlock Text="- 1/2" Margin="4,0,0,0"/>
-                                <TextBlock Text="的内容已完成"/>
+                                        <ProgressBar.Foreground>
+                                            <LinearGradientBrush SpreadMethod="Repeat">
+                                                <LinearGradientBrush.Transform>
+                                                    <TranslateTransform x:Name="LinearGradientBrushTranslate" />
+                                                </LinearGradientBrush.Transform>
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStop Offset="0.00" Color="#FFFF2B88" />
+                                                    <GradientStop Offset="0.14" Color="#FFFF9B6A" />
+                                                    <GradientStop Offset="0.28" Color="#FFF3D64E" />
+                                                    <GradientStop Offset="0.42" Color="#FFDCFF93" />
+                                                    <GradientStop Offset="0.56" Color="#FFB8F1CC" />
+                                                    <GradientStop Offset="0.70" Color="#FFD9B8F1" />
+                                                    <GradientStop Offset="0.85" Color="#FFCA7497" />
+                                                    <GradientStop Offset="1.00" Color="#FFFF2B88" />
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+                                        </ProgressBar.Foreground>
+                                        <ProgressBar.Background>
+                                            <VisualBrush ViewportUnits="Absolute" TileMode="Tile">
+                                                <VisualBrush.Visual>
+                                                    <Border Style="{StaticResource Style_SectionBorderStyle}"/>
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </ProgressBar.Background>
+                                        <ProgressBar.Triggers>
+                                            <EventTrigger RoutedEvent="TextBlock.Loaded">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="LinearGradientBrushTranslate" Storyboard.TargetProperty="X" From="0" To="700" Duration="0:0:10" RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </ProgressBar.Triggers>
+                                    </ProgressBar>
+                                    <TextBlock Text="50" Margin="8,0,0,0"/>
+                                    <TextBlock Text="%"/>
+                                    <TextBlock Text="- 1/2" Margin="4,0,0,0"/>
+                                    <TextBlock Text="的内容已完成"/>
+                                </StackPanel>
                             </StackPanel>
+                            <Grid>
+                                <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">公告</TextBlock>
+                            </Grid>
+                            <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
+                                <Grid VerticalAlignment="Center" Margin="0,10,0,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Link}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+                                    <TextBlock Text="全服公告" Grid.Column="1" FontSize="16" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Top" FontSize="14" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">
+
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                            <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
+                                <Grid VerticalAlignment="Center" Margin="0,10,0,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Bug}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+                                    <TextBlock Text="Bug修复公告"  FontSize="16" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="14" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">2024/8/13 修复部分用户上报的字体异常问题</TextBlock>
+                                </Grid>
+                            </Border>
+
                         </StackPanel>
-                        <Grid>
-                            <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">公告</TextBlock>
-                        </Grid>
-                        <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
-                            <Grid VerticalAlignment="Center" Margin="0,10,0,10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Link}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-                                <TextBlock Text="全服公告" Grid.Column="1" FontSize="16" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                                <TextBlock Grid.Column="1" VerticalAlignment="Top" FontSize="14" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">
-                                
-                                </TextBlock>
-                            </Grid>
-                        </Border>
-                        <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
-                            <Grid VerticalAlignment="Center" Margin="0,10,0,10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Bug}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-                                <TextBlock Text="Bug修复公告"  FontSize="16" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                                <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="14" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow">2024/8/13 修复部分用户上报的字体异常问题</TextBlock>
-                            </Grid>
-                        </Border>
 
-                    </StackPanel>
-
-                </Grid>
-                <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents | 在16:9屏幕下具有最佳体验</TextBlock>
-                <Button FontSize="12" x:Name="TestButton_ShowTeachPage" Content="View 3D Sketch" Click="TestButton_ShowTeachPage_Click"/>
-            </StackPanel>
-            <cyct:InfoBar Margin="0,10,0,0" Visibility="Hidden" x:Name="MyInfoBar"/>
-        </Grid>
+                    </Grid>
+                    <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents | 在16:9屏幕下具有最佳体验</TextBlock>
+                    <Button FontSize="12" x:Name="TestButton_ShowTeachPage" Content="View 3D Sketch" Click="TestButton_ShowTeachPage_Click"/>
 
 
-    </ui:ScrollViewerEx>
+                </StackPanel>
+
+                <cyct:InfoBar Margin="0,10,0,0" Visibility="Hidden" x:Name="MyInfoBar"/>
+
+
+
+            </Grid>
+
+
+
+        </ui:ScrollViewerEx>
+        
+    </Grid>
+
 </ui:Page>

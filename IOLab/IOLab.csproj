@@ -94,6 +94,9 @@
     <Compile Update="Windows\Dialog\ChartConfig.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\Dialog\Online\Login.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Dialog\WaitSerial.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
