@@ -57,6 +57,22 @@
 
 
     </ui:NavigationView>
-    <ui:Frame Margin="40,0,40,40" Visibility="Hidden" x:Name="Frame_Secondary"/>
+        <ui:Frame Margin="40,0,40,40" Visibility="Hidden" x:Name="Frame_Secondary"/>
+        <ui:AcrylicPanel x:Name="TeachGrid" Width="320" Height="150" VerticalAlignment="Bottom">
+            <ui:AcrylicPanel.Effect>
+                <DropShadowEffect Direction="320" BlurRadius="10" ShadowDepth="2" Color="Black" Opacity="0.3" />
+            </ui:AcrylicPanel.Effect>
+            <Grid Margin="6">
+                <StackPanel>
+                    <TextBlock x:Name="TitleTeach" Text="帮助" FontSize="18"/>
+                    <TextBlock x:Name="ContentTeach" Text="文本" FontSize="16" TextWrapping="Wrap"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Margin="2" x:Name="TeachPrevious" Click="TeachPrevious_Click" Content="上一步"/>
+                    <Button Margin="2" x:Name="TeachNext" Click="TeachNext_Click" Content="下一步"/>
+                    <Button Margin="2" x:Name="TeachSkip" Click="TeachSkip_Click" Content="跳过"/>
+                </StackPanel>
+            </Grid>
+        </ui:AcrylicPanel>
     </Grid>
 </Window>
