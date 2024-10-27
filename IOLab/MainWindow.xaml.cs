@@ -28,6 +28,7 @@ using IOLab.Pages;
 using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
 using IOLab.Windows;
+using IOLab.Windows.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -57,8 +58,9 @@ namespace IOLab
                     "NavigationViewItem_Monitor" => new MonitorPage(),
                     "NavigationViewItem_Setting" => new SettingPage(),
                     "NavigationViewItem_About" => new AboutPage(),
+                    "NavigationViewItem_Workshop" => new WorkshopPage(),
                     _ => throw new InvalidOperationException("Unknown navigation item.")
-                };
+                } ;
                 _pageCache[pageKey] = page;
             }
             return page;
@@ -96,6 +98,8 @@ namespace IOLab
             InitializeComponent();
             //测试代码
             //Static.Theme.themeMode = ApplicationTheme.Dark;
+
+
             if (_FirstStarup)
             {
                 StartAppreciations();
@@ -137,6 +141,7 @@ namespace IOLab
                 return;
             }
 
+
             
 
             // 读取设置
@@ -144,6 +149,7 @@ namespace IOLab
             new ThemeResources().AccentColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.AccentColorHex);
 
             ReadAssets.ReadLocalServices(); // 必须第一个加载
+
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
 
@@ -152,6 +158,9 @@ namespace IOLab
 
             //GlobalExceptionCatch gec = new GlobalExceptionCatch();
             //gec.ShowDialog();
+
+            //IForgot forgot = new IForgot();
+            //forgot.ShowAsync();
 
         }
 

@@ -1,0 +1,41 @@
+﻿<ui:Page x:Class="IOLab.Pages.WorkshopPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:IOLab.Pages"
+      xmlns:cyct="clr-namespace:IOLab.Resources.Control.Cyber"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      d:DesignHeight="720" d:DesignWidth="1280"
+      xmlns:lab="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomePageViewModel}"
+      mc:Ignorable="d" 
+      Title="创意工坊">
+    <Grid>
+        <ui:ScrollViewerEx>
+
+            <Grid>
+
+
+                <StackPanel Name="MainStack" Orientation="Vertical" Margin="40,20,40,40" VerticalAlignment="Top">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" FontSize="32">探索·实践·总结</TextBlock>
+                        <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">Redmpale_3371</TextBlock>
+                    </Grid>
+                    
+
+                </StackPanel>
+
+                <cyct:InfoBar Margin="0,10,0,0" Visibility="Hidden" x:Name="MyInfoBar"/>
+
+
+
+            </Grid>
+
+
+
+        </ui:ScrollViewerEx>
+        
+    </Grid>
+
+</ui:Page>

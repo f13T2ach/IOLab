@@ -14,51 +14,57 @@
         <ui:NavigationView x:Name="NavigationView_Root" IsPaneOpen="False"
                        SelectionChanged="NavigationView_SelectionChanged" Margin="0,0,0,0">
 
-        <ui:NavigationView.FooterMenuItems>
-            <ui:NavigationViewItem x:Name="NavigationViewItem_About" Content="关于">
-                <ui:NavigationViewItem.Icon>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}"/>
-                </ui:NavigationViewItem.Icon>
-            </ui:NavigationViewItem>
-        </ui:NavigationView.FooterMenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem x:Name="NavigationViewItem_About" Content="关于">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.FooterMenuItems>
 
-        <ui:NavigationView.MenuItems>
-            <ui:NavigationViewItem x:Name="NavigationViewItem_Home" Content="实验">
-                <ui:NavigationViewItem.Icon>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Home}"/>
-                </ui:NavigationViewItem.Icon>
-            </ui:NavigationViewItem>
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem x:Name="NavigationViewItem_Home" Content="实验">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Home}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
 
-            <ui:NavigationViewItem x:Name="NavigationViewItem_Remote" Content="管理">
-                <ui:NavigationViewItem.Icon>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ConnectApp}"/>
-                </ui:NavigationViewItem.Icon>
-            </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="NavigationViewItem_Remote" Content="管理">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ConnectApp}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
 
-            <ui:NavigationViewItem x:Name="NavigationViewItem_Monitor" Content="监视">
-                <ui:NavigationViewItem.Icon>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Diagnostic}"/>
-                </ui:NavigationViewItem.Icon>
-            </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="NavigationViewItem_Workshop" Content="工坊">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ShoppingCart}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
 
-
-
-            <ui:NavigationViewItem x:Name="NavigationViewItem_Setting" Content="设置">
-                <ui:NavigationViewItem.Icon>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Settings}"/>
-                </ui:NavigationViewItem.Icon>
-            </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="NavigationViewItem_Monitor" Content="监视">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Diagnostic}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
 
 
 
+                <ui:NavigationViewItem x:Name="NavigationViewItem_Setting" Content="设置">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Settings}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
 
-        </ui:NavigationView.MenuItems>
+
+
+
+            </ui:NavigationView.MenuItems>
             <ui:Frame Margin="40,0,40,40" x:Name="Frame_Main"/>
 
 
-    </ui:NavigationView>
+        </ui:NavigationView>
         <ui:Frame Margin="40,0,40,40" Visibility="Hidden" x:Name="Frame_Secondary"/>
-        <ui:AcrylicPanel x:Name="TeachGrid" Width="320" Height="150" VerticalAlignment="Bottom">
+        <ui:AcrylicPanel Visibility="Hidden" x:Name="TeachGrid" Width="320" Height="150" VerticalAlignment="Bottom">
             <ui:AcrylicPanel.Effect>
                 <DropShadowEffect Direction="320" BlurRadius="10" ShadowDepth="2" Color="Black" Opacity="0.3" />
             </ui:AcrylicPanel.Effect>
