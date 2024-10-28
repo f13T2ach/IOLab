@@ -22,12 +22,12 @@
 using IOLab.Core.Generic;
 using IOLab.Core.Serial;
 using System.Collections.ObjectModel;
-
-
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace IOLab.Windows.Dialog.ViewModel
 {
-    public class ManualConnectViewModel
+    public class ManualConnectViewModel : INotifyPropertyChanged
     {
         private string[] _comIDArray;
 
@@ -37,6 +37,8 @@ namespace IOLab.Windows.Dialog.ViewModel
 
 
         private int _indexOfSelection;
+
+
         public int IndexOfSelection
         {
             get
@@ -58,13 +60,20 @@ namespace IOLab.Windows.Dialog.ViewModel
             }
             set
             {
-                // 
+                _comIDCollection = value;
+                OnPropertyChanged(nameof(ComIDCollection));
             }
         }
 
         public ManualConnectViewModel()
         {
-            _comIDCollection = GetComIDCollection();
+            UpdateSerialListEvent();
+            ActionBundle.UpdateSerialList += UpdateSerialListEvent;
+        }
+
+        private void UpdateSerialListEvent()
+        {
+            ComIDCollection = GetComIDCollection();
             MyDataContainer.comArray = _comIDArray;
             _indexOfSelection = -1;
         }
@@ -79,6 +88,12 @@ namespace IOLab.Windows.Dialog.ViewModel
                 collection.Add(item);
             }
             return collection;
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

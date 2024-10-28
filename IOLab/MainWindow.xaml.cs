@@ -21,15 +21,19 @@
 
 using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Core.Assets;
 using IOLab.Core.Generic;
 using IOLab.Core.Serial;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
 using IOLab.Windows;
+using IOLab.Windows.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -54,8 +58,9 @@ namespace IOLab
                     "NavigationViewItem_Monitor" => new MonitorPage(),
                     "NavigationViewItem_Setting" => new SettingPage(),
                     "NavigationViewItem_About" => new AboutPage(),
+                    "NavigationViewItem_Workshop" => new WorkshopPage(),
                     _ => throw new InvalidOperationException("Unknown navigation item.")
-                };
+                } ;
                 _pageCache[pageKey] = page;
             }
             return page;
@@ -83,6 +88,7 @@ namespace IOLab
     {
         private static bool _FirstStarup = false;
         private readonly NavigationManager _navigationManager = new();
+        private int currentTeachStep = -1;
 
         public MainWindow()
         {
@@ -92,9 +98,38 @@ namespace IOLab
             InitializeComponent();
             //测试代码
             //Static.Theme.themeMode = ApplicationTheme.Dark;
+
+
             if (_FirstStarup)
             {
                 StartAppreciations();
+            }
+
+            TeachNextStep();
+
+        }
+
+        private void TeachNextStep()
+        {
+            if(TeachGrid.Visibility == Visibility.Hidden)
+            {
+                TeachGrid.Visibility = Visibility.Visible;
+            }
+            if (currentTeachStep+1 >= Text.TeachingString.Count)
+            {
+                TeachSkip_Click(null, null);
+            }
+            currentTeachStep++;
+            var item = Text.TeachingString.ElementAt(currentTeachStep);
+            var itemKey = item.Key;
+            var itemValue = item.Value;
+            TitleTeach.Text = itemKey;
+            ContentTeach.Text = itemValue;
+
+            if (currentTeachStep + 1 >= Text.TeachingString.Count)
+            {
+
+                TeachNext.Content = "完成";
             }
         }
 
@@ -106,6 +141,7 @@ namespace IOLab
                 return;
             }
 
+
             
 
             // 读取设置
@@ -113,6 +149,7 @@ namespace IOLab
             new ThemeResources().AccentColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.AccentColorHex);
 
             ReadAssets.ReadLocalServices(); // 必须第一个加载
+
             ReadAssets.ReadRecords();
             ReadAssets.ReadExperiments();
 
@@ -122,6 +159,9 @@ namespace IOLab
             //GlobalExceptionCatch gec = new GlobalExceptionCatch();
             //gec.ShowDialog();
 
+            //IForgot forgot = new IForgot();
+            //forgot.ShowAsync();
+
         }
 
         public const int WM_DEVICECHANGE = 0x219;//U盘插入后，OS的底层会自动检测到，然后向应用程序发送“硬件设备状态改变“的消息  
@@ -130,6 +170,7 @@ namespace IOLab
         {
             if (msg == WM_DEVICECHANGE)
             {
+                ActionBundle.DoUpdateSerialList();
                 switch (wParam.ToInt32())
                 {
                     case DBT_DEVICEREMOVECOMPLETE:
@@ -263,10 +304,35 @@ namespace IOLab
             //base.OnClosed(e);
         }
 
+        private void TeachNext_Click(object sender, RoutedEventArgs e)
+        {
+            TeachNextStep();
+        }
 
+        private void TeachSkip_Click(object sender, RoutedEventArgs e)
+        {
+            TeachGrid.Visibility = Visibility.Hidden;
+            currentTeachStep = -1;
+            TeachNext.Content = "下一步";
+        }
 
+        private void TeachPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTeachStep -1 < 0)
+            {
+                return;
+            }
 
+            currentTeachStep--;
 
+            var item = Text.TeachingString.ElementAt(currentTeachStep);
+            var itemKey = item.Key;
+            var itemValue = item.Value;
+            TitleTeach.Text = itemKey;
+            ContentTeach.Text = itemValue;
+            TeachNext.Content = "下一步";
+
+        }
     }
 
 

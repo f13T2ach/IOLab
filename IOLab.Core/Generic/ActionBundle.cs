@@ -10,6 +10,8 @@ namespace IOLab.Core.Generic
     public static class ActionBundle
     {
         public static event Action<bool>? PauseOrStartRecord;
+
+        public static event Action? UpdateSerialList;
         /// <summary>
         /// 暂停或继续
         /// </summary>
@@ -24,6 +26,11 @@ namespace IOLab.Core.Generic
         public static void DoUpdateNewest(JObject value)
         {
             NewestSerialCommand?.Invoke(value);
+        }
+
+        public static void DoUpdateSerialList()
+        {
+            UpdateSerialList?.Invoke();
         }
     }
 }
