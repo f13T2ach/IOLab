@@ -42,6 +42,15 @@ namespace IOLab.Core.Assets
             "操作无效",
         };
 
+        public static Dictionary<string, string> TeachingString = new Dictionary<string, string>()
+        {
+            { "连接设备","在管理页面点击选取端口，连接设备，插拔连接线多出的设备即为你设备的编号" },
+            { "开始实验","在实验列表选中实验，点击详情后点实践即可开始实验" },
+            { "仅采集而不做实验","如果不需要实验，仅需采集，可点监视下方的加号添加图表" },
+            { "添加图表","插口对应设备上的插口，采集方案需与传感器匹配" },
+            { "实验助手","开始实验后，可点击监视上方的助手，查看实验" },
+        };
+
         // 窗口
         public static string DisconnectDialog_SureToDisconnect = "确定断开连接吗";
         public static string DisconnectDialog_AlertText = "如果你有未保存的工作，继续操作可保存\n断开连接后实验助理不再可用";
