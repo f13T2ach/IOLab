@@ -5,7 +5,10 @@ import time
 import sqlite3
 from logging import handlers
 import config
+import server
+import mysql
 
+logger = logging.getLogger('global')
 # 定义 ANSI 转义序列
 RESET_SEQ = "\033[0m"
 COLOR_SEQ = "\033[1;%dm"
@@ -29,8 +32,14 @@ class ColoredFormatter(logging.Formatter):
 def main():
     print("IOLab - Intelligent Experiment Platform")
     print("v1.0.0 Debug Mode | DO NOT PUBLISH")
-    logger = logging.getLogger('global')
+    
     logger.warning("此实例为测试框架，请勿在工厂环境使用")
+    sql = mysql.UserDatabase()
+    sql.start()
+    sql.add_user("Alice", "alice@example.com", "password123")
+    sql.close()
+    server.launchServer()
+    
 
 
 if __name__ == '__main__':
@@ -45,7 +54,6 @@ if __name__ == '__main__':
     logname = f"{log_dir}iolab_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{int(time.time())}.txt"
 
     # 创建一个日志记录器
-    logger = logging.getLogger('global')
     logger.setLevel(logging.DEBUG)
 
     # 设置日志格式
