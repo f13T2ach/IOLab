@@ -33,13 +33,13 @@
                 <TextBox Margin="4" HorizontalAlignment="Center" InputScope="Password" Width="320"></TextBox>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
-                <Button Width="60" Height="60" Margin="5">
+                <Button x:Name="IForgotPassword" Click="IForgotPassword_Click" Width="60" Height="60" Margin="5">
                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Feedback}"/>
                         <TextBlock Text="忘记密码" FontSize="9" Margin="0,5,0,0"/>
                     </StackPanel>
                 </Button>
-                <Button Width="60" Height="60" Margin="5">
+                <Button Name="RegistNewAccount" Click="RegistNewAccount_Click" Width="60" Height="60" Margin="5">
                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Add}"/>
                         <TextBlock Text="注册账号" FontSize="9" Margin="0,5,0,0"/>

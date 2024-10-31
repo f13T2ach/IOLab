@@ -80,7 +80,14 @@ namespace IOLab.Core.Tasks
                 {
                     if (value["data"] != null)
                     {
-                        model.AddDataPoint((float)value["data"]);
+                        try
+                        {
+                            model.AddDataPoint((float)value["data"]);
+                        }
+                        catch
+                        {
+                            // fuck you
+                        }
                     }
                 }
             }

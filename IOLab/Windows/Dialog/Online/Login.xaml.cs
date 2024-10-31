@@ -34,10 +34,22 @@ namespace IOLab.Windows.Dialog
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="mode">0：不能保存1：正常保存2：强制保存</param>
         public Login()
         {
             InitializeComponent();
+        }
+
+        private async void IForgotPassword_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            await new IForgot().ShowAsync();
+            
+        }
+
+        private async void RegistNewAccount_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            await new Register().ShowAsync();
         }
     }
 }

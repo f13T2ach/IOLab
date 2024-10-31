@@ -78,7 +78,7 @@
                                 <TextBlock HorizontalAlignment="Left" FontSize="26" Margin="5">记录</TextBlock>
 
                             </Grid>
-                            <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
+                            <ui:ScrollViewerEx MaxHeight="300" Orientation="Horizontal">
                                 <Grid>
                                     <TextBlock HorizontalAlignment="Center" Visibility="{Binding CanShowNoRecordText}" Text="没有记录" VerticalAlignment="Center"/>
                                     <!--最多显示三项-->
@@ -107,8 +107,8 @@
                                     </TextBox>
                                 </StackPanel>
                             </Grid>
-                            <ui:ScrollViewerEx MaxHeight="240" Orientation="Horizontal">
-                                <!--最多显示三项-->
+                            <ui:ScrollViewerEx MaxHeight="300" Orientation="Horizontal">
+                                <!--最多显示四项-->
                                 <ItemsControl ItemsSource="{Binding IOExperiments}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
@@ -250,7 +250,7 @@
                     </Grid>
                     <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents | 在16:9屏幕下具有最佳体验</TextBlock>
                     <Button FontSize="12" x:Name="TestButton_ShowTeachPage" Content="View 3D Sketch" Click="TestButton_ShowTeachPage_Click"/>
-
+                    <Button FontSize="12" x:Name="TestButton_ShowLoginPage" Content="Login" Click="TestButton_ShowLoginPage_Click"/>
 
                 </StackPanel>
 
