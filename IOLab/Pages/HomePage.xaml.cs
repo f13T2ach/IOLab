@@ -84,5 +84,11 @@ namespace IOLab.Pages
         {
             viewModel.OnSearchTextChanged(SearchBox.Text);
         }
+
+        private async void TestButton_ShowLoginPage_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.Dialog.Login login = new Windows.Dialog.Login();
+            await login.ShowAsync();
+        }
     }
 }

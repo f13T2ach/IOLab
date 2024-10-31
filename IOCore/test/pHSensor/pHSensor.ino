@@ -6,7 +6,7 @@ float adc_resolution = 4095.0;
 
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(300);
     delay(100);
     Serial.println("cimpleo pH Sense");
 }
