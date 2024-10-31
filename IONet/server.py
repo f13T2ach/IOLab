@@ -1,7 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import config
 from gevent import pywsgi, spawn
 import app
+import usrdb
 
 service = Flask(__name__)
 
@@ -23,10 +24,54 @@ def launchServer():
 @service.route('/api/server', methods=['POST'])
 def getServer():
     return jsonify(
-        {"name": config.ServerConfig.name},
-        {"area": config.ServerConfig.area}
+        {"name": config.ServerConfig.name,"area":config.ServerConfig.area},
+    )
+@service.route('/api/auth/login', methods=['POST'])
+def getUserData():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    app.logger.info(f"用户 {username} 请求以密码 {password} 登录")
+
+    app.sql.start()
+    value = app.sql.get_user_token(username,password)
+    app.sql.close()
+
+    if(value == -1):
+        return jsonify(
+        {"code": -1,"msg":"用户名或密码错误","token":""},
+    )
+    return jsonify(
+        {"code": 0,"msg":"登录成功","token":value},
     )
 
+@service.route('/api/auth/regist',methods=['POST'])
+def tryRegistUser():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    email = data.get('email')
+
+    app.sql.start()
+    value = app.sql.add_user(username,email,password)
+    app.sql.close()
+    return jsonify(
+        {"code": value[0],"msg":value[1]},
+    )
+
+@service.route('/api/auth/logout', methods=['POST'])
+def logout_user():
+    data = request.get_json()
+    token = data.get('token')
+    
+    if not token:
+        return jsonify({"code":-1,"msg":"token 是必须的"}), 400
+    app.sql.start()
+    # 调用数据库的删除用户方法
+    value = app.sql.delete_user_by_token(token)
+    app.sql.close()
+    
+    return jsonify({"code":value[0],"msg":value[1]}), 200
 # 启动服务器
 if __name__ == '__main__':
     launchServer()

@@ -2,13 +2,14 @@ import os
 import logging
 from datetime import datetime
 import time
-import sqlite3
-from logging import handlers
 import config
 import server
-import mysql
+import usrdb
 
 logger = logging.getLogger('global')
+sql = usrdb.UserDatabase()
+
+
 # 定义 ANSI 转义序列
 RESET_SEQ = "\033[0m"
 COLOR_SEQ = "\033[1;%dm"
@@ -34,7 +35,7 @@ def main():
     print("v1.0.0 Debug Mode | DO NOT PUBLISH")
     
     logger.warning("此实例为测试框架，请勿在工厂环境使用")
-    sql = mysql.UserDatabase()
+    
     sql.start()
     sql.add_user("Alice", "alice@example.com", "password123")
     sql.close()
