@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.AppBroadcasting;
 
 namespace IOLab.Core.Generic
 {
     public static class ActionBundle
     {
+
+        public static event Action<string> LoginStatChanged;
+
         public static event Action<bool>? PauseOrStartRecord;
 
         public static event Action? UpdateSerialList;
@@ -31,6 +35,11 @@ namespace IOLab.Core.Generic
         public static void DoUpdateSerialList()
         {
             UpdateSerialList?.Invoke();
+        }
+
+        public static void DoChangeLoginStat(string token)
+        {
+            LoginStatChanged?.Invoke(token);
         }
     }
 }

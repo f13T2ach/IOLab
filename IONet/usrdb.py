@@ -4,6 +4,7 @@ import hashlib
 import app
 import uuid
 import config
+from flask import jsonify
 
 class UserDatabase:
     def __init__(self):
@@ -36,7 +37,7 @@ class UserDatabase:
         return str(uuid.uuid4()).replace("-", "")  # 生成唯一的 UUID 并去掉连字符
 
     # 添加用户
-    def add_user(self, username, email, password):
+    def add_user(self, username, email, password,group=0):
         try:
             if not self.conn:
                 app.logger.info("请先启动用户数据库")
@@ -47,11 +48,12 @@ class UserDatabase:
             max_id = self.cursor.fetchone()[0]
             next_id = 10000000 if max_id is None else max_id + 1  # 从 10000000 开始
 
+            basicExp = 0
             hashedpass = self.hash_password(password)  # 对密码进行 MD5 加密
             token = self.generate_token()  # 生成用户 token
             
             self.cursor.execute("INSERT INTO users (id, username, email, hashedpass,exp,groupid, token) VALUES (?, ?, ?, ?,?,?, ?)", 
-                                (next_id, username, email, hashedpass, 0,0, token))
+                                (next_id, username, email, hashedpass, basicExp,group, token))
             self.conn.commit()
             app.logger.info("%s 添加成功: 用户 ID: %d, Token: %s",username, next_id, token)
             return (0,"注册成功")
@@ -72,12 +74,20 @@ class UserDatabase:
             # 先获取 hashed 密码
             hashedpass = self.hash_password(password)
 
-            self.cursor.execute("SELECT token FROM users WHERE (username = ? OR email = ?) AND hashedpass = ?", 
-                                (nameOrEmail, nameOrEmail, hashedpass))
+            self.cursor.execute("SELECT token, email, exp, groupid, username FROM users WHERE (username = ? OR email = ?) AND hashedpass = ?", 
+                            (nameOrEmail, nameOrEmail, hashedpass))
             result = self.cursor.fetchone()
 
             if result:
-                return result[0]  # 返回 token
+            # 返回一个包含 token、email、exp 和 groupid 的字典
+                return {
+                    "token": result[0],   # token
+                    "email": result[1],   # email
+                    "exp": result[2],     # exp
+                    "groupid": result[3],  # groupid
+                    "username": result[4]  # username
+                }
+            
             else:
                 return -1  # 用户未找到或密码不正确
         except sqlite3.Error as e:
