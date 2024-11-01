@@ -11,7 +11,7 @@ namespace IOLab.Core.Generic
     public static class ActionBundle
     {
 
-        public static event Action<string> LoginStatChanged;
+        public static event Action<bool> LoginStat;
 
         public static event Action<bool>? PauseOrStartRecord;
 
@@ -37,9 +37,9 @@ namespace IOLab.Core.Generic
             UpdateSerialList?.Invoke();
         }
 
-        public static void DoChangeLoginStat(string token)
+        public static void DoChangeLoginStat(bool val)
         {
-            LoginStatChanged?.Invoke(token);
+            LoginStat?.Invoke(val);
         }
     }
 }

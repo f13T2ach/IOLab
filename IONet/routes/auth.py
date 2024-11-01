@@ -29,7 +29,7 @@ def tryRegistUser():
     app.sql.start()
     value = app.sql.add_user(username, email, password,logger=app.logger)
     app.sql.close()
-    return jsonify({"code": value[0], "msg": value[1]})
+    return jsonify({"code": value[0], "msg": value[1]}), 200
 
 @auth_bp.route('/api/auth/logout', methods=['POST'])
 def logout_user():

@@ -59,6 +59,7 @@ def main():
     service.register_blueprint(auth.auth_bp)
     service.register_blueprint(server_info.server_info_bp)
     logger.info(f"正在启动服务器，监听 {config.ServerConfig.port}")
+    
     server = pywsgi.WSGIServer(('0.0.0.0', config.ServerConfig.port), service)
     logger.info("服务器启动成功")
     server.serve_forever()  # 非阻塞地启动服务器

@@ -38,18 +38,18 @@
             <ui:AcrylicPanel CornerRadius="20" Margin="5,5,5,8" Height="160">
                 <Grid Margin="12">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBlock Text="Redmaple_3371"  FontSize="40" FontWeight="Medium"/>
+                        <TextBlock x:Name="IONet_UserName" Text="未登录"  FontSize="40" FontWeight="Medium"/>
                         <StackPanel Orientation="Horizontal">
                             <Border CornerRadius="5" Width="40" Height="20" Margin="0,0,0,0" Background="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" >
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="EXP" FontWeight="Black"/>
                             </Border>
-                            <TextBlock Margin="4,0,10,0" FontSize="14" VerticalAlignment="Center" Text="0" FontWeight="Black"/>
-                            <TextBlock Text="f12fds@163.com" FontSize="17" FontWeight="Light"/>
+                            <TextBlock  x:Name="IONet_UserExperience" Margin="4,0,10,0" FontSize="14" VerticalAlignment="Center" Text="0" FontWeight="Black"/>
+                            <TextBlock  x:Name="IONet_UserEmail" Text="若为登录失败，点「重新登录」可重试" FontSize="17" FontWeight="Light"/>
                             
                         </StackPanel>
 
                     </StackPanel>
-                    <StackPanel VerticalAlignment="Center"  HorizontalAlignment="Right" Orientation="Vertical">
+                    <StackPanel Visibility="Visible" x:Name="UserPanel_Online" VerticalAlignment="Center"  HorizontalAlignment="Right" Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <Button Width="72" Height="72" Margin="5">
                                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
@@ -94,7 +94,33 @@
 
                         </StackPanel>
                     </StackPanel>
+                    <StackPanel Visibility="Collapsed" x:Name="UserPanel_Offline" VerticalAlignment="Center"  HorizontalAlignment="Right" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="5">
 
+                            <Button Width="72" Height="72" Margin="5">
+                                <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Emoji}"/>
+                                    <TextBlock Text="登录" FontSize="12" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="72" Height="72" Margin="5">
+                                <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Add}"/>
+                                    <TextBlock Text="注册" FontSize="12" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Button>
+                            <TextBlock Text="|" VerticalAlignment="Center" Opacity="0.7"/>
+                            <Button Width="72" Height="72" Margin="5">
+                                <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Help}"/>
+                                    <TextBlock Text="重新登录" FontSize="12" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Button>
+                            
+
+
+                        </StackPanel>
+                    </StackPanel>
 
                 </Grid>
             </ui:AcrylicPanel>

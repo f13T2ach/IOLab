@@ -22,6 +22,7 @@
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Assets;
 using IOLab.Core.Generic;
+using IOLab.Core.Properties;
 using IOLab.Network;
 using System;
 using System.Diagnostics;
@@ -61,26 +62,33 @@ namespace IOLab.Windows.Dialog
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            _authInstance = new Auth(UsernameInput.Text, PasswordInput.Text);
+            InstanceBundle.UsingAuth = new Auth(UsernameInput.Text, PasswordInput.Text);
 
             // 登录
-            var loginResult = await _authInstance.LoginAsync();
-            Console.WriteLine(loginResult.Message);
+            // 战术停顿，以防止用户操作
+            WaitSerial wait = new WaitSerial(0);
+            wait.ShowAsync();
+
+            var loginResult = await InstanceBundle.UsingAuth.LoginAsync();
+
+            wait.Hide();
+
             this.Hide();
 
             if (loginResult.Success)
             {
-                
                 // 登录成功后输出用户数据
                 Debug.WriteLine("User data: " + loginResult.Data.ToString());
-                InstanceBundle.UsingAuth = _authInstance;
+
+
+                // 然后保留token
+                Settings.Default["UserToken"] = InstanceBundle.UsingAuth.Token;
+                Settings.Default.Save();
+
                 ShowDialog("欢迎回来: " + loginResult.Data["username"].ToString());
                 return;
-
-                // 结束会话
-                //var ceaseSessionResult = await _authInstance.CeaseSessionAsync();
-                //Debug.WriteLine(ceaseSessionResult.Message);
             }
+            InstanceBundle.UsingAuth = null;
             ShowDialog("无法登录: " + loginResult.Message);
         }
 

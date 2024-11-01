@@ -23,6 +23,7 @@ using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Assets;
 using IOLab.Core.Generic;
+using IOLab.Core.Properties;
 using IOLab.Core.Serial;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
@@ -37,6 +38,11 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Windows.UI.Notifications;
+using Microsoft.Toolkit.Uwp.Notifications; // 引入通知库
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
+
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab
@@ -133,16 +139,13 @@ namespace IOLab
             }
         }
 
-        private void Prepare()
+        private async void Prepare()
         {
             // 每次实例化都会对静态对象操作一次 这是不安全的
             if (App.AlreadyInit)
             {
                 return;
             }
-
-
-            
 
             // 读取设置
             ChangeThemeByIndex(Core.Properties.Settings.Default.ThemeSelection);
@@ -161,6 +164,19 @@ namespace IOLab
 
             //IForgot forgot = new IForgot();
             //forgot.ShowAsync();
+
+            // 自动登录
+            if(Settings.Default.UserToken != "" &&  Settings.Default.UserToken != null)
+            {
+                InstanceBundle.UsingAuth = new Network.Auth(Settings.Default.UserToken);
+                var result = await InstanceBundle.UsingAuth.LoginViaTokenAsync();
+                if(!result.Success)
+                {
+                    iNKORE.UI.WPF.Modern.Controls.MessageBox.Show("无法完成自动登录: " + result.Message +"\r\n请稍后在设置页重新登录", "IOLab 自动登录", MessageBoxButton.OK, MessageBoxImage.Information);
+                    InstanceBundle.UsingAuth = null;
+                }
+            }
+
 
         }
 
@@ -332,6 +348,35 @@ namespace IOLab
             ContentTeach.Text = itemValue;
             TeachNext.Content = "下一步";
 
+        }
+
+        private async void CreateDialog(string titile,string content)
+        {
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = titile,
+                Content = content,
+                PrimaryButtonText = "好",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            await dialog.ShowAsync();
+        }
+
+        public void ShowNotification(string title, string content)
+        {
+            // 创建通知内容
+            var toastContent = new ToastContentBuilder()
+                .AddText(title)
+                .AddText(content)
+                .GetToastContent();
+
+            // 将内容转换为XML格式
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(toastContent.GetContent());
+
+            // 创建并显示通知
+            var toast = new ToastNotification(xmlDocument);
+            ToastNotificationManager.CreateToastNotifier("YourAppId").Show(toast);
         }
     }
 
