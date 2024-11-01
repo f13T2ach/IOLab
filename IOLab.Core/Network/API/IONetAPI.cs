@@ -23,6 +23,16 @@ namespace IOLab.Network.API
 {
     public class IONetAPI
     {
-        public static string UpdateAnnounce = "";
+        public static Dictionary<string, string> Servers = new Dictionary<string, string>
+        {
+            { "Default","http://127.0.0.1:9000" },
+            { "广州主线","http://139.159.244.185:17092" }
+        };
+
+        public static string AuthLogin = "/api/auth/login";
+
+        public static string AuthRegist = "/api/auth/regist";
+
+        public static string AuthLogout = "/api/auth/logout";
     }
 }

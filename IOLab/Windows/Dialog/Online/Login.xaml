@@ -12,6 +12,8 @@
     CloseButtonText="取消"
     PrimaryButtonText="登录"
     DefaultButton="Primary"
+    
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     >
 
     <ui:ContentDialog.Resources>
@@ -26,11 +28,11 @@
         <StackPanel x:Name="ConatinerA" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="用户名/邮箱" Width="64" Margin="5" VerticalAlignment="Center"/>
-                <TextBox Margin="4" HorizontalAlignment="Center" Width="320"></TextBox>
+                <TextBox Name="UsernameInput" Margin="4" HorizontalAlignment="Center" Width="320"></TextBox>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="密码" Width="64" Margin="5" VerticalAlignment="Center"/>
-                <TextBox Margin="4" HorizontalAlignment="Center" InputScope="Password" Width="320"></TextBox>
+                <TextBox Name="PasswordInput" Margin="4" HorizontalAlignment="Center" InputScope="Password" Width="320"></TextBox>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
                 <Button x:Name="IForgotPassword" Click="IForgotPassword_Click" Width="60" Height="60" Margin="5">

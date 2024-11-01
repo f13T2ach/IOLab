@@ -37,13 +37,14 @@ def getUserData():
     value = app.sql.get_user_token(username,password)
     app.sql.close()
 
-    if(value == -1):
+    if value == -1:  # 检查是否返回 -1
         return jsonify(
-        {"code": -1,"msg":"用户名或密码错误","token":""},
-    )
-    return jsonify(
-        {"code": 0,"msg":"登录成功","token":value},
-    )
+            {"code": -1, "msg": "用户名或密码错误", "data": {}}
+        ), 401  # 返回未授权状态码
+    else:
+        return jsonify(
+            {"code": 0, "msg": "登录成功", "data": value}  # 这里的 value 是字典
+        ), 200  # 返回成功状态码
 
 @service.route('/api/auth/regist',methods=['POST'])
 def tryRegistUser():
@@ -58,6 +59,8 @@ def tryRegistUser():
     return jsonify(
         {"code": value[0],"msg":value[1]},
     )
+
+
 
 @service.route('/api/auth/logout', methods=['POST'])
 def logout_user():

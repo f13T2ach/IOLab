@@ -21,6 +21,7 @@
 
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;
+using IOLab.Network;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -33,6 +34,7 @@ namespace IOLab.Core.Generic
         public static ConcurrentQueue<ITaskAnnounce>? list = new ConcurrentQueue<ITaskAnnounce>();
 
         public static ConnectTool connectTool; // 连接实例
+
 
         private static bool _isConnected = false;
 
@@ -93,6 +95,18 @@ namespace IOLab.Core.Generic
                 _usingExperiment = value;
                 UsingExperimentChanged?.Invoke(UsingExperiment);
             } 
+        }
+
+        public static event Action<Auth> UsingAuthChanged; // 变更选用实验事件
+
+        private static Auth? _usingAuth;
+        public static Auth? UsingAuth
+        {
+            get => _usingAuth; set
+            {
+                _usingAuth = value;
+                UsingAuthChanged?.Invoke(UsingAuth);
+            }
         }
 
 

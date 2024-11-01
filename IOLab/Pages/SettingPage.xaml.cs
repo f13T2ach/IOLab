@@ -20,7 +20,9 @@
  */
 
 using iNKORE.UI.WPF.Modern;
+using IOLab.Core.Properties;
 using IOLab.Models.Related;
+using IOLab.Network.API;
 using IOLab.Static;
 using System;
 using System.Collections.Generic;
@@ -50,13 +52,25 @@ namespace IOLab.Pages
             LoadSettings();
 
             InitializeColorPicker();
+            InitializeServerPicker();
+
             TotalClick = 0;
         }
 
         private void LoadSettings()
         {
-            ComboBox_ThemeMode.SelectedIndex = Properties.Settings.Default.ThemeSelection;
+            ComboBox_ThemeMode.SelectedIndex = Core.Properties.Settings.Default.ThemeSelection;
 
+        }
+
+        private void InitializeServerPicker() {
+
+            ServerPickerBox.Items.Clear();
+            foreach(var name in IONetAPI.Servers.Keys)
+            {
+                ServerPickerBox.Items.Add(name);
+            }
+            ServerPickerBox.SelectedItem = Settings.Default.ServerIndex;
         }
 
         // 颜色选取器载入
@@ -91,22 +105,11 @@ namespace IOLab.Pages
             if (ColorPickerComboBox.SelectedItem is ColorItem selectedColor)
             {
                 new ThemeResources().AccentColor = selectedColor.Color.Color;
-                Properties.Settings.Default["AccentColorHex"] = selectedColor.Color.Color.ToString();
-                Properties.Settings.Default.Save();
+                Settings.Default["AccentColorHex"] = selectedColor.Color.Color.ToString();
+                Settings.Default.Save();
             }
         }
 
-        // 连接社区
-        private async void ToggleSwitch_UseOnlineCommunity_Toggled(object sender, RoutedEventArgs e)
-        {
-            if (ToggleSwitch_UseOnlineCommunity.IsOn == false)
-            {
-                return; // 下面的语句会重新触发此方法
-            }
-            ToggleSwitch_UseOnlineCommunity.IsOn = false;
-            Windows.Dialog.ConnectCommunity cc = new Windows.Dialog.ConnectCommunity();
-            var result = await cc.ShowAsync();
-        }
 
         // 主题改变
         private void ComboBox_ThemeMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -118,8 +121,8 @@ namespace IOLab.Pages
             int index = ComboBox_ThemeMode.SelectedIndex;
             MainWindow.ChangeThemeByIndex(index);
 
-            Properties.Settings.Default["ThemeSelection"] = index;
-            Properties.Settings.Default.Save();
+            Settings.Default["ThemeSelection"] = index;
+            Settings.Default.Save();
         }
 
         private void EntryOfGame_MouseDown(object sender, MouseButtonEventArgs e)
@@ -138,8 +141,16 @@ namespace IOLab.Pages
             }
         }
 
+        private void ServerPickerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Settings.Default["ServerIndex"] = ServerPickerBox.SelectedItem;
+            Settings.Default.Save();
 
+        }
 
+        private void CeaseSession_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

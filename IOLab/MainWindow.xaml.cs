@@ -105,7 +105,7 @@ namespace IOLab
                 StartAppreciations();
             }
 
-            TeachNextStep();
+            //TeachNextStep();
 
         }
 
@@ -145,8 +145,8 @@ namespace IOLab
             
 
             // 读取设置
-            ChangeThemeByIndex(Properties.Settings.Default.ThemeSelection);
-            new ThemeResources().AccentColor = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.AccentColorHex);
+            ChangeThemeByIndex(Core.Properties.Settings.Default.ThemeSelection);
+            new ThemeResources().AccentColor = (Color)ColorConverter.ConvertFromString(Core.Properties.Settings.Default.AccentColorHex);
 
             ReadAssets.ReadLocalServices(); // 必须第一个加载
 

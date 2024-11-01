@@ -77,7 +77,7 @@
                                     <TextBlock Text="内容检举" FontSize="12" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Button>
-                            <Button Width="72" Height="72" Margin="5">
+                            <Button x:Name="CeaseSession" Click="CeaseSession_Click" Width="72" Height="72" Margin="5">
                                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SignOut}"/>
                                     <TextBlock Text="登出" FontSize="12" Margin="0,5,0,0"/>
@@ -209,11 +209,12 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SpeedHigh}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-                    <TextBlock Text="GPU Draft Turbo 性能优化(GDT)" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                    <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="IOLab 在没有显示卡的设备运行会增高 CPU 占用率。可打开 GDT ，这将关闭动画效果，并自动化简图表。"/></TextBlock>
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Globe}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+                    <TextBlock Text="服务器" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="右方选区可以选择 IOLab 连接到的服务器，连接后 IOLab 会重新登录账户"/></TextBlock>
 
-                    <ui:ToggleSwitch x:Name="ToggleSwitch_UseFastMode" Grid.Column="2" Grid.RowSpan="2" IsEnabled="True"/>
+                    <ComboBox x:Name="ServerPickerBox" Grid.Column="2" Grid.RowSpan="2" SelectionChanged="ServerPickerBox_SelectionChanged">
+                    </ComboBox>
                 </Grid>
             </Border>
             <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
@@ -236,24 +237,6 @@
             </Border>
 
             <TextBlock Text="实验性功能" FontSize="16" Margin="0,20,0,4"/>
-            <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
-                <Grid VerticalAlignment="Center" Margin="0,10,0,10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.World}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-                    <TextBlock Text="连接 IOLab 在线社区并启用相关栏目" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                    <TextBlock Text="IOLab 在线社区基于代码托管平台，在这可以上传和查看别人的实验。启用此项需要重启本程序，启用表示同意我们的隐私政策" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
-
-                    <ui:ToggleSwitch x:Name="ToggleSwitch_UseOnlineCommunity" Grid.Column="2" Grid.RowSpan="2" IsEnabled="True" Toggled="ToggleSwitch_UseOnlineCommunity_Toggled"/>
-                </Grid>
-            </Border>
             <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
                 <Grid VerticalAlignment="Center" Margin="0,10,0,10">
                     <Grid.RowDefinitions>

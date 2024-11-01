@@ -21,7 +21,10 @@
 
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Assets;
+using IOLab.Core.Generic;
+using IOLab.Network;
 using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace IOLab.Windows.Dialog
@@ -31,12 +34,16 @@ namespace IOLab.Windows.Dialog
     /// </summary>
     public partial class Login : ContentDialog
     {
+
+        private static Auth _authInstance;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         public Login()
         {
             InitializeComponent();
+            
         }
 
         private async void IForgotPassword_Click(object sender, RoutedEventArgs e)
@@ -50,6 +57,43 @@ namespace IOLab.Windows.Dialog
         {
             this.Hide();
             await new Register().ShowAsync();
+        }
+
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            _authInstance = new Auth(UsernameInput.Text, PasswordInput.Text);
+
+            // 登录
+            var loginResult = await _authInstance.LoginAsync();
+            Console.WriteLine(loginResult.Message);
+            this.Hide();
+
+            if (loginResult.Success)
+            {
+                
+                // 登录成功后输出用户数据
+                Debug.WriteLine("User data: " + loginResult.Data.ToString());
+                InstanceBundle.UsingAuth = _authInstance;
+                ShowDialog("欢迎回来: " + loginResult.Data["username"].ToString());
+                return;
+
+                // 结束会话
+                //var ceaseSessionResult = await _authInstance.CeaseSessionAsync();
+                //Debug.WriteLine(ceaseSessionResult.Message);
+            }
+            ShowDialog("无法登录: " + loginResult.Message);
+        }
+
+        private async void ShowDialog(string text)
+        {
+            ContentDialog Dialog;
+            Dialog = new ContentDialog()
+            {
+                Title = "登录",
+                Content = text,
+                CloseButtonText = "好"
+            };
+            await Dialog.ShowAsync();
         }
     }
 }
