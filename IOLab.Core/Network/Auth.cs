@@ -9,6 +9,7 @@ using IOLab.Network.API;
 using IOLab.Network.Result;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 namespace IOLab.Network
 {
     public class Auth
@@ -18,7 +19,9 @@ namespace IOLab.Network
         public string Email { get; private set; }
 
         private string _token;
-        public string Token { get => _token;
+        public string Token
+        {
+            get => _token;
             private set
             {
                 _token = value;
@@ -26,6 +29,9 @@ namespace IOLab.Network
                 ActionBundle.DoChangeLoginStat(value);
             }
         }
+
+        public int GroupId { get; private set; } // 添加 groupid 属性
+        public int Experience { get; private set; } // 添加 exp 属性
 
         private static readonly HttpClient client = new HttpClient();
         private static readonly string BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
@@ -59,8 +65,10 @@ namespace IOLab.Network
 
                     if (responseData != null && responseData.ContainsKey("code") && responseData["code"].ToObject<int>() == 0)
                     {
-                        // 保存Token
+                        // 保存Token、GroupId 和 Experience
                         Token = responseData["data"]["token"].ToString();
+                        GroupId = responseData["data"]["groupid"].ToObject<int>(); // 获取 groupid
+                        Experience = responseData["data"]["exp"].ToObject<int>(); // 获取 exp
                         return new AuthResult(true, 0, "Login successful.", (JObject)responseData["data"]);
                     }
                     return new AuthResult(false, responseData["code"].ToObject<int>(), responseData["msg"].ToString());
