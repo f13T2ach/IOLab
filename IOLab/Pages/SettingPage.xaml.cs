@@ -20,12 +20,14 @@
  */
 
 using iNKORE.UI.WPF.Modern;
+using IOLab.Core.Generic;
 using IOLab.Core.Properties;
 using IOLab.Models.Related;
 using IOLab.Network.API;
 using IOLab.Static;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks.Dataflow;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -50,17 +52,56 @@ namespace IOLab.Pages
             InitializeComponent();
             isLoaded = true;
             LoadSettings();
+            LoadUserInfomation();
 
             InitializeColorPicker();
             InitializeServerPicker();
 
             TotalClick = 0;
+
+            // 绑定Actions
+            ActionBundle.LoginStat += OnLoginStatChanged;
         }
 
         private void LoadSettings()
         {
             ComboBox_ThemeMode.SelectedIndex = Core.Properties.Settings.Default.ThemeSelection;
+            
 
+        }
+
+        private void LoadUserInfomation(bool stat = true)
+        {
+            // 优先判断传入的stat
+            if(stat == false || InstanceBundle.UsingAuth == null)
+            {
+                IONet_UserName.Text = "未登录";
+                IONet_UserExperience.Text = "0";
+                if (Settings.Default.UserToken != "" && Settings.Default.UserToken != null)
+                {
+                    IONet_UserEmail.Text = "IOLab 自动登录失败，点「重新登录」可重试";
+                }
+                else
+                {
+                    IONet_UserEmail.Text = "登录以访问 IOLab Community";
+                }
+                UserPanel_Offline.Visibility = Visibility.Visible;
+                UserPanel_Online.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+
+            IONet_UserName.Text = InstanceBundle.UsingAuth.Username;
+            IONet_UserExperience.Text = InstanceBundle.UsingAuth.Experience.ToString() ;
+            IONet_UserEmail.Text = InstanceBundle.UsingAuth.Email;
+            UserPanel_Offline.Visibility = Visibility.Collapsed;
+            UserPanel_Online.Visibility = Visibility.Visible;
+        }
+
+        private void OnLoginStatChanged(bool stat)
+        {
+
+            LoadUserInfomation(stat);
         }
 
         private void InitializeServerPicker() {
@@ -148,9 +189,21 @@ namespace IOLab.Pages
 
         }
 
-        private void CeaseSession_Click(object sender, RoutedEventArgs e)
+        private async void CeaseSession_Click(object sender, RoutedEventArgs e)
         {
+            if(InstanceBundle.UsingAuth == null)
+            {
+                OnLoginStatChanged(false);
+                return;
+            }
 
+            Settings.Default["UserToken"] = "";
+            Settings.Default.Save();
+
+
+            await InstanceBundle.UsingAuth.CeaseSessionAsync();
+            InstanceBundle.UsingAuth = null;
+            
         }
     }
 }
