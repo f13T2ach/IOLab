@@ -3,11 +3,15 @@ import logging
 from datetime import datetime
 import time
 import config
-import server
-import usrdb
+from usrdb import UserDatabase
+
+
+from flask import Flask
+from gevent import pywsgi
 
 logger = logging.getLogger('global')
-sql = usrdb.UserDatabase()
+sql = UserDatabase()
+service = Flask(__name__)
 
 
 # 定义 ANSI 转义序列
@@ -34,12 +38,30 @@ def main():
     print("IOLab - Intelligent Experiment Platform")
     print("v1.0.0 Debug Mode | DO NOT PUBLISH")
     
+    
     logger.warning("此实例为测试框架，请勿在工厂环境使用")
     
+    logger.info("正在启动 主SQL 服务")
     sql.start()
-    sql.add_user("Alice", "alice@example.com", "password123")
+    logger.info("主SQL 启动成功，尝试写入测试用户 1 密码 1")
+    sql.add_user("1", "1@iolab.com", "1",logger=logger)
     sql.close()
-    server.launchServer()
+    
+    # 设置日志记录器
+
+    service.logger = logger
+
+    logger.info("正在导入业务路由")
+    # 导入路由
+    from routes import auth, server_info
+
+    # 注册蓝图
+    service.register_blueprint(auth.auth_bp)
+    service.register_blueprint(server_info.server_info_bp)
+    logger.info(f"正在启动服务器，监听 {config.ServerConfig.port}")
+    server = pywsgi.WSGIServer(('0.0.0.0', config.ServerConfig.port), service)
+    logger.info("服务器启动成功")
+    server.serve_forever()  # 非阻塞地启动服务器
     
 
 
@@ -71,8 +93,12 @@ if __name__ == '__main__':
     console_handler.setFormatter(colored_formatter)
     logger.addHandler(console_handler)
 
+    
+
     main()
 
     # 移除处理器（可选）
     logger.removeHandler(file_handler)
     logger.removeHandler(console_handler)
+
+    

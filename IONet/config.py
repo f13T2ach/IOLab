@@ -9,3 +9,4 @@ class DirConfig:
     sqlDir = os.getcwd() + "\\sql\\"
 class SQLConfig:
     DB_NAME = DirConfig.sqlDir + 'users.db'
+    dailyReward = 1
