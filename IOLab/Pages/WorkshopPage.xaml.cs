@@ -19,17 +19,6 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using iNKORE.UI.WPF.Modern;
-using IOLab.Pages.ViewModel;
-using IOLab.Resources.Guide;
-using IOLab.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab.Pages
@@ -44,6 +33,6 @@ namespace IOLab.Pages
             InitializeComponent();
         }
 
-       
+
     }
 }

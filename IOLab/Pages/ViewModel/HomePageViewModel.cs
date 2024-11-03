@@ -21,16 +21,16 @@
 
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
+using IOLab.Core.Generic;
 using IOLab.Core.Models;
 using IOLab.Core.Models.Records;
-using IOLab.Core.Generic;
 using IOLab.Windows.Dialog.Universal;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using System;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -47,7 +47,9 @@ namespace IOLab.Pages.ViewModel
             }
         }
         private ObservableCollection<IOExperiment> _ioExperiments;
-        public ObservableCollection<IOExperiment> IOExperiments { get => _ioExperiments;
+        public ObservableCollection<IOExperiment> IOExperiments
+        {
+            get => _ioExperiments;
             set
             {
                 _ioExperiments = value;
@@ -126,7 +128,7 @@ namespace IOLab.Pages.ViewModel
                 return;
             }
             // 如果已经在实验中
-            if(InstanceBundle.UsingExperiment != null)
+            if (InstanceBundle.UsingExperiment != null)
             {
                 ContentDialog Dialog = new ContentDialog()
                 {
@@ -135,7 +137,7 @@ namespace IOLab.Pages.ViewModel
                     PrimaryButtonText = "继续",
                     SecondaryButtonText = "取消"
                 };
-                if(await Dialog.ShowAsync() == ContentDialogResult.Secondary)
+                if (await Dialog.ShowAsync() == ContentDialogResult.Secondary)
                 {
                     return;
                 }

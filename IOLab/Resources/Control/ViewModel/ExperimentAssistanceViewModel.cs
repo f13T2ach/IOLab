@@ -1,19 +1,14 @@
-﻿using iNKORE.UI.WPF.DragDrop;
-using iNKORE.UI.WPF.Modern.Controls;
+﻿using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Assets;
 using IOLab.Core.Generic;
 using IOLab.Core.Models;
 using IOLab.Windows.Dialog.Universal;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,7 +16,7 @@ namespace IOLab.Resources.Control.ViewModel
 {
     internal class ExperimentAssistanceViewModel : INotifyPropertyChanged
     {
-        
+
         private IOExperiment current;
 
         private string _experimentName = Text.NoItemSelected;
@@ -162,7 +157,7 @@ namespace IOLab.Resources.Control.ViewModel
             }
             stepIndex++;
 
-            if(newestStepId == stepIndex)
+            if (newestStepId == stepIndex)
             {
                 _absolveStep = false;
             }
@@ -186,7 +181,7 @@ namespace IOLab.Resources.Control.ViewModel
         private async void ReleaseExperiment(object sender)
         {
             // 如果不是null就问问
-            if(sender != null)
+            if (sender != null)
             {
                 var cd = new ContentDialog
                 {
@@ -226,13 +221,13 @@ namespace IOLab.Resources.Control.ViewModel
                 PrimaryButtonText = "继续",
                 SecondaryButtonText = "取消"
             };
-            if(await dialog.ShowAsync() != ContentDialogResult.Primary)
+            if (await dialog.ShowAsync() != ContentDialogResult.Primary)
             {
                 return;
             }
             FreezeStep(true); // 归档
             stepIndex--;
-            
+
 
             StepName = steps[stepIndex].Key;
             StepDescription = steps[stepIndex].Value;
@@ -244,7 +239,8 @@ namespace IOLab.Resources.Control.ViewModel
         {
             bool flag = false;
             if (current == null) return;
-            if(stepIndex < newestStepId) {
+            if (stepIndex < newestStepId)
+            {
                 _absolveStep = true;// 本步骤为先前的步骤
                 EnableForNextStep = true;
                 return;
@@ -271,7 +267,7 @@ namespace IOLab.Resources.Control.ViewModel
                     bool loopFlag = false;
                     foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                     {
-                        if (chart.ChartServicer.Id == item && chart.isFrozen == false) 
+                        if (chart.ChartServicer.Id == item && chart.isFrozen == false)
                         {
                             loopFlag = true;
                             break;
@@ -331,10 +327,10 @@ namespace IOLab.Resources.Control.ViewModel
                     {
                         foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                         {
-                            if (chart.ChartServicer.Id == item&&!chart.isFrozen)
+                            if (chart.ChartServicer.Id == item && !chart.isFrozen)
                             {
                                 chart.isFrozen = true; // 标记为已归档
-                                chart.Name = chart.Name+Text.FrozenChart;
+                                chart.Name = chart.Name + Text.FrozenChart;
                             }
                         }
                     }
@@ -342,7 +338,7 @@ namespace IOLab.Resources.Control.ViewModel
             }
         }
 
-        
+
 
         private IOExperiment.Checkpoint? FindCheckpointByName(string name)
         {

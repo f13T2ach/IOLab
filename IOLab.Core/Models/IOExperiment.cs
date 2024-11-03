@@ -23,7 +23,6 @@ using IOLab.Core.Assets;
 using IOLab.Core.Util;
 using IOLab.Core.Util.FilesBehavior;
 using Newtonsoft.Json.Linq;
-using System.Linq.Expressions;
 
 namespace IOLab.Core.Models
 {
@@ -146,7 +145,7 @@ namespace IOLab.Core.Models
 
             // 读取检查点
             JArray checkpointsRaw = (JArray)json["checkpoints"];
-            foreach(var item in checkpointsRaw)
+            foreach (var item in checkpointsRaw)
             {
                 JObject jobect = (JObject)item;
                 Checkpoint checkpoint = new Checkpoint();

@@ -20,10 +20,9 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
-using System.Windows.Threading;
-using System.Windows;
-using System;
 using IOLab.Core.Config;
+using System;
+using System.Windows.Threading;
 
 namespace IOLab.Windows.Dialog
 {

@@ -28,21 +28,16 @@ using IOLab.Core.Serial;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
-using IOLab.Windows;
-using IOLab.Windows.Dialog;
+using Microsoft.Toolkit.Uwp.Notifications; // 引入通知库
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using Windows.UI.Notifications;
-using Microsoft.Toolkit.Uwp.Notifications; // 引入通知库
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
-
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab
@@ -66,7 +61,7 @@ namespace IOLab
                     "NavigationViewItem_About" => new AboutPage(),
                     "NavigationViewItem_Workshop" => new WorkshopPage(),
                     _ => throw new InvalidOperationException("Unknown navigation item.")
-                } ;
+                };
                 _pageCache[pageKey] = page;
             }
             return page;
@@ -117,11 +112,11 @@ namespace IOLab
 
         private void TeachNextStep()
         {
-            if(TeachGrid.Visibility == Visibility.Hidden)
+            if (TeachGrid.Visibility == Visibility.Hidden)
             {
                 TeachGrid.Visibility = Visibility.Visible;
             }
-            if (currentTeachStep+1 >= Text.TeachingString.Count)
+            if (currentTeachStep + 1 >= Text.TeachingString.Count)
             {
                 TeachSkip_Click(null, null);
             }
@@ -166,13 +161,13 @@ namespace IOLab
             //forgot.ShowAsync();
 
             // 自动登录
-            if(Settings.Default.UserToken != "" &&  Settings.Default.UserToken != null)
+            if (Settings.Default.UserToken != "" && Settings.Default.UserToken != null)
             {
                 InstanceBundle.UsingAuth = new Network.Auth(Settings.Default.UserToken);
                 var result = await InstanceBundle.UsingAuth.LoginViaTokenAsync();
-                if(!result.Success)
+                if (!result.Success)
                 {
-                    iNKORE.UI.WPF.Modern.Controls.MessageBox.Show("无法完成自动登录: " + result.Message +"\r\n请稍后在设置页重新登录", "IOLab 自动登录", MessageBoxButton.OK, MessageBoxImage.Information);
+                    iNKORE.UI.WPF.Modern.Controls.MessageBox.Show("无法完成自动登录: " + result.Message + "\r\n请稍后在设置页重新登录", "IOLab 自动登录", MessageBoxButton.OK, MessageBoxImage.Information);
                     InstanceBundle.UsingAuth = null;
                 }
             }
@@ -334,7 +329,7 @@ namespace IOLab
 
         private void TeachPrevious_Click(object sender, RoutedEventArgs e)
         {
-            if (currentTeachStep -1 < 0)
+            if (currentTeachStep - 1 < 0)
             {
                 return;
             }
@@ -350,7 +345,7 @@ namespace IOLab
 
         }
 
-        public async void CreateDialog(string titile,string content)
+        public async void CreateDialog(string titile, string content)
         {
             ContentDialog dialog = new ContentDialog()
             {

@@ -20,10 +20,7 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Assets;
 using IOLab.Network;
-using System;
-using System.Windows;
 
 namespace IOLab.Windows.Dialog
 {
@@ -40,7 +37,7 @@ namespace IOLab.Windows.Dialog
             InitializeComponent();
         }
 
-        private async void CreateDialog(string title, string content,bool retry = true)
+        private async void CreateDialog(string title, string content, bool retry = true)
         {
             Hide();
             string closeBtn = "好";
@@ -67,7 +64,7 @@ namespace IOLab.Windows.Dialog
                 CreateDialog("注册失败", "请补全你的信息");
                 return;
             }
-            else if(Register_Password.Text != Register_PasswordVerify.Text)
+            else if (Register_Password.Text != Register_PasswordVerify.Text)
             {
                 CreateDialog("注册失败", "两次输入的密码不一致");
                 return;
@@ -80,7 +77,7 @@ namespace IOLab.Windows.Dialog
                 Content = "请等待服务器响应",
             };
             _ = dialog.ShowAsync();
-            
+
             Auth auth = new Auth(Register_Username.Text, Register_Password.Text, Register_Email.Text);
             var result = await auth.RegisterAsync();
 
@@ -88,7 +85,7 @@ namespace IOLab.Windows.Dialog
 
             if (result.Success)
             {
-                CreateDialog("注册成功", "成功注册身份: "+ Register_Username.Text +" 你现在可以登录了", retry:false);
+                CreateDialog("注册成功", "成功注册身份: " + Register_Username.Text + " 你现在可以登录了", retry: false);
             }
             else
             {

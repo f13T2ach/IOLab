@@ -20,10 +20,7 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Assets;
 using IOLab.Core.Models;
-using System;
-using System.Windows;
 
 namespace IOLab.Windows.Dialog
 {
@@ -38,7 +35,7 @@ namespace IOLab.Windows.Dialog
         public ChartConfig(ChartTableModel chart)
         {
             InitializeComponent();
-            
+
         }
     }
 }

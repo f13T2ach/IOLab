@@ -22,8 +22,8 @@
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Assets;
-using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Generic;
+using IOLab.Core.Interfaces.Threads;
 using IOLab.Windows.Dialog;
 using System;
 using System.ComponentModel;
@@ -110,7 +110,7 @@ namespace IOLab.Pages.Remote.ViewModel
                 {
                     await new SaveRecords(2).ShowAsync();
                     InstanceBundle.ChartTables.Clear();
-                    
+
                 }
 
             }
@@ -132,7 +132,7 @@ namespace IOLab.Pages.Remote.ViewModel
                             // ±£´æ
                         }
                         InstanceBundle.ChartTables.Clear();
-                        
+
                     }
                 }
             }

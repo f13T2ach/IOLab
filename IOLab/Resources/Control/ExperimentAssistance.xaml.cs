@@ -1,5 +1,4 @@
 ﻿using IOLab.Resources.Control.ViewModel;
-using SkiaSharp;
 using System.Windows.Controls;
 
 namespace IOLab.Resources.Control

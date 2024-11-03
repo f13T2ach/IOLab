@@ -23,20 +23,19 @@ using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Commands;
 using IOLab.Core.Assets;
-using IOLab.Core.Models;
 using IOLab.Core.Generic;
+using IOLab.Core.Models;
 using IOLab.Pages.Event.MonitorPages;
 using IOLab.Windows.Dialog;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.IO.Ports;
-using Newtonsoft.Json.Linq;
-using System.Windows;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -154,7 +153,7 @@ namespace IOLab.Pages.ViewModel
             if (result != ContentDialogResult.Primary)
             {
                 return;
-            }    
+            }
 
             foreach (var chart in selectedCharts)
             {
@@ -162,7 +161,7 @@ namespace IOLab.Pages.ViewModel
                     continue;
                 chart.IsSelected = false;
                 chart.isFrozen = true;
-                
+
                 chart.Name = chart.Name + Text.FrozenChart;
                 OnPropertyChanged(nameof(MappedChartTables));
 
@@ -281,7 +280,7 @@ namespace IOLab.Pages.ViewModel
                 return;
             }
 
-            
+
             // 显示等待弹窗
             WaitSerial wait = new WaitSerial();
             wait.ShowAsync(); // 无需等待
@@ -312,7 +311,7 @@ namespace IOLab.Pages.ViewModel
                 return;
             }
             wait.Hide();
-            
+
             // 防止突然拔出
             if (!InstanceBundle.IsConnected)
             {
@@ -394,7 +393,7 @@ namespace IOLab.Pages.ViewModel
         }
 
         // 获取询问继续
-        private ContentDialog GetSureToDialog(string title,string content)
+        private ContentDialog GetSureToDialog(string title, string content)
         {
             ContentDialog dialog = new ContentDialog()
             {
@@ -410,7 +409,7 @@ namespace IOLab.Pages.ViewModel
         // 处理并添加JSON通知
         public void ProcessJSONNotification(JObject obj)
         {
-            if(Application.Current == null)
+            if (Application.Current == null)
             {
                 return;
             }

@@ -25,7 +25,6 @@ using IOLab.Network;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Windows.Networking.NetworkOperators;
 
 namespace IOLab.Core.Generic
 {
@@ -91,10 +90,13 @@ namespace IOLab.Core.Generic
         public static event Action<IOExperiment> UsingExperimentChanged; // 变更选用实验事件
 
         private static IOExperiment? _usingExperiment;
-        public static IOExperiment? UsingExperiment { get => _usingExperiment; set {
+        public static IOExperiment? UsingExperiment
+        {
+            get => _usingExperiment; set
+            {
                 _usingExperiment = value;
                 UsingExperimentChanged?.Invoke(UsingExperiment);
-            } 
+            }
         }
 
         public static event Action<Auth> UsingAuthChanged; // 变更选用实验事件

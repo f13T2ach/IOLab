@@ -101,7 +101,7 @@ namespace IOLab.Core.Assets
 
         public static string ConnectToManagePins = "连接设备以管理插口";
 
-        
+
 
         // 实验助手
         public static string NoItemSelected = "未定实验项";

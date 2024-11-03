@@ -23,7 +23,6 @@ using IOLab.Core.Assets;
 using IOLab.Core.Generic;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.WPF;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -95,7 +94,7 @@ namespace IOLab.Core.Models
                 _isFrozen = value;
                 FreezeIconVisibility = isFrozen ? Visibility.Visible : Visibility.Collapsed;
                 // 取消占用
-                if(InstanceBundle.connectTool != null)
+                if (InstanceBundle.connectTool != null)
                 {
                     // 发送指令
                     InstanceBundle.connectTool._SerialPort.WriteLine(CommandsV1.Disable + PortId);

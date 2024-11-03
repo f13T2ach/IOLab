@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using IOLab.Core.Generic;
+﻿using IOLab.Core.Generic;
 using IOLab.Core.Properties;
 using IOLab.Network.API;
 using IOLab.Network.Result;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using System.Text;
 
 namespace IOLab.Network
 {
@@ -109,6 +105,7 @@ namespace IOLab.Network
                     if (responseData != null && responseData.ContainsKey("code") && responseData["code"].ToObject<int>() == 0)
                     {
                         // 保存Token、GroupId 和 Experience
+                        Username = responseData["data"]["username"].ToString();
                         Email = responseData["data"]["email"].ToString();
                         Token = responseData["data"]["token"].ToString();
                         GroupId = responseData["data"]["groupid"].ToObject<int>(); // 获取 groupid
@@ -191,7 +188,7 @@ namespace IOLab.Network
                     if (responseData != null && responseData["code"].ToObject<int>() == 0)
                     {
                         CeaseSessionAsync();
-                        return new AuthResult(true, 0, responseData["msg"].ToString()+ "\n无论注销是否成功，IOLab 都会登出账户。", null);
+                        return new AuthResult(true, 0, responseData["msg"].ToString() + "\n无论注销是否成功，IOLab 都会登出账户。", null);
                     }
                     return new AuthResult(false, responseData["code"].ToObject<int>(), responseData["msg"].ToString());
                 }
@@ -231,7 +228,7 @@ namespace IOLab.Network
                     }
                     return new AuthResult(false, responseData["code"].ToObject<int>(), responseData["msg"].ToString());
                 }
-                return new AuthResult(false, -1, "IOLab 无法完成签到\n状态: "+response.StatusCode+"\n原因: "+ responseData["msg"].ToString(), null);
+                return new AuthResult(false, -1, "IOLab 无法完成签到\n状态: " + response.StatusCode + "\n原因: " + responseData["msg"].ToString(), null);
             }
             catch (Exception ex)
             {

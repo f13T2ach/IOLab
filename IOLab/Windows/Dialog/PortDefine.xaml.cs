@@ -24,11 +24,8 @@ using IOLab.Core.Assets;
 using IOLab.Core.Models;
 using IOLab.Models.Related;
 using IOLab.Windows.Dialog.ViewModel;
-using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media.Animation;
 
 namespace IOLab.Windows.Dialog
 {

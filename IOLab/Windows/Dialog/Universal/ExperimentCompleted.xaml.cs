@@ -20,9 +20,7 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Assets;
 using IOLab.Core.Models;
-using System.Collections.Generic;
 
 namespace IOLab.Windows.Dialog.Universal
 {

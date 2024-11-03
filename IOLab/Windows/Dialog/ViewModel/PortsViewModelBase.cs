@@ -19,8 +19,8 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using IOLab.Core.Models;
 using IOLab.Core.Generic;
+using IOLab.Core.Models;
 using IOLab.Models.Related;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -75,7 +75,7 @@ namespace IOLab.Windows.Dialog.ViewModel
                 foreach (ChartTableModel chart in InstanceBundle.ChartTables)
                 {
                     // 处于Frozen态的图表已经被销毁 无需检测
-                    if (chart.PortId == port&&!chart.isFrozen)
+                    if (chart.PortId == port && !chart.isFrozen)
                     {
                         target.ChartId = chart.Id;
                         target.IsChecked = true;

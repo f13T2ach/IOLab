@@ -21,8 +21,8 @@
 
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Config;
-using IOLab.Core.Models;
 using IOLab.Core.Generic;
+using IOLab.Core.Models;
 using IOLab.Windows.Dialog.ViewModel;
 using System.Collections.Generic;
 using System.Windows;
@@ -172,7 +172,7 @@ namespace IOLab.Windows.Dialog
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            
+
 
             PortID = viewModel.SelectedPortID;
             ChartID = (int)chartIDInput.Value;

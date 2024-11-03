@@ -19,7 +19,6 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using IOLab.Core.Assets;
 using IOLab.Core.Generic;
 using IOLab.Core.Interfaces.Threads;
 using IOLab.Core.Models;

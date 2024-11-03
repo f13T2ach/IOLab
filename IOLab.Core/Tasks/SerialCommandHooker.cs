@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Threading.Tasks;
-using IOLab.Core.Config;
+﻿using IOLab.Core.Config;
 using IOLab.Core.Generic;
 using Newtonsoft.Json.Linq;
+using System.Collections.Concurrent;
 
 public class SerialCommandHooker
 {
@@ -47,7 +45,7 @@ public class SerialCommandHooker
     private void OnNewestSerialCommand(JObject message)
     {
         // 解析 JObject，获取 ID 和消息
-        if (message["command"].ToString()!= "Message") //不多管闲事
+        if (message["command"].ToString() != "Message") //不多管闲事
         {
             return;
         }
@@ -58,7 +56,7 @@ public class SerialCommandHooker
         // 判断是否成功 (根据 "type" 字段)
         bool isSuccess = type != "error";
 
-        if ( id!=null && _pendingResponses.TryGetValue(id, out var tcs))
+        if (id != null && _pendingResponses.TryGetValue(id, out var tcs))
         {
             // 如果 ID 匹配，设置任务完成结果 (返回消息和状态)
             tcs.SetResult((msg, isSuccess));

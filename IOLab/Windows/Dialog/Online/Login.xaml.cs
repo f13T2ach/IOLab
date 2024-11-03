@@ -20,11 +20,9 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Assets;
 using IOLab.Core.Generic;
 using IOLab.Core.Properties;
 using IOLab.Network;
-using System;
 using System.Diagnostics;
 using System.Windows;
 
@@ -44,14 +42,14 @@ namespace IOLab.Windows.Dialog
         public Login()
         {
             InitializeComponent();
-            
+
         }
 
         private async void IForgotPassword_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
             await new IForgot().ShowAsync();
-            
+
         }
 
         private async void RegistNewAccount_Click(object sender, RoutedEventArgs e)
@@ -73,7 +71,7 @@ namespace IOLab.Windows.Dialog
 
             var loginResult = await InstanceBundle.UsingAuth.LoginAsync();
 
-            
+
 
             if (loginResult.Success)
             {
@@ -95,7 +93,7 @@ namespace IOLab.Windows.Dialog
 
         private async void ShowDialog(string text)
         {
-            if(wait != null)
+            if (wait != null)
             {
                 wait.Hide();
             }

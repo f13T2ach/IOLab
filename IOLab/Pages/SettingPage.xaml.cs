@@ -28,7 +28,6 @@ using IOLab.Network.API;
 using IOLab.Static;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks.Dataflow;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -51,7 +50,7 @@ namespace IOLab.Pages
         public SettingPage()
         {
             InitializeComponent();
-            
+
             LoadSettings();
             LoadUserInfomation();
 
@@ -68,14 +67,14 @@ namespace IOLab.Pages
         private void LoadSettings()
         {
             ComboBox_ThemeMode.SelectedIndex = Core.Properties.Settings.Default.ThemeSelection;
-            
+
 
         }
 
         private void LoadUserInfomation(bool stat = true)
         {
             // 优先判断传入的stat
-            if(stat == false || InstanceBundle.UsingAuth == null)
+            if (stat == false || InstanceBundle.UsingAuth == null)
             {
                 IONet_UserName.Text = "未登录";
                 IONet_UserExperience.Text = "0";
@@ -94,7 +93,7 @@ namespace IOLab.Pages
 
 
             IONet_UserName.Text = InstanceBundle.UsingAuth.Username;
-            IONet_UserExperience.Text = InstanceBundle.UsingAuth.Experience.ToString() ;
+            IONet_UserExperience.Text = InstanceBundle.UsingAuth.Experience.ToString();
             IONet_UserEmail.Text = InstanceBundle.UsingAuth.Email;
             UserPanel_Offline.Visibility = Visibility.Collapsed;
             UserPanel_Online.Visibility = Visibility.Visible;
@@ -106,10 +105,11 @@ namespace IOLab.Pages
             LoadUserInfomation(stat);
         }
 
-        private void InitializeServerPicker() {
+        private void InitializeServerPicker()
+        {
 
             ServerPickerBox.Items.Clear();
-            foreach(var name in IONetAPI.Servers.Keys)
+            foreach (var name in IONetAPI.Servers.Keys)
             {
                 ServerPickerBox.Items.Add(name);
             }
@@ -200,18 +200,18 @@ namespace IOLab.Pages
             ContentDialog dialog = new ContentDialog()
             {
                 Title = "你确定要修改服务器吗",
-                Content = "你将连接服务器 "+ ServerPickerBox.SelectedItem+" 。IOLab 会退出登录，因为服务器间的数据是不互通的",
+                Content = "你将连接服务器 " + ServerPickerBox.SelectedItem + " 。IOLab 会退出登录，因为服务器间的数据是不互通的",
                 PrimaryButtonText = "确定",
                 SecondaryButtonText = "取消",
                 DefaultButton = ContentDialogButton.Primary,
             };
             var result = await dialog.ShowAsync();
-            if(result == ContentDialogResult.Primary)
+            if (result == ContentDialogResult.Primary)
             {
                 Settings.Default["ServerIndex"] = ServerPickerBox.SelectedItem;
                 Settings.Default.Save();
                 // 登出
-                CeaseSession_Click(null,e);
+                CeaseSession_Click(null, e);
                 return;
             }
             else
@@ -250,7 +250,7 @@ namespace IOLab.Pages
                 return;
             }
 
-            
+
 
             Settings.Default["UserToken"] = "";
             Settings.Default.Save();
@@ -258,7 +258,7 @@ namespace IOLab.Pages
 
             await InstanceBundle.UsingAuth.CeaseSessionAsync();
             InstanceBundle.UsingAuth = null;
-            
+
         }
 
         private async void UserPanel_LoginButton_Click(object sender, RoutedEventArgs e)
@@ -275,7 +275,7 @@ namespace IOLab.Pages
 
         private async void UserPanel_CheckIn_Click(object sender, RoutedEventArgs e)
         {
-            if(InstanceBundle.UsingAuth == null)
+            if (InstanceBundle.UsingAuth == null)
             {
                 new MainWindow().CreateDialog("未能完成操作", "登录已失效 (NullPointerException)");
                 return;
@@ -287,7 +287,7 @@ namespace IOLab.Pages
                 await InstanceBundle.UsingAuth.LoginViaTokenAsync();
 
                 new MainWindow().CreateDialog("签到成功", result.Message);
-                
+
                 return;
             }
             else
