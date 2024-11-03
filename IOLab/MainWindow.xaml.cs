@@ -350,7 +350,7 @@ namespace IOLab
 
         }
 
-        private async void CreateDialog(string titile,string content)
+        public async void CreateDialog(string titile,string content)
         {
             ContentDialog dialog = new ContentDialog()
             {

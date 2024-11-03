@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 import app
+import models
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -9,6 +10,11 @@ def getUserData():
     username = data.get('username')
     password = data.get('password')
     app.logger.info(f"用户 {username} 请求以密码登录")
+    
+    
+    if(models.is_sql_injection_risk(username)):
+        app.logger.info(f"检索用户 {username} 失败: 发现可能的 SQL注入")
+        return jsonify({"code": -1, "msg": "用户名或密码存在违禁词", "data": {}}), 400
 
     app.sql.start()
     value = app.sql.get_user_token(username, password,app.logger)
@@ -25,6 +31,10 @@ def tryRegistUser():
     username = data.get('username')
     password = data.get('password')
     email = data.get('email')
+    
+    if(models.is_sql_injection_risk(username) or models.is_sql_injection_risk(email)):
+        app.logger.info(f"加入用户 {username} 失败: 发现可能的 SQL注入")
+        return jsonify({"code": -1, "msg": "用户名或密码存在违禁词", "data": {}}), 400
 
     app.sql.start()
     value = app.sql.add_user(username, email, password,logger=app.logger)
@@ -52,7 +62,7 @@ def private_fetch():
 
     if not token:
         return jsonify({"code": -1, "msg": "token 是必须的"}), 400
-
+    
     app.sql.start()
     user_info = app.sql.get_user_info_by_token(token,logger=app.logger)
     app.sql.close()
@@ -76,6 +86,6 @@ def check_in_user():
 
     if result[0] == 0:
         # 返回成功状态码和最新的经验值
-        return jsonify({"code": 0, "msg": result[1], "exp": result[1].get("exp", 0)}), 200
+        return jsonify({"code": 0, "msg": result[1]}), 200
     else:
         return jsonify({"code": result[0], "msg": result[1]}), 400

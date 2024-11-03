@@ -12,6 +12,7 @@
     CloseButtonText="取消"
     PrimaryButtonText="继续"
     DefaultButton="Primary"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     >
 
     <ui:ContentDialog.Resources>
@@ -26,19 +27,19 @@
         <StackPanel x:Name="ConatinerA" Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="用户名" Width="64" Margin="5" VerticalAlignment="Center"/>
-                <TextBox Margin="4" HorizontalAlignment="Center" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" Width="320"></TextBox>
+                <TextBox x:Name="Register_Username" Margin="4" HorizontalAlignment="Center" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" Width="320"></TextBox>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="邮箱" Width="64" Margin="5" VerticalAlignment="Center"/>
-                <TextBox Margin="4" HorizontalAlignment="Center" Width="320"></TextBox>
+                <TextBox x:Name="Register_Email" Margin="4" HorizontalAlignment="Center" Width="320"></TextBox>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="密码" Width="64" Margin="5" VerticalAlignment="Center"/>
-                <TextBox Margin="4" HorizontalAlignment="Center" InputScope="Password" Width="320"></TextBox>
+                <TextBox x:Name="Register_Password" Margin="4" HorizontalAlignment="Center" InputScope="Password" Width="320"></TextBox>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="重输密码" Width="64" Margin="5" VerticalAlignment="Center"/>
-                <TextBox Margin="4" HorizontalAlignment="Center" InputScope="Password" Width="320"></TextBox>
+                <TextBox x:Name="Register_PasswordVerify" Margin="4" HorizontalAlignment="Center" InputScope="Password" Width="320"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="邮箱验证码" Width="64" Margin="5" VerticalAlignment="Center"/>

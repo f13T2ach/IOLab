@@ -100,10 +100,11 @@ namespace IOLab.Network
             {
                 var response = await client.PostAsync(BasicUrl + IONetAPI.AuthLogin, content);
 
+                var responseString = await response.Content.ReadAsStringAsync();
+                var responseData = JObject.Parse(responseString);
+
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    var responseData = JObject.Parse(responseString);
 
                     if (responseData != null && responseData.ContainsKey("code") && responseData["code"].ToObject<int>() == 0)
                     {
@@ -121,7 +122,7 @@ namespace IOLab.Network
                     }
                     return new AuthResult(false, responseData["code"].ToObject<int>(), responseData["msg"].ToString());
                 }
-                return new AuthResult(false, -1, "登录失败，检查用户名和密码", null);
+                return new AuthResult(false, -1, "IOLab 无法完成登录\n状态: " + response.StatusCode + "\n原因: " + responseData["msg"].ToString(), null);
             }
             catch (Exception ex)
             {
@@ -148,10 +149,11 @@ namespace IOLab.Network
             {
                 var response = await client.PostAsync(BasicUrl + IONetAPI.AuthRegist, content);
 
+                var responseString = await response.Content.ReadAsStringAsync();
+                var responseData = JObject.Parse(responseString);
+
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    var responseData = JObject.Parse(responseString);
 
                     if (responseData != null && responseData["code"].ToObject<int>() == 0)
                     {
@@ -159,7 +161,7 @@ namespace IOLab.Network
                     }
                     return new AuthResult(false, responseData["code"].ToObject<int>(), responseData["msg"].ToString());
                 }
-                return new AuthResult(false, -1, "无法连接服务器", null);
+                return new AuthResult(false, -1, "IOLab 无法完成注册\n状态: " + response.StatusCode + "\n原因: " + responseData["msg"].ToString(), null);
             }
             catch (Exception ex)
             {
@@ -194,6 +196,42 @@ namespace IOLab.Network
                     return new AuthResult(false, responseData["code"].ToObject<int>(), responseData["msg"].ToString());
                 }
                 return new AuthResult(false, -1, "IOLab 无法注销你的账户\n登录状态可能不正常，请重新登录", null);
+            }
+            catch (Exception ex)
+            {
+                return new AuthResult(false, -1, "连接服务器出现错误: " + ex.Message, null);
+            }
+        }
+
+        /// <summary>
+        /// 签到方法
+        /// </summary>
+        /// <returns></returns>
+        public async Task<AuthResult> CheckIn()
+        {
+            var values = new Dictionary<string, string>
+            {
+                { "token", Token } // 使用登录后保存的Token
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(values), Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PostAsync(BasicUrl + IONetAPI.AuthCheckIn, content);
+
+                var responseString = await response.Content.ReadAsStringAsync();
+                var responseData = JObject.Parse(responseString);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (responseData != null && responseData["code"].ToObject<int>() == 0)
+                    {
+                        return new AuthResult(true, 0, responseData["msg"].ToString(), null);
+                    }
+                    return new AuthResult(false, responseData["code"].ToObject<int>(), responseData["msg"].ToString());
+                }
+                return new AuthResult(false, -1, "IOLab 无法完成签到\n状态: "+response.StatusCode+"\n原因: "+ responseData["msg"].ToString(), null);
             }
             catch (Exception ex)
             {

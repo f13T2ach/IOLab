@@ -36,5 +36,7 @@ namespace IOLab.Network.API
         public static string AuthLogout = "/api/auth/logout";
 
         public static string AuthFetchPrivately = "/api/auth/privateFetch";
+
+        public static string AuthCheckIn = "/api/auth/checkin";
     }
 }

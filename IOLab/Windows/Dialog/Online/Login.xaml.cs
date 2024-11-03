@@ -37,7 +37,7 @@ namespace IOLab.Windows.Dialog
     {
 
         private static Auth _authInstance;
-
+        WaitSerial wait = new WaitSerial(0);
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -66,14 +66,14 @@ namespace IOLab.Windows.Dialog
 
             // 登录
             // 战术停顿，以防止用户操作
-            WaitSerial wait = new WaitSerial(0);
-            wait.ShowAsync();
+
+            this.Hide();
+
+            _ = wait.ShowAsync();
 
             var loginResult = await InstanceBundle.UsingAuth.LoginAsync();
 
-            wait.Hide();
-
-            this.Hide();
+            
 
             if (loginResult.Success)
             {
@@ -90,10 +90,15 @@ namespace IOLab.Windows.Dialog
             }
             InstanceBundle.UsingAuth = null;
             ShowDialog("无法登录: " + loginResult.Message);
+            return;
         }
 
         private async void ShowDialog(string text)
         {
+            if(wait != null)
+            {
+                wait.Hide();
+            }
             ContentDialog Dialog;
             Dialog = new ContentDialog()
             {

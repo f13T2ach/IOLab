@@ -20,6 +20,7 @@
  */
 
 using iNKORE.UI.WPF.Modern;
+using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Generic;
 using IOLab.Core.Properties;
 using IOLab.Models.Related;
@@ -50,13 +51,14 @@ namespace IOLab.Pages
         public SettingPage()
         {
             InitializeComponent();
-            isLoaded = true;
+            
             LoadSettings();
             LoadUserInfomation();
 
             InitializeColorPicker();
             InitializeServerPicker();
 
+            isLoaded = true;
             TotalClick = 0;
 
             // 绑定Actions
@@ -182,20 +184,73 @@ namespace IOLab.Pages
             }
         }
 
-        private void ServerPickerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        bool selfChange = false;  // 防止自更改调用
+        private async void ServerPickerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Settings.Default["ServerIndex"] = ServerPickerBox.SelectedItem;
-            Settings.Default.Save();
+            if (selfChange)
+            {
+                selfChange = false;
+                return;
+            }
+            if (!isLoaded)
+            {
+                return;
+            }
+
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "你确定要修改服务器吗",
+                Content = "你将连接服务器 "+ ServerPickerBox.SelectedItem+" 。IOLab 会退出登录，因为服务器间的数据是不互通的",
+                PrimaryButtonText = "确定",
+                SecondaryButtonText = "取消",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            var result = await dialog.ShowAsync();
+            if(result == ContentDialogResult.Primary)
+            {
+                Settings.Default["ServerIndex"] = ServerPickerBox.SelectedItem;
+                Settings.Default.Save();
+                // 登出
+                CeaseSession_Click(null,e);
+                return;
+            }
+            else
+            {
+                selfChange = true;
+                // 恢复
+                ServerPickerBox.SelectedItem = Settings.Default.ServerIndex;
+            }
 
         }
 
-        private async void CeaseSession_Click(object sender, RoutedEventArgs e)
+        private async void CeaseSession_Click(object? sender, RoutedEventArgs e)
         {
-            if(InstanceBundle.UsingAuth == null)
+            // 询问是否退出登录
+            if (sender != null)
+            {
+                ContentDialog dialog = new ContentDialog()
+                {
+                    Title = "你确定要退出登录吗",
+                    Content = "退出登录则无法访问你收藏的实验，以及在线实验记录",
+                    PrimaryButtonText = "确定",
+                    SecondaryButtonText = "取消",
+                    DefaultButton = ContentDialogButton.Primary,
+                };
+                var result = await dialog.ShowAsync();
+
+                if (result == ContentDialogResult.Secondary)
+                {
+                    return;
+                }
+            }
+
+            if (InstanceBundle.UsingAuth == null)
             {
                 OnLoginStatChanged(false);
                 return;
             }
+
+            
 
             Settings.Default["UserToken"] = "";
             Settings.Default.Save();
@@ -204,6 +259,41 @@ namespace IOLab.Pages
             await InstanceBundle.UsingAuth.CeaseSessionAsync();
             InstanceBundle.UsingAuth = null;
             
+        }
+
+        private async void UserPanel_LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.Dialog.Login login = new Windows.Dialog.Login();
+            await login.ShowAsync();
+        }
+
+        private async void UserPanel_Regist_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.Dialog.Register reg = new Windows.Dialog.Register();
+            await reg.ShowAsync();
+        }
+
+        private async void UserPanel_CheckIn_Click(object sender, RoutedEventArgs e)
+        {
+            if(InstanceBundle.UsingAuth == null)
+            {
+                new MainWindow().CreateDialog("未能完成操作", "登录已失效 (NullPointerException)");
+                return;
+            }
+
+            var result = await InstanceBundle.UsingAuth.CheckIn();
+            if (result.Success)
+            {
+                await InstanceBundle.UsingAuth.LoginViaTokenAsync();
+
+                new MainWindow().CreateDialog("签到成功", result.Message);
+                
+                return;
+            }
+            else
+            {
+                new MainWindow().CreateDialog("签到失败", result.Message);
+            }
         }
     }
 }

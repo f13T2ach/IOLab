@@ -51,7 +51,7 @@
                     </StackPanel>
                     <StackPanel Visibility="Visible" x:Name="UserPanel_Online" VerticalAlignment="Center"  HorizontalAlignment="Right" Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <Button Width="72" Height="72" Margin="5">
+                            <Button x:Name="UserPanel_CheckIn" Click="UserPanel_CheckIn_Click" Width="72" Height="72" Margin="5">
                                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.CheckboxComposite}"/>
                                     <TextBlock Text="签到" FontSize="12" Margin="0,5,0,0"/>
@@ -97,13 +97,13 @@
                     <StackPanel Visibility="Collapsed" x:Name="UserPanel_Offline" VerticalAlignment="Center"  HorizontalAlignment="Right" Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="5">
 
-                            <Button Width="72" Height="72" Margin="5">
+                            <Button x:Name="UserPanel_LoginButton" Click="UserPanel_LoginButton_Click" Width="72" Height="72" Margin="5">
                                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Emoji}"/>
                                     <TextBlock Text="登录" FontSize="12" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Button>
-                            <Button Width="72" Height="72" Margin="5">
+                            <Button x:Name="UserPanel_Regist" Click="UserPanel_Regist_Click" Width="72" Height="72" Margin="5">
                                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Add}"/>
                                     <TextBlock Text="注册" FontSize="12" Margin="0,5,0,0"/>

@@ -4,7 +4,7 @@ import hashlib
 import uuid
 import config
 from datetime import datetime
-
+import models
 class UserDatabase:
     def __init__(self):
         self.conn = None
@@ -76,6 +76,9 @@ class UserDatabase:
 
             # 先获取 hashed 密码
             hashedpass = self.hash_password(password)
+            
+            
+                
 
             self.cursor.execute("SELECT token, email, exp, groupid, username FROM users WHERE (username = ? OR email = ?) AND hashedpass = ?", 
                                 (nameOrEmail, nameOrEmail, hashedpass))
@@ -146,13 +149,13 @@ class UserDatabase:
                     if last_check_in == today:
                         return (-1, "今天已经签到过，请明天再来签到")
                 # 增加经验值
-                self.cursor.execute("UPDATE users SET exp = exp + 5, last_check_in = ? WHERE token = ?", (today, token))
+                self.cursor.execute("UPDATE users SET exp = exp + ?, last_check_in = ? WHERE token = ?", (config.SQLConfig.dailyReward,today, token))
                 self.conn.commit()
 
                 if self.cursor.rowcount > 0:
                     if logger:
                         logger.info(f"用户的 token {token} 签到成功，经验值增加 5")
-                    return (0, "签到成功，经验值增加 5")
+                    return (0, "签到成功，经验值增加 "+config.SQLConfig.dailyReward)
             else:
                 if logger:
                     logger.info(f"未找到与 token {token} 关联的用户，签到失败")

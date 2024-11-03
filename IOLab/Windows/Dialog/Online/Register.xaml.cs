@@ -21,6 +21,7 @@
 
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Assets;
+using IOLab.Network;
 using System;
 using System.Windows;
 
@@ -37,6 +38,62 @@ namespace IOLab.Windows.Dialog
         public Register()
         {
             InitializeComponent();
+        }
+
+        private async void CreateDialog(string title, string content,bool retry = true)
+        {
+            Hide();
+            string closeBtn = "好";
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = title,
+                Content = content,
+                PrimaryButtonText = closeBtn,
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            await dialog.ShowAsync();
+
+
+            if (retry)
+            {
+                await ShowAsync();
+            }
+        }
+
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            if (Register_Email.Text == "" | Register_Username.Text == "" | Register_Password.Text == "")
+            {
+                CreateDialog("注册失败", "请补全你的信息");
+                return;
+            }
+            else if(Register_Password.Text != Register_PasswordVerify.Text)
+            {
+                CreateDialog("注册失败", "两次输入的密码不一致");
+                return;
+            }
+
+            // 显示提示
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "正在注册",
+                Content = "请等待服务器响应",
+            };
+            _ = dialog.ShowAsync();
+            
+            Auth auth = new Auth(Register_Username.Text, Register_Password.Text, Register_Email.Text);
+            var result = await auth.RegisterAsync();
+
+            dialog.Hide();
+
+            if (result.Success)
+            {
+                CreateDialog("注册成功", "成功注册身份: "+ Register_Username.Text +" 你现在可以登录了", retry:false);
+            }
+            else
+            {
+                CreateDialog("注册时遇到问题", "服务器未能完成你的请求: " + result.Message + "\n请稍候再试");
+            }
         }
     }
 }
