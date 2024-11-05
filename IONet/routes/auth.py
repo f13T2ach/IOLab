@@ -3,6 +3,8 @@ import app
 import models
 
 auth_bp = Blueprint('auth', __name__)
+app.sql.start()
+
 
 @auth_bp.route('/api/auth/login', methods=['POST'])
 def getUserData():
@@ -16,9 +18,8 @@ def getUserData():
         app.logger.info(f"检索用户 {username} 失败: 发现可能的 SQL注入")
         return jsonify({"code": -1, "msg": "用户名或密码存在违禁词", "data": {}}), 400
 
-    app.sql.start()
+    
     value = app.sql.get_user_token(username, password,app.logger)
-    app.sql.close()
 
     if value == -1:
         return jsonify({"code": -1, "msg": "用户名或密码错误", "data": {}}), 401
@@ -36,9 +37,8 @@ def tryRegistUser():
         app.logger.info(f"加入用户 {username} 失败: 发现可能的 SQL注入")
         return jsonify({"code": -1, "msg": "用户名或密码存在违禁词", "data": {}}), 400
 
-    app.sql.start()
     value = app.sql.add_user(username, email, password,logger=app.logger)
-    app.sql.close()
+
     return jsonify({"code": value[0], "msg": value[1]}), 200
 
 @auth_bp.route('/api/auth/logout', methods=['POST'])
@@ -49,9 +49,7 @@ def logout_user():
     if not token:
         return jsonify({"code": -1, "msg": "token 是必须的"}), 400
     
-    app.sql.start()
     value = app.sql.delete_user_by_token(token,logger=app.logger)
-    app.sql.close()
     
     return jsonify({"code": value[0], "msg": value[1]})
 
@@ -60,12 +58,11 @@ def private_fetch():
     data = request.get_json()
     token = data.get('token')
 
+
     if not token:
         return jsonify({"code": -1, "msg": "token 是必须的"}), 400
     
-    app.sql.start()
     user_info = app.sql.get_user_info_by_token(token,logger=app.logger)
-    app.sql.close()
 
     if user_info:
         return jsonify({"code": 0, "msg": "用户信息获取成功", "data": user_info}), 200
@@ -80,9 +77,9 @@ def check_in_user():
     if not token:
         return jsonify({"code": -1, "msg": "token 是必须的"}), 400
 
-    app.sql.start()
-    result = app.sql.check_in(token)
-    app.sql.close()
+    
+    result = app.sql.check_in(token,app.logger)
+    
 
     if result[0] == 0:
         # 返回成功状态码和最新的经验值

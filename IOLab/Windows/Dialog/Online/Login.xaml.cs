@@ -35,7 +35,7 @@ namespace IOLab.Windows.Dialog
     {
 
         private static Auth _authInstance;
-        WaitSerial wait = new WaitSerial(0);
+        WaitSerial wait = new WaitSerial(title:"正在登录");
         /// <summary>
         /// 构造函数
         /// </summary>

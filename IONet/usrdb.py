@@ -5,6 +5,8 @@ import uuid
 import config
 from datetime import datetime
 import models
+
+# 3 管理员 2 Prime计划用户 1 注册用户 -1 封禁用户
 class UserDatabase:
     def __init__(self):
         self.conn = None
@@ -154,8 +156,8 @@ class UserDatabase:
 
                 if self.cursor.rowcount > 0:
                     if logger:
-                        logger.info(f"用户的 token {token} 签到成功，经验值增加 5")
-                    return (0, "签到成功，经验值增加 "+config.SQLConfig.dailyReward)
+                        logger.info(f"用户的 token {token} 签到成功，经验值增加 1")
+                    return (0, "签到成功，经验值增加 "+str(config.SQLConfig.dailyReward))
             else:
                 if logger:
                     logger.info(f"未找到与 token {token} 关联的用户，签到失败")
@@ -163,7 +165,7 @@ class UserDatabase:
         except sqlite3.Error as e:
             if logger:
                 logger.error(f"签到失败: {e}")
-            return (-1, "服务器异常")
+            return (-1, "服务器异常 UserDatabase Error")
 
     def get_user_info_by_token(self, token, logger=None):
         """根据用户 token 检索用户信息"""

@@ -26,6 +26,7 @@ using IOLab.Core.Properties;
 using IOLab.Models.Related;
 using IOLab.Network.API;
 using IOLab.Static;
+using IOLab.Windows.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -275,13 +276,20 @@ namespace IOLab.Pages
 
         private async void UserPanel_CheckIn_Click(object sender, RoutedEventArgs e)
         {
+
+            WaitSerial wait = new WaitSerial(title:"正在签到");
+            
+
             if (InstanceBundle.UsingAuth == null)
             {
                 new MainWindow().CreateDialog("未能完成操作", "登录已失效 (NullPointerException)");
                 return;
             }
+            _=wait.ShowAsync();
 
             var result = await InstanceBundle.UsingAuth.CheckIn();
+
+            wait.Hide();
             if (result.Success)
             {
                 await InstanceBundle.UsingAuth.LoginViaTokenAsync();

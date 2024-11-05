@@ -34,17 +34,17 @@ namespace IOLab.Windows.Dialog
         private DispatcherTimer _timer;
         private int _timeLeft;
 
-        public WaitSerial(int index = 0, int sum = 0)
+        public WaitSerial(int index = 0, int sum = 0,string title = "正在等待回应")
         {
 
             InitializeComponent();
             if (sum == 0)
             {
-                Title.Text = "正在等待回应";
+                Title.Text = $"{title}";
             }
             else
             {
-                Title.Text = $"正在等待回应 ({index}/{sum})";
+                Title.Text = $"{title} ({index}/{sum})";
             }
             StartCountdown(InternalConfig.OperationTimeout / 1000);  // 设置倒计时时长为5秒
         }

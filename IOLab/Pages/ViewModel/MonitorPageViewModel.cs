@@ -282,8 +282,8 @@ namespace IOLab.Pages.ViewModel
 
 
             // 显示等待弹窗
-            WaitSerial wait = new WaitSerial();
-            wait.ShowAsync(); // 无需等待
+            WaitSerial wait = new WaitSerial(title:"正在创建表格");
+            _ = wait.ShowAsync(); // 无需等待
             try
             {
                 var hooker = new SerialCommandHooker();

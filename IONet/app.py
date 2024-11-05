@@ -4,13 +4,14 @@ from datetime import datetime
 import time
 import config
 from usrdb import UserDatabase
-
+from workshopdb import WorkshopDatabase
 
 from flask import Flask
 from gevent import pywsgi
 
 logger = logging.getLogger('global')
 sql = UserDatabase()
+contentSql = WorkshopDatabase()
 service = Flask(__name__)
 
 
@@ -45,7 +46,10 @@ def main():
     sql.start()
     logger.info("主SQL 启动成功，尝试写入测试用户 1 密码 1")
     sql.add_user("1", "1@iolab.com", "1",logger=logger)
-    sql.close()
+
+    logger.info("正在启动 文案SQL 服务")
+    val = contentSql.start()
+    logger.info("文案SQL 回报："+str(val))
     
     # 设置日志记录器
 
@@ -54,10 +58,12 @@ def main():
     logger.info("正在导入业务路由")
     # 导入路由
     from routes import auth, server_info
-
+    from routes.workshop import workshop_bp
     # 注册蓝图
     service.register_blueprint(auth.auth_bp)
     service.register_blueprint(server_info.server_info_bp)
+    service.register_blueprint(workshop_bp, url_prefix='/workshop')
+
     logger.info(f"正在启动服务器，监听 {config.ServerConfig.port}")
     
     server = pywsgi.WSGIServer(('0.0.0.0', config.ServerConfig.port), service)

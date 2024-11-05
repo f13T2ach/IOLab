@@ -7,6 +7,8 @@ class ServerConfig:
 class DirConfig:
     logDir = os.getcwd() + "\\log\\"
     sqlDir = os.getcwd() + "\\sql\\"
+    uploadDir = os.getcwd() + "\\userfile\\"
 class SQLConfig:
     DB_NAME = DirConfig.sqlDir + 'users.db'
+
     dailyReward = 1
