@@ -7,7 +7,8 @@ class ServerConfig:
 class DirConfig:
     logDir = os.getcwd() + "\\log\\"
     sqlDir = os.getcwd() + "\\sql\\"
-    uploadDir = os.getcwd() + "\\userfile\\"
+    uploadDir_relative= "\\userfile\\"
+    uploadDir = os.getcwd() + uploadDir_relative
 class SQLConfig:
     DB_NAME = DirConfig.sqlDir + 'users.db'
     WORKSHOPDB_NAME = DirConfig.sqlDir + 'workshop.db'

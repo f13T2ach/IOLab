@@ -6,6 +6,7 @@ import config
 import usrdb
 from datetime import datetime
 import uuid
+from flask import make_response
 
 # 创建 Blueprint 对象
 workshop_bp = Blueprint('workshop', __name__)
@@ -39,8 +40,7 @@ def upload_content():
             file_extension = os.path.splitext(json_file.filename)[1]  # 获取文件的扩展名
             unique_filename = str(uuid.uuid4()).replace("-", "") + file_extension  # 去掉 UUID 中的 "-" 并加上扩展名
 
-            # 构建相对路径
-            json_filename = os.path.join(config.DirConfig.uploadDir, unique_filename)
+            json_filename = "." + config.DirConfig.uploadDir_relative + unique_filename
 
             # 保存文件
             json_file.save(json_filename)
@@ -52,7 +52,7 @@ def upload_content():
             content=content,
             created_at=created_at,
             tags=tags,
-            json_file=json_filename
+            json_file=unique_filename
         )
         if result[0] == 0:
             return jsonify({"code": 0, "msg": result[1]}), 200
@@ -77,7 +77,6 @@ def browse_content():
     result_items = []
     for item in items:
         author_id = item.get('author_id')  # 获取作者 ID
-        json_file_id = item.get('json_file_id')  # 获取 JSON 文件 ID
 
         # 查询作者名称
         user_info = user_db.get_user_info_by_id(author_id)  # 通过 author_id 获取作者信息
@@ -110,12 +109,17 @@ def download_json(item_id):
         
     try:
         # 检查文件是否存在
-        full_path = os.path.join(config.DirConfig.uploadDir, json_filename)
-        if not os.path.exists(full_path):
+        full_path = json_filename
+        
+        #print(full_path)
+
+        if not os.path.exists(config.DirConfig.uploadDir + full_path):
             return jsonify({"code": -1, "msg": "文件未找到"}), 404
         
-        #return send_from_directory(config.DirConfig.uploadDir, json_filename, as_attachment=True)
-        return jsonify({"code": 0, "msg": "文件找到"}), 200
+        #print(config.DirConfig.uploadDir)
+        #print(json_filename)
+        return send_from_directory(config.DirConfig.uploadDir, json_filename, as_attachment=True)
+        #return jsonify({"code": 0, "msg": f"文件找到{full_path}"}), 200
     except FileNotFoundError:
         return jsonify({"code": -1, "msg": "文件未找到"}), 404
     except Exception as e:
