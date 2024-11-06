@@ -10,5 +10,5 @@ class DirConfig:
     uploadDir = os.getcwd() + "\\userfile\\"
 class SQLConfig:
     DB_NAME = DirConfig.sqlDir + 'users.db'
-
+    WORKSHOPDB_NAME = DirConfig.sqlDir + 'workshop.db'
     dailyReward = 1

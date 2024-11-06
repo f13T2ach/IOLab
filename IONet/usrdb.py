@@ -4,7 +4,6 @@ import hashlib
 import uuid
 import config
 from datetime import datetime
-import models
 
 # 3 管理员 2 Prime计划用户 1 注册用户 -1 封禁用户
 class UserDatabase:
@@ -13,9 +12,10 @@ class UserDatabase:
         self.cursor = None
 
     def start(self):
+        import app
         if not os.path.exists(config.DirConfig.sqlDir):
             os.makedirs(config.DirConfig.sqlDir)
-            return "创建 SQL 目录: {}".format(config.DirConfig.sqlDir)
+            app.logger("创建 SQL 目录: {}".format(config.DirConfig.sqlDir))
         # 连接到 SQLite 数据库（如果数据库不存在，它将被自动创建）
         self.conn = sqlite3.connect(config.SQLConfig.DB_NAME)
         self.cursor = self.conn.cursor()
@@ -43,7 +43,7 @@ class UserDatabase:
                 if logger:
                     logger.info("请先启动用户数据库")
                 return
-            
+
             # 获取下一个用户 ID
             self.cursor.execute("SELECT MAX(id) FROM users")
             max_id = self.cursor.fetchone()[0]
@@ -52,7 +52,7 @@ class UserDatabase:
             basicExp = 0
             hashedpass = self.hash_password(password)  # 对密码进行 MD5 加密
             token = self.generate_token()  # 生成用户 token
-            
+
             self.cursor.execute("INSERT INTO users (id, username, email, hashedpass, exp, groupid, token, last_check_in) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
                                 (next_id, username, email, hashedpass, basicExp, group, token, None))
             self.conn.commit()
@@ -67,7 +67,7 @@ class UserDatabase:
             if logger:
                 logger.info("添加 %s 用户失败: {e}", username)
             return (-1, "服务器异常")
-    
+
     def get_user_token(self, nameOrEmail, password, logger=None):
         """根据用户名或电子邮件和密码检索用户的 token"""
         try:
@@ -78,11 +78,8 @@ class UserDatabase:
 
             # 先获取 hashed 密码
             hashedpass = self.hash_password(password)
-            
-            
-                
 
-            self.cursor.execute("SELECT token, email, exp, groupid, username FROM users WHERE (username = ? OR email = ?) AND hashedpass = ?", 
+            self.cursor.execute("SELECT token, email, exp, groupid, username,id FROM users WHERE (username = ? OR email = ?) AND hashedpass = ?", 
                                 (nameOrEmail, nameOrEmail, hashedpass))
             result = self.cursor.fetchone()
 
@@ -93,7 +90,8 @@ class UserDatabase:
                     "email": result[1],   # email
                     "exp": result[2],     # exp
                     "groupid": result[3],  # groupid
-                    "username": result[4]  # username
+                    "username": result[4],  # username
+                    "id":result[5],
                 }
             
             else:
@@ -102,18 +100,18 @@ class UserDatabase:
             if logger:
                 logger.info(f"检索用户 {nameOrEmail} token 失败: {e}")
             return -1
-        
+
     def delete_user_by_token(self, token, logger=None):
         try:
             if not self.conn:
                 if logger:
                     logger.info("请先启动数据库连接")
                 return
-            
+
             # 根据 token 删除用户
             self.cursor.execute("DELETE FROM users WHERE token = ?", (token,))
             self.conn.commit()
-            
+
             if self.cursor.rowcount > 0:
                 if logger:
                     logger.info(f"用户的 token {token} 注销成功")
@@ -151,7 +149,7 @@ class UserDatabase:
                     if last_check_in == today:
                         return (-1, "今天已经签到过，请明天再来签到")
                 # 增加经验值
-                self.cursor.execute("UPDATE users SET exp = exp + ?, last_check_in = ? WHERE token = ?", (config.SQLConfig.dailyReward,today, token))
+                self.cursor.execute("UPDATE users SET exp = exp + ?, last_check_in = ? WHERE token = ?", (config.SQLConfig.dailyReward, today, token))
                 self.conn.commit()
 
                 if self.cursor.rowcount > 0:
@@ -175,7 +173,33 @@ class UserDatabase:
                     logger.info("请先启动用户数据库")
                 return None
 
-            self.cursor.execute("SELECT username, email, exp, groupid FROM users WHERE token = ?", (token,))
+            self.cursor.execute("SELECT username, email, exp, groupid,id FROM users WHERE token = ?", (token,))
+            result = self.cursor.fetchone()
+
+            if result:
+                return {
+                    "username": result[0],
+                    "email": result[1],
+                    "exp": result[2],
+                    "groupid": result[3],
+                    "id":result[4],
+                }
+            else:
+                return None  # 用户未找到
+        except sqlite3.Error as e:
+            if logger:
+                logger.error(f"根据 token 获取用户信息失败: {e}")
+            return None
+
+    def get_user_info_by_id(self, user_id, logger=None):
+        """根据用户 ID 获取用户信息"""
+        try:
+            if not self.conn:
+                if logger:
+                    logger.info("请先启动用户数据库")
+                return None
+
+            self.cursor.execute("SELECT username, email, exp, groupid FROM users WHERE id = ?", (user_id,))
             result = self.cursor.fetchone()
 
             if result:
@@ -189,13 +213,13 @@ class UserDatabase:
                 return None  # 用户未找到
         except sqlite3.Error as e:
             if logger:
-                logger.error(f"根据 token 获取用户信息失败: {e}")
+                logger.error(f"根据用户 ID 获取用户信息失败: {e}")
             return None
 
     # 生成 MD5 哈希密码
     def hash_password(self, password):
         return hashlib.md5(password.encode()).hexdigest()
-    
+
     # 关闭数据库连接
     def close(self):
         if self.conn:

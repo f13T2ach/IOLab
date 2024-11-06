@@ -42,27 +42,30 @@ def main():
     
     logger.warning("此实例为测试框架，请勿在工厂环境使用")
     
-    logger.info("正在启动 主SQL 服务")
-    sql.start()
-    logger.info("主SQL 启动成功，尝试写入测试用户 1 密码 1")
-    sql.add_user("1", "1@iolab.com", "1",logger=logger)
 
-    logger.info("正在启动 文案SQL 服务")
-    val = contentSql.start()
-    logger.info("文案SQL 回报："+str(val))
-    
+    sql.start()
+    logger.info("尝试写入测试用户 用户名为用户组id 密码均为1")
+    sql.add_user("1", "normal@iolab.com", "1",logger=logger)
+    sql.add_user("3", "normal@iolab.com", "1",group=3,logger=logger)
+    sql.close()
     # 设置日志记录器
 
     service.logger = logger
 
     logger.info("正在导入业务路由")
+    
     # 导入路由
-    from routes import auth, server_info
+    from routes import auth, server_info, workshop
     from routes.workshop import workshop_bp
+    # 启动路由依赖表
+    logger.info("正在路由依赖表")
+    workshop.user_db.start()
+    workshop.workshop_db.start()
+    auth.user_db.start()
     # 注册蓝图
     service.register_blueprint(auth.auth_bp)
     service.register_blueprint(server_info.server_info_bp)
-    service.register_blueprint(workshop_bp, url_prefix='/workshop')
+    service.register_blueprint(workshop_bp)
 
     logger.info(f"正在启动服务器，监听 {config.ServerConfig.port}")
     
