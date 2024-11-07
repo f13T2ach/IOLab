@@ -26,8 +26,10 @@ namespace IOLab.Network.API
         public static Dictionary<string, string> Servers = new Dictionary<string, string>
         {
             { "Default","http://127.0.0.1:9000" },
-            { "广州主线","http://139.159.244.185:17092" }
+            { "广州主线","http://139.159.244.185:9000" }
         };
+
+        public static int delay = 5000;
 
         public static string AuthLogin = "/api/auth/login";
 
