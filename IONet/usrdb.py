@@ -15,7 +15,7 @@ class UserDatabase:
         import app
         if not os.path.exists(config.DirConfig.sqlDir):
             os.makedirs(config.DirConfig.sqlDir)
-            app.logger("创建 SQL 目录: {}".format(config.DirConfig.sqlDir))
+            app.logger.info("创建 SQL 目录: {}".format(config.DirConfig.sqlDir))
         # 连接到 SQLite 数据库（如果数据库不存在，它将被自动创建）
         self.conn = sqlite3.connect(config.SQLConfig.DB_NAME)
         self.cursor = self.conn.cursor()

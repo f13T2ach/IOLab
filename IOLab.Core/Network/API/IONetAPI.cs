@@ -32,6 +32,8 @@ namespace IOLab.Network.API
             { "广州主线","http://139.159.244.185:9000" }
         };
 
+        public static int delay = 5000;
+
         public static string AuthLogin = "/api/auth/login";
 
         public static string AuthRegist = "/api/auth/regist";

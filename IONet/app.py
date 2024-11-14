@@ -79,9 +79,7 @@ if __name__ == '__main__':
     log_dir = config.DirConfig.logDir
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
-        print(f"Created log directory at {log_dir}")
-    else:
-        print("Already have log Dir")
+        #print(f"Created log directory at {log_dir}")
         
     # 构造日志文件名
     logname = f"{log_dir}iolab_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{int(time.time())}.txt"
