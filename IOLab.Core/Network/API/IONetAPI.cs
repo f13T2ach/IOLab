@@ -1,3 +1,7 @@
+
+
+using System.Runtime.InteropServices;
+
 /**
  * IOLab - A Full-Stack Experimentation Platform
  *
@@ -18,7 +22,6 @@
  * You should have received a copy of the GNU General Public License
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace IOLab.Network.API
 {
     public class IONetAPI
@@ -26,7 +29,7 @@ namespace IOLab.Network.API
         public static Dictionary<string, string> Servers = new Dictionary<string, string>
         {
             { "Default","http://127.0.0.1:9000" },
-            { "广州主线","http://139.159.244.185:17092" }
+            { "广州主线","http://139.159.244.185:9000" }
         };
 
         public static string AuthLogin = "/api/auth/login";
@@ -38,5 +41,11 @@ namespace IOLab.Network.API
         public static string AuthFetchPrivately = "/api/auth/privateFetch";
 
         public static string AuthCheckIn = "/api/auth/checkin";
+
+        public static string WorkshopUpload = "/api/workshop/upload";
+
+        public static string WorkshopBrowse = "/api/workshop/browse";
+
+        public static string WorkshopDownload = "/api/workshop/download/{item_id}";
     }
 }

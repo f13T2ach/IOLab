@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="IOLab.Resources.Control.WorkshopContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IOLab.Resources.Control"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+             mc:Ignorable="d">
+    <Grid>
+        <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,6,0,4">
+            <Grid VerticalAlignment="Center" Margin="0,10,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 图标 -->
+                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Link}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+
+                <!-- 标题 -->
+                <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" Grid.Column="1" FontSize="16" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+
+                <!-- 作者与发布时间 -->
+                <StackPanel Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
+                        <TextBlock Text="{Binding AuthorName}" FontSize="12" Margin="0,0,2,0"/>
+                        <TextBlock Text="|" FontSize="12"/>
+                        <TextBlock Text="{Binding CreateAt}" FontSize="12" Margin="2,0,2,0"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Description}" FontSize="14" TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <!-- 标签等信息 -->
+                <TextBlock Text="{Binding Tags}" Grid.Row="1" Grid.Column="1" FontSize="12" Margin="0,3,0,3"/>
+
+                <!-- 交互按钮 -->
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button Content="Confirm" Margin="2" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
+                    <Button Content="Discuss" Margin="2" HorizontalAlignment="Center" Height="30" Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -3,9 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:IOLab.Pages"
+      xmlns:local="clr-namespace:IOLab.Resources.Control"
       xmlns:cyct="clr-namespace:IOLab.Resources.Control.Cyber"
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       d:DesignHeight="720" d:DesignWidth="1280"
       xmlns:lab="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomePageViewModel}"
@@ -23,37 +24,25 @@
                         <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">Redmpale_3371</TextBlock>
 
                     </Grid>
-                    <UniformGrid Columns="3" 
-                        HorizontalAlignment="Stretch" 
-                        VerticalAlignment="Stretch">
-                        <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,6,0,4">
-                            <Grid VerticalAlignment="Center" Margin="0,10,0,10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Link}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-                                <TextBlock Text="探究 LED 灯亮度与电压的关系" TextTrimming="CharacterEllipsis" Grid.Column="1" FontSize="16" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615">
-                                    <TextBlock Text="开心的小鸿 - 2024/10/29 发布" FontSize="12" Margin="0,0,0,3"/>
-                                    <TextBlock Text="我发现市面上有些 LED 灯的瓦数会虚标，其实只需知道 LED 灯珠的转换效率与电压，就可反推出灯珠的真实瓦数。为此，我设计了这个实验，可以帮助大家物理学得更好！" FontSize="14" TextWrapping="Wrap"/>
-                                    <TextBlock Text="物理 | 3 个传感器 | 知识科普" FontSize="12" Margin="0,0,0,3"/>
-                                    
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
-                                    <Button Content="学习" Margin="2" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
-                                    <Button Content="讨论" Margin="2" HorizontalAlignment="Center" Height="30" Cursor="Hand" />
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                        
-                    </UniformGrid>
+
+                    <ItemsControl ItemsSource="{Binding WorkshopContents}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- 每个 WorkshopContent 控件的宽度相同，但高度根据内容调整 -->
+                                <local:WorkshopContent Width="300" Margin="10,5,10,5" DataContext="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+
+
+
 
 
                 </StackPanel>
