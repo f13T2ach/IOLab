@@ -1,4 +1,4 @@
-<div align="center"><img height=256 src="[https://imgos.cn/2024/08/13/66bb66b870fa7.png](https://www.helloimg.com/delete/rCCiKp/75d3d126b512d3a791d5e5de4181a557)"/></div>
+<div align="center"><img height=256 src="[[https://imgos.cn/2024/08/13/66bb66b870fa7.png](https://www.helloimg.com/delete/rCCiKp/75d3d126b512d3a791d5e5de4181a557)](https://www.helloimg.com/i/2024/11/14/6735b78f0a372.png)"/></div>
 
 <div align="center"><h3>「成龙」智慧实验室</h3></div>
 
