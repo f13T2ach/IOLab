@@ -1,3 +1,7 @@
+
+
+using System.Runtime.InteropServices;
+
 /**
  * IOLab - A Full-Stack Experimentation Platform
  *
@@ -18,7 +22,6 @@
  * You should have received a copy of the GNU General Public License
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace IOLab.Network.API
 {
     public class IONetAPI
@@ -40,5 +43,11 @@ namespace IOLab.Network.API
         public static string AuthFetchPrivately = "/api/auth/privateFetch";
 
         public static string AuthCheckIn = "/api/auth/checkin";
+
+        public static string WorkshopUpload = "/api/workshop/upload";
+
+        public static string WorkshopBrowse = "/api/workshop/browse";
+
+        public static string WorkshopDownload = "/api/workshop/download/{item_id}";
     }
 }

@@ -29,7 +29,6 @@ namespace IOLab.Network
         public int Experience { get; private set; } // 添加 exp 属性
 
         private static readonly HttpClient client = new HttpClient();
-        
         private static readonly string BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
 
         public Auth(string username, string password, string email = null)
@@ -37,11 +36,13 @@ namespace IOLab.Network
             Username = username;
             Password = password;
             Email = email;
+            BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
         }
 
         public Auth(string token)
         {
             Token = token;
+            BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
         }
 
 
