@@ -235,9 +235,9 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Globe}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Network}" Grid.RowSpan="2" Margin="5,15,20,15"/>
                     <TextBlock Text="服务器" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                    <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="右方选区可以选择 IOLab 连接到的服务器，连接后 IOLab 会重新登录账户"/></TextBlock>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="选择 IOLab 区服。如需添加自定义服务器，请在下方设置"/></TextBlock>
 
                     <ComboBox x:Name="ServerPickerBox" Grid.Column="2" Grid.RowSpan="2" SelectionChanged="ServerPickerBox_SelectionChanged">
                     </ComboBox>

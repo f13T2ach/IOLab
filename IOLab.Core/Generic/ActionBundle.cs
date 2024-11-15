@@ -7,6 +7,8 @@ namespace IOLab.Core.Generic
 
         public static event Action<bool> LoginStat;
 
+        public static event Action LoginStatusChange;
+
         public static event Action<bool>? PauseOrStartRecord;
 
         public static event Action? UpdateSerialList;
@@ -34,6 +36,7 @@ namespace IOLab.Core.Generic
         public static void DoChangeLoginStat(bool val)
         {
             LoginStat?.Invoke(val);
+            LoginStatusChange?.Invoke();
         }
     }
 }

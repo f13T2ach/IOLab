@@ -9,7 +9,7 @@
       
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       d:DesignHeight="720" d:DesignWidth="1280"
-      xmlns:lab="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomePageViewModel}"
+      xmlns:lab="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:WorkshopPageViewModel}"
       mc:Ignorable="d" 
       Title="创意工坊">
     <Grid>
@@ -21,7 +21,11 @@
                 <StackPanel Name="MainStack" Orientation="Vertical" Margin="40,20,40,40" VerticalAlignment="Top">
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" FontSize="32">探索·实践·总结</TextBlock>
-                        <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">Redmpale_3371</TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="刷新" Command="{Binding RefreshCommand}" Padding="5,5,5,5" >
+                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Refresh}" />
+                            </Button>
+                        </StackPanel>
 
                     </Grid>
 

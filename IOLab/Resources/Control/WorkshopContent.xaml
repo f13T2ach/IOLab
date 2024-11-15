@@ -31,13 +31,14 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
                         <TextBlock Text="{Binding AuthorName}" FontSize="12" Margin="0,0,2,0"/>
                         <TextBlock Text="|" FontSize="12"/>
-                        <TextBlock Text="{Binding CreateAt}" FontSize="12" Margin="2,0,2,0"/>
+                        <!--限制宽度-->
+                        <TextBlock Text="{Binding CreateAt}" MaxWidth="64" FontSize="12" Margin="2,0,2,0"/>
                     </StackPanel>
                     <TextBlock Text="{Binding Description}" FontSize="14" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Tags}" Grid.Row="1" Grid.Column="1" FontSize="12" Margin="0,3,0,3"/>
                 </StackPanel>
 
-                <!-- 标签等信息 -->
-                <TextBlock Text="{Binding Tags}" Grid.Row="1" Grid.Column="1" FontSize="12" Margin="0,3,0,3"/>
+                
 
                 <!-- 交互按钮 -->
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">

@@ -28,21 +28,21 @@ namespace IOLab.Network
         public int GroupId { get; private set; } // 添加 groupid 属性
         public int Experience { get; private set; } // 添加 exp 属性
 
-        private static readonly HttpClient client = new HttpClient();
-        private static readonly string BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
+        private readonly HttpClient client = new HttpClient();
+        private string BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
 
         public Auth(string username, string password, string email = null)
         {
             Username = username;
             Password = password;
             Email = email;
-            BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
+            //BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
         }
 
         public Auth(string token)
         {
             Token = token;
-            BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
+            //BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
         }
 
 

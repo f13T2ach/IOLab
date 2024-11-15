@@ -8,6 +8,11 @@ namespace IOLab.Core.Network.Data
     {
         public ContentCollection() { }
 
+        public ContentCollection(JObject data)
+        {
+            Parse(data);
+        }
+
         // 解析 JSON 对象并填充集合
         public void Parse(JObject networkData)
         {

@@ -209,10 +209,13 @@ namespace IOLab.Pages
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                Settings.Default["ServerIndex"] = ServerPickerBox.SelectedItem;
-                Settings.Default.Save();
                 // 登出
                 CeaseSession_Click(null, e);
+                InstanceBundle.UsingAuth = null;
+
+                Settings.Default["ServerIndex"] = ServerPickerBox.SelectedItem;
+                Settings.Default.Save();
+                
                 return;
             }
             else

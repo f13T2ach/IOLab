@@ -357,6 +357,22 @@ namespace IOLab
             await dialog.ShowAsync();
         }
 
+        public void AlertLogin(string title = "请登录以完成操作")
+        {
+            if(String.IsNullOrEmpty(Settings.Default.UserToken)&&InstanceBundle.UsingAuth == null)
+            {
+                CreateDialog(title,"未登录");
+            }
+            else if(!String.IsNullOrEmpty(Settings.Default.UserToken) && InstanceBundle.UsingAuth != null)
+            {
+                CreateDialog(title, "登录无效");
+            }
+            else if (!String.IsNullOrEmpty(Settings.Default.UserToken) && InstanceBundle.UsingAuth == null)
+            {
+                CreateDialog(title, "请等待自动登录，或者自动登录已经失败");
+            }
+        }
+
         public void ShowNotification(string title, string content)
         {
             // 创建通知内容

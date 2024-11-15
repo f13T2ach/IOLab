@@ -12,6 +12,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
+// 注意
+// (JObject)responseData["data"] 不一定正确
+
 
 /* Example
 var auth = new Auth("username", "password");
@@ -129,7 +132,7 @@ namespace IOLab.Network
 
                     if (responseData.ContainsKey("code") && responseData["code"].ToObject<int>() == 0)
                     {
-                        return new AuthResult(true, 0, "浏览成功", (JObject)responseData["data"]);
+                        return new AuthResult(true, 0, "浏览成功", responseData);
                     }
                     return new AuthResult(false, responseData["code"].ToObject<int>(), responseData["msg"].ToString());
                 }

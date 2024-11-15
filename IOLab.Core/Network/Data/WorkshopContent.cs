@@ -49,7 +49,7 @@ namespace IOLab.Core.Network.Data
         public string Tags
         {
             get => _tags;
-            set { _createAt = value; OnPropertyChanged(nameof(Tags)); }
+            set { _tags = value; OnPropertyChanged(nameof(Tags)); }
         }
 
         public JObject MyContent
@@ -68,7 +68,7 @@ namespace IOLab.Core.Network.Data
         public void Parse(JObject content)
         {
             Title = content["title"]?.ToString();
-            AuthorName = content["author"]?.ToString();
+            AuthorName = content["author_name"]?.ToString();
             Description = content["content"]?.ToString();
             CreateAt = content["created_at"]?.ToString();
             Tags = "智慧学习"; // TODO 适配标签
