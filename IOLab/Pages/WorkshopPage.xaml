@@ -32,14 +32,14 @@
                     <ItemsControl ItemsSource="{Binding WorkshopContents}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
+                                <UniformGrid Rows="0" Columns="3"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!-- 每个 WorkshopContent 控件的宽度相同，但高度根据内容调整 -->
-                                <local:WorkshopContent Width="300" Margin="10,5,10,5" DataContext="{Binding}"/>
+                                <local:WorkshopContent Margin="10,5,10,5" DataContext="{Binding}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

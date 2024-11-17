@@ -236,14 +236,14 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Network}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-                    <TextBlock Text="服务器" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                    <TextBlock Text="服务器（删档测试 Beta）" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
                     <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="选择 IOLab 区服。如需添加自定义服务器，请在下方设置"/></TextBlock>
 
                     <ComboBox x:Name="ServerPickerBox" Grid.Column="2" Grid.RowSpan="2" SelectionChanged="ServerPickerBox_SelectionChanged">
                     </ComboBox>
                 </Grid>
             </Border>
-            <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
+            <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,-6,0,4">
                 <Grid VerticalAlignment="Center" Margin="0,10,0,10">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -254,11 +254,28 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ChinesePinyin}" Grid.RowSpan="2" Margin="5,15,20,15"/>
-                    <TextBlock Text="使用「成龙化学实验室」作为程序标题" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                    <TextBlock x:Name="EntryOfGame" MouseDown="EntryOfGame_MouseDown" Text="启用此项可使用中文标题，但这会使关于页面的「开发团队」条目消失" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
+                    <Grid Margin="5,15,40,15"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <TextBlock Text="广州主线" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <Border Width="5" Height="16" CornerRadius="2" Background="SeaGreen" Opacity="0.5" Margin="0,0,2,0"/>
+                        <Border Width="5" Height="16" CornerRadius="2" Background="SeaGreen" Opacity="0.5" Margin="0,0,2,0"/>
+                        <Border Width="5" Height="16" CornerRadius="2" Background="SeaGreen" Opacity="0.5" Margin="0,0,2,0"/>
+                        <Border Width="5" Height="16" CornerRadius="2" Background="SeaGreen" Opacity="0.5" Margin="0,0,2,0"/>
+                        <TextBlock Text="延迟:" Opacity="0.6" Grid.Column="1" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                        <TextBlock Text="--" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBlock Text="负载:" Opacity="0.6" Grid.Column="1" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                        <TextBlock Text="--" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBlock Text="总访问量:" Opacity="0.6" Grid.Column="1" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                        <TextBlock Text="--" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBlock Text="状态:" Opacity="0.6" Grid.Column="1" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                        <TextBlock Text="DIFF" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                        <Button Grid.Column="1"  Content="重新测试" Margin="0,0,2,0"/>
+                        <Button HorizontalAlignment="Right" Content="故障上报"/>
+                    </StackPanel>
 
-                    <ui:ToggleSwitch x:Name="ToggleSwitch_UseChineseName" Grid.Column="2" Grid.RowSpan="2" IsEnabled="False"/>
+
                 </Grid>
             </Border>
 
