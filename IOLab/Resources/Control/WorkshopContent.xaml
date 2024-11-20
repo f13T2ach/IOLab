@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:IOLab.Resources.Control"
-             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:data="clr-namespace:IOLab.Core.Network.Data;assembly=IOLab.Core" d:DataContext="{d:DesignInstance Type=data:WorkshopContent}"
              mc:Ignorable="d">
     <Grid>
         <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,6,0,4">
@@ -42,8 +42,8 @@
 
                 <!-- 交互按钮 -->
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
-                    <Button Content="Confirm" Margin="2" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
-                    <Button Content="Discuss" Margin="2" HorizontalAlignment="Center" Height="30" Cursor="Hand"/>
+                    <Button Content="查看" Margin="2" Command="{Binding UIShowInformation}" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
+                    <Button Content="Discuss" Margin="2" HorizontalAlignment="Center" Height="30" Cursor="Hand" Visibility="Collapsed"/>
                 </StackPanel>
             </Grid>
         </Border>

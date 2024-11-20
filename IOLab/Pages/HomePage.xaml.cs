@@ -23,6 +23,7 @@ using iNKORE.UI.WPF.Modern;
 using IOLab.Pages.ViewModel;
 using IOLab.Windows;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
@@ -84,6 +85,15 @@ namespace IOLab.Pages
         {
             Windows.Dialog.Login login = new Windows.Dialog.Login();
             await login.ShowAsync();
+        }
+
+        private void TestButton_Crash_Click(object sender, RoutedEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                int fuck = 0;
+                int a = 1 / fuck; // 这里会抛出 DivideByZeroException
+            });
         }
     }
 }

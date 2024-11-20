@@ -23,6 +23,9 @@ namespace IOLab.Core
 {
     internal static class MainInit
     {
+        public static void DoCrash()
+        {
 
+        }
     }
 }

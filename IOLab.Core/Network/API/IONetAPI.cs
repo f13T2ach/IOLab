@@ -28,9 +28,12 @@ namespace IOLab.Network.API
     {
         public static Dictionary<string, string> Servers = new Dictionary<string, string>
         {
-            { "Default","http://127.0.0.1:9000" },
-            { "广州主线","http://139.159.244.185:9000" }
+            { "[*]测试服务器_广州主线1","http://139.9.177.204:9000" },
+            { "IOLab Network Global","http://iolab.us.kg:9000" },
+            { "[*]本地测试服务器","http://127.0.0.1:9000" },
         };
+
+        public static string TestServerPerfix = "[*]";
 
         public static int delay = 5000;
 

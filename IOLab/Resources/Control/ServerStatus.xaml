@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="IOLab.Resources.Control.ServerStatus"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:Width="1000">
+    <Border Style="{StaticResource Style_SectionBorderStyle}" >
+        <Grid VerticalAlignment="Center" Margin="0,10,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="5,15,40,15"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <TextBlock x:Name="ServerName" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <Border Name="SignalStrengthBox1" Width="5" Height="16" CornerRadius="2" Background="SeaGreen" Opacity="0.5" Margin="0,0,2,0"/>
+                <Border Name="SignalStrengthBox2" Width="5" Height="16" CornerRadius="2" Background="SeaGreen" Opacity="0.5" Margin="0,0,2,0"/>
+                <Border Name="SignalStrengthBox3" Width="5" Height="16" CornerRadius="2" Background="SeaGreen" Opacity="0.5" Margin="0,0,2,0"/>
+                <Border Name="SignalStrengthBox4" Width="5" Height="16" CornerRadius="2" Background="SeaGreen" Opacity="0.5" Margin="0,0,2,0"/>
+                <TextBlock Text="延迟:" Opacity="0.6" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Delay}" VerticalAlignment="Center"/>
+                <TextBlock Text="ms" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                <TextBlock Text="负载:" Opacity="0.6" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Load}" VerticalAlignment="Center"/>
+                <TextBlock Text="%" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                <TextBlock Text="总访问量:" Opacity="0.6" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=TotalAccess}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                <TextBlock Text="状态:" Opacity="0.6" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Status}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                <Button Content="重新测试" Margin="0,0,2,0" Click="ReTestButton_Click"/>
+                <Button Content="故障上报" Click="ReportIssueButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

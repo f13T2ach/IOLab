@@ -22,9 +22,9 @@
 using System;
 using System.Windows.Input;
 
-namespace IOLab.Commands
+namespace IOLab.Core.Commands
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private Action<object> _execute { get; set; }
 

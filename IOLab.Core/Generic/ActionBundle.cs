@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using IOLab.Core.Network.Data;
+using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Generic
 {
@@ -12,6 +13,8 @@ namespace IOLab.Core.Generic
         public static event Action<bool>? PauseOrStartRecord;
 
         public static event Action? UpdateSerialList;
+
+        public static event Action<WorkshopContent>? WorkshopContentShowInformation;
         /// <summary>
         /// 暂停或继续
         /// </summary>
@@ -37,6 +40,11 @@ namespace IOLab.Core.Generic
         {
             LoginStat?.Invoke(val);
             LoginStatusChange?.Invoke();
+        }
+
+        public static void DoWorkshopContentShowInformation(WorkshopContent val)
+        {
+            WorkshopContentShowInformation?.Invoke(val);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using IOLab.Core.Generic;
+﻿using IOLab.Core.Config;
+using IOLab.Core.Generic;
 using IOLab.Core.Properties;
 using IOLab.Network.API;
 using IOLab.Network.Result;
@@ -47,12 +48,13 @@ namespace IOLab.Network
     public class Workshop
     {
         private readonly Auth _auth;
-        private static readonly HttpClient client = new HttpClient();
-        private static readonly string BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
+        private HttpClient client = new HttpClient();
+        private string BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
 
         public Workshop(Auth auth)
         {
             _auth = auth;
+            client.Timeout = TimeSpan.FromMilliseconds(InternalConfig.OperationTimeout);
         }
 
         /// <summary>

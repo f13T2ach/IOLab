@@ -1,8 +1,9 @@
-﻿using IOLab.Commands;
+﻿using IOLab.Core.Commands;
 using IOLab.Core.Generic;
 using IOLab.Core.Network.Data;
 using IOLab.Network;
 using IOLab.Windows.Dialog;
+using IOLab.Windows.Dialog.Online;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace IOLab.Pages.ViewModel
             RefreshContents(true);
 
             ActionBundle.LoginStatusChange += RefreshCommandAction;
+            ActionBundle.WorkshopContentShowInformation += ShowWorkshopContent;
 
             RefreshCommand = new RelayCommand(RefreshCommandDo);
         }
@@ -49,6 +51,26 @@ namespace IOLab.Pages.ViewModel
         {
             RefreshContents();
         }
+
+        public async void ShowWorkshopContent(WorkshopContent workshopContent)
+        {
+            if (workshopContent == null || workshopContent.IsEmpty())
+                return;
+            WorkshopContentUI dialog = new WorkshopContentUI(workshopContent);
+            await dialog.ShowAsync();
+        }
+        /**
+         * System.InvalidOperationException
+  HResult=0x80131509
+  Message=Only a single ContentDialog can be open at any time.
+  Source=iNKORE.UI.WPF.Modern.Controls
+  StackTrace:
+   在 iNKORE.UI.WPF.Modern.Controls.ContentDialog.ThrowAlreadyOpenException()
+   在 iNKORE.UI.WPF.Modern.Controls.ContentDialog.ThrowIfHasOpenDialog(Window owner)
+   在 iNKORE.UI.WPF.Modern.Controls.ContentDialog.<ShowAsync>d__135.MoveNext()
+   在 iNKORE.UI.WPF.Modern.Controls.ContentDialog.<ShowAsync>d__134.MoveNext()
+   在 IOLab.Pages.ViewModel.WorkshopPageViewModel.<ShowWorkshopContent>d__11.MoveNext() 在 D:\IOLab\IOLab\IOLab\Pages\ViewModel\WorkshopPageViewModel.cs 中: 第 60 行
+**/
 
         public async void RefreshContents(bool isAuto=false)
         {

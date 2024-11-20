@@ -18,14 +18,14 @@
                 <Rectangle Width="100" Margin="0,-1,0,2" Height="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Fill="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" Opacity="0.6"/>
             </Grid>
             <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                <TextBlock Text="IOLab v1.0.0" HorizontalAlignment="Right"/>
-                <TextBlock Text="我知道你很急，但你先别急" HorizontalAlignment="Right" Opacity="0.7"/>
+                <TextBlock Text="IOLab Exception Reporter" HorizontalAlignment="Right"/>
+                <TextBlock Text="异常捕获报告程序" HorizontalAlignment="Right" Opacity="0.7"/>
             </StackPanel>
             
         </Grid>
-            <TextBlock Name="ExceptionName" Text="System.DivideByZeroException" FontSize="25" Opacity="0.7"/>
-            <TextBlock Text="调用栈与系统信息" FontSize="15"/>
-            <TextBox Margin="0,4,0,0" Height="280" IsReadOnly="True" TextWrapping="Wrap" Text="System.DivideByZeroException: Attempted to divide by zero. &#x0a; at ExamplesProject.Program.Main(String[] args) in D:\Projects\ExamplesProject\ExamplesProject\Program.cs:line 16"/>
+            <TextBlock Name="ExceptionName" Text="ExceptionName" FontSize="25" Opacity="0.7"/>
+            <TextBlock Text="异常信息和调用栈" FontSize="15"/>
+            <TextBox Margin="0,4,0,0" Height="280" IsReadOnly="True" TextWrapping="Wrap" Text="ExceptionConatiner" x:Name="ExceptionConatiner"/>
             <StackPanel Margin="5" Orientation="Horizontal">
                 <Button Margin="0,0,5,0" x:Name="GotoCompareMode" Cursor="Hand" IsEnabled="True" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
                     <StackPanel Orientation="Horizontal">
@@ -46,7 +46,7 @@
                     </StackPanel>
                 </Button>
                     
-                <Button Margin="320,0,5,0" x:Name="IgnoreException" Cursor="Hand" IsEnabled="True" >
+                <Button Margin="320,0,5,0" x:Name="IgnoreException" Click="IgnoreException_Click" Cursor="Hand" IsEnabled="True" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="继续执行程序"/>
                     </StackPanel>

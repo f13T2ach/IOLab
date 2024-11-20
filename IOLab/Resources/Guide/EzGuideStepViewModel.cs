@@ -1,5 +1,5 @@
 ﻿// 文件出处 https://www.bilibili.com/read/cv39493164 以上版权声明为自动生成 此文件中不具备效力
-using IOLab.Commands;
+using IOLab.Core.Commands;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;

@@ -198,10 +198,11 @@ namespace IOLab.Pages
                 return;
             }
 
+            string AlertForTestServer = ServerPickerBox.SelectedItem.ToString().StartsWith(IONetAPI.TestServerPerfix) ? "\n注意：你即将使用测试服务器，此类服务器不一定在线或对你开放，且可能出现某些问题。你的数据不一定被保存。" : "";
             ContentDialog dialog = new ContentDialog()
             {
                 Title = "你确定要修改服务器吗",
-                Content = "你将连接服务器 " + ServerPickerBox.SelectedItem + " 。IOLab 会退出登录，因为服务器间的数据是不互通的",
+                Content = "你将连接服务器 " + ServerPickerBox.SelectedItem + " 。IOLab 会退出登录，因为服务器间的数据是不互通的"+AlertForTestServer,
                 PrimaryButtonText = "确定",
                 SecondaryButtonText = "取消",
                 DefaultButton = ContentDialogButton.Primary,

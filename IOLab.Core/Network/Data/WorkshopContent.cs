@@ -1,6 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using IOLab.Core.Commands;
+using IOLab.Core.Generic;
+using Newtonsoft.Json.Linq;
 using System;
 using System.ComponentModel;
+using System.Security.RightsManagement;
+using System.Windows.Input;
 
 namespace IOLab.Core.Network.Data
 {
@@ -58,11 +62,16 @@ namespace IOLab.Core.Network.Data
             set { _myContent = value; OnPropertyChanged(nameof(MyContent)); }
         }
 
-        public WorkshopContent() { }
+        public ICommand UIShowInformation { get; set; }
+        public WorkshopContent()
+        {
+            UIShowInformation = new RelayCommand(OnUIShowInformation);
+        }
 
         public WorkshopContent(JObject content)
         {
             Parse(content);
+            UIShowInformation = new RelayCommand(OnUIShowInformation);
         }
 
         public void Parse(JObject content)
@@ -73,6 +82,12 @@ namespace IOLab.Core.Network.Data
             CreateAt = content["created_at"]?.ToString();
             Tags = "智慧学习"; // TODO 适配标签
             MyContent = content;
+        }
+
+        public void OnUIShowInformation(object sender)
+        {
+            // Core 无法实现 UI 线，此处应该激活 Action
+            ActionBundle.DoWorkshopContentShowInformation(this);
         }
 
         protected void OnPropertyChanged(string propertyName)

@@ -20,7 +20,7 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Commands;
+using IOLab.Core.Commands;
 using IOLab.Core.Generic;
 using IOLab.Core.Models;
 using IOLab.Core.Models.Records;

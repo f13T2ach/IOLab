@@ -249,9 +249,12 @@
 
                     </Grid>
                     <TextBlock Opacity="0.615" FontSize="13" Margin="10" TextAlignment="Center" TextWrapping="WrapWithOverflow">Redmaple Presents | 在16:9屏幕下具有最佳体验</TextBlock>
-                    <Button FontSize="12" x:Name="TestButton_ShowTeachPage" Content="View 3D Sketch" Click="TestButton_ShowTeachPage_Click"/>
-                    <Button FontSize="12" x:Name="TestButton_ShowLoginPage" Content="Login" Click="TestButton_ShowLoginPage_Click"/>
-
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="调试功能"/>
+                        <Button FontSize="12" x:Name="TestButton_ShowTeachPage" Content="View 3D Sketch" Click="TestButton_ShowTeachPage_Click"/>
+                        <Button FontSize="12" x:Name="TestButton_ShowLoginPage" Content="Login" Click="TestButton_ShowLoginPage_Click"/>
+                        <Button FontSize="12" x:Name="TestButton_Crash" Content="Crash Via 1/0" Click="TestButton_Crash_Click"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <cyct:InfoBar Margin="0,10,0,0" Visibility="Hidden" x:Name="MyInfoBar"/>
@@ -263,7 +266,7 @@
 
 
         </ui:ScrollViewerEx>
-        
+
     </Grid>
 
 </ui:Page>

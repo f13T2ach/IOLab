@@ -25,6 +25,7 @@ using IOLab.Core.Assets;
 using IOLab.Core.Generic;
 using IOLab.Core.Properties;
 using IOLab.Core.Serial;
+using IOLab.Network.API;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
@@ -142,6 +143,8 @@ namespace IOLab
                 return;
             }
 
+
+
             // 读取设置
             ChangeThemeByIndex(Core.Properties.Settings.Default.ThemeSelection);
             new ThemeResources().AccentColor = (Color)ColorConverter.ConvertFromString(Core.Properties.Settings.Default.AccentColorHex);
@@ -154,11 +157,11 @@ namespace IOLab
             // 初始化 以挂载事件
             InstanceBundle.ChartTables = new ObservableCollection<Core.Models.ChartTableModel>();
 
-            //GlobalExceptionCatch gec = new GlobalExceptionCatch();
-            //gec.ShowDialog();
-
-            //IForgot forgot = new IForgot();
-            //forgot.ShowAsync();
+            // 检查设置是否有差异
+            if (!IONetAPI.Servers.ContainsKey(Settings.Default.ServerIndex))
+            {
+                Settings.Default["ServerIndex"] = IONetAPI.Servers.Keys.ToList()[0]; //没有就直接用第0项
+            }
 
             // 自动登录
             if (Settings.Default.UserToken != "" && Settings.Default.UserToken != null)
@@ -174,6 +177,7 @@ namespace IOLab
 
 
         }
+
 
         public const int WM_DEVICECHANGE = 0x219;//U盘插入后，OS的底层会自动检测到，然后向应用程序发送“硬件设备状态改变“的消息  
         public const int DBT_DEVICEREMOVECOMPLETE = 0x8004;  //一个设备或媒体片已被删除。

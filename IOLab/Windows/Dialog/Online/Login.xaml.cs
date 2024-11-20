@@ -71,7 +71,7 @@ namespace IOLab.Windows.Dialog
 
             var loginResult = await InstanceBundle.UsingAuth.LoginAsync();
 
-
+            wait.Hide();
 
             if (loginResult.Success)
             {

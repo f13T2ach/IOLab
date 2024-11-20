@@ -1,4 +1,5 @@
-﻿using IOLab.Core.Generic;
+﻿using IOLab.Core.Config;
+using IOLab.Core.Generic;
 using IOLab.Core.Properties;
 using IOLab.Network.API;
 using IOLab.Network.Result;
@@ -36,12 +37,14 @@ namespace IOLab.Network
             Username = username;
             Password = password;
             Email = email;
+            client.Timeout = TimeSpan.FromMilliseconds(InternalConfig.OperationTimeout);
             //BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
         }
 
         public Auth(string token)
         {
             Token = token;
+            client.Timeout = TimeSpan.FromMilliseconds(InternalConfig.OperationTimeout);
             //BasicUrl = IONetAPI.Servers[Settings.Default.ServerIndex];
         }
 
