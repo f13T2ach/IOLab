@@ -254,6 +254,7 @@
                         <Button FontSize="12" x:Name="TestButton_ShowTeachPage" Content="View 3D Sketch" Click="TestButton_ShowTeachPage_Click"/>
                         <Button FontSize="12" x:Name="TestButton_ShowLoginPage" Content="Login" Click="TestButton_ShowLoginPage_Click"/>
                         <Button FontSize="12" x:Name="TestButton_Crash" Content="Crash Via 1/0" Click="TestButton_Crash_Click"/>
+                        <Button FontSize="12" x:Name="TestButton_Maker" Content="Open Maker" Click="TestButton_Maker_Click"/>
                     </StackPanel>
                 </StackPanel>
 

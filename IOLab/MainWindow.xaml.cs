@@ -61,6 +61,7 @@ namespace IOLab
                     "NavigationViewItem_Setting" => new SettingPage(),
                     "NavigationViewItem_About" => new AboutPage(),
                     "NavigationViewItem_Workshop" => new WorkshopPage(),
+                    "NavigationViewItem_ExperimentMaker" => new ExperimentMakerPage(),
                     _ => throw new InvalidOperationException("Unknown navigation item.")
                 };
                 _pageCache[pageKey] = page;

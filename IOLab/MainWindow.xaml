@@ -23,7 +23,7 @@
             </ui:NavigationView.FooterMenuItems>
 
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem x:Name="NavigationViewItem_Home" Content="实验">
+                <ui:NavigationViewItem x:Name="NavigationViewItem_Home" Content="IOLab">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Home}"/>
                     </ui:NavigationViewItem.Icon>
@@ -37,13 +37,19 @@
 
                 <ui:NavigationViewItem x:Name="NavigationViewItem_Workshop" Content="工坊">
                     <ui:NavigationViewItem.Icon>
-                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ShoppingCart}"/>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Cafe}"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
 
                 <ui:NavigationViewItem x:Name="NavigationViewItem_Monitor" Content="监视">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Diagnostic}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                
+                <ui:NavigationViewItem x:Name="NavigationViewItem_ExperimentMaker" Content="实验">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Bookmarks}"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
 

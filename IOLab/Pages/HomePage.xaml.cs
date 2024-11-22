@@ -22,6 +22,8 @@
 using iNKORE.UI.WPF.Modern;
 using IOLab.Pages.ViewModel;
 using IOLab.Windows;
+using IOLab.Windows.ExperimentMaker;
+using SkiaSharp;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -94,6 +96,10 @@ namespace IOLab.Pages
                 int fuck = 0;
                 int a = 1 / fuck; // 这里会抛出 DivideByZeroException
             });
+        }
+
+        private void TestButton_Maker_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

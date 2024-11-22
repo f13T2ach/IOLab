@@ -136,6 +136,9 @@
     <Compile Update="Windows\Dialog\PortDefine.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\ExperimentMaker\NewProject.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
