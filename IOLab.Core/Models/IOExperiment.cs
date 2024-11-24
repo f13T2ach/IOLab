@@ -31,7 +31,7 @@ namespace IOLab.Core.Models
         public struct Checkpoint
         {
             public List<int> FrozenList; // 本步骤要冻结的服务
-            public string Name; // 本步骤的步骤标题
+            public string Name; // 本步骤的步骤标题，用于索引相应步骤
             public List<int> ChartList; // 本步骤要见到的服务
         }
 
@@ -68,6 +68,11 @@ namespace IOLab.Core.Models
         // ui应用的实际名称
         private string _realName;
         public string RealName { get { return _realName; } set { _realName = value; } }
+
+        public IOExperiment()
+        {
+
+        }
 
         /// <summary>
         /// 本地实验构造函数

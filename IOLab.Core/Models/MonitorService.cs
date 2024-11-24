@@ -29,7 +29,7 @@ namespace IOLab.Core.Models
 
         private string _name; // 包名
 
-        private string _yRow; // 包名
+        private string _yRow; // y轴内容
 
         private int _id; // 引用ID
 

@@ -22,6 +22,7 @@
 using IOLab.Core.Network.Data;
 using IOLab.Pages.ViewModel;
 using IOLab.Resources.Control;
+using IOLab.Windows.Dialog.Maker;
 using Newtonsoft.Json.Linq;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
@@ -30,11 +31,46 @@ namespace IOLab.Pages
     public partial class ExperimentMakerPage : Page
     {
 
-
+        ExperimentMakerPageViewModel? model;
         public ExperimentMakerPage()
         {
             InitializeComponent();
-            
+            Visibility_NotCreated();
+
+        }
+
+        private async void CreateNew_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NewProject dialog = new NewProject();
+            var result = await dialog.ShowAsync();
+            if (result != iNKORE.UI.WPF.Modern.Controls.ContentDialogResult.Primary)
+                return;
+            if (dialog.source == null)
+                return;
+            model = new ExperimentMakerPageViewModel(dialog.source);
+            this.DataContext = model;
+            Visibility_Created();
+        }
+
+        private void CloseEditor_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Visibility_NotCreated();
+            //this.DataContext = this; ²»½áÊø°ó¶¨
+            model = null;
+        }
+
+
+
+        private void Visibility_NotCreated()
+        {
+            Container_Created.Visibility = System.Windows.Visibility.Collapsed;
+            Continer_NotCreated.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void Visibility_Created()
+        {
+            Container_Created.Visibility = System.Windows.Visibility.Visible;
+            Continer_NotCreated.Visibility = System.Windows.Visibility.Collapsed;
         }
     }
 

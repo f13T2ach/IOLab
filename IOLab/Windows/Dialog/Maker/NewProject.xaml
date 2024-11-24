@@ -1,0 +1,59 @@
+﻿<ui:ContentDialog
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    
+    x:Class="IOLab.Windows.Dialog.Maker.NewProject"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:IOLab.Windows.Dialog.Maker"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="新建/编辑实验"
+    PrimaryButtonText="继续"
+    PrimaryButtonClick="PrimaryButton_Click"
+    SecondaryButtonText="取消"
+    DefaultButton="Primary"
+    >
+
+    <ui:ContentDialog.Resources>
+        <ui:Flyout x:Key="UnableSaveFlyout">
+            <StackPanel>
+                <TextBlock Text="无法保存修改"/>
+                <Button Content="了解"/>
+            </StackPanel>
+        </ui:Flyout>
+    </ui:ContentDialog.Resources>
+
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+            <TextBlock FontSize="14" Text="名称" VerticalAlignment="Center" Width="64" TextAlignment="Center"/>
+            <TextBox Name="NameBox" Width="360" Margin="5,0,0,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+            <TextBlock FontSize="14" Text="包名" VerticalAlignment="Center" Width="64" TextAlignment="Center"/>
+            <TextBox Name="PackageNameBox" Width="360" Margin="5,0,0,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock FontSize="14" Text="注释" VerticalAlignment="Top" Width="64" TextAlignment="Center"/>
+            <TextBox Name="DescriptionBox" TextWrapping="WrapWithOverflow" Height="120" Width="360" Margin="5,0,0,0"/>
+        </StackPanel>
+
+        <Grid Margin="2">
+            <TextBlock HorizontalAlignment="Left" FontSize="14" Text="存储位置" VerticalAlignment="Center" Width="64" TextAlignment="Center"/>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" FontSize="14" Text="" MaxWidth="200" TextTrimming="CharacterEllipsis" x:Name="LocalAddressText" VerticalAlignment="Center" Margin="2"/>
+                <Button Content="选择文件夹" Click="ChooseFolderButton_Click" />
+            </StackPanel>
+        </Grid>
+
+
+        <TextBlock x:Name="errorTextBlock" Margin="4,0,0,2" Foreground="Red"/>
+
+        <!-- Content body -->
+        <TextBlock Name="body" TextWrapping="Wrap" Width="420">
+            <TextBlock.Text>
+                包名为实验唯一标识，也作为文件名存在。因此，包名须与文件名一致。
+            </TextBlock.Text>
+        </TextBlock>
+    </StackPanel>
+</ui:ContentDialog>

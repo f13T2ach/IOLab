@@ -9,7 +9,7 @@
       
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       d:DesignHeight="720" d:DesignWidth="1280"
-      xmlns:lab="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:WorkshopPageViewModel}"
+      xmlns:lab="clr-namespace:IOLab.Resources.Control" xmlns:viewmodel="clr-namespace:IOLab.Pages.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ExperimentMakerPageViewModel}"
       mc:Ignorable="d" 
       Title="自定义实验">
     <Grid>
@@ -17,7 +17,7 @@
         <Grid x:Name="Continer_NotCreated" Visibility="Hidden">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                    <Button x:Name="CreateNew" Cursor="Hand" IsEnabled="True" Width="144" Height="72" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="4">
+                    <Button Click="CreateNew_Click" x:Name="CreateNew" Cursor="Hand" IsEnabled="True" Width="144" Height="72" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Margin="4">
                         <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Add}"/>
                             <TextBlock Text="新建实验" FontSize="14" Margin="0,5,0,0"/>
@@ -44,28 +44,36 @@
 
         <Grid x:Name="Container_Created">
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="60*"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="20">ExperimentName</TextBlock>
+                <TextBlock Text="{Binding ExperimentName}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Cursor="Hand" Margin="4" Height="40" ToolTip="保存" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Padding="5,5,5,5" >
+                    <Button Cursor="Hand" Margin="4" ToolTip="保存" Command="{Binding SaveCommand}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Save}" />
                             <TextBlock Margin="2,0,0,0" Text="保存项目"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Cursor="Hand" Margin="4" Height="40" ToolTip="保存" Padding="5,5,5,5" >
+                    <Button Cursor="Hand" Margin="4" ToolTip="保存" Command="{Binding SaveAsCommand}" >
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.SaveAs}" />
                             <TextBlock Margin="2,0,0,0" Text="保存为副本"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Cursor="Hand" Margin="4" Height="40" ToolTip="保存" Padding="5,5,5,5" >
+                    <Button Cursor="Hand" Margin="4" ToolTip="编辑实验" Command="{Binding}" >
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Edit}" />
+                            <TextBlock Margin="2,0,0,0" Text="编辑实验"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Cursor="Hand" x:Name="CloseEditor" Margin="4" ToolTip="保存" Click="CloseEditor_Click" >
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Cancel}" />
                             <TextBlock Margin="2,0,0,0" Text="关闭编辑器"/>
@@ -73,6 +81,178 @@
                     </Button>
                 </StackPanel>
 
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="20*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Margin="16,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Margin="4">
+                        <TextBlock Text="步骤列表" VerticalAlignment="Center" FontSize="16"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Cursor="Hand" Margin="4,0,4,0" ToolTip="添加" Command="{Binding AddStepCommand}" Padding="6,6,6,6" >
+                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Add}" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <ListView Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding Steps}" SelectedItem="{Binding CurrentStep}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <!-- 第一行文字 -->
+                                    <TextBlock Text="{Binding StepName}" FontSize="16"/>
+                                    <!-- 第二行文字 -->
+                                    <TextBlock Text="{Binding StepDescription}" TextWrapping="NoWrap" FontSize="14" Opacity="0.6" Grid.Row="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <Grid Grid.Column="1" Margin="10,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock FontSize="16" Text="{Binding CurrentStep.StepName}" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Cursor="Hand" Margin="4" ToolTip="应用" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" Command="{Binding ApplyStepCommand}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Save}" />
+                                    <TextBlock Margin="2,0,0,0" Text="应用"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Cursor="Hand" Margin="4" ToolTip="克隆" Command="{Binding CloneStepCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Copy}" />
+                                    <TextBlock Margin="2,0,0,0" Text="克隆"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Cursor="Hand" Margin="4" ToolTip="删除本步" Command="{Binding DeleteStepCommand}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Delete}" />
+                                    <TextBlock Margin="2,0,0,0" Text="删除本步"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="0,4,0,0">
+                        <ui:ScrollViewerEx>
+                            <StackPanel Margin="0,0,16,0" Orientation="Vertical">
+                                <Grid Margin="0,0,0,6">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock FontSize="14" Text="步骤名称"/>
+                                        <TextBlock FontSize="14" Opacity="0.7" Text="步骤名称将显示在实验助手，建议为序号+标题"/>
+                                    </StackPanel>
+                                    <TextBox Width="400" Height="20" Margin="5,0,0,0" Text="{Binding CurrentStep.StepName}" HorizontalAlignment="Right"/>
+                                </Grid>
+                                <Grid>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock FontSize="14" Text="步骤文案"/>
+                                        <TextBlock FontSize="14" Opacity="0.7" Text="步骤文案应提示本步骤需要创建的表（如果有检查点）"/>
+                                    </StackPanel>
+                                    <TextBox TextWrapping="WrapWithOverflow" Text="{Binding CurrentStep.StepDescription}" Height="260" Width="400" Margin="5,0,0,0" HorizontalAlignment="Right"/>
+                                </Grid>
+                                <Grid Margin="0,6,0,6">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock FontSize="14" Text="检查点添加"/>
+                                        <TextBlock FontSize="14" Opacity="0.7" Width="360" TextWrapping="WrapWithOverflow" Text="本步骤需要采集的传感器称为检查点，实验助手依据检查点判定实验者能否进行下一步"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                                        <ComboBox DisplayMemberPath="Name" x:Name="Checkpoint" ItemsSource="{Binding Services}" SelectedItem="{Binding SelectAddMonitor}" Height="32" Width="400" IsTextSearchEnabled = "True" IsEditable = "True">
+                                        </ComboBox>
+                                        <Button Cursor="Hand" Margin="0,2,0,0" ToolTip="应用" Command="{Binding AddCheckpointCommand}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Right">
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Add}" />
+                                                <TextBlock Margin="2,0,0,0" Text="添加传感器"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Margin="0,6,0,6">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock FontSize="14" Text="检查点列表"/>
+                                        <TextBlock FontSize="14" Opacity="0.7" Width="360" TextWrapping="WrapWithOverflow" Text="请注意添加的传感器个数不要超过实际插口个数，若采集传感器过多可以分步进行"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                                        <Button Cursor="Hand" Margin="0,2,0,0" ToolTip="应用" Command="{Binding RemoveCheckpointCommand}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Right">
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Delete}" />
+                                                <TextBlock Margin="2,0,0,0" Text="移除选定传感器"/>
+                                            </StackPanel>
+                                        </Button>
+                                        <ListView SelectionMode="Single" Width="400" ItemsSource="{Binding CurrentStep.CurrentStepSensors}" SelectedItem="{Binding CurrentMonitor}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Margin="5">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <!-- 第一行文字 -->
+                                                        <TextBlock Text="{Binding Name}" FontSize="16"/>
+                                                        <!-- 第二行文字 -->
+                                                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                            <TextBlock Text="ID: "/>
+                                                            <TextBlock Text="{Binding Id}" FontSize="14" Opacity="0.6" Margin="0,0,4,0"/>
+                                                            <TextBlock Text="插口类型: "/>
+                                                            <TextBlock Text="{Binding PortType}" FontSize="14" Opacity="0.6" Margin="0,0,4,0"/>
+                                                            <TextBlock Text="单位: "/>
+                                                            <TextBlock Text="{Binding YRow}" FontSize="14" Opacity="0.6" Margin="0,0,4,0"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                        
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </ui:ScrollViewerEx>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Border CornerRadius="5" Width="50" Height="20" Margin="0,0,0,0" Background="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" >
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="V1.0" FontWeight="Black"/>
+                    </Border>
+                    <TextBlock VerticalAlignment="Center" Margin="4" FontSize="14" Text="自定义实验是测试功能"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Border CornerRadius="5" Width="50" Height="20" Margin="0,0,0,0" >
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="步数" FontWeight="Black"/>
+                    </Border>
+                    <TextBlock VerticalAlignment="Center" Margin="4" FontSize="14" Text="{Binding StepCount}"/>
+
+                    <Border CornerRadius="5" Width="50" Height="20" Margin="0,0,0,0" >
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="检查点" FontWeight="Black"/>
+                    </Border>
+                    <TextBlock VerticalAlignment="Center" Margin="4" FontSize="14" Text="{Binding CheckpointCount}"/>
+                </StackPanel>
             </Grid>
         </Grid>
 
