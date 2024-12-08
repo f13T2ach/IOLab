@@ -4,21 +4,15 @@ using IOLab.Core.Network.Data;
 using IOLab.Network;
 using IOLab.Windows.Dialog;
 using IOLab.Windows.Dialog.Online;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace IOLab.Pages.ViewModel
 {
     internal class WorkshopPageViewModel : INotifyPropertyChanged
     {
-        public ICommand RefreshCommand {  get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         private ContentCollection workshopContents;
         public ContentCollection WorkshopContents
@@ -72,10 +66,10 @@ namespace IOLab.Pages.ViewModel
    在 IOLab.Pages.ViewModel.WorkshopPageViewModel.<ShowWorkshopContent>d__11.MoveNext() 在 D:\IOLab\IOLab\IOLab\Pages\ViewModel\WorkshopPageViewModel.cs 中: 第 60 行
 **/
 
-        public async void RefreshContents(bool isAuto=false)
+        public async void RefreshContents(bool isAuto = false)
         {
             WaitSerial wait = new WaitSerial(title: "正在获取内容");
-            
+
 
             if (InstanceBundle.UsingAuth == null)
             {
@@ -105,7 +99,7 @@ namespace IOLab.Pages.ViewModel
             }
 
             WorkshopContents = new ContentCollection(result.Data);
-            
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

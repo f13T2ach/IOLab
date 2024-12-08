@@ -19,10 +19,7 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using IOLab.Core.Network.Data;
 using IOLab.Pages.ViewModel;
-using IOLab.Resources.Control;
-using Newtonsoft.Json.Linq;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab.Pages
@@ -36,7 +33,7 @@ namespace IOLab.Pages
             InitializeComponent();
             WorkshopPageViewModel viewModel = new WorkshopPageViewModel();
             this.DataContext = viewModel;
-            
+
         }
     }
 

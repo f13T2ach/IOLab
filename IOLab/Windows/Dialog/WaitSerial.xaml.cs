@@ -34,7 +34,7 @@ namespace IOLab.Windows.Dialog
         private DispatcherTimer _timer;
         private int _timeLeft;
 
-        public WaitSerial(int index = 0, int sum = 0,string title = "正在等待回应")
+        public WaitSerial(int index = 0, int sum = 0, string title = "正在等待回应")
         {
 
             InitializeComponent();

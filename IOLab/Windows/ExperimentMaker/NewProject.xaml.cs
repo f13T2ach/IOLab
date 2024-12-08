@@ -20,11 +20,6 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Generic;
-using IOLab.Core.Properties;
-using IOLab.Network;
-using System.Diagnostics;
-using System.Windows;
 
 namespace IOLab.Windows.ExperimentMaker
 {

@@ -1,12 +1,11 @@
 ﻿using IOLab.Core.Properties;
 using IOLab.Network.API;
-using IOLab.Windows.Dialog;
 using System;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using MessageBox = iNKORE.UI.WPF.Modern.Controls.MessageBox;
 
 namespace IOLab.Resources.Control
 {
@@ -56,39 +55,36 @@ namespace IOLab.Resources.Control
         public ServerStatus()
         {
             InitializeComponent();
-            UpdateServerStatus();
+            _ = UpdateServerStatus();
         }
 
-        private void ReTestButton_Click(object? sender, RoutedEventArgs? e)
+        private async void ReTestButton_Click(object? sender, RoutedEventArgs? e)
         {
             // 模拟重新测试逻辑
-            UpdateServerStatus();
+            await UpdateServerStatus();
         }
 
-        private void ReportIssueButton_Click(object sender, RoutedEventArgs e)
+        private async void ReportIssueButton_Click(object sender, RoutedEventArgs e)
         {
-            // 显示等待
-            WaitSerial wait = new WaitSerial(title: "正在测试连接服务器");
-            wait.ShowAsync();
-
+            ReportIssueButton.IsEnabled = false;
             // 移除之前的异常
             CurrentException = null;
-            UpdateServerStatus(); // 再测试一次
+            await UpdateServerStatus(); // 再测试一次
 
-            wait.Hide();
 
+            ReportIssueButton.IsEnabled = true;
             if (CurrentException == null) // 连接成功
             {
-                new MainWindow().ShowNotification("没有可用帮助", "连接测试已通过（此疑难解答只适用于无法连接服务器的情形）");
+                MessageBox.Show("连接测试已通过（此疑难解答只适用于无法连接服务器的情形）", "没有可用帮助");
                 return;
             }
 
-            
+
             string advice = GetExceptionResolutionAdvice(CurrentException);
-            new MainWindow().ShowNotification("疑难解答", "解决方案：\n"+advice+"\n依旧无法解决？\n联系技术支持 Email: f12fds@163.com（周一至周五9:00-16:00，法定节假日除外）");
+            MessageBox.Show("解决方案：\n" + advice + "\n依旧无法解决？\n联系技术支持 Email: f12fds@163.com（周一至周五9:00-16:00，法定节假日除外）", "疑难解答");
         }
 
-        private async void UpdateServerStatus()
+        private async Task UpdateServerStatus()
         {
             string url = IONetAPI.Servers[Settings.Default.ServerIndex];
             string host = ExtractHost(url);
@@ -104,7 +100,7 @@ namespace IOLab.Resources.Control
 
                     Delay = (int)elapsedTime.TotalMilliseconds;
                     Status = "ONLINE";
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -172,7 +168,7 @@ namespace IOLab.Resources.Control
         private void UpdateSignalStrength()
         {
             // 300ms 为最大可接受延迟
-            double signalStrength = ((Delay / 300)*100 + Load) / 2;
+            double signalStrength = ((Delay / 300) * 100 + Load) / 2;
             if (signalStrength > 100) signalStrength = 100;
             signalStrength = 100 - signalStrength;
             int opacityLevel = (int)(signalStrength / 25); //格数

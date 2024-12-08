@@ -22,8 +22,6 @@
 using iNKORE.UI.WPF.Modern;
 using IOLab.Pages.ViewModel;
 using IOLab.Windows;
-using IOLab.Windows.ExperimentMaker;
-using SkiaSharp;
 using System;
 using System.Threading.Tasks;
 using System.Windows;

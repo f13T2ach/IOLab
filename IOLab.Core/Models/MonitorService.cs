@@ -19,11 +19,12 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using IOLab.Core.Interfaces.LocalAssets;
 using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Models
 {
-    public class MonitorService//监视器
+    public class MonitorService : IMonitorService//监视器
     {
         private string _portType; // 端口类型
 

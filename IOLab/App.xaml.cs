@@ -19,13 +19,10 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using System.Text;
-using System.Threading.Tasks;
-using System;
-using System.Windows;
-using System.Windows.Threading;
 using IOLab.Windows;
-using Accessibility;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace IOLab
 {
@@ -52,14 +49,14 @@ namespace IOLab
 
         private void AppDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            
+
             e.Handled = true;
 
-            if(e.Exception.HResult == -2146233079)
+            if (e.Exception.HResult == -2146233079)
             {
                 return; // 不处理只允许打开一个dialog的异常 用户大量点击按钮时会出现
             }
-            
+
             ShowErrorWindow(e.Exception);
         }
 

@@ -1,17 +1,11 @@
 ﻿using IOLab.Core.Config;
-using IOLab.Core.Generic;
 using IOLab.Core.Properties;
 using IOLab.Network.API;
 using IOLab.Network.Result;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 // 注意
 // (JObject)responseData["data"] 不一定正确

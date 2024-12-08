@@ -19,7 +19,6 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Windows.Input;
 
 namespace IOLab.Core.Commands

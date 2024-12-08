@@ -19,11 +19,8 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using IOLab.Core.Network.Data;
 using IOLab.Pages.ViewModel;
-using IOLab.Resources.Control;
 using IOLab.Windows.Dialog.Maker;
-using Newtonsoft.Json.Linq;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab.Pages

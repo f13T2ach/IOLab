@@ -25,7 +25,6 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace IOLab.Windows.Dialog.Maker
 {
@@ -71,7 +70,7 @@ namespace IOLab.Windows.Dialog.Maker
                 return;
             }
 
-            if(string.IsNullOrEmpty(saveAddress))
+            if (string.IsNullOrEmpty(saveAddress))
             {
                 errorTextBlock.Text = "未选定保存位置";
                 e.Cancel = true;
@@ -96,7 +95,7 @@ namespace IOLab.Windows.Dialog.Maker
         private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
         {
             // 打开文件夹选择对话框
-            
+
 
             var dlg = new CommonOpenFileDialog();
             dlg.IsFolderPicker = true;

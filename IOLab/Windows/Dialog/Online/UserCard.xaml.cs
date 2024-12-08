@@ -20,7 +20,6 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Models;
 
 namespace IOLab.Windows.Dialog.Online
 {

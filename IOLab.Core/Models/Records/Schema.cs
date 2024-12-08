@@ -20,12 +20,13 @@
  */
 
 using IOLab.Core.Assets;
+using IOLab.Core.Interfaces.LocalAssets;
 using IOLab.Core.Util.FilesBehavior;
 using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Models.Records
 {
-    public class Schema
+    public class Schema : ISchema
     {
         // 名称不能重复 因此可以用来检索
         private string _name;

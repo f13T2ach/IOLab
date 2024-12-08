@@ -364,11 +364,11 @@ namespace IOLab
 
         public void AlertLogin(string title = "请登录以完成操作")
         {
-            if(String.IsNullOrEmpty(Settings.Default.UserToken)&&InstanceBundle.UsingAuth == null)
+            if (String.IsNullOrEmpty(Settings.Default.UserToken) && InstanceBundle.UsingAuth == null)
             {
-                CreateDialog(title,"未登录");
+                CreateDialog(title, "未登录");
             }
-            else if(!String.IsNullOrEmpty(Settings.Default.UserToken) && InstanceBundle.UsingAuth != null)
+            else if (!String.IsNullOrEmpty(Settings.Default.UserToken) && InstanceBundle.UsingAuth != null)
             {
                 CreateDialog(title, "登录无效");
             }

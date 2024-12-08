@@ -2,8 +2,6 @@
 using IOLab.Core.Assets;
 using System;
 using System.Windows;
-using System.Management;
-using System.Text;
 
 namespace IOLab.Windows
 {
@@ -30,11 +28,11 @@ namespace IOLab.Windows
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            if(!isSelfClose)
+            if (!isSelfClose)
             {
                 e.Cancel = true; // 阻止关闭
             }
-            
+
         }
 
         public static string GetComputerInfo()

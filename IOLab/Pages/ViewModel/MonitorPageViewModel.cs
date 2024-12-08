@@ -21,8 +21,8 @@
 
 using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Commands;
 using IOLab.Core.Assets;
+using IOLab.Core.Commands;
 using IOLab.Core.Generic;
 using IOLab.Core.Models;
 using IOLab.Pages.Event.MonitorPages;
@@ -282,7 +282,7 @@ namespace IOLab.Pages.ViewModel
 
 
             // 显示等待弹窗
-            WaitSerial wait = new WaitSerial(title:"正在创建表格");
+            WaitSerial wait = new WaitSerial(title: "正在创建表格");
             _ = wait.ShowAsync(); // 无需等待
             try
             {

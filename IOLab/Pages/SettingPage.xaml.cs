@@ -202,7 +202,7 @@ namespace IOLab.Pages
             ContentDialog dialog = new ContentDialog()
             {
                 Title = "你确定要修改服务器吗",
-                Content = "你将连接服务器 " + ServerPickerBox.SelectedItem + " 。IOLab 会退出登录，因为服务器间的数据是不互通的"+AlertForTestServer,
+                Content = "你将连接服务器 " + ServerPickerBox.SelectedItem + " 。IOLab 会退出登录，因为服务器间的数据是不互通的" + AlertForTestServer,
                 PrimaryButtonText = "确定",
                 SecondaryButtonText = "取消",
                 DefaultButton = ContentDialogButton.Primary,
@@ -216,7 +216,7 @@ namespace IOLab.Pages
 
                 Settings.Default["ServerIndex"] = ServerPickerBox.SelectedItem;
                 Settings.Default.Save();
-                
+
                 return;
             }
             else
@@ -281,15 +281,15 @@ namespace IOLab.Pages
         private async void UserPanel_CheckIn_Click(object sender, RoutedEventArgs e)
         {
 
-            WaitSerial wait = new WaitSerial(title:"正在签到");
-            
+            WaitSerial wait = new WaitSerial(title: "正在签到");
+
 
             if (InstanceBundle.UsingAuth == null)
             {
                 new MainWindow().CreateDialog("未能完成操作", "登录已失效 (NullPointerException)");
                 return;
             }
-            _=wait.ShowAsync();
+            _ = wait.ShowAsync();
 
             var result = await InstanceBundle.UsingAuth.CheckIn();
 

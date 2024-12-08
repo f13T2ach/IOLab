@@ -1,11 +1,9 @@
 ﻿using IOLab.Core.Commands;
 using IOLab.Core.Generic.Maker;
 using IOLab.Core.Models;
-using LiveChartsCore;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -103,11 +101,11 @@ namespace IOLab.Pages.ViewModel
             }
         }
 
-        
+
 
         // 步数和检查点数
         public int StepCount => Steps.Count;
-        public int CheckpointCount => CurrentStep == null?  0 : CurrentStep.CurrentStepSensors.Count;
+        public int CheckpointCount => CurrentStep == null ? 0 : CurrentStep.CurrentStepSensors.Count;
 
         // Commands
         public ICommand SaveCommand { get; }
@@ -121,10 +119,10 @@ namespace IOLab.Pages.ViewModel
         public ICommand RemoveCheckpointCommand { get; }
 
         // Constructor
-        public ExperimentMakerPageViewModel(EditExperiment source,JObject experiment = null)
+        public ExperimentMakerPageViewModel(EditExperiment source, JObject experiment = null)
         {
 
-            foreach(var item in Bundles.LocalMonitorService)
+            foreach (var item in Bundles.LocalMonitorService)
             {
                 Services.Add(item);
             }
@@ -154,10 +152,10 @@ namespace IOLab.Pages.ViewModel
 
         private void LoadExperiment(JObject experiment)
         {
-            
+
         }
 
-        
+
 
         private void SaveExperiment(object sender)
         {
@@ -209,13 +207,13 @@ namespace IOLab.Pages.ViewModel
             if (CurrentStep != null)
             {
                 int newIndex = -1;
-                if(Steps.IndexOf(CurrentStep)-1 >= 0)
+                if (Steps.IndexOf(CurrentStep) - 1 >= 0)
                 {
-                    newIndex = Steps.IndexOf(CurrentStep)-1;
+                    newIndex = Steps.IndexOf(CurrentStep) - 1;
                 }
                 Steps.Remove(CurrentStep);
-                
-                if(newIndex != -1)
+
+                if (newIndex != -1)
                 {
                     CurrentStep = Steps[newIndex];
                 }
@@ -223,7 +221,7 @@ namespace IOLab.Pages.ViewModel
                 {
                     CurrentStep = null;
                 }
-                    
+
             }
         }
 
@@ -244,8 +242,6 @@ namespace IOLab.Pages.ViewModel
         }
     }
 
-    // 数据模型
-    
 
 
 }

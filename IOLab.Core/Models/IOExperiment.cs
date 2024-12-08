@@ -20,13 +20,14 @@
  */
 
 using IOLab.Core.Assets;
+using IOLab.Core.Interfaces.LocalAssets;
 using IOLab.Core.Util;
 using IOLab.Core.Util.FilesBehavior;
 using Newtonsoft.Json.Linq;
 
 namespace IOLab.Core.Models
 {
-    public class IOExperiment
+    public class IOExperiment : IExperiment
     {
         public struct Checkpoint
         {
