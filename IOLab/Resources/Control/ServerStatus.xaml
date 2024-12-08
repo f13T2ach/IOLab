@@ -35,7 +35,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
                 <Button Content="重新测试" Margin="0,0,2,0" Click="ReTestButton_Click"/>
-                <Button Content="故障上报" Click="ReportIssueButton_Click"/>
+                <Button Content="疑难解答" Click="ReportIssueButton_Click"/>
             </StackPanel>
         </Grid>
     </Border>

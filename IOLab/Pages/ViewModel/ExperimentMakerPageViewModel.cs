@@ -13,10 +13,10 @@ namespace IOLab.Pages.ViewModel
 {
     public class ExperimentMakerPageViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         // NotifyPropertyChanged Utility
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -59,8 +59,8 @@ namespace IOLab.Pages.ViewModel
         public ObservableCollection<MonitorService> Services { get; set; } = new ObservableCollection<MonitorService>();
 
         // 当前选中的步骤
-        private StepItem _currentStep;
-        public StepItem CurrentStep
+        private StepItem? _currentStep;
+        public StepItem? CurrentStep
         {
             get => _currentStep;
             set
