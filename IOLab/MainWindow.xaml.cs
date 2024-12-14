@@ -34,6 +34,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -46,6 +47,7 @@ namespace IOLab
     public class NavigationManager
     {
         private readonly Dictionary<string, Page> _pageCache = new Dictionary<string, Page>();
+        
 
         // 缓存页面
         public Page GetPage(NavigationViewItem item)
@@ -89,6 +91,10 @@ namespace IOLab
     /// </summary>
     public partial class MainWindow : Window
     {
+        // 提示框队列
+        private static Queue<ContentDialog> _dialogQueue = new Queue<ContentDialog>();
+        private static bool _isDialogShowing = false;
+
         private static bool _FirstStarup = false;
         private readonly NavigationManager _navigationManager = new();
         private int currentTeachStep = -1;
@@ -320,6 +326,8 @@ namespace IOLab
             //base.OnClosed(e);
         }
 
+
+        #region 弃用方案 教学
         private void TeachNext_Click(object sender, RoutedEventArgs e)
         {
             TeachNextStep();
@@ -350,17 +358,48 @@ namespace IOLab
 
         }
 
-        public async void CreateDialog(string titile, string content)
+        #endregion
+
+        public async void CreateDialog(string title, string content)
         {
             ContentDialog dialog = new ContentDialog()
             {
-                Title = titile,
+                Title = title,
                 Content = content,
                 PrimaryButtonText = "好",
                 DefaultButton = ContentDialogButton.Primary,
             };
-            await dialog.ShowAsync();
+
+            // 将新对话框添加到队列
+            _dialogQueue.Enqueue(dialog);
+
+            // 如果当前没有对话框显示，则开始显示
+            if (!_isDialogShowing)
+            {
+                await ShowNextDialogAsync();
+            }
         }
+
+        private async Task ShowNextDialogAsync()
+        {
+            // 如果队列中还有对话框，继续显示
+            if (_dialogQueue.Count > 0)
+            {
+                _isDialogShowing = true;
+                ContentDialog currentDialog = _dialogQueue.Dequeue();
+                currentDialog.Closed += async (sender, args) =>
+                {
+                    // 在当前对话框关闭时，显示下一个对话框
+                    await ShowNextDialogAsync();
+                };
+                await currentDialog.ShowAsync();
+            }
+            else
+            {
+                _isDialogShowing = false;
+            }
+        }
+
 
         public void AlertLogin(string title = "请登录以完成操作")
         {

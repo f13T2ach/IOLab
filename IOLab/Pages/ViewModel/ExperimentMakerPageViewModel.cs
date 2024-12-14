@@ -1,11 +1,16 @@
-﻿using IOLab.Core.Commands;
+﻿using IOLab.Core.Assets;
+using IOLab.Core.Commands;
 using IOLab.Core.Generic.Maker;
 using IOLab.Core.Models;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using static IOLab.Core.Models.IOExperiment;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -119,9 +124,11 @@ namespace IOLab.Pages.ViewModel
         public ICommand RemoveCheckpointCommand { get; }
 
         // Constructor
-        public ExperimentMakerPageViewModel(EditExperiment source, JObject experiment = null)
+        public ExperimentMakerPageViewModel(EditExperiment? source = null, JObject? experiment = null)
         {
-
+            if(source == null && experiment == null)
+                throw new InvalidOperationException();
+            // 遍历添加传感器节点
             foreach (var item in Bundles.LocalMonitorService)
             {
                 Services.Add(item);
@@ -149,11 +156,131 @@ namespace IOLab.Pages.ViewModel
         }
 
 
-
-        private void LoadExperiment(JObject experiment)
+        /// <summary>
+        /// 读取实验显示到 UI
+        /// </summary>
+        /// <param name="experiment"></param>
+        private LoadSourceResult LoadExperiment(JObject experiment)
         {
+            try
+            {
+                // 实例化 EditExperiment 并检查其类型
+                EditExperiment editExperiment;
+                try
+                {
+                    editExperiment = new EditExperiment(experiment, Source.SaveAddress);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error initializing EditExperiment: {ex.Message}");
+                    return LoadSourceResult.BadJSON;
+                }
 
+                if (editExperiment.GetEditExperimentType() == EditExperimentType.Undefined)
+                    return LoadSourceResult.BadJSON;
+
+                // 使用 EditExperiment 提取基本信息
+                ExperimentName = editExperiment.Name;
+
+                // 加载标签
+                //Tags.Clear();
+                //if (experiment["tags"] is JArray tagsArray)
+                //{
+                //    foreach (var tag in tagsArray)
+                //    {
+                //        Tags.Add(tag.ToString());
+                //    }
+                //}
+
+                // 加载服务列表
+                Services.Clear();
+                if (experiment["services"] is JArray servicesArray)
+                {
+                    foreach (var serviceToken in servicesArray)
+                    {
+
+                        int? serviceId = (int)serviceToken;
+                        if (serviceId == null)
+                            continue;
+
+                        MonitorService? service = Bundles.FindMonitorServiceById(serviceId);
+                        if (service == null)
+                            continue;
+
+
+                        Services.Add(service);
+                    }
+                }
+
+                // 加载实验步骤
+                Steps.Clear();
+                if (experiment["steps"] is JObject stepsObject)
+                {
+                    foreach (var step in stepsObject)
+                    {
+                        Steps.Add(new StepItem
+                        {
+                            StepName = step.Key,
+                            StepDescription = step.Value.ToString()
+                        });
+                    }
+                }
+
+                // 加载检查点
+                if (experiment["checkpoints"] is JArray checkpointsArray)
+                {
+                    foreach (var checkpoint in checkpointsArray)
+                    {
+                        var checkpointName = checkpoint["name"]?.ToString();
+                        var matchingStep = Steps.FirstOrDefault(s => s.StepName.Contains(checkpointName));
+                        if (matchingStep != null)
+                        {
+                            if (checkpoint["freeze"] is JArray freezeArray)
+                            {
+                                foreach (var freezeToken in freezeArray)
+                                {
+                                    int? freezeId = (int)freezeToken;
+                                    if (freezeId == null)
+                                        continue;
+
+                                    MonitorService? service = Bundles.FindMonitorServiceById(freezeId);
+                                    if (service == null)
+                                        continue;
+
+                                    matchingStep.CurrentStepSensors.Add(service);
+                                    
+                                }
+                            }
+                            // TODO 拆分两个需求
+                            if (checkpoint["require"] is JArray requireArray)
+                            {
+                                foreach (var requireToken in requireArray)
+                                {
+                                    int? requireId = (int)requireToken;
+                                    if (requireId == null)
+                                        continue;
+
+                                    MonitorService? service = Bundles.FindMonitorServiceById(requireId);
+                                    if (service == null)
+                                        continue;
+
+                                    if(!matchingStep.CurrentStepSensors.Contains(service))
+                                        matchingStep.CurrentStepSensors.Add(service);
+                                }
+                            }
+                        }
+                    }
+                }
+                return LoadSourceResult.Success;
+            }
+            catch (Exception ex)
+            {
+                // 异常处理
+                Console.WriteLine($"Error loading experiment: {ex.Message}");
+                return LoadSourceResult.UnknownError;
+            }
         }
+
 
 
 
@@ -242,6 +369,13 @@ namespace IOLab.Pages.ViewModel
         }
     }
 
+    public enum LoadSourceResult
+    {
+        Success,
+        UnknownError,
+        FileAuthority,
+        BadJSON,
+    }
 
 
 }
