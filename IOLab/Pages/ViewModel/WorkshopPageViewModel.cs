@@ -2,8 +2,10 @@
 using IOLab.Core.Generic;
 using IOLab.Core.Network.Data;
 using IOLab.Network;
+using IOLab.Resources.Control.Custom;
 using IOLab.Windows.Dialog;
 using IOLab.Windows.Dialog.Online;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -13,6 +15,8 @@ namespace IOLab.Pages.ViewModel
     internal class WorkshopPageViewModel : INotifyPropertyChanged
     {
         public ICommand RefreshCommand { get; set; }
+
+        public ObservableCollection<Item> SearchItems { get; set; }
 
         private ContentCollection workshopContents;
         public ContentCollection WorkshopContents
@@ -28,6 +32,18 @@ namespace IOLab.Pages.ViewModel
         public WorkshopPageViewModel()
         {
             workshopContents = new ContentCollection();
+
+            SearchItems = new ObservableCollection<Item>
+            {
+                new Item { Name = "Apple" },
+                new Item { Name = "Banana" },
+                new Item { Name = "Cherry" },
+                new Item { Name = "Date" },
+                new Item { Name = "Grape" },
+                new Item { Name = "Melon" },
+                new Item { Name = "Pineapple" },
+                new Item { Name = "Watermelon" }
+            };
 
             RefreshContents(true);
 
