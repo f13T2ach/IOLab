@@ -29,12 +29,15 @@ using IOLab.Network.API;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
+using IOLab.Windows.LabAI;
 using Microsoft.Toolkit.Uwp.Notifications; // 引入通知库
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using Windows.Data.Xml.Dom;
@@ -46,6 +49,8 @@ namespace IOLab
     public class NavigationManager
     {
         private readonly Dictionary<string, Page> _pageCache = new Dictionary<string, Page>();
+
+
 
         // 缓存页面
         public Page GetPage(NavigationViewItem item)
@@ -93,6 +98,9 @@ namespace IOLab
         private readonly NavigationManager _navigationManager = new();
         private int currentTeachStep = -1;
 
+        private Point _dragStartPoint;
+        private bool _isDragging = false;
+
         public MainWindow()
         {
             Prepare();
@@ -110,6 +118,53 @@ namespace IOLab
 
             //TeachNextStep();
 
+        }
+
+        // 悬浮窗
+        private void FloatButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _isDragging = true;
+            _dragStartPoint = e.GetPosition(DragCanvas);
+            FloatButton.CaptureMouse();
+
+            LabAIChatWindow window = new LabAIChatWindow();
+            window.Show();
+        }
+
+        private void FloatButton_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (!_isDragging) return;
+
+            // 获取当前鼠标位置
+            Point currentPoint = e.GetPosition(DragCanvas);
+
+            // 计算偏移量
+            double offsetX = currentPoint.X - _dragStartPoint.X;
+            double offsetY = currentPoint.Y - _dragStartPoint.Y;
+
+            // 计算新位置
+            double newLeft = Canvas.GetLeft(FloatButton) + offsetX;
+            double newTop = Canvas.GetTop(FloatButton) + offsetY;
+
+            // 获取按钮的半径
+            double buttonRadius = FloatButton.ActualWidth / 2;
+
+            // 限制按钮在边界范围内（允许最多1/2半径移出边界）
+            newLeft = Math.Max(-buttonRadius / 2, Math.Min(newLeft, DragCanvas.ActualWidth - buttonRadius * 1.5));
+            newTop = Math.Max(-buttonRadius / 2, Math.Min(newTop, DragCanvas.ActualHeight - buttonRadius * 1.5));
+
+            // 更新按钮位置
+            Canvas.SetLeft(FloatButton, newLeft);
+            Canvas.SetTop(FloatButton, newTop);
+
+            // 更新起始点为当前位置
+            _dragStartPoint = currentPoint;
+        }
+
+        private void FloatButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _isDragging = false;
+            FloatButton.ReleaseMouseCapture();
         }
 
         private void TeachNextStep()
@@ -165,6 +220,7 @@ namespace IOLab
             }
 
             // 自动登录
+            /*
             if (Settings.Default.UserToken != "" && Settings.Default.UserToken != null)
             {
                 InstanceBundle.UsingAuth = new Network.Auth(Settings.Default.UserToken);
@@ -174,7 +230,7 @@ namespace IOLab
                     iNKORE.UI.WPF.Modern.Controls.MessageBox.Show("无法完成自动登录: " + result.Message + "\r\n请稍后在设置页重新登录", "IOLab 自动登录", MessageBoxButton.OK, MessageBoxImage.Information);
                     InstanceBundle.UsingAuth = null;
                 }
-            }
+            }*/
 
 
         }

@@ -10,7 +10,8 @@
         ui:ThemeManager.IsThemeAware="True"
         ui:WindowHelper.SystemBackdropType="Mica"
         ui:WindowHelper.UseModernWindowStyle="True" Loaded="Window_Loaded" Closed="Window_Closed">
-    <Grid>
+    <Grid Cursor="">
+        
         <ui:NavigationView x:Name="NavigationView_Root" IsPaneOpen="False"
                        SelectionChanged="NavigationView_SelectionChanged" Margin="0,0,0,0">
 
@@ -86,5 +87,33 @@
                 </StackPanel>
             </Grid>
         </ui:AcrylicPanel>
+
+        <Canvas x:Name="DragCanvas">
+            <!-- 悬浮按钮 -->
+            <Button x:Name="FloatButton"
+        Width="50"
+        Height="50"
+        Canvas.Left="100"
+        Canvas.Top="100"
+        PreviewMouseLeftButtonDown="FloatButton_PreviewMouseLeftButtonDown"
+        PreviewMouseMove="FloatButton_PreviewMouseMove"
+        PreviewMouseLeftButtonUp="FloatButton_PreviewMouseLeftButtonUp"
+        Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate>
+                        <!-- 圆形按钮样式 -->
+                        <Ellipse Fill="#FF2196F3"
+                     Stroke="DarkBlue"
+                     StrokeThickness="2">
+                            <Ellipse.Effect>
+                                <DropShadowEffect BlurRadius="10"
+                                     Opacity="0.5"
+                                     Color="Black"/>
+                            </Ellipse.Effect>
+                        </Ellipse>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Canvas>
     </Grid>
 </Window>

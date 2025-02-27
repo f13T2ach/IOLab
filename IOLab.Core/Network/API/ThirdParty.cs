@@ -23,5 +23,7 @@ namespace IOLab.Network.API
 {
     public class ThirdParty
     {
+
+        public static string DeepseekAIToken = "sk-0f38460bff1a4d4d91ff679fc1518cf1";
     }
 }
