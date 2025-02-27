@@ -246,6 +246,7 @@
             <Grid Margin="0,-6,0,4">
                 <local:ServerStatus/>
             </Grid>
+            <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="疑难解答会多次连接服务器来确保不是网络波动，你可能需要等待一会"/></TextBlock>
 
             <TextBlock Text="实验性功能" FontSize="16" Margin="0,20,0,4"/>
             <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">

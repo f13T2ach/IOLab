@@ -23,7 +23,7 @@
                             <TextBlock Text="新建实验" FontSize="14" Margin="0,5,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="OpenProject"  Width="80" Height="72"  Cursor="Hand" IsEnabled="True" Margin="4">
+                    <Button Click="OpenProject_Click" x:Name="OpenProject"  Width="80" Height="72"  Cursor="Hand" IsEnabled="True" Margin="4">
                         <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OpenFile}"/>
                             <TextBlock Text="打开实验" FontSize="14" Margin="0,5,0,0"/>
@@ -239,7 +239,7 @@
                     <Border CornerRadius="5" Width="50" Height="20" Margin="0,0,0,0" Background="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" >
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="V1.0" FontWeight="Black"/>
                     </Border>
-                    <TextBlock VerticalAlignment="Center" Margin="4" FontSize="14" Text="自定义实验是测试功能"/>
+                    <TextBlock VerticalAlignment="Center" Margin="4" FontSize="14" Text="自定义实验是测试功能，它不区分require项和freeze项"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

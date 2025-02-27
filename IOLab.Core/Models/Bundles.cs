@@ -52,6 +52,20 @@ namespace IOLab.Core.Models
             set { _localRecords = value; }
         }
 
+
+        public static MonitorService? FindMonitorServiceById(int? id)
+        {
+            if (id == null)
+                return null;
+            foreach(var item in LocalMonitorService)
+            {
+                if(item.Id == id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
         // TODO 在线实验列表
     }
 }
