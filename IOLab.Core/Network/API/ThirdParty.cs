@@ -25,5 +25,9 @@ namespace IOLab.Network.API
     {
 
         public static string DeepseekAIToken = "sk-0f38460bff1a4d4d91ff679fc1518cf1";
+
+        public static string DeepseekAIAliyunToken = "sk-5cd408488a994283b3e0432184df959c";
+
+        public static string AliyunDeepseekURL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
     }
 }

@@ -23,6 +23,7 @@
             </StackPanel>
         </ui:Flyout>
     </ui:ContentDialog.Resources>
+    <ui:ScrollViewerEx>
 
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid>
@@ -36,15 +37,17 @@
         <TextBlock Margin="5" HorizontalAlignment="Left" Width="360" TextWrapping="Wrap" Text="出色地完成！"/>
         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
             <TextBlock FontWeight="Bold" FontStyle="Italic" Opacity="0.8">▌</TextBlock>
-            <TextBlock FontWeight="Bold">实验总结</TextBlock>
+            <TextBlock FontWeight="Bold">AI实验总结</TextBlock>
         </StackPanel>
-        <TextBlock Margin="5" HorizontalAlignment="Left" Width="360" TextWrapping="Wrap" Text="共耗时00:00，启用「AI总结」能为你总结本实验"/>
+        <TextBox Margin="5" HorizontalAlignment="Left" x:Name="AISummary" Width="360" IsReadOnly="True" TextWrapping="Wrap" Text="请稍等，AI正在总结"/>
 
         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
             <TextBlock FontWeight="Bold" FontStyle="Italic" Opacity="0.8">▌</TextBlock>
             <TextBlock FontWeight="Bold">我的进展</TextBlock>
         </StackPanel>
-        <TextBlock Margin="5" Text="未选修练习册，选修后进展可用"/>
+        <TextBlock Margin="5" Text="未选修练习册，选修后可用"/>
         <TextBlock Width="360" TextWrapping="Wrap" Text="「保存并解除」可以连带此实验一起保存到记录中；「再做一次」会为你保存此记录并重做实验；「仅解除实验」将仅关闭此窗口并解除实验，后续保存不会连带此实验保存至记录中。"/>
-    </StackPanel>
+        </StackPanel>
+        
+    </ui:ScrollViewerEx>
 </ui:ContentDialog>

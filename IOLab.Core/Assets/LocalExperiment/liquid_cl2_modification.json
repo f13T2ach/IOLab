@@ -2,7 +2,7 @@
   "name": "新制氯水的变质速率探究",
   "experiment": "liquid_cl2_modification",
   "tags": [ "长时实验" ],
-  "services": [100001],
+  "services": [100002],
   "formula": "",
   "steps": {
     "一、准备": "准备新制氯水溶液、配套设备、烧杯",

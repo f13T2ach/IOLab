@@ -1,5 +1,4 @@
-﻿using IOLab.Network.API;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -10,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using IOLab.Network.API;
 
 namespace IOLab.Windows.LabAI
 {
@@ -63,13 +63,13 @@ namespace IOLab.Windows.LabAI
         // 使用流式接收 DeepSeek API 回复（修复版）
         public async Task GetAIResponseStreamAsync(string userMessage)
         {
-            string apiKey = ThirdParty.DeepseekAIToken;
-            string apiUrl = "https://api.deepseek.com/v1/chat/completions";
+            string apiKey = ThirdParty.DeepseekAIAliyunToken;  // 请替换为实际API密钥
+            string apiUrl = ThirdParty.AliyunDeepseekURL;
 
             var requestBody = new
             {
-                model = "deepseek-chat",
-                messages = new[] { new { role = "user", content = userMessage } },
+                model = "qwen-plus",  // 请根据实际情况替换模型名称
+                messages = new[] { new { role = "user", content = "假设你是 IOLab 实验室智慧对话 AI，请用中文回答对话：" + userMessage } },
                 stream = true // 启用流式传输
             };
 
@@ -98,63 +98,66 @@ namespace IOLab.Windows.LabAI
                 StringBuilder messageBuffer = new StringBuilder();
                 DateTime lastUpdateTime = DateTime.Now;
 
-                while (!reader.EndOfStream)
+                await Task.Run(async () =>
                 {
-                    var line = await reader.ReadLineAsync();
-                    if (string.IsNullOrWhiteSpace(line)) continue;
-
-                    // 处理SSE数据格式：data: {...}
-                    if (line.StartsWith("data:"))
+                    while (!reader.EndOfStream)
                     {
-                        var jsonData = line.Substring(5).Trim();
-                        if (jsonData == "[DONE]") break;
+                        var line = await reader.ReadLineAsync();
+                        if (string.IsNullOrWhiteSpace(line)) continue;
 
-                        try
+                        // 处理SSE数据格式：data: {...}
+                        if (line.StartsWith("data:"))
                         {
-                            var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonData);
-                            string deltaContent = responseObject.choices[0].delta?.content;
+                            var jsonData = line.Substring(5).Trim();
+                            if (jsonData == "[DONE]") break;
 
-                            if (!string.IsNullOrEmpty(deltaContent))
+                            try
                             {
-                                // 更新消息内容
-                                messageBuffer.Append(deltaContent);
+                                var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonData);
+                                string deltaContent = responseObject.choices[0].delta?.content;
 
-                                // 控制UI更新频率，每隔200毫秒更新一次
-                                if ((DateTime.Now - lastUpdateTime).TotalMilliseconds > 200)
+                                if (!string.IsNullOrEmpty(deltaContent))
                                 {
-                                    lastUpdateTime = DateTime.Now;
+                                    // 更新消息内容
+                                    messageBuffer.Append(deltaContent);
 
-                                    // 使用Dispatcher保证UI线程更新
-                                    Dispatcher.Invoke(() =>
+                                    // 控制UI更新频率，每隔200毫秒更新一次
+                                    if ((DateTime.Now - lastUpdateTime).TotalMilliseconds > 200)
                                     {
-                                        // 首次添加消息
-                                        if (aiMessage.Content.Length == 0)
+                                        lastUpdateTime = DateTime.Now;
+
+                                        // 使用Dispatcher保证UI线程更新
+                                        Dispatcher.Invoke(() =>
                                         {
-                                            Messages.Add(aiMessage);
-                                        }
+                                            // 首次添加消息
+                                            if (aiMessage.Content.Length == 0)
+                                            {
+                                                Messages.Add(aiMessage);
+                                            }
 
-                                        // 更新消息内容
-                                        aiMessage.Content = messageBuffer.ToString();
+                                            // 更新消息内容
+                                            aiMessage.Content = messageBuffer.ToString();
 
-                                        // 强制刷新UI
-                                        MessagesListBox.Items.Refresh();
-                                        MessagesListBox.ScrollIntoView(aiMessage);
-                                    });
+                                            // 强制刷新UI
+                                            MessagesListBox.Items.Refresh();
+                                            MessagesListBox.ScrollIntoView(aiMessage);
+                                        });
+                                    }
                                 }
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            Dispatcher.Invoke(() =>
-                                Messages.Add(new Message
-                                {
-                                    Content = $"解析错误: {ex.Message}",
-                                    BackgroundColor = "Red"
-                                }));
+                            catch (Exception ex)
+                            {
+                                Dispatcher.Invoke(() =>
+                                    Messages.Add(new Message
+                                    {
+                                        Content = $"解析错误: {ex.Message}",
+                                        BackgroundColor = "Red"
+                                    }));
+                            }
                         }
                     }
-                }
-            }
+                });
+             }
             catch (Exception ex)
             {
                 Dispatcher.Invoke(() =>
@@ -165,8 +168,6 @@ namespace IOLab.Windows.LabAI
                     }));
             }
         }
-
-
     }
 
     public class Message : INotifyPropertyChanged

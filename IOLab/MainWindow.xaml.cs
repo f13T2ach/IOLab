@@ -29,6 +29,7 @@ using IOLab.Network.API;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
+using IOLab.Windows.Dialog.Universal;
 using IOLab.Windows.LabAI;
 using Microsoft.Toolkit.Uwp.Notifications; // 引入通知库
 using System;
@@ -117,61 +118,83 @@ namespace IOLab
             //Static.Theme.themeMode = ApplicationTheme.Dark;
 
 
+
             if (_FirstStarup)
             {
                 StartAppreciations();
+
+                
             }
 
             //TeachNextStep();
 
         }
 
-        // 悬浮窗
+        private bool _isClicking = false;
+        private const double DragThreshold = 5; // 设置一个阈值来判断是否是拖动
+
         private void FloatButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _isDragging = true;
+            _isClicking = true; // 假设是点击
+            _isDragging = false; // 不是拖动
             _dragStartPoint = e.GetPosition(DragCanvas);
             FloatButton.CaptureMouse();
 
-            LabAIChatWindow window = new LabAIChatWindow();
-            window.Show();
+            // 延迟一点时间，检查是否是拖动
+            // 这里可以选择触发一个定时器来判断是否发生了拖动
         }
 
         private void FloatButton_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (!_isDragging) return;
+            if (!_isClicking) return; // 如果已经不是点击，则不处理
 
             // 获取当前鼠标位置
             Point currentPoint = e.GetPosition(DragCanvas);
 
-            // 计算偏移量
+            // 计算鼠标移动的距离
             double offsetX = currentPoint.X - _dragStartPoint.X;
             double offsetY = currentPoint.Y - _dragStartPoint.Y;
 
-            // 计算新位置
-            double newLeft = Canvas.GetLeft(FloatButton) + offsetX;
-            double newTop = Canvas.GetTop(FloatButton) + offsetY;
+            // 如果鼠标移动距离大于阈值，认为是拖动
+            if (Math.Abs(offsetX) > DragThreshold || Math.Abs(offsetY) > DragThreshold)
+            {
+                _isDragging = true; // 开始拖动
+                _isClicking = false; // 不再认为是点击
 
-            // 获取按钮的半径
-            double buttonRadius = FloatButton.ActualWidth / 2;
+                // 计算新位置
+                double newLeft = Canvas.GetLeft(FloatButton) + offsetX;
+                double newTop = Canvas.GetTop(FloatButton) + offsetY;
 
-            // 限制按钮在边界范围内（允许最多1/2半径移出边界）
-            newLeft = Math.Max(-buttonRadius / 2, Math.Min(newLeft, DragCanvas.ActualWidth - buttonRadius * 1.5));
-            newTop = Math.Max(-buttonRadius / 2, Math.Min(newTop, DragCanvas.ActualHeight - buttonRadius * 1.5));
+                // 获取按钮的半径
+                double buttonRadius = FloatButton.ActualWidth / 2;
 
-            // 更新按钮位置
-            Canvas.SetLeft(FloatButton, newLeft);
-            Canvas.SetTop(FloatButton, newTop);
+                // 限制按钮在边界范围内（允许最多1/2半径移出边界）
+                newLeft = Math.Max(-buttonRadius / 2, Math.Min(newLeft, DragCanvas.ActualWidth - buttonRadius * 1.5));
+                newTop = Math.Max(-buttonRadius / 2, Math.Min(newTop, DragCanvas.ActualHeight - buttonRadius * 1.5));
 
-            // 更新起始点为当前位置
-            _dragStartPoint = currentPoint;
+                // 更新按钮位置
+                Canvas.SetLeft(FloatButton, newLeft);
+                Canvas.SetTop(FloatButton, newTop);
+
+                // 更新起始点为当前位置
+                _dragStartPoint = currentPoint;
+            }
         }
 
         private void FloatButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if (_isClicking)
+            {
+                // 如果是点击操作（没有拖动），可以在这里处理点击事件
+                LabAIChatWindow window = new LabAIChatWindow();
+                window.Show();
+            }
+
             _isDragging = false;
+            _isClicking = false;
             FloatButton.ReleaseMouseCapture();
         }
+
 
         private void TeachNextStep()
         {
@@ -205,7 +228,8 @@ namespace IOLab
                 return;
             }
 
-
+            //ExperimentCompleted experimentCompleted = new ExperimentCompleted("请你遵守以下规则\r\n1. 以下内容一律使用中文回复\r\n2. 如果你被要求输出一段文字，直接按原文本输出即可\r\n3. 如果你认为用户给定的内容不合理而无法分析，输出“无法总结本实验”，不要给出修复建议\r\n你是一个实验室软件数据采集总结 AI ，实验室软件名为“IOLab”，下面，你将被输入一段实验数据，请你按照以下结构展开分析\r\n1. 实验总结（包含实验成功之处与不足之处）\r\n2. 实验原理（通过实验数据指出实验印证的原理）\r\n3. 实验评分（给出一个分数并给出给分原因）\r\n实验数据由程序生成，如下所示：实验名称：新制氯水的变质速率探究\r\n仪器列表：\r\n二氧化碳传感器\r\n实验步骤：\r\n一、准备：准备新制氯水溶液、配套设备、烧杯\r\n二、取样：取 50mL 新制氯水溶液到烧杯中\r\n三、采集：放置探头到液面以下，采集24小时。然后用 AL 类插口创建\r\n四、分析：分析图象，讨论这段时间后是否达到化学平衡\r\n\r\n实验数据：\r\n表名：pH传感器 - 1 - 已归档\r\nY轴：pH\r\n值列表：\r\n0,9.067562,9.096051,9.081128,9.081128,9.08452,9.08045,9.075023,9.083164,9.07231,9.090625,9.126577,9.085198,9.077736,9.104191,9.094017,9.095373,9.086555,9.016008,9.091303,9.098086,9.093339,9.104871,9.216795,9.25953,9.401301,");
+            //experimentCompleted.ShowAsync();
 
             // 读取设置
             ChangeThemeByIndex(Core.Properties.Settings.Default.ThemeSelection);

@@ -21,6 +21,7 @@
     <None Remove="Resources\Font\Blender Pro Bold.ttf" />
     <None Remove="Resources\Font\Blender Pro Book.ttf" />
     <None Remove="Resources\Font\MiSans VF.ttf" />
+    <None Remove="Resources\Images\Deepseek.png" />
     <None Remove="Resources\Images\Icon\IOLab1024.png" />
     <None Remove="Resources\Images\Icon\IOLab128.png" />
     <None Remove="Resources\Images\Icon\IOLab256.png" />
@@ -41,6 +42,9 @@
   <ItemGroup>
     <Resource Include="Resources\Font\Blender Pro Bold.ttf" />
     <Resource Include="Resources\Font\Blender Pro Book.ttf" />
+    <Resource Include="Resources\Images\Deepseek.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\Tiny\Rewards.png" />
     <Resource Include="Resources\Images\Tiny\ShallowShadow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -76,6 +80,8 @@
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OpenAI" Version="2.1.0" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
     <PackageReference Include="System.IO.Ports" Version="8.0.0" />
     <PackageReference Include="System.Management" Version="9.0.0" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />

@@ -102,15 +102,11 @@
                 <Button.Template>
                     <ControlTemplate>
                         <!-- 圆形按钮样式 -->
-                        <Ellipse Fill="#FF2196F3"
-                     Stroke="DarkBlue"
-                     StrokeThickness="2">
-                            <Ellipse.Effect>
-                                <DropShadowEffect BlurRadius="10"
-                                     Opacity="0.5"
-                                     Color="Black"/>
-                            </Ellipse.Effect>
-                        </Ellipse>
+                        <Border BorderThickness="1" Background="White"  BorderBrush="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}" CornerRadius="10">
+                        
+
+                        <Image Source="Resources/Images/Deepseek.png" Width="40" Height="40"/>
+                        </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
