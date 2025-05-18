@@ -33,5 +33,11 @@ namespace IOLab.Core.Assets
         public static string AssetsServicesNetworkFolder = "NetworkServices";
 
         public static string RecordFolder = "Record";
+
+        // 工具链
+        public static string ToolChain = "ToolChain";
+
+        // ollama ai
+        public static string OllamaFolder = "Ollama";
     }
 }

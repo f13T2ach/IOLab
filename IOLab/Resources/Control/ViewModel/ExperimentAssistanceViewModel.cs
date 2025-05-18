@@ -295,8 +295,16 @@ namespace IOLab.Resources.Control.ViewModel
         /// <param name="gentle">为false时直接删除这个表</param>
         private void FreezeStep(bool gentle = true)
         {
+            IOExperiment.Checkpoint? nullableCheckpoint;
             if (current == null) return;
-            IOExperiment.Checkpoint? nullableCheckpoint = FindCheckpointByName(steps[stepIndex].Key);
+            try
+            {
+                nullableCheckpoint = FindCheckpointByName(steps[stepIndex].Key);
+            }
+            catch (System.Exception)
+            {
+                return;
+            }
 
             if (nullableCheckpoint == null) return;
             IOExperiment.Checkpoint checkpoint = (IOExperiment.Checkpoint)nullableCheckpoint;

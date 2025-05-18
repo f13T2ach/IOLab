@@ -25,11 +25,15 @@ using IOLab.Network;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 
 namespace IOLab.Core.Generic
 {
     public static class InstanceBundle
     {
+
+        public static Process cmdProcess = new Process(); // cmd进程
+
         public static ConcurrentQueue<ITaskAnnounce>? list = new ConcurrentQueue<ITaskAnnounce>();
 
         public static ConnectTool connectTool; // 连接实例

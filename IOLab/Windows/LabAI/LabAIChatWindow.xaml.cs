@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using IOLab.Core.Properties;
+using IOLab.Core.Util.LabAI;
 using IOLab.Network.API;
 
 namespace IOLab.Windows.LabAI
@@ -63,13 +65,31 @@ namespace IOLab.Windows.LabAI
         // 使用流式接收 DeepSeek API 回复（修复版）
         public async Task GetAIResponseStreamAsync(string userMessage)
         {
+
             string apiKey = ThirdParty.DeepseekAIAliyunToken;  // 请替换为实际API密钥
-            string apiUrl = ThirdParty.AliyunDeepseekURL;
+            string apiUrl;
+            string modelName;
+
+            if (Settings.Default.RunLocalModel)
+            {
+                apiUrl = ThirdParty.LocalURL;
+                modelName = ThirdParty.LocalModelName;
+            }
+            else
+            {
+                apiUrl = ThirdParty.AliyunDeepseekURL;
+                modelName = ThirdParty.RemoteModelName;
+            }
+            
+           
 
             var requestBody = new
             {
-                model = "qwen-plus",  // 请根据实际情况替换模型名称
-                messages = new[] { new { role = "user", content = "假设你是 IOLab 实验室智慧对话 AI，请用中文回答对话：" + userMessage } },
+                model = modelName,  // 请根据实际情况替换模型名称
+                messages = new[] { 
+                    new { role = "system", content =  TextPrompts.ROLE_PROMPT },
+                    new { role = "user", content = userMessage }
+                },
                 stream = true // 启用流式传输
             };
 
@@ -122,7 +142,7 @@ namespace IOLab.Windows.LabAI
                                     messageBuffer.Append(deltaContent);
 
                                     // 控制UI更新频率，每隔200毫秒更新一次
-                                    if ((DateTime.Now - lastUpdateTime).TotalMilliseconds > 200)
+                                    if ((DateTime.Now - lastUpdateTime).TotalMilliseconds > 10)
                                     {
                                         lastUpdateTime = DateTime.Now;
 

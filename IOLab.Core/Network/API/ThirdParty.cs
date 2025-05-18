@@ -29,5 +29,11 @@ namespace IOLab.Network.API
         public static string DeepseekAIAliyunToken = "sk-5cd408488a994283b3e0432184df959c";
 
         public static string AliyunDeepseekURL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+
+        public static string LocalURL = "http://127.0.0.1:11434/v1/chat/completions";
+
+        public static string RemoteModelName = "qwen-plus";
+
+        public static string LocalModelName = "qwen2.5:0.5b";
     }
 }

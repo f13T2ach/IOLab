@@ -48,8 +48,12 @@ namespace IOLab.Pages
 
         private int TotalClick = 0;
         private bool isLoaded = false;
+
+        bool selfChange = false;  // 防止自更改调用
         public SettingPage()
         {
+
+
             InitializeComponent();
 
             LoadSettings();
@@ -67,9 +71,9 @@ namespace IOLab.Pages
 
         private void LoadSettings()
         {
-            ComboBox_ThemeMode.SelectedIndex = Core.Properties.Settings.Default.ThemeSelection;
-
-
+            ComboBox_ThemeMode.SelectedIndex = Settings.Default.ThemeSelection;
+            LocalModelSwitch.IsOn = Settings.Default.RunLocalModel;
+            
         }
 
         private void LoadUserInfomation(bool stat = true)
@@ -98,6 +102,8 @@ namespace IOLab.Pages
             IONet_UserEmail.Text = InstanceBundle.UsingAuth.Email;
             UserPanel_Offline.Visibility = Visibility.Collapsed;
             UserPanel_Online.Visibility = Visibility.Visible;
+            LocalModelSwitch.IsOn = Settings.Default.RunLocalModel;
+
         }
 
         private void OnLoginStatChanged(bool stat)
@@ -185,7 +191,7 @@ namespace IOLab.Pages
             }
         }
 
-        bool selfChange = false;  // 防止自更改调用
+        
         private async void ServerPickerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (selfChange)
@@ -306,6 +312,38 @@ namespace IOLab.Pages
             {
                 new MainWindow().CreateDialog("签到失败", result.Message);
             }
+        }
+
+
+
+
+
+        private async void LocalModelSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (LocalModelSwitch.IsOn)
+            {
+                InstanceBundle.cmdProcess.StartInfo.FileName = "cmd.exe";           //設定程序名    
+                InstanceBundle.cmdProcess.StartInfo.Arguments = "/c " + "ollama serve";    //設定程式執行參數    
+                InstanceBundle.cmdProcess.StartInfo.UseShellExecute = false;        //關閉Shell的使用    
+                InstanceBundle.cmdProcess.StartInfo.RedirectStandardInput = true;   //重定向標準輸入    
+                InstanceBundle.cmdProcess.StartInfo.RedirectStandardOutput = true;  //重定向標準輸出    
+                InstanceBundle.cmdProcess.StartInfo.RedirectStandardError = true;   //重定向錯誤輸出    
+                InstanceBundle.cmdProcess.StartInfo.CreateNoWindow = true;          //設置不顯示窗口    
+
+                InstanceBundle.cmdProcess.Start();   //啟動    
+
+            }
+            else
+            {
+                if (InstanceBundle.cmdProcess != null)
+                {
+                    InstanceBundle.cmdProcess.Kill();
+                }
+            }
+                Settings.Default["RunLocalModel"] = LocalModelSwitch.IsOn;
+                Settings.Default.Save();
+            
+
         }
     }
 }

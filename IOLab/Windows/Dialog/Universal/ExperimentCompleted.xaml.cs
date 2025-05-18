@@ -31,6 +31,7 @@ using IOLab.Network.API;
 using Newtonsoft.Json;
 using Windows.Media.Protection.PlayReady;
 using System.Threading.Tasks;
+using IOLab.Core.Properties;
 
 namespace IOLab.Windows.Dialog.Universal
 {
@@ -39,6 +40,8 @@ namespace IOLab.Windows.Dialog.Universal
     /// </summary>
     public partial class ExperimentCompleted : ContentDialog
     {
+        private static readonly HttpClient client = new HttpClient();
+
         public ExperimentCompleted(IOExperiment experiment)
         {
             InitializeComponent();
@@ -67,12 +70,29 @@ namespace IOLab.Windows.Dialog.Universal
         public async Task CallAiStreamAndUpdateUI(string userMessage)
         {
             string apiKey = ThirdParty.DeepseekAIAliyunToken;  // 请替换为实际API密钥
-            string apiUrl = ThirdParty.AliyunDeepseekURL;
+            string apiUrl;
+            string modelName;
+
+            if (Settings.Default.RunLocalModel)
+            {
+                apiUrl = ThirdParty.LocalURL;
+                modelName = ThirdParty.LocalModelName;
+            }
+            else
+            {
+                apiUrl = ThirdParty.AliyunDeepseekURL;
+                modelName = ThirdParty.RemoteModelName;
+            }
+
+
 
             var requestBody = new
             {
-                model = "qwen-plus",  // 请根据实际情况替换模型名称
-                messages = new[] { new { role = "user", content = userMessage } },
+                model = modelName,  // 请根据实际情况替换模型名称
+                messages = new[] {
+                    new { role = "system", content =  TextPrompts.ROLE_PROMPT },
+                    new { role = "user", content = userMessage }
+                },
                 stream = true // 启用流式传输
             };
 
@@ -80,13 +100,14 @@ namespace IOLab.Windows.Dialog.Universal
             using var request = new HttpRequestMessage(HttpMethod.Post, apiUrl)
             {
                 Content = new StringContent(
-                    JsonConvert.SerializeObject(requestBody),
+                    Newtonsoft.Json.JsonConvert.SerializeObject(requestBody),
                     Encoding.UTF8,
                     "application/json")
             };
-
-            HttpClient client = new HttpClient();
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+            // 创建用于跟踪AI消息的对象
+            
 
             try
             {
@@ -100,7 +121,6 @@ namespace IOLab.Windows.Dialog.Universal
                 StringBuilder messageBuffer = new StringBuilder();
                 DateTime lastUpdateTime = DateTime.Now;
 
-                // 异步读取流数据
                 await Task.Run(async () =>
                 {
                     while (!reader.EndOfStream)
@@ -116,7 +136,7 @@ namespace IOLab.Windows.Dialog.Universal
 
                             try
                             {
-                                var responseObject = JsonConvert.DeserializeObject<dynamic>(jsonData);
+                                var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonData);
                                 string deltaContent = responseObject.choices[0].delta?.content;
 
                                 if (!string.IsNullOrEmpty(deltaContent))
@@ -124,16 +144,16 @@ namespace IOLab.Windows.Dialog.Universal
                                     // 更新消息内容
                                     messageBuffer.Append(deltaContent);
 
-                                    // 控制UI更新频率，每隔200毫秒更新一次
-                                    if ((DateTime.Now - lastUpdateTime).TotalMilliseconds > 200)
+                                    // 控制UI更新频率，每隔10毫秒更新一次
+                                    if ((DateTime.Now - lastUpdateTime).TotalMilliseconds > 10)
                                     {
                                         lastUpdateTime = DateTime.Now;
 
-                                        // 使用Dispatcher确保UI线程更新
+                                        // 使用Dispatcher保证UI线程更新
                                         Dispatcher.Invoke(() =>
                                         {
                                             // 首次添加消息
-                                            AISummary.Text = messageBuffer.ToString();
+                                           AISummary.Text = messageBuffer.ToString();
                                         });
                                     }
                                 }
@@ -141,7 +161,7 @@ namespace IOLab.Windows.Dialog.Universal
                             catch (Exception ex)
                             {
                                 Dispatcher.Invoke(() =>
-                                    AISummary.Text = $"解析失败：{ex.Message}");
+                                    AISummary.Text = $"解析错误 {ex.Message}");
                             }
                         }
                     }
@@ -150,9 +170,10 @@ namespace IOLab.Windows.Dialog.Universal
             catch (Exception ex)
             {
                 Dispatcher.Invoke(() =>
-                    AISummary.Text = $"请求失败：{ex.Message}");
+                                    AISummary.Text = $"请求错误 {ex.Message}");
             }
         }
+        
 
 
 

@@ -146,7 +146,7 @@ namespace IOLab
 
         private void FloatButton_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (!_isClicking) return; // 如果已经不是点击，则不处理
+            if (!_isClicking && !_isDragging) return; // 如果已经不是点击，则不处理
 
             // 获取当前鼠标位置
             Point currentPoint = e.GetPosition(DragCanvas);
@@ -396,6 +396,15 @@ namespace IOLab
         private void Window_Closed(object sender, EventArgs e)
         {
             var collections = Application.Current.Windows;
+
+            if (InstanceBundle.cmdProcess != null) //关闭cmd进程
+            {
+                try
+                {
+                    InstanceBundle.cmdProcess.Kill();
+                }
+                catch { }
+            }
 
             foreach (Window window in collections)
             {
