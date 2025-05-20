@@ -22,6 +22,7 @@
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Config;
 using System;
+using System.Reflection;
 using System.Windows.Threading;
 
 namespace IOLab.Windows.Dialog
@@ -33,8 +34,9 @@ namespace IOLab.Windows.Dialog
     {
         private DispatcherTimer _timer;
         private int _timeLeft;
+        private string timeoutText;
 
-        public WaitSerial(int index = 0, int sum = 0, string title = "正在等待回应")
+        public WaitSerial(int index = 0, int sum = 0, string title = "正在处理",string timeout = "")
         {
 
             InitializeComponent();
@@ -47,6 +49,7 @@ namespace IOLab.Windows.Dialog
                 Title.Text = $"{title} ({index}/{sum})";
             }
             StartCountdown(InternalConfig.OperationTimeout / 1000);  // 设置倒计时时长为5秒
+            timeoutText = timeout;
         }
 
         private void StartCountdown(int seconds)
@@ -73,6 +76,10 @@ namespace IOLab.Windows.Dialog
             else
             {
                 _timer.Stop();
+                if(timeoutText != "")
+                {
+                    Description.Text = timeoutText;
+                }
             }
         }
     }

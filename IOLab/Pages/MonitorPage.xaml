@@ -143,8 +143,8 @@
                 <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="保存" Command="{Binding SaveRecordsCommand}" Padding="5,5,5,5" >
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Save}" />
                 </Button>
-                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="..." Padding="5,5,5,5" >
-                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Cancel}"  />
+                <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="导出" Command="{Binding ExportChartsCommand}" Padding="5,5,5,5" >
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Export}"  />
                 </Button>
                 <Button Cursor="Hand" Width="36" Margin="4,0,4,0" Height="36" ToolTip="..." Padding="5,5,5,5" >
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Cancel}"  />

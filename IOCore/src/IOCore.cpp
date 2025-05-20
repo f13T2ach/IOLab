@@ -39,8 +39,11 @@ using namespace std;
 // 预定义最大采集器数量
 #define MAX_SENSORS 10
 
+#define MAX_SAMPLES 100
+
 // 创建一个指针数组来存储所有的采集器
 Nyard *sensors[MAX_SENSORS];
+Nyard *runningSensors[MAX_SAMPLES];
 int sensorCount = 0;
 unsigned int lastUpdate = 0;
 
@@ -124,6 +127,7 @@ void handlePinConfig(String port, int serviceID)
         //println("Debug", "第" + String(i) + "个传感器是" + String(sensors[i]->getId()));
         if (sensors[i]->getId() == serviceID)
         {
+            
             // 动态设置引脚
             sensors[i]->setPins(pins,port); 
 

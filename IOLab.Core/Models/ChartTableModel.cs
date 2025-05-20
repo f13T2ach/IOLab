@@ -34,6 +34,8 @@ namespace IOLab.Core.Models
         private bool _isSelected;
         public int Id { get; set; }
 
+        public Boolean isJustCreated { get; set; } = true; // 是否刚创建
+
         public string XRow { get; set; }
         public string YRow { get; set; }
 
@@ -185,6 +187,12 @@ namespace IOLab.Core.Models
             {
                 if (lineSeries.Values is ObservableCollection<float> collection)
                 {
+                    /*
+                    if(lineSeries.Values.Count() == 0&&isJustCreated)// 忽略第一个点
+                    {
+                        isJustCreated = false;
+                        return;
+                    }*/
                     collection.Add(point);
 
                     // 追随最新的点

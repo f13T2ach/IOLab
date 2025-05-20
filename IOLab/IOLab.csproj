@@ -73,6 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="8.0.5" />
     <PackageReference Include="HelixToolkit" Version="2.25.0" />
     <PackageReference Include="HelixToolkit.Wpf" Version="2.25.0" />
     <PackageReference Include="iNKORE.UI.WPF" Version="1.2.7.1" />

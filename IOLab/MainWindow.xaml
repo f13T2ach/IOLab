@@ -16,6 +16,14 @@
                        SelectionChanged="NavigationView_SelectionChanged" Margin="0,0,0,0">
 
             <ui:NavigationView.FooterMenuItems>
+
+                <ui:NavigationViewItem x:Name="FeatureButton_About" Content="AI">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                
+                
                 <ui:NavigationViewItem x:Name="NavigationViewItem_About" Content="关于">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}"/>

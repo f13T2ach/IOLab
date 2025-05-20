@@ -82,6 +82,7 @@ namespace IOLab.Core.Tasks
                     {
                         try
                         {
+                            
                             model.AddDataPoint((float)value["data"]);
                         }
                         catch
