@@ -99,6 +99,11 @@ public:
 
         // delay(500);
     }
+
+    Nyard *clone() const override
+    {
+        return new TempSensor(*this);
+    }
 };
 
 #endif

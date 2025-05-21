@@ -145,6 +145,11 @@ public:
         } // if
         return avg;
     }
+
+    Nyard *clone() const override
+    {
+        return new ORPSensor(*this);
+    }
 };
 
 #endif

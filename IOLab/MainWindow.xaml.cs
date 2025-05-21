@@ -113,6 +113,8 @@ namespace IOLab
             Prepare();
 
             App.AlreadyInit = true;
+            
+
             InitializeComponent();
             //测试代码
             //Static.Theme.themeMode = ApplicationTheme.Dark;
@@ -129,6 +131,8 @@ namespace IOLab
             //TeachNextStep();
 
         }
+
+        #region 弃用方案
 
         private bool _isClicking = false;
         private const double DragThreshold = 5; // 设置一个阈值来判断是否是拖动
@@ -219,6 +223,8 @@ namespace IOLab
                 TeachNext.Content = "完成";
             }
         }
+
+        #endregion
 
         private async void Prepare()
         {
@@ -332,10 +338,20 @@ namespace IOLab
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             BreakPageTask();
+            if(sender.SelectedItem as NavigationViewItem == null)
+            {
+                return; // 不理会奇奇怪怪的对象
+            }
             var page = _navigationManager.GetPage((NavigationViewItem)sender.SelectedItem);
             NavigationView_Root.Header = page.Title;
             Frame_Main.Content = page;
         }
+        private void CommunicateWithAI_Click(object sender, RoutedEventArgs e)
+        {
+            LabAIChatWindow labAIChatWindow = new LabAIChatWindow();
+            labAIChatWindow.Show();
+        }
+
 
         // 打断页面行为
         public void BreakPageTask()
@@ -522,6 +538,8 @@ namespace IOLab
             var toast = new ToastNotification(xmlDocument);
             ToastNotificationManager.CreateToastNotifier("YourAppId").Show(toast);
         }
+
+        
     }
 
 

@@ -25,6 +25,7 @@ using IOLab.Core.Generic;
 using IOLab.Core.Models;
 using IOLab.Core.Models.Records;
 using IOLab.Windows.Dialog.Universal;
+using IOLab.Windows.LabAI;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -60,6 +61,8 @@ namespace IOLab.Pages.ViewModel
 
 
         public ICommand OnShowDetailDialogCommand { get; set; }
+
+        public ICommand CommunicateWithAICommand { get; set; }
         public Visibility CanShowNoRecordText { get => RecordsSchema.Count == 0 ? Visibility.Visible : Visibility.Hidden; protected set { } }
         public HomePageViewModel()
         {
@@ -74,6 +77,8 @@ namespace IOLab.Pages.ViewModel
 
 
             OnShowDetailDialogCommand = new RelayCommand(OnShowDetailDialog);
+
+            CommunicateWithAICommand = new RelayCommand(OnCommunicateWithAI);
         }
 
         // 统计数据
@@ -93,6 +98,12 @@ namespace IOLab.Pages.ViewModel
             {
                 IOExperiments.Add(item);
             }
+        }
+
+        public void OnCommunicateWithAI(object sender)
+        {
+            LabAIChatWindow labAIChatWindow = new LabAIChatWindow();
+            labAIChatWindow.Show();
         }
 
         public async void OnShowDetailDialog(object sender)

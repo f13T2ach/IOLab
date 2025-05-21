@@ -143,6 +143,11 @@ public:
             return pow(10, ((volts / DC_GAIN) - pcurve[1]) / pcurve[2] + pcurve[0]);
         }
     }
+
+    Nyard *clone() const override
+    {
+        return new CO2Sensor(*this);
+    }
 };
 
 #endif

@@ -22,6 +22,7 @@
     <None Remove="Resources\Font\Blender Pro Book.ttf" />
     <None Remove="Resources\Font\MiSans VF.ttf" />
     <None Remove="Resources\Images\Deepseek.png" />
+    <None Remove="Resources\Images\Icon\AppleIntelligence.png" />
     <None Remove="Resources\Images\Icon\IOLab1024.png" />
     <None Remove="Resources\Images\Icon\IOLab128.png" />
     <None Remove="Resources\Images\Icon\IOLab256.png" />
@@ -45,6 +46,7 @@
     <Resource Include="Resources\Images\Deepseek.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\Icon\AppleIntelligence.png" />
     <Resource Include="Resources\Images\Tiny\Rewards.png" />
     <Resource Include="Resources\Images\Tiny\ShallowShadow.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

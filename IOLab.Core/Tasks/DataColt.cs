@@ -74,10 +74,14 @@ namespace IOLab.Core.Tasks
 
             foreach (ChartTableModel model in InstanceBundle.ChartTables)
             {
-                // TODO 实装采集数据
+                // TODO 实装采集数据!!!!!!要区分表！！！！
                 // 注意：实装时不需要判断是不是Frozen态 因为它会主动取消监听
-                if (!model.isFrozen && !model.isPause)
+                if (!model.isFrozen && !model.isPause&&value["pin"]!=null )
                 {
+                    if(!value["pin"].ToString().Equals(model.PortId))
+                    {
+                        continue;
+                    }
                     if (value["data"] != null)
                     {
                         try
