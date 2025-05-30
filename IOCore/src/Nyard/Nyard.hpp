@@ -26,79 +26,68 @@
 #include "NyardPorts.h"
 #include <vector>
 
-class Nyard {
+class Nyard
+{
 public:
     // 构造函数
     Nyard(int id) : id(id) {}
 
-    // 虚函数（可被子类重写）
+    // 虚析构函数（必须！防止内存泄漏）
+    virtual ~Nyard() {}
+
+    // 必须由派生类实现的功能
     virtual void setupPins() = 0;
     virtual void begin() = 0;
+    virtual float collectData() = 0;
 
-    // 在关闭传感器时释放引脚
-    virtual void close() {
-        releasePins();  // 释放引脚
+    // 复制自身（用于 clone 模式）
+    virtual Nyard *clone() const = 0;
+
+    // 关闭传感器并释放资源
+    virtual void close()
+    {
+        releasePins();
     }
 
-    virtual float collectData() = 0;
-    
     // 设置引脚
-    virtual void setPins(const std::vector<int>& pins,String pin) {
+    virtual void setPins(const std::vector<int> &pins, String pin)
+    {
         this->pinName = pin;
         this->pins = pins;
         this->isRunning = true;
     }
 
-    // 获取传感器id
-    int getId() const {
-        return id;
-    }
-
-    // 获取更新时间间距预设值
-    int getPreload() const {
-        return preload;
-    }
-
-    String getName() const {
-        return name;
-    }
-
-    bool getIsRunning() const {
-        return isRunning;
-    }
-
-    // 获取pin
-    std::vector<int> getPins() const{
-        return this->pins;
-    }
-
-    String getPinName() const {
-        return pinName;
-    }
-
-
+    // 获取传感器基本信息
+    int getId() const { return id; }
+    int getPreload() const { return preload; }
+    String getName() const { return name; }
+    bool getIsRunning() const { return isRunning; }
+    std::vector<int> getPins() const { return pins; }
+    String getPinName() const { return pinName; }
 
 protected:
     int id;
     String pinName;
-    int preload;
+    int preload = 1000; // 默认预加载时间为1000ms
     bool isRunning = false;
-    std::vector<int> pins;  // 记录传感器使用的引脚
-    String name;
+    std::vector<int> pins;
+    String name = "Unnamed";
 
-    // 释放引脚（占用引脚在解析时就执行）
-    void releasePins() {
-        for (int pin : pins) {
-            pinUsage[pin] = false;  // 更新引脚状态，标记为未占用
+    // 子类可用：设置基本信息
+    void setName(String sensorName) { name = sensorName; }
+    void setPreload(int ms) { preload = ms; }
+
+    // 引脚释放逻辑
+    void releasePins()
+    {
+        for (int pin : pins)
+        {
+            pinUsage[pin] = false;
         }
-        pins.clear();  // 清空引脚列表
+        pins.clear();
         isRunning = false;
         pinName = "";
     }
-
-    
 };
 
 #endif
-
-

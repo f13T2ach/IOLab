@@ -76,6 +76,11 @@ public:
         }
         return -1; // 错误码，表示未正确配置引脚
     }
+
+    Nyard *clone() const override
+    {
+        return new SampleSensor(*this);
+    }
 };
 
 #endif

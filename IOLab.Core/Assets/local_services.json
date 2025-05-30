@@ -1,32 +1,68 @@
 [
-  {
-    "name": "二氧化碳传感器",
-    "serviceID": 100001,
-    "type": "AL",
-    "yrow": "%"
-  },
-  {
-    "name": "pH传感器",
-    "serviceID": 100002,
-    "type": "AL",
-    "yrow": "pH"
-  },
-  {
-    "name": "氧化还原传感器",
-    "serviceID": 100003,
-    "type": "AL",
-    "yrow": "mV"
-  },
-  {
-    "name": "温度传感器",
-    "serviceID": 100004,
-    "type": "I2C",
-    "yrow": "C"
-  },
-  {
-    "name": "光照传感器",
-    "serviceID": 100005,
-    "type": "I2C",
-    "yrow": "lx"
-  }
+    {
+        "name": "二氧化碳传感器",
+        "serviceID": 100001,
+        "type": "AL",
+        "yrow": "%"
+    },
+    {
+        "name": "pH传感器",
+        "serviceID": 100002,
+        "type": "AL",
+        "yrow": "pH"
+    },
+    {
+        "name": "氧化还原传感器",
+        "serviceID": 100003,
+        "type": "AL",
+        "yrow": "mV"
+    },
+    {
+        "name": "温度传感器",
+        "serviceID": 100004,
+        "type": "I2C",
+        "yrow": "C"
+    },
+    {
+        "name": "光照传感器",
+        "serviceID": 100005,
+        "type": "I2C",
+        "yrow": "lx"
+    },
+    {
+        "name": "氧气传感器*",
+        "serviceID": 110000,
+        "type": "AL",
+        "yrow": "%"
+    },
+    {
+        "name": "氯离子传感器*",
+        "serviceID": 110000,
+        "type": "AL",
+        "yrow": "mol/L"
+    },
+    {
+        "name": "甲醛传感器*",
+        "serviceID": 110000,
+        "type": "AL",
+        "yrow": "ppm"
+    },
+    {
+        "name": "距离传感器*",
+        "serviceID": 110000,
+        "type": "AL",
+        "yrow": "ppm"
+    },
+    {
+        "name": "力学传感器*",
+        "serviceID": 110000,
+        "type": "AL",
+        "yrow": "ppm"
+    },
+    {
+        "name": "气压传感器*",
+        "serviceID": 110000,
+        "type": "AL",
+        "yrow": "ppm"
+    }
 ]

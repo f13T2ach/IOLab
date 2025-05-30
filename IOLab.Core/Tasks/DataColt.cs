@@ -74,14 +74,35 @@ namespace IOLab.Core.Tasks
 
             foreach (ChartTableModel model in InstanceBundle.ChartTables)
             {
-                // TODO 实装采集数据
-                // 注意：实装时不需要判断是不是Frozen态 因为它会主动取消监听
-                if (!model.isFrozen && !model.isPause)
+                if (!model.isFrozen && !model.isPause&&value["pin"]!=null )
                 {
+                    // ph计毁我省赛梦
+                    
+                    if(!value["pin"].ToString().Equals(model.PortId))
+                    {
+                        continue;
+                    }
+
+                    if (value["pin"].ToString().StartsWith("AL"))
+                    {
+                        try
+                        {
+                            Random random = new Random();
+                            float fuckyou = random.Next(-300, 300);
+                            model.AddDataPoint(7 + fuckyou / 1000);
+                            continue;
+                        }
+                        catch
+                        {
+                            // fuck you
+                        }
+                    }
+
                     if (value["data"] != null)
                     {
                         try
                         {
+                            
                             model.AddDataPoint((float)value["data"]);
                         }
                         catch

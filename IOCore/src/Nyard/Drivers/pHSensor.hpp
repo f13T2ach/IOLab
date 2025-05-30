@@ -71,7 +71,7 @@ public:
             delay(10);
         }
 
-        float voltage = 5 / adc_resolution * measurings / samples;
+        float voltage = 4.7 / adc_resolution * measurings / samples;
         return ph(voltage);
 
         // delay(500);
@@ -80,6 +80,11 @@ public:
     float ph(float voltage)
     {
         return 7 + ((2.5 - voltage) / 0.18);
+    }
+
+    Nyard *clone() const override
+    {
+        return new pHSensor(*this);
     }
 };
 

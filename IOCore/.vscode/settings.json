@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "new": "cpp"
-    }
+    },
+    "idf.portWin": "COM6"
 }

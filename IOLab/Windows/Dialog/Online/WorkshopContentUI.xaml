@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="名称"
-    PrimaryButtonText="下载实验"
+    PrimaryButtonText="在线实践"
     SecondaryButtonText="取消"
     DefaultButton="Primary"
     >
@@ -18,25 +18,25 @@
         <Grid Margin="0,0,0,2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Contact}"/>
-                <TextBlock Text="作者名称" Margin="4,0,0,0"/>
+                <TextBlock Text="正在获取作者名称" Margin="4,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Cursor="Hand">
                 <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.RightArrowKeyTime0}" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
-                <TextBlock Text="了解此人" Margin="4,0,0,0" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
+                <TextBlock Text="了解TA" Margin="4,0,0,0" Foreground="{StaticResource {x:Static ui:ThemeKeys.AccentTextFillColorPrimaryBrushKey}}"/>
             </StackPanel>
         </Grid>
         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
             <TextBlock FontWeight="Bold" FontStyle="Italic" Opacity="0.8">▌</TextBlock>
             <TextBlock FontWeight="Bold">简介</TextBlock>
         </StackPanel>
-        <TextBlock Margin="5" HorizontalAlignment="Left" Width="360" TextWrapping="Wrap" Text="出色地完成！"/>
+        <TextBlock Margin="5" HorizontalAlignment="Left" Width="360" TextWrapping="Wrap" Text="正在加载数据"/>
         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
             <TextBlock FontWeight="Bold" FontStyle="Italic" Opacity="0.8">▌</TextBlock>
             <TextBlock FontWeight="Bold">实验</TextBlock>
         </StackPanel>
-        <TextBlock Margin="5" HorizontalAlignment="Left" Width="360" TextWrapping="Wrap" Text="此文章带有实验方案，正在加载..."/>
+        <TextBlock Margin="5" HorizontalAlignment="Left" Width="360" TextWrapping="Wrap" Text="正在加载数据..."/>
         
-        <TextBlock Width="360" Opacity="0.7" FontSize="11" TextWrapping="Wrap" Text="2024/11/19 | 智慧学习"/>
+        <TextBlock Width="360" Opacity="0.7" FontSize="11" TextWrapping="Wrap" Text="正在加载日期数据 | 正在加载数据"/>
         <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,0">
             <Button Margin="2" x:Name="LikeButton" VerticalAlignment="Top" Cursor="Hand" IsEnabled="True" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Center">

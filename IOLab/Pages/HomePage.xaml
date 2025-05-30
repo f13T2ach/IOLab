@@ -58,9 +58,16 @@
                 <StackPanel Name="MainStack" Orientation="Vertical" Margin="40,20,40,40" VerticalAlignment="Top">
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" FontSize="32">✨</TextBlock>
-                        <TextBlock Width="360" TextAlignment="Right" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" FontSize="16" VerticalAlignment="Center">即插即用的全栈实验平台</TextBlock>
+                        <Button Padding="5" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding CommunicateWithAICommand}">
+                            <StackPanel Orientation="Horizontal" >
+                                <Image Source="../Resources/Images/Icon/AppleIntelligence.png" Width="22" Height="22"/>
+                                <TextBlock Margin="9,5,6,5" Text="与 IOLab AI 聊天" Height="18"/>
+                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OpenInNewWindow}"/>
+                            </StackPanel>
+                            
+                        </Button>
                     </Grid>
-                    <ui:AcrylicPanel CornerRadius="20" Width="640" Height="180">
+                    <ui:AcrylicPanel Margin="0,5,0,0" CornerRadius="20" Width="640" Height="180">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Margin="5,5,5,5" Height="36" x:Name="EquationImage" HorizontalAlignment="Center"></Image>
                             <TextBlock Text="探究电离平衡的移动" HorizontalAlignment="Center" FontSize="18" FontWeight="Medium"/>

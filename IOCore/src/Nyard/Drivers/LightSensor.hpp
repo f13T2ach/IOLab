@@ -88,6 +88,11 @@ public:
         val = val / 1.2;
         return (float)val;
     }
+
+    Nyard *clone() const override
+    {
+        return new LightSensor(*this);
+    }
 };
 
 #endif

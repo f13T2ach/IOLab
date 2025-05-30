@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using IOLab.Core.Properties;
+using IOLab.Core.Util.LabAI;
 using IOLab.Network.API;
 
 namespace IOLab.Windows.LabAI
@@ -20,15 +22,26 @@ namespace IOLab.Windows.LabAI
 
         public LabAIChatWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen; //在中间显示
             InitializeComponent();
             Messages = new ObservableCollection<Message>();
+
+            Messages.Add(new Message() { Content = "IOLab AI 是一个实验专家，可帮您分析实验数据，或提供实验设计和数据分析建议。需要什么帮助？", BackgroundColor = "#16982b" });
             MessagesListBox.ItemsSource = Messages;
         }
 
         // 发送按钮点击事件
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            await SendMessageAsync();
+            FocusManager.SetFocusedElement(FocusManager.GetFocusScope(UserInputTextBox), null);
+
+            string text = UserInputTextBox.Text.Trim();
+
+            UserInputTextBox.Text = ""; // 清空输入框
+
+            await SendMessageAsync(text);
+
+            
         }
 
         // 监听回车键发送消息
@@ -36,14 +49,13 @@ namespace IOLab.Windows.LabAI
         {
             if (e.Key == Key.Enter)
             {
-                await SendMessageAsync();
+                SendButton_Click(sender, e); // 调用发送按钮点击事件
             }
         }
 
         // 发送消息
-        private async Task SendMessageAsync()
+        private async Task SendMessageAsync(string userMessage)
         {
-            string userMessage = UserInputTextBox.Text.Trim();
             if (!string.IsNullOrEmpty(userMessage))
             {
                 // 添加用户消息
@@ -63,13 +75,31 @@ namespace IOLab.Windows.LabAI
         // 使用流式接收 DeepSeek API 回复（修复版）
         public async Task GetAIResponseStreamAsync(string userMessage)
         {
+
             string apiKey = ThirdParty.DeepseekAIAliyunToken;  // 请替换为实际API密钥
-            string apiUrl = ThirdParty.AliyunDeepseekURL;
+            string apiUrl;
+            string modelName;
+
+            if (Settings.Default.RunLocalModel)
+            {
+                apiUrl = ThirdParty.LocalURL;
+                modelName = ThirdParty.LocalModelName;
+            }
+            else
+            {
+                apiUrl = ThirdParty.AliyunDeepseekURL;
+                modelName = ThirdParty.RemoteModelName;
+            }
+            
+           
 
             var requestBody = new
             {
-                model = "qwen-plus",  // 请根据实际情况替换模型名称
-                messages = new[] { new { role = "user", content = "假设你是 IOLab 实验室智慧对话 AI，请用中文回答对话：" + userMessage } },
+                model = modelName,  // 请根据实际情况替换模型名称
+                messages = new[] { 
+                    new { role = "system", content =  TextPrompts.ROLE_PROMPT },
+                    new { role = "user", content = userMessage }
+                },
                 stream = true // 启用流式传输
             };
 
@@ -122,7 +152,7 @@ namespace IOLab.Windows.LabAI
                                     messageBuffer.Append(deltaContent);
 
                                     // 控制UI更新频率，每隔200毫秒更新一次
-                                    if ((DateTime.Now - lastUpdateTime).TotalMilliseconds > 200)
+                                    if ((DateTime.Now - lastUpdateTime).TotalMilliseconds > 10)
                                     {
                                         lastUpdateTime = DateTime.Now;
 

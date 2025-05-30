@@ -243,9 +243,31 @@
                     </ComboBox>
                 </Grid>
             </Border>
+           
             <Grid Margin="0,-6,0,4">
                 <local:ServerStatus/>
             </Grid>
+
+            <Border Style="{StaticResource Style_SectionBorderStyle}" Margin="0,0,0,4">
+                <Grid VerticalAlignment="Center" Margin="0,10,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Airplane}" Grid.RowSpan="2" Margin="5,15,20,15"/>
+                    <TextBlock Text="离线 AI 模式" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="将在你的计算机运行本地 AI 模型，此操作会消耗大量性能，首次使用需下载工具包"/></TextBlock>
+
+                    <ui:ToggleSwitch x:Name="LocalModelSwitch" Toggled="LocalModelSwitch_Toggled" Grid.Column="2" Grid.RowSpan="2"/>
+                </Grid>
+            </Border>
+            
+            
             <TextBlock Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Margin="0,2,20,5" Opacity="0.615" FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"><Run Text="疑难解答会多次连接服务器来确保不是网络波动，你可能需要等待一会"/></TextBlock>
 
             <TextBlock Text="实验性功能" FontSize="16" Margin="0,20,0,4"/>

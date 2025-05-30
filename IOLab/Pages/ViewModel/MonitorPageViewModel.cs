@@ -21,6 +21,7 @@
 
 using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Core.Util.Excel;
 using IOLab.Core.Assets;
 using IOLab.Core.Commands;
 using IOLab.Core.Generic;
@@ -29,13 +30,17 @@ using IOLab.Pages.Event.MonitorPages;
 using IOLab.Windows.Dialog;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using LiveChartsCore.SkiaSharpView;
+using Microsoft.Win32;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -75,6 +80,8 @@ namespace IOLab.Pages.ViewModel
         public ICommand RemoveSelectedChartsCommand { get; set; }
         public ICommand AddNewChartCommand { get; set; }
         public ICommand SaveRecordsCommand { get; set; }
+
+        public ICommand ExportChartsCommand { get; set; }
         public ICommand FollowLatestCommand { get; set; }
         public ICommand MouseDownOnChart { get; set; }
 
@@ -131,6 +138,7 @@ namespace IOLab.Pages.ViewModel
             MouseDownOnChart = new RelayCommand(OnMouseDragChart);
             FreezeChartsCommand = new RelayCommand(FreezeCharts);
             ConfigChartCommand = new RelayCommand(ConfigChart);
+            ExportChartsCommand = new RelayCommand(ExportCharts);
 
             // 订阅事件
             InstanceBundle.IsConnectedChanged += OnIsConnectedChanged;
@@ -143,6 +151,97 @@ namespace IOLab.Pages.ViewModel
         public event EventHandler<ChartSelectionChangedEventArgs> ChartSelectionChanged;
         public event EventHandler<MultipleChartsSelectedEventArgs> MultipleChartsSelected;
         public event EventHandler NoChartSelected;
+
+
+        private void ExportCharts(object sender)
+        {
+            if (!IsPauseRecord)
+            {
+                CreateNotification("导出表", $"必须暂停记录再导出", InfoBarSeverity.Warning);
+                return;
+            }
+
+            // 1. 创建保存对话框
+            DateTime dt = DateTime.Now;
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*", // 文件类型过滤器
+                DefaultExt = "xlsx", // 默认扩展名
+                FileName = $"导出表格_{dt.ToFileTimeUtc().ToString()}.xlsx", // 默认文件名
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) // 初始目录
+            };
+
+            string filePath = "";
+
+            // 2. 显示对话框并等待用户操作
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                    filePath = saveFileDialog.FileName;
+            }
+            else
+            {
+                return;
+            }
+
+
+            // 准备数据集
+            var datasets = new List<DatasetConfig>();
+
+            WaitSerial wait = new WaitSerial(title: "正在导出表格",timeout:"导出表比预期久，稍等");
+            _ = wait.ShowAsync(); // 无需等待
+
+            foreach (var chart in MappedChartTables)
+            {
+                LineSeries<float>? lineSeries = chart.Series[0] as LineSeries<float>;
+                if (lineSeries == null)
+                {
+                    continue;
+                }
+                ObservableCollection<float>? values = lineSeries.Values as ObservableCollection<float>;
+                if (values == null||values.Count==0)
+                {
+                    continue;
+                }
+                values.RemoveAt(0); // 删除第一个点
+                // todo 记录真实时间
+                List<float> time = new List<float>();
+                for(int i =0;i< values.Count; i++)
+                {
+                    time.Add(i);
+                }
+
+                DatasetConfig data = new DatasetConfig
+                {
+                    SheetName = chart.Name + "_" + chart.Id,
+
+                    // Update the problematic line to explicitly convert the List<float> to List<object>  
+                    XData = time.Select(t => (object)t).ToList(),
+                    // Explicitly convert List<float> to List<object> using LINQ's Select method  
+                    YData = values.Cast<object>().ToList(),
+                    XAxisTitle = chart.XRow,
+                    YAxisTitle = chart.YRow,
+                    ChartTitle = chart.Name,
+                };
+
+                datasets.Add(data);
+            }
+
+            if (datasets.Count == 0)
+            {
+                wait.Hide();
+                CreateNotification("导出表", $"导出失败，没有可用表", InfoBarSeverity.Warning);
+                return;
+            }
+            
+
+            ExcelGeneric.GenerateMultiSheetReport(datasets, filePath);
+
+            CreateNotification("导出表", $"导出到："+filePath, InfoBarSeverity.Success);
+
+            wait.Hide();
+
+            
+        }
 
         // 归档选中表
         private async void FreezeCharts(object sender)

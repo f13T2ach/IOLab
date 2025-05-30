@@ -16,6 +16,12 @@
                        SelectionChanged="NavigationView_SelectionChanged" Margin="0,0,0,0">
 
             <ui:NavigationView.FooterMenuItems>
+
+                <Button Padding="2" x:Name="CommunicateWithAI" Click="CommunicateWithAI_Click">
+
+                    <Image Source="Resources/Images/Icon/AppleIntelligence.png" Width="20" Height="20"/>
+                </Button>
+
                 <ui:NavigationViewItem x:Name="NavigationViewItem_About" Content="关于">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Info}"/>
@@ -91,6 +97,7 @@
         <Canvas x:Name="DragCanvas">
             <!-- 悬浮按钮 -->
             <Button x:Name="FloatButton"
+                    Visibility="Hidden"
         Width="50"
         Height="50"
         Canvas.Left="100"
