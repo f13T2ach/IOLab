@@ -73,7 +73,7 @@ void initNyard()
 
 void initAuthentication()
 {
-    // 可以根据需要初始化身份信息
+    
 }
 
 // ========== 协议通信 ==========
@@ -118,12 +118,12 @@ void handlePinConfig(String port, int serviceID)
     {
         if (sensors[i]->getId() == serviceID)
         {
-            Nyard *sensor = sensors[i]->clone(); // 建议实现 clone 方法
+            Nyard *sensor = sensors[i]->clone(); // clone 实例
 
             sensor->setPins(pins, port);
             sensor->setupPins();
             sensor->begin();
-            occupyPins(pins);
+            occupyPins(pins); // 占用引脚
 
             addRunningSensor(sensor);
 

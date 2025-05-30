@@ -71,7 +71,7 @@ public:
             delay(10);
         }
 
-        float voltage = 5 / adc_resolution * measurings / samples;
+        float voltage = 4.7 / adc_resolution * measurings / samples;
         return ph(voltage);
 
         // delay(500);

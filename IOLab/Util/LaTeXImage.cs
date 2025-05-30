@@ -28,7 +28,10 @@ namespace IOLab.Util
         public static string GetRequestUrl(bool isDark, string content)
         {
             string url = LatexURL + @"\fg{" + (isDark ? "FFFFFF" : "000000") + "}%20" + content;
-            return url;
+            //return url;
+
+            // 这个版本就给假的
+            return "C:\\比赛用断网方程式.png";
         }
     }
 }

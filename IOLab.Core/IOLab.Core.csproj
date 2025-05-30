@@ -35,6 +35,9 @@
     <None Update="Assets\LocalExperiment\produce_oxygen.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\LocalExperiment\relationship_between_light_angle.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\LocalExperiment\undefined.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

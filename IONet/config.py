@@ -1,7 +1,7 @@
 import os
 projectName = "IONet"
 class ServerConfig:
-    port = 9000
+    port = 11451
     name = "主服务器"
     area = "广州"
 class DirConfig:
