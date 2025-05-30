@@ -55,8 +55,9 @@ def traverse_and_save_to_word_with_toc(directory, output_word):
     # 遍历指定目录下的所有文件
     for root, dirs, files in os.walk(directory):
         for file in files:
+            
             file_path = os.path.join(root, file)
-
+            print("正在处理:",file_path)
             # 仅处理代码文件（包括 xaml 文件）
             if file.endswith(('.py', '.java', '.cpp', '.js', '.cs', '.html', '.css', '.c', '.h', '.sh', '.rb', '.go', '.xaml')):
                 # 添加到目录

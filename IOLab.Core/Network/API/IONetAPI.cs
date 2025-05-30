@@ -26,7 +26,7 @@ namespace IOLab.Network.API
         {
             { "[*]测试服务器_广州主线1","http://139.9.177.204:9000" },
             { "IOLab Network Global","http://iolab.us.kg:9000" },
-            { "[*]本地测试服务器","http://127.0.0.1:9000" },
+            { "[*]本地测试服务器","http://120.0.0.1:9000" },
         };
 
         public static string TestServerPerfix = "[*]";
