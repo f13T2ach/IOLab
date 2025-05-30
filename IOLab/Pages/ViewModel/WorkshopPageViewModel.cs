@@ -5,6 +5,7 @@ using IOLab.Network;
 using IOLab.Resources.Control.Custom;
 using IOLab.Windows.Dialog;
 using IOLab.Windows.Dialog.Online;
+using OfficeOpenXml;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -15,7 +16,7 @@ namespace IOLab.Pages.ViewModel
     internal class WorkshopPageViewModel : INotifyPropertyChanged
     {
         public ICommand RefreshCommand { get; set; }
-
+        public ICommand UploadCommand { get; set; }
         public ObservableCollection<Item> SearchItems { get; set; }
 
         private ContentCollection workshopContents;
@@ -51,6 +52,7 @@ namespace IOLab.Pages.ViewModel
             ActionBundle.WorkshopContentShowInformation += ShowWorkshopContent;
 
             RefreshCommand = new RelayCommand(RefreshCommandDo);
+            UploadCommand = new RelayCommand(UploadCommandDo);
         }
 
         public void RefreshCommandAction()
@@ -62,6 +64,15 @@ namespace IOLab.Pages.ViewModel
             RefreshContents();
         }
 
+        public async void UploadCommandDo(object parameter)
+        {
+            UploadExperiment uploadExperiment = new UploadExperiment();
+            await uploadExperiment.ShowAsync();
+
+        }
+
+        
+
         public async void ShowWorkshopContent(WorkshopContent workshopContent)
         {
             if (workshopContent == null || workshopContent.IsEmpty())
@@ -69,18 +80,7 @@ namespace IOLab.Pages.ViewModel
             WorkshopContentUI dialog = new WorkshopContentUI(workshopContent);
             await dialog.ShowAsync();
         }
-        /**
-         * System.InvalidOperationException
-  HResult=0x80131509
-  Message=Only a single ContentDialog can be open at any time.
-  Source=iNKORE.UI.WPF.Modern.Controls
-  StackTrace:
-   在 iNKORE.UI.WPF.Modern.Controls.ContentDialog.ThrowAlreadyOpenException()
-   在 iNKORE.UI.WPF.Modern.Controls.ContentDialog.ThrowIfHasOpenDialog(Window owner)
-   在 iNKORE.UI.WPF.Modern.Controls.ContentDialog.<ShowAsync>d__135.MoveNext()
-   在 iNKORE.UI.WPF.Modern.Controls.ContentDialog.<ShowAsync>d__134.MoveNext()
-   在 IOLab.Pages.ViewModel.WorkshopPageViewModel.<ShowWorkshopContent>d__11.MoveNext() 在 D:\IOLab\IOLab\IOLab\Pages\ViewModel\WorkshopPageViewModel.cs 中: 第 60 行
-**/
+
 
         public async void RefreshContents(bool isAuto = false)
         {

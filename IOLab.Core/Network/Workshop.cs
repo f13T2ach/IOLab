@@ -146,20 +146,33 @@ namespace IOLab.Network
         /// <param name="itemId">文案ID</param>
         /// <param name="savePath">保存路径</param>
         /// <returns></returns>
-        public async Task<AuthResult> DownloadWorkshopItemAsync(int itemId, string savePath)
+        public async Task<AuthResult> DownloadWorkshopItemAsync(string itemId, string savePath)
         {
             try
             {
-                var response = await client.GetAsync($"{BasicUrl}{IONetAPI.WorkshopDownload.Replace("{item_id}", itemId.ToString())}");
+                var response = await client.GetAsync($"{BasicUrl}{IONetAPI.WorkshopDownload.Replace("{item_id}", itemId)}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     var fileStream = await response.Content.ReadAsStreamAsync();
+                    // 将文件流转为jobject
+                    string responseContent = await response.Content.ReadAsStringAsync();
+
+                    // 解析JSON获取文件名
+                    JObject jsonObject = JObject.Parse(responseContent);
+                    string fileName = jsonObject["experiment"]?.ToString(); // 根据实际JSON字段调整
+                    if (string.IsNullOrEmpty(fileName))
+                    {
+                        return new AuthResult(false, -1, "下载失败，无法获取实验包名", jsonObject);
+                    }
+                    savePath = savePath + fileName + ".json";
+
+
                     using (var fs = new FileStream(savePath, FileMode.Create, FileAccess.Write))
                     {
                         await fileStream.CopyToAsync(fs);
                     }
-                    return new AuthResult(true, 0, "下载成功", null);
+                    return new AuthResult(true, 0, fileName, null);
                 }
                 return new AuthResult(false, -1, "下载失败: " + response.StatusCode + " - " + response.ReasonPhrase, null);
             }

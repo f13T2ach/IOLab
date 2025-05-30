@@ -256,7 +256,7 @@ namespace IOLab
             }
 
             // 自动登录
-            /*
+            
             if (Settings.Default.UserToken != "" && Settings.Default.UserToken != null)
             {
                 InstanceBundle.UsingAuth = new Network.Auth(Settings.Default.UserToken);
@@ -266,7 +266,7 @@ namespace IOLab
                     iNKORE.UI.WPF.Modern.Controls.MessageBox.Show("无法完成自动登录: " + result.Message + "\r\n请稍后在设置页重新登录", "IOLab 自动登录", MessageBoxButton.OK, MessageBoxImage.Information);
                     InstanceBundle.UsingAuth = null;
                 }
-            }*/
+            }
 
 
         }

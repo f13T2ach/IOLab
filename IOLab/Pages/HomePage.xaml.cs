@@ -56,6 +56,7 @@ namespace IOLab.Pages
 
         private void Preparations()
         {
+            
             EquationImage.Source = BitmapFrame.Create(
                 new Uri(Util.LaTeXImage.GetRequestUrl(Static.Theme.themeMode == ApplicationTheme.Dark, @"\ce{CH_{3}COOH \space \rightleftharpoons \space  CH_{3}COO^{-} \space + \space H^{+}}")),
                 BitmapCreateOptions.None,

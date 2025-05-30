@@ -1,1 +1,21 @@
-fuck you!
+{
+  "name": "一天当中太阳光强度与方位角关系探究",
+  "experiment": "relationship_between_light_angle",
+  "tags": [ "长时实验" ],
+  "services": [ 100005 ],
+  "formula": "",
+  "steps": {
+    "一、准备实验用品": "将光照传感器接入设备，并连接至电脑",
+    "二、分别测定光强": "在正午和傍晚分别测定光强度",
+    "三、计算函数关系": "查询太阳高度角与方位角，尝试确定函数关系"
+  },
+  "checkpoints": [
+    {
+      "name": "二、分别测定光强",
+      "freeze": [ 100005 ],
+      "require": [ 100005 ]
+    }
+  ],
+  "repeatPins": false,
+  "description": "通过 光照传感器 探究太阳所在位置与光强关系"
+}

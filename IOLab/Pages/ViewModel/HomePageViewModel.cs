@@ -59,6 +59,8 @@ namespace IOLab.Pages.ViewModel
         }
 
 
+        
+
 
         public ICommand OnShowDetailDialogCommand { get; set; }
 
@@ -74,11 +76,18 @@ namespace IOLab.Pages.ViewModel
             // 读入实验
             ResetExperiments();
 
-
+            OnUpdateLocalStorage += DoUpdateLocalStorage;
 
             OnShowDetailDialogCommand = new RelayCommand(OnShowDetailDialog);
 
             CommunicateWithAICommand = new RelayCommand(OnCommunicateWithAI);
+        }
+
+        private void DoUpdateLocalStorage()
+        {
+            ResetExperiments();
+            //new MainWindow().NavigationView_Root.SelectedItem = new MainWindow().NavigationViewItem_Home;
+            OnPropertyChanged();    //更新一次
         }
 
         // 统计数据
@@ -91,6 +100,9 @@ namespace IOLab.Pages.ViewModel
 
         // 事件
         public event Action OnTryPractiseSuccess;
+
+        public static event Action OnUpdateLocalStorage;
+
         private void ResetExperiments()
         {
             IOExperiments = new ObservableCollection<IOExperiment>();
@@ -197,6 +209,11 @@ namespace IOLab.Pages.ViewModel
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public static void InvokeReload()
+        {
+            OnUpdateLocalStorage?.Invoke();
         }
     }
 }

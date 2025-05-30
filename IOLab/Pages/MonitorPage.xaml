@@ -20,7 +20,7 @@
         
         <ui:AcrylicPanel CornerRadius="4" VerticalAlignment="Top" >
             <ui:CommandBar Height="48">
-                <ui:AppBarButton IsCompact="True" ToolTipService.ToolTip="Sort">
+                <ui:AppBarButton IsCompact="True" ToolTipService.ToolTip="实验助手">
                     <ui:AppBarButton.Icon>
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Trackers}"/>
                     </ui:AppBarButton.Icon>
@@ -36,7 +36,7 @@
                         </ui:Flyout>
                         </ui:AppBarButton.Flyout>
                 </ui:AppBarButton>
-                <ui:AppBarButton IsCompact="True" ToolTipService.ToolTip="Sort">
+                <ui:AppBarButton IsCompact="True" ToolTipService.ToolTip="安全助理">
                     <ui:AppBarButton.Icon>
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Health}"/>
                     </ui:AppBarButton.Icon>

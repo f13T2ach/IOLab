@@ -20,7 +20,12 @@
  */
 
 using iNKORE.UI.WPF.Modern.Controls;
+using IOLab.Core.Assets;
+using IOLab.Core.Generic;
+using IOLab.Core.Models;
 using IOLab.Core.Network.Data;
+using IOLab.Network;
+using IOLab.Pages.ViewModel;
 
 namespace IOLab.Windows.Dialog.Online
 {
@@ -29,9 +34,53 @@ namespace IOLab.Windows.Dialog.Online
     /// </summary>
     public partial class WorkshopContentUI : ContentDialog
     {
+        static WorkshopContent host = new WorkshopContent();
         public WorkshopContentUI(WorkshopContent content)
         {
             InitializeComponent();
+            host = content;
+            Title = content.Title;
+            AuthorNameText.Text = content.AuthorName;
+            DescriptionsText.Text = content.Description;
+            
+        }
+
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // 下载并保存
+            string fileID = host.JsonFileID;
+            if(InstanceBundle.UsingAuth == null)
+            {
+                return;
+            }
+            Workshop workshop = new Workshop(InstanceBundle.UsingAuth);
+            var result = await workshop.DownloadWorkshopItemAsync(fileID, $".\\{FolderNames.AssetsFolder}\\{FolderNames.AssetsExperimentLocalFolder}\\");
+            // 隐藏本窗口
+            this.Hide();
+
+            if (!result.Success)
+            {
+                new MainWindow().CreateDialog("无法在线实践", result.Message);
+                return;
+            }
+
+            // 成功后，读取实验
+            ReadAssets.ReadExperiments();
+
+            foreach(var item in Bundles.LocalExperiments)
+            {
+                if (item.PackageName == result.Message) // 如果成功 result会返回实验包名
+                {
+                    // 实践
+                    HomePageViewModel hmViewModel = new HomePageViewModel();
+                    HomePageViewModel.InvokeReload();
+                    hmViewModel.OnShowDetailDialog(item);
+                    return;
+                }
+            }
+
+            new MainWindow().CreateDialog("无法在线实践", "未找到已存储的实验");
+            return;
         }
     }
 }

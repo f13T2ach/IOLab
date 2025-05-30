@@ -31,13 +31,13 @@
                         </Grid>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                             
-                            <Button Cursor="Hand" Margin="4" ToolTip="上传" Height="36" Command="{Binding SaveCommand}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
+                            <Button Cursor="Hand" Margin="4" ToolTip="上传" Height="36" Command="{Binding UploadCommand}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
                                 <StackPanel Orientation="Horizontal">
                                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Upload}" />
-                                    <TextBlock Margin="2,0,0,0" Text="上传"/>
+                                    <TextBlock Margin="2,0,0,0"  Text="上传"/>
                                 </StackPanel>
                             </Button>
-                            <Button Cursor="Hand" Margin="4" ToolTip="我的" Height="36" Command="{Binding SaveCommand}" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
+                            <Button Cursor="Hand" Margin="4" ToolTip="我的" Height="36" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" >
                                 <StackPanel Orientation="Horizontal">
                                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.People}" />
                                     <TextBlock Margin="2,0,0,0" Text="我的"/>

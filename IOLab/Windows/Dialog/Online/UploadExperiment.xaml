@@ -1,0 +1,76 @@
+﻿<ui:ContentDialog
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    
+    x:Class="IOLab.Windows.Dialog.Online.UploadExperiment"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:IOLab.Windows.Dialog.Universal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="上传实验到创意工坊"
+    
+    
+    >
+
+    <Grid>
+        <Grid HorizontalAlignment="Right" x:Name="CloseButton" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown" Cursor="Hand" VerticalAlignment="Top" Margin="0,-36,0,0" Width="24" Height="24">
+            <ui:AcrylicPanel CornerRadius="20">
+                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Cancel}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"/>
+            </ui:AcrylicPanel>
+        </Grid>
+        <StackPanel Orientation="Vertical">
+            <Grid  Width="500">
+                <Button HorizontalAlignment="Left" x:Name="PickFile" Width="72" Height="72" Margin="5">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OpenFile}"/>
+                        <TextBlock Text="选中" FontSize="16" Margin="0,5,0,0" Cursor=""/>
+                    </StackPanel>
+                </Button>
+                
+                
+
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Vertical">
+
+                    <TextBlock Text="实验名称" HorizontalAlignment="Right"/>
+
+                    <TextBlock HorizontalAlignment="Right" Margin="0,4,0,0" FontSize="22" Text="请在左方选中实验"/>
+                </StackPanel>
+            </Grid>
+            <StackPanel Orientation="Vertical" Margin="0,4,0,0">
+                <Grid Margin="0,0,0,6">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock FontSize="14" Text="创意标题"/>
+                        
+                    </StackPanel>
+                    <TextBox Width="400" Height="20" Margin="5,0,0,0" Text="{Binding CurrentStep.StepName}" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock FontSize="14" Text="介绍"/>
+                        
+                    </StackPanel>
+                    <TextBox TextWrapping="WrapWithOverflow" Text="{Binding CurrentStep.StepDescription}" Height="260" Width="400" Margin="5,0,0,0" HorizontalAlignment="Right"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                <TextBlock FontWeight="Bold" FontStyle="Italic" Opacity="0.8">▌</TextBlock>
+                <TextBlock FontWeight="Bold">上传须知</TextBlock>
+            </StackPanel>
+            <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="1. 上传文案必须同时上传一份原创实验文件；"/>
+            <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="2. 创意标题将展示在创意工坊的首页，好的标题可以吸引大家尝试；"/>
+            <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="3. 上传到 IOLab 官方服务器表示你已阅读并同意《在线内容管理协议》，该协议可在关于页内查阅，管理员有权在必要时删除、修改你的内容" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.42"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <Button Content="提交本实验" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
+        </StackPanel>
+        
+    </Grid>
+</ui:ContentDialog>

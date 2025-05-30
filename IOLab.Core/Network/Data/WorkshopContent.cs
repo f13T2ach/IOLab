@@ -78,6 +78,7 @@ namespace IOLab.Core.Network.Data
             AuthorName = content["author_name"]?.ToString();
             Description = content["content"]?.ToString();
             CreateAt = content["created_at"]?.ToString();
+            JsonFileID = content["id"]?.ToString() ?? string.Empty;
             Tags = "智慧学习"; // TODO 适配标签
             MyContent = content;
         }

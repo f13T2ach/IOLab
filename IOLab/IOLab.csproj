@@ -113,6 +113,9 @@
     <Compile Update="Windows\Dialog\Online\UserCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\Dialog\Online\UploadExperiment.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Dialog\Online\WorkshopContentUI.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
