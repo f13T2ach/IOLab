@@ -1,6 +1,7 @@
 {
   "name": "未知实验",
   "experiment": "undefined",
+  "system": true,
   "tags": [ "测试用" ],
   "services": [],
   "formula": "",

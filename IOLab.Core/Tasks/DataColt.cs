@@ -74,11 +74,11 @@ namespace IOLab.Core.Tasks
 
             foreach (ChartTableModel model in InstanceBundle.ChartTables)
             {
-                if (!model.isFrozen && !model.isPause&&value["pin"]!=null )
+                if (!model.isFrozen && !model.isPause && value["pin"] != null)
                 {
                     // ph计毁我省赛梦
-                    
-                    if(!value["pin"].ToString().Equals(model.PortId))
+
+                    if (!value["pin"].ToString().Equals(model.PortId))
                     {
                         continue;
                     }
@@ -102,7 +102,7 @@ namespace IOLab.Core.Tasks
                     {
                         try
                         {
-                            
+
                             model.AddDataPoint((float)value["data"]);
                         }
                         catch

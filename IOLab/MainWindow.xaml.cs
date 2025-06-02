@@ -29,12 +29,12 @@ using IOLab.Network.API;
 using IOLab.Pages;
 using IOLab.Pages.Appreciations;
 using IOLab.Pages.Remote.ViewModel;
-using IOLab.Windows.Dialog.Universal;
 using IOLab.Windows.LabAI;
 using Microsoft.Toolkit.Uwp.Notifications; // 引入通知库
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -51,7 +51,7 @@ namespace IOLab
     public class NavigationManager
     {
         private readonly Dictionary<string, Page> _pageCache = new Dictionary<string, Page>();
-        
+
 
 
 
@@ -113,22 +113,30 @@ namespace IOLab
             Prepare();
 
             App.AlreadyInit = true;
-            
+
 
             InitializeComponent();
             //测试代码
             //Static.Theme.themeMode = ApplicationTheme.Dark;
 
-
+            StartAppreciations();
 
             if (_FirstStarup)
             {
                 StartAppreciations();
 
-                
+
             }
 
             //TeachNextStep();
+
+            // 创建文件夹
+            string folderPath = $"{Environment.CurrentDirectory}\\{FolderNames.TemporaryFolder}";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
 
         }
 
@@ -256,7 +264,7 @@ namespace IOLab
             }
 
             // 自动登录
-            
+
             if (Settings.Default.UserToken != "" && Settings.Default.UserToken != null)
             {
                 InstanceBundle.UsingAuth = new Network.Auth(Settings.Default.UserToken);
@@ -268,6 +276,7 @@ namespace IOLab
                 }
             }
 
+            
 
         }
 
@@ -338,7 +347,7 @@ namespace IOLab
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             BreakPageTask();
-            if(sender.SelectedItem as NavigationViewItem == null)
+            if (sender.SelectedItem as NavigationViewItem == null)
             {
                 return; // 不理会奇奇怪怪的对象
             }
@@ -438,7 +447,7 @@ namespace IOLab
             TeachNextStep();
         }
 
-        private void TeachSkip_Click(object sender, RoutedEventArgs e)
+        private void TeachSkip_Click(object? sender, RoutedEventArgs? e)
         {
             TeachGrid.Visibility = Visibility.Hidden;
             currentTeachStep = -1;
@@ -539,7 +548,7 @@ namespace IOLab
             ToastNotificationManager.CreateToastNotifier("YourAppId").Show(toast);
         }
 
-        
+
     }
 
 

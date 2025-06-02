@@ -73,7 +73,7 @@ namespace IOLab.Pages
         {
             ComboBox_ThemeMode.SelectedIndex = Settings.Default.ThemeSelection;
             LocalModelSwitch.IsOn = Settings.Default.RunLocalModel;
-            
+
         }
 
         private void LoadUserInfomation(bool stat = true)
@@ -191,7 +191,7 @@ namespace IOLab.Pages
             }
         }
 
-        
+
         private async void ServerPickerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (selfChange)
@@ -203,7 +203,10 @@ namespace IOLab.Pages
             {
                 return;
             }
-
+            if (ServerPickerBox.SelectedItem == null)
+            {
+                return;
+            }
             string AlertForTestServer = ServerPickerBox.SelectedItem.ToString().StartsWith(IONetAPI.TestServerPerfix) ? "\n注意：你即将使用测试服务器，此类服务器不一定在线或对你开放，且可能出现某些问题。你的数据不一定被保存。" : "";
             ContentDialog dialog = new ContentDialog()
             {
@@ -318,7 +321,7 @@ namespace IOLab.Pages
 
 
 
-        private async void LocalModelSwitch_Toggled(object sender, RoutedEventArgs e)
+        private void LocalModelSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             if (LocalModelSwitch.IsOn)
             {
@@ -340,9 +343,9 @@ namespace IOLab.Pages
                     InstanceBundle.cmdProcess.Kill();
                 }
             }
-                Settings.Default["RunLocalModel"] = LocalModelSwitch.IsOn;
-                Settings.Default.Save();
-            
+            Settings.Default["RunLocalModel"] = LocalModelSwitch.IsOn;
+            Settings.Default.Save();
+
 
         }
     }

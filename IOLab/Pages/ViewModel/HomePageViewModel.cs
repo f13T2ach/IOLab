@@ -59,7 +59,7 @@ namespace IOLab.Pages.ViewModel
         }
 
 
-        
+
 
 
         public ICommand OnShowDetailDialogCommand { get; set; }

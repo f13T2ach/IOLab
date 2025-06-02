@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       WindowTitle="IOLab - 配置程序"
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="Cover" Loaded="Page_Loaded">
+      Title="Cover">
     <Grid>
         <TextBlock Text="IOLab" FontWeight="SemiBold" Margin="32,210,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75" FontSize="100">
             <TextBlock.Foreground>
@@ -59,7 +59,7 @@
             <TextBlock Text="{Binding HalfProgressValue}" Margin="8,0,0,0"/>
             <TextBlock Text="%"/>
         </StackPanel>
-        <Image Source="{StaticResource IOLab_Line_Thick}" Opacity="0.5" Width="512" Height="512" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="910,64,0,0">
+        <Image Source="{StaticResource IOLab_Line_Thick}" Opacity="0.5" Width="512" Height="512" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-160,0">
             <Image.OpacityMask>
                 <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
                     <GradientStop Color="#00000000" Offset="0"/>
@@ -87,7 +87,7 @@
 
         <TextBlock Text="IOLab_WinDebug_V1.0.1 {不公开内部测试，禁止擅自传播副本}" Opacity="0.5" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
 
-        <Button VerticalAlignment="Bottom" Cursor="Hand" IsEnabled="True" x:Name="LearnMoreAboutDGYZ" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Left" Margin="32,0,0,10">
+        <Button Visibility="Hidden" VerticalAlignment="Bottom" Cursor="Hand" IsEnabled="True" x:Name="SkipWarning" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" HorizontalAlignment="Left" Margin="32,0,0,10">
             <StackPanel Orientation="Horizontal">
                 <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.ArrowRight8}"/>
                 <TextBlock Text="无视风险继续安装" Margin="5,0,0,0"/>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IOLab.Core.Interfaces
+﻿namespace IOLab.Core.Interfaces
 {
     internal interface IProgressEvent
     {

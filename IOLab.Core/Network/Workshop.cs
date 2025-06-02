@@ -165,7 +165,12 @@ namespace IOLab.Network
                     {
                         return new AuthResult(false, -1, "下载失败，无法获取实验包名", jsonObject);
                     }
+
+
+
                     savePath = savePath + fileName + ".json";
+
+
 
 
                     using (var fs = new FileStream(savePath, FileMode.Create, FileAccess.Write))

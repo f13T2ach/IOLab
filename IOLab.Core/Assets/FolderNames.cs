@@ -1,3 +1,7 @@
+
+
+using System.IO.Packaging;
+
 /**
  * IOLab - A Full-Stack Experimentation Platform
  *
@@ -18,16 +22,17 @@
  * You should have received a copy of the GNU General Public License
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace IOLab.Core.Assets
 {
     public class FolderNames
     {
         public static string Slash = @"\";
         public static string AssetsFolder = "Assets";
+        public static string TemporaryFolder = "Temporary";
         public static string AssetsServicesLocalFile = "local_services.json";
         public static string AssetsExperimentLocalFolder = "LocalExperiment";
-        public static string AssetsExperimentNetworkFolder = "NetworkExperiment";
+        public static string AssetsExperimentNetworkFolder = "NetworkExperiment";   //TODO 实装分区
+        public static string AssetsDriverFolder = "Drivers";
 
         // 尽量不要使用网络服务做采集器
         public static string AssetsServicesNetworkFolder = "NetworkServices";
@@ -39,5 +44,10 @@ namespace IOLab.Core.Assets
 
         // ollama ai
         public static string OllamaFolder = "Ollama";
+
+        // 串口驱动
+        public static string CH341SER_ZIPAddress = $"{AssetsFolder}\\{AssetsDriverFolder}\\CH341SER.ZIP";
+
+
     }
 }

@@ -21,7 +21,7 @@
         </Grid>
         <StackPanel Orientation="Vertical">
             <Grid  Width="500">
-                <Button HorizontalAlignment="Left" x:Name="PickFile" Width="72" Height="72" Margin="5">
+                <Button HorizontalAlignment="Left" x:Name="PickFile" Click="PickFile_Click" Width="72" Height="72" Margin="5">
                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OpenFile}"/>
                         <TextBlock Text="选中" FontSize="16" Margin="0,5,0,0" Cursor=""/>
@@ -34,7 +34,7 @@
 
                     <TextBlock Text="实验名称" HorizontalAlignment="Right"/>
 
-                    <TextBlock HorizontalAlignment="Right" Margin="0,4,0,0" FontSize="22" Text="请在左方选中实验"/>
+                    <TextBlock HorizontalAlignment="Right" Margin="0,4,0,0" FontSize="22" x:Name="ExperimentNameText" Text="请在左方选中实验"/>
                 </StackPanel>
             </Grid>
             <StackPanel Orientation="Vertical" Margin="0,4,0,0">
@@ -43,14 +43,14 @@
                         <TextBlock FontSize="14" Text="创意标题"/>
                         
                     </StackPanel>
-                    <TextBox Width="400" Height="20" Margin="5,0,0,0" Text="{Binding CurrentStep.StepName}" HorizontalAlignment="Right"/>
+                    <TextBox Width="400" Height="20" Margin="5,0,0,0" x:Name="ContentTitleInput" HorizontalAlignment="Right"/>
                 </Grid>
                 <Grid>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <TextBlock FontSize="14" Text="介绍"/>
                         
                     </StackPanel>
-                    <TextBox TextWrapping="WrapWithOverflow" Text="{Binding CurrentStep.StepDescription}" Height="260" Width="400" Margin="5,0,0,0" HorizontalAlignment="Right"/>
+                    <TextBox TextWrapping="WrapWithOverflow" x:Name="ContentDescriptionInput" Height="260" Width="400" Margin="5,0,0,0" HorizontalAlignment="Right"/>
                 </Grid>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
@@ -69,7 +69,8 @@
                     </TransformGroup>
                 </TextBlock.RenderTransform>
             </TextBlock>
-            <Button Content="提交本实验" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
+            <TextBlock Foreground="Red" x:Name="ExperimentWarning" Text=""/>
+            <Button Content="提交本实验" x:Name="SubmitExperimentButton" Click="SubmitExperimentButton_Click" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="30" Cursor="Hand" Style="{StaticResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}"/>
         </StackPanel>
         
     </Grid>

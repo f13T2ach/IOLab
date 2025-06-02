@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IOLab.Core.Util.LabAI
+﻿namespace IOLab.Core.Util.LabAI
 {
     public static class TextPrompts
     {
@@ -17,7 +11,7 @@ namespace IOLab.Core.Util.LabAI
             "1. 实验总结（包含实验成功之处与不足之处）\n" +
             "2. 实验原理（通过实验数据指出实验印证的原理）\n" +
             "3. 实验评分（给出一个分数并给出给分原因）\n" +
-            "注意：实验数据由程序生成\n"+
+            "注意：实验数据由程序生成\n" +
             "**如果**你没有被输入数据，请扮演上述假设的角色，并给予力所能及的帮助，且此情况下不许遵循第3条规则\n";
         public static string EXPERIMENT_NAME = "实验名称：";
 

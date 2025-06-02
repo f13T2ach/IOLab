@@ -1,6 +1,7 @@
 {
   "name": "探究不同光照条件下植物释放的CO2量",
   "experiment": "liquid_cl2_modification",
+  "system": true,
   "tags": [ "长时实验" ],
   "services": [ 100001 ],
   "formula": "",

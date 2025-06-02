@@ -5,7 +5,6 @@ using IOLab.Network;
 using IOLab.Resources.Control.Custom;
 using IOLab.Windows.Dialog;
 using IOLab.Windows.Dialog.Online;
-using OfficeOpenXml;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -71,7 +70,7 @@ namespace IOLab.Pages.ViewModel
 
         }
 
-        
+
 
         public async void ShowWorkshopContent(WorkshopContent workshopContent)
         {

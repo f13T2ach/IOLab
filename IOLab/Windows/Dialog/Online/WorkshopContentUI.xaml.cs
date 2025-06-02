@@ -42,14 +42,14 @@ namespace IOLab.Windows.Dialog.Online
             Title = content.Title;
             AuthorNameText.Text = content.AuthorName;
             DescriptionsText.Text = content.Description;
-            
+
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             // 下载并保存
             string fileID = host.JsonFileID;
-            if(InstanceBundle.UsingAuth == null)
+            if (InstanceBundle.UsingAuth == null)
             {
                 return;
             }
@@ -67,7 +67,7 @@ namespace IOLab.Windows.Dialog.Online
             // 成功后，读取实验
             ReadAssets.ReadExperiments();
 
-            foreach(var item in Bundles.LocalExperiments)
+            foreach (var item in Bundles.LocalExperiments)
             {
                 if (item.PackageName == result.Message) // 如果成功 result会返回实验包名
                 {

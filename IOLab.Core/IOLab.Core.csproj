@@ -26,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\Drivers\CH341SER.ZIP">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\LocalExperiment\liquid_cl2_modification.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

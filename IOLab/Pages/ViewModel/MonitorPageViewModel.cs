@@ -21,26 +21,25 @@
 
 using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
-using IOLab.Core.Util.Excel;
 using IOLab.Core.Assets;
 using IOLab.Core.Commands;
 using IOLab.Core.Generic;
 using IOLab.Core.Models;
+using IOLab.Core.Util.Excel;
 using IOLab.Pages.Event.MonitorPages;
 using IOLab.Windows.Dialog;
+using LiveChartsCore.SkiaSharpView;
+using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using LiveChartsCore.SkiaSharpView;
-using Microsoft.Win32;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -176,7 +175,7 @@ namespace IOLab.Pages.ViewModel
             // 2. 显示对话框并等待用户操作
             if (saveFileDialog.ShowDialog() == true)
             {
-                    filePath = saveFileDialog.FileName;
+                filePath = saveFileDialog.FileName;
             }
             else
             {
@@ -187,7 +186,7 @@ namespace IOLab.Pages.ViewModel
             // 准备数据集
             var datasets = new List<DatasetConfig>();
 
-            WaitSerial wait = new WaitSerial(title: "正在导出表格",timeout:"导出表比预期久，稍等");
+            WaitSerial wait = new WaitSerial(title: "正在导出表格", timeout: "导出表比预期久，稍等");
             _ = wait.ShowAsync(); // 无需等待
 
             foreach (var chart in MappedChartTables)
@@ -198,14 +197,14 @@ namespace IOLab.Pages.ViewModel
                     continue;
                 }
                 ObservableCollection<float>? values = lineSeries.Values as ObservableCollection<float>;
-                if (values == null||values.Count==0)
+                if (values == null || values.Count == 0)
                 {
                     continue;
                 }
                 values.RemoveAt(0); // 删除第一个点
                 // todo 记录真实时间
                 List<float> time = new List<float>();
-                for(int i =0;i< values.Count; i++)
+                for (int i = 0; i < values.Count; i++)
                 {
                     time.Add(i);
                 }
@@ -232,15 +231,15 @@ namespace IOLab.Pages.ViewModel
                 CreateNotification("导出表", $"导出失败，没有可用表", InfoBarSeverity.Warning);
                 return;
             }
-            
+
 
             ExcelGeneric.GenerateMultiSheetReport(datasets, filePath);
 
-            CreateNotification("导出表", $"导出到："+filePath, InfoBarSeverity.Success);
+            CreateNotification("导出表", $"导出到：" + filePath, InfoBarSeverity.Success);
 
             wait.Hide();
 
-            
+
         }
 
         // 归档选中表

@@ -19,8 +19,15 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// 注意！文件结构已经固定
+using IOLab.Core.Assets;
 using IOLab.Pages.Appreciations.ViewModel;
+using Microsoft.Win32;
 using System;
+using System.IO;
+using System.IO.Compression;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -36,36 +43,107 @@ namespace IOLab.Pages.Appreciations
         {
             InitializeComponent();
             CoverViewModel viewModel = new CoverViewModel();
-            CoverViewModel.ProgressValue = 0;
             this.DataContext = viewModel;
+            Prepare();
+
         }
 
-        private DoubleAnimation GetAnimation(double from, double to, double time, double amplitude = 0.3)
+
+        private void Prepare()
         {
-            DoubleAnimation animation = new DoubleAnimation()
+            LoadText.Text = "正在检查驱动";
+            CoverViewModel.ProgressValue = 10 * 2;
+            if (CheckCH34DriverExists())
             {
-                From = from,
-                To = to,
-                Duration = TimeSpan.FromSeconds(time),
-                EasingFunction = new BackEase()
-                {
-                    Amplitude = amplitude,
-                    EasingMode = EasingMode.EaseOut,
-                },
-            };
-            return animation;
-        }
-
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-
+                LoadText.Text = "驱动已安装";
+                CoverViewModel.ProgressValue = 50 * 2;
+                return;
+            }
+            else
+            {
+                LoadText.Text = "正在提取驱动";
+                InstallDriver();
+            }
         }
 
         private void Progress_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 
         }
+
+        private void InstallDriver()
+        {
+            var zipPath = FolderNames.CH341SER_ZIPAddress;
+            var newPath = $"{Environment.CurrentDirectory}\\{FolderNames.TemporaryFolder}\\IOLab_Driver_Install";
+            DirectoryInfo dinfo =  new DirectoryInfo(newPath);
+            if (dinfo.Exists)
+            {
+                dinfo.Delete(true); // 移除
+                Directory.CreateDirectory(newPath); // 重建
+            }
+            else
+            {
+                Directory.CreateDirectory(newPath);
+            }
+
+            ZipFile.ExtractToDirectory(newPath, zipPath, Encoding.UTF8, true);  // 解压
+
+            CoverViewModel.ProgressValue = 25 * 2;
+            LoadText.Text = "正在安装驱动";
+
+            UseCMDInstallDriver(newPath);
+
+            CoverViewModel.ProgressValue = 50 * 2;
+            LoadText.Text = "驱动安装成功";
+
+            if (dinfo.Exists)
+            {
+                dinfo.Delete(true); // 移除
+            }
+
+        }
+
+        public static bool CheckCH34DriverExists()
+        {
+            const string prefix = "ch34";
+            using (RegistryKey servicesKey = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services"))
+            {
+                if (servicesKey == null) return false;
+
+                foreach (string serviceName in servicesKey.GetSubKeyNames())
+                {
+                    // 检查服务名是否以ch34开头（不区分大小写）
+                    if (serviceName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+
+            return false;
+        }
+
+        private static void UseCMDInstallDriver(string path)
+        {
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.UseShellExecute = false;    //是否使用操作系统shell启动
+            p.StartInfo.RedirectStandardInput = true;//接受来自调用程序的输入信息
+            p.StartInfo.RedirectStandardOutput = true;//由调用程序获取输出信息
+            p.StartInfo.RedirectStandardError = true;//重定向标准错误输出
+            p.StartInfo.CreateNoWindow = true;//不显示程序窗口
+            p.Start();//启动程序
+            p.StandardInput.WriteLine(path +"\\SETUP.EXE /s" + "&exit");
+            p.StandardInput.AutoFlush = true;
+
+            p.WaitForExit();//等待程序执行完退出进程
+            p.Close();
+        }
     }
+
+
+
 
 
 }

@@ -19,19 +19,17 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using System.IO;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Text;
-using System;
 using iNKORE.UI.WPF.Modern.Controls;
 using IOLab.Core.Models;
+using IOLab.Core.Properties;
 using IOLab.Core.Util.LabAI;
 using IOLab.Network.API;
-using Newtonsoft.Json;
-using Windows.Media.Protection.PlayReady;
+using System;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
-using IOLab.Core.Properties;
 
 namespace IOLab.Windows.Dialog.Universal
 {
@@ -107,7 +105,7 @@ namespace IOLab.Windows.Dialog.Universal
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
             // 创建用于跟踪AI消息的对象
-            
+
 
             try
             {
@@ -153,7 +151,7 @@ namespace IOLab.Windows.Dialog.Universal
                                         Dispatcher.Invoke(() =>
                                         {
                                             // 首次添加消息
-                                           AISummary.Text = messageBuffer.ToString();
+                                            AISummary.Text = messageBuffer.ToString();
                                         });
                                     }
                                 }
@@ -173,7 +171,7 @@ namespace IOLab.Windows.Dialog.Universal
                                     AISummary.Text = $"请求错误 {ex.Message}");
             }
         }
-        
+
 
 
 

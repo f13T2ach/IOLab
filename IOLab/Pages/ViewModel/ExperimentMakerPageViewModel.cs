@@ -1,5 +1,4 @@
-﻿using IOLab.Core.Assets;
-using IOLab.Core.Commands;
+﻿using IOLab.Core.Commands;
 using IOLab.Core.Generic.Maker;
 using IOLab.Core.Models;
 using Newtonsoft.Json.Linq;
@@ -7,10 +6,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using static IOLab.Core.Models.IOExperiment;
 
 namespace IOLab.Pages.ViewModel
 {
@@ -126,7 +123,7 @@ namespace IOLab.Pages.ViewModel
         // Constructor
         public ExperimentMakerPageViewModel(EditExperiment? source = null, JObject? experiment = null)
         {
-            if(source == null && experiment == null)
+            if (source == null && experiment == null)
                 throw new InvalidOperationException();
             // 遍历添加传感器节点
             foreach (var item in Bundles.LocalMonitorService)
@@ -248,7 +245,7 @@ namespace IOLab.Pages.ViewModel
                                         continue;
 
                                     matchingStep.CurrentStepSensors.Add(service);
-                                    
+
                                 }
                             }
                             // TODO 拆分两个需求
@@ -264,7 +261,7 @@ namespace IOLab.Pages.ViewModel
                                     if (service == null)
                                         continue;
 
-                                    if(!matchingStep.CurrentStepSensors.Contains(service))
+                                    if (!matchingStep.CurrentStepSensors.Contains(service))
                                         matchingStep.CurrentStepSensors.Add(service);
                                 }
                             }

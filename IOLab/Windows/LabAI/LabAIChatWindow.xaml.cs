@@ -1,4 +1,7 @@
-﻿using System;
+﻿using IOLab.Core.Properties;
+using IOLab.Core.Util.LabAI;
+using IOLab.Network.API;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -9,9 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using IOLab.Core.Properties;
-using IOLab.Core.Util.LabAI;
-using IOLab.Network.API;
 
 namespace IOLab.Windows.LabAI
 {
@@ -41,11 +41,11 @@ namespace IOLab.Windows.LabAI
 
             await SendMessageAsync(text);
 
-            
+
         }
 
         // 监听回车键发送消息
-        private async void UserInputTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void UserInputTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -90,13 +90,13 @@ namespace IOLab.Windows.LabAI
                 apiUrl = ThirdParty.AliyunDeepseekURL;
                 modelName = ThirdParty.RemoteModelName;
             }
-            
-           
+
+
 
             var requestBody = new
             {
                 model = modelName,  // 请根据实际情况替换模型名称
-                messages = new[] { 
+                messages = new[] {
                     new { role = "system", content =  TextPrompts.ROLE_PROMPT },
                     new { role = "user", content = userMessage }
                 },
@@ -187,7 +187,7 @@ namespace IOLab.Windows.LabAI
                         }
                     }
                 });
-             }
+            }
             catch (Exception ex)
             {
                 Dispatcher.Invoke(() =>

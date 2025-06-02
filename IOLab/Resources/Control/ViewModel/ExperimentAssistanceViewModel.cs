@@ -149,7 +149,7 @@ namespace IOLab.Resources.Control.ViewModel
             UpdateStep();
         }
 
-        private async void UpdateStep()
+        private void UpdateStep()
         {
             if (stepIndex >= 0)
             {
@@ -178,7 +178,7 @@ namespace IOLab.Resources.Control.ViewModel
         /// 解除（结束）实验
         /// </summary>
         /// <param name="sender"></param>
-        private async void ReleaseExperiment(object sender)
+        private async void ReleaseExperiment(object? sender)
         {
             // 如果不是null就问问
             if (sender != null)
@@ -373,7 +373,7 @@ namespace IOLab.Resources.Control.ViewModel
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

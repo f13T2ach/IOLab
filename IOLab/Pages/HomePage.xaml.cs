@@ -43,6 +43,8 @@ namespace IOLab.Pages
 
             viewModel = new HomePageViewModel();
 
+            GlobalBroadcastText.Text = "【上新】IOLab 采集仪器上新，你现在就可购买或复刻 IOGeneric\n【期待已久，焕新升级】IOLab 更新 1.0.01\n 1. 采集仪器固件升级";
+
 
             this.DataContext = viewModel;
             viewModel.OnTryPractiseSuccess += TryPractiseSuccess;
@@ -56,7 +58,7 @@ namespace IOLab.Pages
 
         private void Preparations()
         {
-            
+
             EquationImage.Source = BitmapFrame.Create(
                 new Uri(Util.LaTeXImage.GetRequestUrl(Static.Theme.themeMode == ApplicationTheme.Dark, @"\ce{CH_{3}COOH \space \rightleftharpoons \space  CH_{3}COO^{-} \space + \space H^{+}}")),
                 BitmapCreateOptions.None,

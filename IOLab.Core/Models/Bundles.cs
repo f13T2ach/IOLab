@@ -57,9 +57,9 @@ namespace IOLab.Core.Models
         {
             if (id == null)
                 return null;
-            foreach(var item in LocalMonitorService)
+            foreach (var item in LocalMonitorService)
             {
-                if(item.Id == id)
+                if (item.Id == id)
                 {
                     return item;
                 }

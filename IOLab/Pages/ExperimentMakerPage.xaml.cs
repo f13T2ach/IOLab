@@ -19,17 +19,15 @@
  * along with IOLab. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using IOLab.Pages.ViewModel;
-using IOLab.Windows.Dialog.Maker;
 using IOLab.Core.Generic.Maker;
 using IOLab.Core.Util.FilesBehavior;
-
+using IOLab.Pages.ViewModel;
+using IOLab.Windows.Dialog.Maker;
 using Microsoft.WindowsAPICodePack.Dialogs;
-
-using System;
-using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
+using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace IOLab.Pages
 {
@@ -99,7 +97,7 @@ namespace IOLab.Pages
                 source.SaveAddress = selectedFile;
                 string? raw = Read.ReadFileUTF8(selectedFile);
 
-                if(raw == null)
+                if (raw == null)
                 {
                     // 读取失败
                     new MainWindow().CreateDialog("无法加载实验", "IOLab 无法打开项目");
@@ -111,18 +109,23 @@ namespace IOLab.Pages
                 {
                     json = JObject.Parse(raw);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    new MainWindow().CreateDialog("无法加载实验", "IOLab 解析包失败\n"+ex.Message);
+                    new MainWindow().CreateDialog("无法加载实验", "IOLab 解析包失败\n" + ex.Message);
                     return;
                 }
-                
-                model = new ExperimentMakerPageViewModel(source,json);
+
+                if (((bool?)json["system"]) == true)
+                {
+                    new MainWindow().CreateDialog("正要打开 IOLab 自带的实验", "你的操作将无法保存。");
+                }
+
+                model = new ExperimentMakerPageViewModel(source, json);
                 this.DataContext = model;
                 Visibility_Created();
 
                 // 当包名和文件名不一致时 警告用户
-                 if  (json["experiment"]?.ToString() != Path.GetFileNameWithoutExtension(Read.GetLastLevelName(selectedFile)))
+                if (json["experiment"]?.ToString() != Path.GetFileNameWithoutExtension(Read.GetLastLevelName(selectedFile)))
                 {
                     new MainWindow().CreateDialog("请遵循设计规范", "IOLab 要求包名与文件名一致，你打开的文件包名与文件名不一致。这将导致你手动导入包到本地时，IOLab 无法正确解析包以生成本地实验包列表。");
                 }

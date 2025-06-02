@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using IOLab.Core.Generic;
 using System.Text;
-using System.Threading.Tasks;
-using IOLab.Core.Generic;
-using IOLab.Core.Models;
 
 namespace IOLab.Core.Util.LabAI
 {
@@ -15,7 +10,7 @@ namespace IOLab.Core.Util.LabAI
         public string GeneratePrompt()
         {
             StringBuilder prompt = new StringBuilder();
-            if(InstanceBundle.UsingExperiment ==null || InstanceBundle.ChartTables == null || InstanceBundle.ChartTables.Count == 0)
+            if (InstanceBundle.UsingExperiment == null || InstanceBundle.ChartTables == null || InstanceBundle.ChartTables.Count == 0)
             {
                 return "输出：无法总结本实验，因为没有进行的实验或者实验数据为空";
             }
@@ -53,7 +48,7 @@ namespace IOLab.Core.Util.LabAI
                     continue;
                 }
 
-                foreach(var value in item.Series[0].Values)
+                foreach (var value in item.Series[0].Values)
                 {
                     prompt.Append(value + ",");
                 }

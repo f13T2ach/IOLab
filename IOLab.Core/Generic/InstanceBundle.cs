@@ -36,13 +36,13 @@ namespace IOLab.Core.Generic
 
         public static ConcurrentQueue<ITaskAnnounce>? list = new ConcurrentQueue<ITaskAnnounce>();
 
-        public static ConnectTool connectTool; // 连接实例
+        public static ConnectTool? connectTool; // 连接实例
 
 
         private static bool _isConnected = false;
 
 
-        public static event Action<bool> IsConnectedChanged; // 变更连接状态事件
+        public static event Action<bool>? IsConnectedChanged; // 变更连接状态事件
 
         public static bool IsConnected
         {
