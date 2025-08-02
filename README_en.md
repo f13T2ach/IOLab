@@ -1,6 +1,6 @@
 <div align="center"><img height=256 src="https://www.helloimg.com/delete/rCCiKp/75d3d126b512d3a791d5e5de4181a557"/></div>
 
-<div align="center"><h3>「Cheng Long」 Smart Laboratory</h3></div>
+<div align="center"><h3>IOLab</h3></div>
 
 <div align="center">Full-Stack Experimental Learning Platform</div>
 
@@ -12,7 +12,9 @@
 
 ### Definition
 
-「Cheng Long」 Smart Laboratory, English name IO Experiment, is a learning platform architecture based on experimental data. It features a unique "Explore-Practice-Summarize" experimental learning approach through hardware-software integration, along with powerful "community" functionality.
+「Cheng Long」(in Chinese, 成龙)  is spelled as such to reflect the developer's name, symbolizing soaring success and vigorous advancement (as implied by the Chinese idioms "飞黄腾达" and "龙腾虎跃"). The English name of the project is **IOLab**.
+
+「Cheng Long」 Smart Laboratory (IOLab) , English name IO Experiment, is a learning platform architecture based on experimental data. It features a unique "Explore-Practice-Summarize" experimental learning approach through hardware-software integration, along with powerful "community" functionality.
 
 Go to -> [中文](https://github.com/f13T2ach/IOLab/blob/master/README_en.md) [Q&A](https://github.com/f13T2ach/IOLab/blob/master/IOLab_QA.md) | [Folder Structure](https://github.com/f13T2ach/IOLab/blob/master/README_FolderStructure.md) [Quick Start](https://github.com/f13T2ach/IOLab/blob/master/IOLab_Quick_Guide.md) 
 
