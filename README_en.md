@@ -12,7 +12,7 @@
 
 ### Definition
 
-「Cheng Long」(in Chinese, 成龙)  is spelled as such to reflect the developer's name, symbolizing soaring success and vigorous advancement (as implied by the Chinese idioms "飞黄腾达" and "龙腾虎跃"). The English name of the project is **IOLab**.
+「Cheng Long」(in Chinese, 成龙)  is spelled as such to reflect the developer's name, symbolizing to integrate parts into a complete system and vigorous advancement (as implied by the Chinese idioms "配套成龙" and "鱼跃龙门"). The English name of the project is **IOLab**.
 
 「Cheng Long」 Smart Laboratory (IOLab) , English name IO Experiment, is a learning platform architecture based on experimental data. It features a unique "Explore-Practice-Summarize" experimental learning approach through hardware-software integration, along with powerful "community" functionality.
 
