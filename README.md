@@ -14,6 +14,8 @@
 
 「成龙」智慧实验室，英文名IO Experiment，是以软硬件联合的方式、独出一辙的“探索 实践 总结”实验学习路线和强大的“社区”功能构建基于实验数据的学习平台架构。
 
+转到 -> [English](https://github.com/f13T2ach/IOLab/blob/master/README_OpenSource_en.md) [QA 问答](https://github.com/f13T2ach/IOLab/blob/master/IOLab_QA.md) | [文件夹结构](https://github.com/f13T2ach/IOLab/blob/master/README_FolderStructure.md) [快速开始](https://github.com/f13T2ach/IOLab/blob/master/IOLab_Quick_Guide.md) 
+
 ### 特点
 
 - 上下位机联合运作
