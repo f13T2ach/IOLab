@@ -8,7 +8,7 @@
 >
 > Project under development, does not represent final quality
 >
-> Dissemination of code copies is prohibited before patent protection is obtained
+> This is an open source project
 
 ### Definition
 
